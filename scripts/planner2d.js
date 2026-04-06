@@ -397,20 +397,29 @@ function applyRoomStyleToScene(){
   const wallColor=safeThreeColor(curRoom.materials.wall,WALL_PALETTES[0].color);
   const wallFinish=WALL_PALETTES.find(w=>w.id===(curRoom.materials.wallFinish||'warm_white'))||WALL_PALETTES[0];
   const trimColor=safeThreeColor(curRoom.materials.trim,TRIM_COLORS[0]);
-  const floorColor=safeThreeColor(curRoom.materials.floor,(FLOOR_TYPES.find(f=>f.id===curRoom.materials.floorType)||FLOOR_TYPES[0]).color);
+  const floorPreset=FLOOR_TYPES.find(f=>f.id===curRoom.materials.floorType)||FLOOR_TYPES[0];
+  const floorColor=safeThreeColor(curRoom.materials.floor,floorPreset.color);
   const ceilingColor=safeThreeColor(curRoom.materials.ceiling,'#FAF7F2').multiplyScalar(Math.max(.86,Math.min(1.18,curRoom.materials.ceilingBrightness||1)));
   (style.wallMats||[]).forEach(mat=>{
     if(mat?.color){
       mat.color.copy(wallColor);
       mat.roughness=.62-wallFinish.sheen*.14;
+      mat.metalness=.01;
       if(mat.emissive){
-        mat.emissive.copy(wallColor).multiplyScalar(curRoom.materials.wallColorCustom?.08:.04);
+        mat.emissive.copy(wallColor).multiplyScalar(curRoom.materials.wallColorCustom?.11:.045);
       }
       mat.needsUpdate=true;
     }
   });
   (style.trimMats||[]).forEach(mat=>{if(mat?.color){mat.color.copy(trimColor);mat.needsUpdate=true;}});
-  (style.floorMats||[]).forEach(mat=>{if(mat?.color){mat.color.copy(floorColor);mat.needsUpdate=true;}});
+  (style.floorMats||[]).forEach(mat=>{
+    if(mat?.color){
+      mat.color.copy(floorColor);
+      mat.roughness=floorPreset.roughness;
+      mat.metalness=floorPreset.family==='concrete'?.08:.03;
+      mat.needsUpdate=true;
+    }
+  });
   (style.ceilingMats||[]).forEach(mat=>{if(mat?.color){mat.color.copy(ceilingColor);mat.needsUpdate=true;}});
   if(style.floorMesh?.material?.map){
     style.floorMesh.material.map.dispose?.();
@@ -421,6 +430,8 @@ function applyRoomStyleToScene(){
   if(style.floorAccent?.material){
     const accentTone=floorColor.clone().lerp(safeThreeColor('#ffffff','#ffffff'),.46);
     style.floorAccent.material.color?.copy(accentTone);
+    style.floorAccent.material.opacity=floorPreset.family==='checker'?.36:floorPreset.family==='tile'?.42:floorPreset.family==='concrete'?.24:.34;
+    style.floorAccent.material.needsUpdate=true;
   }
   if(style.floorAccent?.material?.map){
     style.floorAccent.material.map.dispose?.();
@@ -536,4 +547,3 @@ function findNWO(wp){let best=null,bd=Infinity;const snapDist=Math.max(2,3/Math.
 function addVtx(wi,wp){const w=curRoom.walls[wi];curRoom.polygon.splice(w.startIdx+1,0,{x:Math.round(wp.x*2)/2,y:Math.round(wp.y*2)/2});curRoom.walls=genWalls(curRoom);sel={type:'vertex',idx:w.startIdx+1};pushU();showP();draw();toast('Vertex added')}
 
 function setTool(t){tool=t;document.querySelectorAll('.tb').forEach(b=>b.classList.toggle('on',b.dataset.t===t));closetSt=null;pendEnd=null;if(t!=='select'){clearFurnitureSelection();sel={type:null,idx:-1};if(isTouchUi()&&window.innerWidth<=760)panelHidden=true;hideP()}else if(isTouchUi()&&window.innerWidth<=760&&!sel.type){panelHidden=true;hideP()}draw()}
-

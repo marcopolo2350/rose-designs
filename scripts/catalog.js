@@ -289,34 +289,60 @@ function placeFurn(itemIdx){
 }
 
 // ── PROPS ──
-function setWallPaint(color){if(!curRoom)return;curRoom.materials.wall=normalizeColorValue(color,WALL_PALETTES.find(w=>w.id===curRoom.materials.wallFinish)?.color||WALL_PALETTES[0].color);curRoom.materials.wallColorCustom=true;pushU();draw();applyRoomStyleToScene();scheduleRebuild3D()}
+function getWallStylePreset(room=curRoom){
+  return WALL_PALETTES.find(w=>w.id===(room?.materials?.wallFinish||'warm_white'))||WALL_PALETTES[0];
+}
+function getFloorStylePreset(room=curRoom){
+  return FLOOR_TYPES.find(f=>f.id===(room?.materials?.floorType||'light_oak'))||FLOOR_TYPES[0];
+}
+function wallColorIsCustom(room=curRoom){
+  return !!room?.materials?.wallColorCustom;
+}
+function floorColorIsCustom(room=curRoom){
+  return !!room?.materials?.floorColorCustom;
+}
+function setWallPaint(color){
+  if(!curRoom)return;
+  curRoom.materials.wall=normalizeColorValue(color,getWallStylePreset(curRoom).color);
+  curRoom.materials.wallColorCustom=true;
+  roomStyleChanged();
+}
 function setWallFinish(id){
   if(!curRoom)return;
   const match=WALL_PALETTES.find(w=>w.id===id);
   if(!match)return;
-  const prev=WALL_PALETTES.find(w=>w.id===curRoom.materials.wallFinish)||WALL_PALETTES[0];
-  const hadCustom=!!curRoom.materials.wallColorCustom;
-  const wallWasPreset=!hadCustom||curRoom.materials.wall===prev.color;
   curRoom.materials.wallFinish=id;
-  if(wallWasPreset){
-    curRoom.materials.wall=match.color;
-    curRoom.materials.wallColorCustom=false;
-  }
+  curRoom.materials.wall=match.color;
+  curRoom.materials.wallColorCustom=false;
   roomStyleChanged();
 }
-function setFloorPaint(color){if(!curRoom)return;curRoom.materials.floor=normalizeColorValue(color,FLOOR_TYPES.find(f=>f.id===curRoom.materials.floorType)?.color||FLOOR_TYPES[0].color);curRoom.materials.floorColorCustom=true;pushU();draw();applyRoomStyleToScene();scheduleRebuild3D()}
+function resetWallColorToStyle(){
+  if(!curRoom)return;
+  const match=getWallStylePreset(curRoom);
+  curRoom.materials.wall=match.color;
+  curRoom.materials.wallColorCustom=false;
+  roomStyleChanged();
+}
+function setFloorPaint(color){
+  if(!curRoom)return;
+  curRoom.materials.floor=normalizeColorValue(color,getFloorStylePreset(curRoom).color);
+  curRoom.materials.floorColorCustom=true;
+  roomStyleChanged();
+}
 function setFloorType(type){
   if(!curRoom)return;
   const match=FLOOR_TYPES.find(f=>f.id===type);
   if(!match)return;
-  const prev=FLOOR_TYPES.find(f=>f.id===curRoom.materials.floorType)||FLOOR_TYPES[0];
-  const hadCustom=!!curRoom.materials.floorColorCustom;
-  const floorWasPreset=!hadCustom||curRoom.materials.floor===prev.color;
   curRoom.materials.floorType=match.id;
-  if(floorWasPreset){
-    curRoom.materials.floor=match.color;
-    curRoom.materials.floorColorCustom=false;
-  }
+  curRoom.materials.floor=match.color;
+  curRoom.materials.floorColorCustom=false;
+  roomStyleChanged();
+}
+function resetFloorColorToStyle(){
+  if(!curRoom)return;
+  const match=getFloorStylePreset(curRoom);
+  curRoom.materials.floor=match.color;
+  curRoom.materials.floorColorCustom=false;
   roomStyleChanged();
 }
 function setTrimColor(color){if(!curRoom)return;curRoom.materials.trim=normalizeColorValue(color,TRIM_COLORS[0]);roomStyleChanged()}
@@ -426,7 +452,7 @@ function showP(){
   const cBtn='<div class="props-hdr"><h4>$T</h4><button class="props-close" onclick="closeP()">\u00D7</button></div>';
   if(!sel.type||sel.idx<0){
     h=cBtn.replace('$T','Room Style');
-    h+=propSection('Surfaces',`<label>WALL FINISH</label><div class="mat-grid">${WALL_PALETTES.map(c=>`<button class="mat-btn${(r.materials.wallFinish||'warm_white')===c.id?' sel':''}" onclick="setWallFinish('${c.id}')" style="background:${c.color};color:${c.id==='charcoal_accent'?'#fff':'#332922'}">${c.name}</button>`).join('')}</div><label style="margin-top:8px">WALL COLOR</label><div class="paint-row">${WALL_PALETTES.map(c=>`<button class="swatch${r.materials.wall===c.color?' sel':''}" style="background:${c.color}" onclick="setWallPaint('${c.color}')"></button>`).join('')}</div><label style="margin-top:8px">FLOOR FINISH</label><div class="mat-grid">${FLOOR_TYPES.map(ft=>`<button class="mat-btn${(r.materials.floorType||'light_oak')===ft.id?' sel':''}" onclick="setFloorType('${ft.id}')">${ft.name}</button>`).join('')}</div><label style="margin-top:8px">FLOOR COLOR</label><div class="paint-row">${FLOOR_TYPES.map(ft=>`<button class="swatch${r.materials.floor===ft.color?' sel':''}" style="background:${ft.color}" onclick="setFloorPaint('${ft.color}')"></button>`).join('')}</div><label style="margin-top:8px">TRIM COLOR</label><div class="paint-row">${TRIM_COLORS.map(c=>`<button class="swatch${r.materials.trim===c?' sel':''}" style="background:${c}" onclick="setTrimColor('${c}')"></button>`).join('')}</div><label style="margin-top:8px">CEILING BRIGHTNESS</label><input type="range" min="0.7" max="1.35" step="0.05" value="${r.materials.ceilingBrightness||1}" oninput="setCeilingBrightness(this.value)">`);
+    h+=propSection('Surfaces',`<label>WALL STYLE</label><div class="mat-grid">${WALL_PALETTES.map(c=>`<button class="mat-btn${(r.materials.wallFinish||'warm_white')===c.id?' sel':''}" onclick="setWallFinish('${c.id}')" style="background:${c.color};color:${c.id==='charcoal_accent'?'#fff':'#332922'}">${c.name}</button>`).join('')}</div><div class="prop-state${wallColorIsCustom(r)?' custom':''}">${wallColorIsCustom(r)?`Custom color active <button class="prop-link-btn" onclick="resetWallColorToStyle()">Reset to style</button>`:'Wall color follows the selected wall style.'}</div><label style="margin-top:8px">WALL COLOR OVERRIDE</label><div class="paint-row">${WALL_PALETTES.map(c=>`<button class="swatch${r.materials.wall===c.color?' sel':''}" style="background:${c.color}" onclick="setWallPaint('${c.color}')" title="Use ${c.name} as a custom wall color"></button>`).join('')}</div><div class="prop-tip">Choosing a wall style resets the wall back to that style color. Picking a swatch creates an intentional custom override.</div><label style="margin-top:8px">FLOOR STYLE</label><div class="mat-grid">${FLOOR_TYPES.map(ft=>`<button class="mat-btn${(r.materials.floorType||'light_oak')===ft.id?' sel':''}" onclick="setFloorType('${ft.id}')">${ft.name}</button>`).join('')}</div><div class="prop-state${floorColorIsCustom(r)?' custom':''}">${floorColorIsCustom(r)?`Custom color active <button class="prop-link-btn" onclick="resetFloorColorToStyle()">Reset to style</button>`:'Floor color follows the selected floor style.'}</div><label style="margin-top:8px">FLOOR COLOR OVERRIDE</label><div class="paint-row">${FLOOR_TYPES.map(ft=>`<button class="swatch${r.materials.floor===ft.color?' sel':''}" style="background:${ft.color}" onclick="setFloorPaint('${ft.color}')" title="Use ${ft.name} as a custom floor color"></button>`).join('')}</div><div class="prop-tip">Floor style controls texture and the default finish color. Use a swatch only when you want to override that style on purpose.</div><label style="margin-top:8px">TRIM COLOR</label><div class="paint-row">${TRIM_COLORS.map(c=>`<button class="swatch${r.materials.trim===c?' sel':''}" style="background:${c}" onclick="setTrimColor('${c}')"></button>`).join('')}</div><label style="margin-top:8px">CEILING BRIGHTNESS</label><input type="range" min="0.7" max="1.35" step="0.05" value="${r.materials.ceilingBrightness||1}" oninput="setCeilingBrightness(this.value)">`);
     h+=propSection('Lighting',`<label>LIGHTING PRESET</label><div class="mat-grid tall">${Object.entries(LIGHTING_PRESETS).map(([id,preset])=>`<button class="mat-btn${(r.materials.lightingPreset||'daylight')===id?' sel':''}" onclick="setLightingPreset('${id}')">${preset.name}</button>`).join('')}</div><label style="margin-top:8px">CEILING HEIGHT (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(r.height)}" onchange="uRoomHeight(this.value)"><div class="prop-tip">Closets live in the dedicated structural tool, not the furniture catalog.</div>`);
     h+=propSection('Room Direction',`<label>ROOM TYPE</label><div class="mat-grid">${ROOM_TYPES.map(type=>`<button class="mat-btn${(r.roomType||'living_room')===type.id?' sel':''}" onclick="setRoomType('${type.id}')">${type.name}</button>`).join('')}</div><label style="margin-top:8px">DESIGN PRESET</label><div class="mat-grid tall">${DESIGN_PRESETS.map(preset=>`<button class="mat-btn${(r.designPreset||'')===preset.id?' sel':''}" onclick="applyDesignPreset('${preset.id}')">${preset.name}</button>`).join('')}</div><div class="prop-tip">${(DESIGN_PRESETS.find(p=>p.id===r.designPreset)?.note)||'Choose a style direction to coordinate finishes, lighting, and mood.'}</div>`);
     h+=propSection('Expand Home',`<div class="pr"><div><label>ROOM WIDTH (${distanceLabel()})</label><input type="number" step="${distanceInputStep(1)}" value="${distanceInputValue(adjRoomCfg.width)}" onchange="setAdjRoomWidth(this.value)"></div><div><label>ROOM DEPTH (${distanceLabel()})</label><input type="number" step="${distanceInputStep(1)}" value="${distanceInputValue(adjRoomCfg.depth)}" onchange="setAdjRoomDepth(this.value)"></div></div><div class="mat-grid tall"><button class="mat-btn" onclick="attachAdjacentRoom('north')">Add North Room</button><button class="mat-btn" onclick="attachAdjacentRoom('east')">Add East Room</button><button class="mat-btn" onclick="attachAdjacentRoom('south')">Add South Room</button><button class="mat-btn" onclick="attachAdjacentRoom('west')">Add West Room</button></div><div class="prop-tip">Adds a connected room to the current footprint so you can keep building one walkable home.</div>`);
