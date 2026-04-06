@@ -195,6 +195,7 @@ function addRoomPracticalLight(type,anchor,preset,room){
   if(!anchor||!scene||preset.practical<.12)return;
   const useShadows=canUseLampShadows(room);
   const warmColor=safeThreeColor(preset.warm,0xFFBE78);
+  const ceilingBoost=room?.materials?.ceilingBrightness||1;
   const addBulb=(pos,size=.12,intensity=.55)=>{
     const bulb=new THREE.Mesh(
       new THREE.SphereGeometry(size,18,18),
@@ -203,8 +204,8 @@ function addRoomPracticalLight(type,anchor,preset,room){
     bulb.position.copy(pos);
     anchor.add(bulb);
   };
-  if(type==='lamp_floor'||type==='lamp_stand'){
-    const light=new THREE.PointLight(warmColor,preset.practical*3.2,11,1.7);
+    if(type==='lamp_floor'||type==='lamp_stand'){
+      const light=new THREE.PointLight(warmColor,preset.practical*3.2*ceilingBoost,11,1.7);
     light.position.set(0,4.9,0);
     light.castShadow=useShadows;
     light.shadow.mapSize.width=useShadows?768:256;
@@ -213,8 +214,8 @@ function addRoomPracticalLight(type,anchor,preset,room){
     anchor.add(light);
     addBulb(new THREE.Vector3(0,4.9,0),.14,.8);
     registerPracticalLight(light,3.2,11);
-  }else if(type==='lamp_table'){
-    const light=new THREE.PointLight(warmColor,preset.practical*2.1,6.5,1.85);
+    }else if(type==='lamp_table'){
+      const light=new THREE.PointLight(warmColor,preset.practical*2.1*ceilingBoost,6.5,1.85);
     light.position.set(0,1.15,0);
     light.castShadow=useShadows;
     light.shadow.mapSize.width=useShadows?512:256;
@@ -223,8 +224,8 @@ function addRoomPracticalLight(type,anchor,preset,room){
     anchor.add(light);
     addBulb(new THREE.Vector3(0,1.1,0),.1,.7);
     registerPracticalLight(light,2.1,6.5);
-  }else if(type==='lamp_wall'){
-    const light=new THREE.SpotLight(warmColor,preset.practical*3.1,12,Math.PI/4,.45,1.25);
+    }else if(type==='lamp_wall'){
+      const light=new THREE.SpotLight(warmColor,preset.practical*3.1*ceilingBoost,12,Math.PI/4,.45,1.25);
     light.position.set(0,.3,-.08);
     light.target.position.set(0,-1.15,2.2);
     light.castShadow=useShadows;
@@ -235,8 +236,8 @@ function addRoomPracticalLight(type,anchor,preset,room){
     anchor.add(light.target);
     addBulb(new THREE.Vector3(0,.26,0),.09,.75);
     registerPracticalLight(light,3.1,12);
-  }else if(type==='lamp_pendant'||type==='lamp_chandelier'||type==='lamp_ceiling'||type==='lamp_cube'){
-    const light=new THREE.PointLight(warmColor,preset.practical*3.8,13,1.55);
+    }else if(type==='lamp_pendant'||type==='lamp_chandelier'||type==='lamp_ceiling'||type==='lamp_cube'){
+      const light=new THREE.PointLight(warmColor,preset.practical*3.8*ceilingBoost,13,1.55);
     light.position.set(0,-.2,0);
     light.castShadow=useShadows;
     light.shadow.mapSize.width=useShadows?768:256;
@@ -888,7 +889,7 @@ function placeFurnitureInScene(f,r){
       anchor.add(headrail);
     }
     addPremiumHeroEnhancement(anchor,f,targetW,targetD,targetH);
-    addRoomPracticalLight(f.assetKey,anchor,getLightingPreset(r));
+    addRoomPracticalLight(f.assetKey,anchor,getLightingPreset(r),r);
     console.log(`[ROOM MODEL LOAD OK] ${f.assetKey} -> ${model.userData.__sourceUrl||reg.file}`);
     trackRoomModelStatus('ok',f.assetKey);
     if(diagEntry){
@@ -1068,7 +1069,11 @@ function buildFurniture3D(f, rH) {
 function box3(w,h,d,m){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m)}
 function cy3(r,h,m){return new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,12),m)}
 
-function rebuild3D(){stop3D();build3D()}
+function rebuild3D(){
+  stop3D();
+  build3D();
+  if(typeof applyRoomStyleToScene==='function')applyRoomStyleToScene();
+}
 function disposeMaterial(mat){
   if(!mat)return;
   const mats=Array.isArray(mat)?mat:[mat];
@@ -1152,4 +1157,3 @@ function getCtx(){
     hasRug:labels.includes('rug'),hasBed:labels.includes('bed'),hasSofa:labels.includes('sofa'),
     items:room?(room.furniture||[]).length:0,opens:room?(room.openings||[]).length:0,is3D,camMode};
 }
-

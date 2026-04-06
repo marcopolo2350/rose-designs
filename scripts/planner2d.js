@@ -442,12 +442,20 @@ function applyRoomStyleToScene(){
   ren.toneMappingExposure=preset.exposure;
   scene.background=safeThreeColor(preset.background,'#0f141c');
   scene.fog=new THREE.Fog(scene.background.getHex(),preset.fogNear||28,preset.fogFar||82);
-  if(style.hemiLight){style.hemiLight.intensity=preset.ambient*1.18;style.hemiLight.groundColor.setHex(preset.warm);}
-  if(style.ambLight){style.ambLight.intensity=preset.ambient*.78;style.ambLight.color.setHex(preset.warm);}
-  if(style.dirLight){style.dirLight.intensity=preset.dir;style.dirLight.color.setHex(preset.dirColor);}
-  if(style.fillLight)style.fillLight.intensity=preset.ambient*.52;
-  if(style.ceilingLight)style.ceilingLight.intensity=.28*(curRoom.materials.ceilingBrightness||1);
-}
+    if(style.hemiLight){style.hemiLight.intensity=preset.ambient*1.18;style.hemiLight.groundColor.setHex(preset.warm);}
+    if(style.ambLight){style.ambLight.intensity=preset.ambient*.78;style.ambLight.color.setHex(preset.warm);}
+    if(style.dirLight){style.dirLight.intensity=preset.dir;style.dirLight.color.setHex(preset.dirColor);}
+    if(style.fillLight)style.fillLight.intensity=preset.ambient*.52;
+    if(style.ceilingLight)style.ceilingLight.intensity=.28*(curRoom.materials.ceilingBrightness||1);
+    (style.practicalLights||[]).forEach(entry=>{
+      if(!entry?.light)return;
+      const baseIntensity=Number(entry.baseIntensity)||1;
+      const baseDistance=Number(entry.baseDistance)||6;
+      entry.light.intensity=baseIntensity*Math.max(.08,preset.practical||.04)*(curRoom.materials.ceilingBrightness||1);
+      if('distance' in entry.light)entry.light.distance=baseDistance*(preset.practical>.8?1.08:1);
+      if(entry.light.color?.setHex)entry.light.color.setHex(preset.warm);
+    });
+  }
 function setAdjRoomWidth(v){adjRoomCfg.width=Math.max(6,Math.min(30,parseDistanceInput(v,adjRoomCfg.width||10)));showP()}
 function setAdjRoomDepth(v){adjRoomCfg.depth=Math.max(6,Math.min(30,parseDistanceInput(v,adjRoomCfg.depth||10)));showP()}
 function wallMatchesSide(room,wall,side,b){
