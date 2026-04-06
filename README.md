@@ -11,6 +11,7 @@ The app now runs as a small static app shell instead of one giant inlined page:
 
 It includes:
 - 2D room drawing with walls, doors, windows, closets, partitions, and measurements
+- local reference-image tracing in 2D with import, move, scale, opacity, lock, and calibration controls
 - 3D room viewing with orbit and walk modes
 - polished local walkthrough presets: `Dollhouse`, `Stroll`, `Corner Reveal`, `Before / After Flythrough`, and `Romantic Reveal`
 - furniture placement with multi-select, copy/paste, snap-to-grid, and material variants
@@ -48,6 +49,7 @@ Open the folder and serve it with any simple static server.
 - `scripts/storage.js` - IndexedDB/local profile persistence and catalog/storage utilities
 - `scripts/catalog.js` - manifest-backed catalog, picker, variant selection, and furniture-side props
 - `scripts/planner2d.js` - 2D plan rendering and editor interactions
+- `scripts/planner2d.js` also owns the reference-overlay tracing workflow and calibration behavior
 - `scripts/planner3d.js` - 3D scene, camera behavior, and walkthrough presets
 - `scripts/walkthrough.js` - emotional layer, self-test boot, and guided story behavior
 - `scripts/thumbgen.html` - local thumbnail-render stage used to generate catalog previews
@@ -88,6 +90,7 @@ This uses `scripts/thumbgen.html` as a consistent local render stage and writes 
 
 - persistent undo/redo
 - imperial and metric units
+- local image-based floor-plan / room-photo tracing overlays with calibration and saved per-room state
 - redesign options and client presentation export
 - room comparison views in 2D and 3D
 - stronger floor and furniture rendering for clearer visual contrast
@@ -96,3 +99,13 @@ This uses `scripts/thumbgen.html` as a consistent local render stage and writes 
 - category-first premium picker with favorites, recents, collection chips, and real thumbnail cards
 - manifest-driven product/material variants for major furniture, storage, rug, and lighting categories
 - smoother 3D camera behavior with double-click focus and walkthrough presets
+
+## Reference Overlay Workflow
+
+- import a local image as a floor-plan or room-photo reference
+- reposition it directly on the 2D canvas
+- adjust opacity and scale
+- lock it so tracing/editing ignores the overlay
+- calibrate it by clicking two points and entering a real-world distance
+
+This pass is image-first. PDF import can be added later without changing the local-first architecture.

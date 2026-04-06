@@ -509,6 +509,7 @@ function normalizeRoom(room){
   room.optionName=room.optionName||'Main';
   room.optionNotes=typeof room.optionNotes==='string'?room.optionNotes:'';
   room.previewThumb=typeof room.previewThumb==='string'?room.previewThumb:'';
+  room.referenceOverlay=normalizeReferenceOverlay(room.referenceOverlay,room);
   room.wallThickness=room.wallThickness||.5;
   room.height=room.height||9;
   room.walls=genWalls(room);
@@ -534,6 +535,27 @@ function safeThreeColor(value,fallback){
     try{return new THREE.Color(fallback);}
     catch(__){return new THREE.Color('#ffffff');}
   }
+}
+function normalizeReferenceOverlay(ref,room){
+  const bounds=getRoomBounds2D(room);
+  const naturalWidth=Math.max(1,Number(ref?.naturalWidth)||1);
+  const naturalHeight=Math.max(1,Number(ref?.naturalHeight)||1);
+  const defaultWidth=Math.max(8,Math.min(30,bounds.width||12));
+  return {
+    src:typeof ref?.src==='string'?ref.src:'',
+    visible:ref?.visible!==false,
+    locked:ref?.locked!==false,
+    opacity:Math.max(.08,Math.min(.95,Number(ref?.opacity)||.56)),
+    centerX:Number.isFinite(ref?.centerX)?ref.centerX:bounds.cx,
+    centerY:Number.isFinite(ref?.centerY)?ref.centerY:bounds.cy,
+    baseWidth:Number.isFinite(ref?.baseWidth)?Math.max(2,ref.baseWidth):defaultWidth,
+    scale:Number.isFinite(ref?.scale)?Math.max(.1,Math.min(12,ref.scale)):1,
+    naturalWidth,
+    naturalHeight,
+    calibrationPoints:Array.isArray(ref?.calibrationPoints)?ref.calibrationPoints.filter(Boolean).slice(0,2):[],
+    calibrationDistance:Number.isFinite(ref?.calibrationDistance)?ref.calibrationDistance:0,
+    calibrationActive:!!ref?.calibrationActive,
+  };
 }
 function normalizeColorValue(value,fallback){
   try{return '#'+safeThreeColor(value,fallback).getHexString();}
