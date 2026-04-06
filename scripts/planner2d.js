@@ -108,17 +108,63 @@ function pendingFurniturePreviewItem(){
   if(!pendFurnPreviewKey)return null;
   return FURN_ITEM_BY_KEY.get(pendFurnPreviewKey)||FURN_ITEMS.find(item=>item.assetKey===pendFurnPreviewKey)||null;
 }
+function pendingFurnitureCollision(room,state){
+  if(!room||!state?.item)return null;
+  const radius=Math.max(.85,Math.max(state.item.w||2,state.item.d||1.5)*.44);
+  return (room.furniture||[]).find(f=>Math.hypot((f.x||0)-state.snapped.x,(f.z||0)-state.snapped.z)<radius+Math.max(.75,Math.max(f.w||2,f.d||1.5)*.34))||null;
+}
+function getPendingFurniturePlacementState(room=curRoom){
+  if(!room||!pendFurnPos)return null;
+  const item=pendingFurniturePreviewItem();
+  if(!item)return null;
+  const snapped=snapFurniturePoint(pendFurnPos.x,pendFurnPos.y);
+  const halfW=(item.w||2)/2;
+  const halfD=(item.d||1.5)/2;
+  const corners=[
+    {x:snapped.x-halfW,y:snapped.z-halfD},
+    {x:snapped.x+halfW,y:snapped.z-halfD},
+    {x:snapped.x+halfW,y:snapped.z+halfD},
+    {x:snapped.x-halfW,y:snapped.z+halfD},
+  ];
+  const inside=corners.every(pt=>pointInsideRoom2D(pt,room));
+  const structureBlocked=collidesWithStructure(snapped.x,-snapped.z,room);
+  const collision=pendingFurnitureCollision(room,{item,snapped});
+  let reason='';
+  if(!inside)reason='Move fully inside the room';
+  else if(structureBlocked)reason='Target overlaps a built-in or closet';
+  else if(collision)reason=`Too close to ${collision.label||'another piece'}`;
+  let nearestWall=null;
+  room.walls.forEach((wall,idx)=>{
+    const dist=psw({x:snapped.x,y:snapped.z},wS(room,wall),wE(room,wall));
+    if(!nearestWall||dist<nearestWall.distance)nearestWall={idx,distance:dist};
+  });
+  return {item,snapped,corners,inside,structureBlocked,collision,valid:inside&&!structureBlocked&&!collision,reason,nearestWall};
+}
 function drawPendingFurniturePlacement(room){
   if(!pendFurnPos)return;
-  const snapped=snapFurniturePoint(pendFurnPos.x,pendFurnPos.y);
+  const state=getPendingFurniturePlacementState(room);
+  if(!state)return;
+  const {item,snapped,nearestWall}=state;
   const screen=tS({x:snapped.x,y:snapped.z});
-  const item=pendingFurniturePreviewItem();
   const width=(item?.w||2)*vScale;
   const depth=(item?.d||1.5)*vScale;
   const tone=safeThreeColor(furniture2DTint({finishColor:''},item),'#B8918E');
-  const fill=threeColorToRgba(tone,.24);
-  const stroke=threeColorToRgba(tone.clone().offsetHSL(0,.02,-.08),.88);
-  const glow=threeColorToRgba(tone.clone().offsetHSL(0,.04,.1),.22);
+  const valid=!!state.valid;
+  const accent=valid?safeThreeColor('#8FB47C','#8FB47C'):safeThreeColor('#C67B72','#C67B72');
+  const fill=threeColorToRgba(valid?tone.clone().lerp(accent,.24):accent,.24);
+  const stroke=threeColorToRgba(valid?accent.clone().offsetHSL(0,.02,-.08):accent.clone().offsetHSL(0,.04,-.02),.92);
+  const glow=threeColorToRgba(valid?accent.clone().offsetHSL(0,.05,.08):accent.clone().offsetHSL(0,.04,.05),.28);
+  if(nearestWall&&nearestWall.distance<=1.1){
+    const wall=room.walls[nearestWall.idx];
+    const a=tS(wS(room,wall)),b=tS(wE(room,wall));
+    ctx.save();
+    ctx.strokeStyle=threeColorToRgba(accent,.78);
+    ctx.lineWidth=4;
+    ctx.setLineDash([12,8]);
+    ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
   ctx.save();
   ctx.translate(screen.x,screen.y);
   ctx.beginPath();
@@ -133,14 +179,21 @@ function drawPendingFurniturePlacement(room){
   ctx.setLineDash([8,6]);
   ctx.stroke();
   ctx.setLineDash([]);
+  const arrowY=-Math.max(18,depth*.32);
   ctx.beginPath();
   ctx.moveTo(-14,0);ctx.lineTo(14,0);ctx.moveTo(0,-14);ctx.lineTo(0,14);
-  ctx.strokeStyle='rgba(184,145,142,.92)';
+  ctx.moveTo(0,arrowY);
+  ctx.lineTo(-8,arrowY+10);
+  ctx.lineTo(8,arrowY+10);
+  ctx.closePath();
+  ctx.strokeStyle=stroke;
   ctx.lineWidth=1.8;
   ctx.stroke();
+  ctx.fillStyle=stroke;
+  ctx.fill();
   const label=item?.label||pendFurnPreviewLabel||'Placement';
   const snapText=furnitureSnap?'snap on':'free place';
-  const info=`${label} · ${formatDistance(snapped.x,'compact')}, ${formatDistance(snapped.z,'compact')} · ${snapText}`;
+  const info=`${label} · ${state.valid?'ready':'adjust'} · ${formatDistance(snapped.x,'compact')}, ${formatDistance(snapped.z,'compact')} · ${snapText}`;
   ctx.font=`700 ${Math.max(8,vScale*.22)}px Outfit,sans-serif`;
   const infoW=Math.max(88,ctx.measureText(info).width+18);
   const pillY=-Math.max(depth/2+20,32);
@@ -153,6 +206,15 @@ function drawPendingFurniturePlacement(room){
   ctx.textAlign='center';
   ctx.textBaseline='middle';
   ctx.fillText(info,0,pillY);
+  if(!state.valid&&state.reason){
+    const reasonW=Math.max(96,ctx.measureText(state.reason).width+18);
+    ctx.fillStyle='rgba(255,247,245,.96)';
+    ctx.fillRect(-reasonW/2,pillY+16,reasonW,20);
+    ctx.strokeStyle='rgba(198,123,114,.34)';
+    ctx.strokeRect(-reasonW/2,pillY+16,reasonW,20);
+    ctx.fillStyle='rgba(137,76,69,.9)';
+    ctx.fillText(state.reason,0,pillY+26);
+  }
   ctx.restore();
 }
 
@@ -272,6 +334,7 @@ function drawGrid(){const s=1,tl=tW(0,0),br=tW(canvas.width,canvas.height),sx=Ma
 function gP(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
 function onD(e){const p=gP(e),wp=tW(p.x,p.y);isDrag=true;dStart=p;pendEnd=null;
   if(drawMode){let pt={x:Math.round(wp.x*2)/2,y:Math.round(wp.y*2)/2};if(drawPts.length>0&&angSnap)pt=snapAng(drawPts[drawPts.length-1],pt);pt={x:Math.round(pt.x*2)/2,y:Math.round(pt.y*2)/2};if(drawPts.length>=3){const f=tS(drawPts[0]);if(Math.hypot(f.x-p.x,f.y-p.y)<20){closeRoom();return}}drawPts.push(pt);draw();return}
+  if(tool==='furniture'&&document.getElementById('furnPickOv')){updatePendingFurnitureTarget(wp);draw();return}
   if(tool==='select'){
     const h=hitTest(p),modMulti=!!(e.shiftKey||e.metaKey||e.ctrlKey||multiSelectMode);
     if(h){
@@ -324,6 +387,7 @@ function onD(e){const p=gP(e),wp=tW(p.x,p.y);isDrag=true;dStart=p;pendEnd=null;
   draw()}
 function onM(e){const p=gP(e),wp=tW(p.x,p.y);
   if(drawMode){let pt={x:Math.round(wp.x*2)/2,y:Math.round(wp.y*2)/2};if(drawPts.length>0&&angSnap)pt=snapAng(drawPts[drawPts.length-1],pt);drawCur={x:Math.round(pt.x*2)/2,y:Math.round(pt.y*2)/2};draw();return}
+  if(tool==='furniture'&&document.getElementById('furnPickOv')&&isDrag){updatePendingFurnitureTarget(wp);draw();return}
   if(!isDrag)return;
   if(tool==='select'&&sel.type==='vertex'&&dOrig){const dx=(p.x-dStart.x)/vScale,dy=(p.y-dStart.y)/vScale;curRoom.polygon[sel.idx].x=Math.round((dOrig.x+dx)*2)/2;curRoom.polygon[sel.idx].y=Math.round((dOrig.y+dy)*2)/2;curRoom.walls=genWalls(curRoom);draw()}
   else if(tool==='select'&&sel.type==='opening'&&dOrig){updateOpeningFromPoint(sel.idx,wp);draw();showP()}
@@ -359,6 +423,7 @@ function onM(e){const p=gP(e),wp=tW(p.x,p.y);
   else if(tool==='closet'&&closetSt){pendEnd=wp;draw()}
   else if(tool==='partition'&&partSt){pendEnd=angSnap?snapAng(partSt,wp):wp;draw()}}
 function onU(){
+  if(tool==='furniture'&&document.getElementById('furnPickOv')){isDrag=false;dOrig=null;updateCatalogPendingUi?.();return}
   if(tool==='select'&&sel.type&&dOrig){pushU();showP()}
   if(tool==='closet'&&closetSt&&pendEnd){
     const x=Math.min(closetSt.x,pendEnd.x),y=Math.min(closetSt.y,pendEnd.y),w=Math.abs(pendEnd.x-closetSt.x),h=Math.abs(pendEnd.y-closetSt.y);

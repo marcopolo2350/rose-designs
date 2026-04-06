@@ -101,6 +101,7 @@ function updateWalkthroughTray(){
   if(!is3D||!walkthroughTrayOpen){if(existing)existing.remove();return;}
   const isTouch=(navigator.maxTouchPoints||0)>0||window.innerWidth<=760;
   const presets=[
+    ['favorite_corner','Favorite Corner','Finds the room’s best-composed angle.'],
     ['dollhouse','Dollhouse','Pulls back for the full room form.'],
     ['stroll','Stroll','Walks the room at eye level.'],
     ['corner_reveal','Corner Reveal','Settles into a cinematic corner angle.'],
@@ -139,6 +140,33 @@ function findTourWalkPoint(index,total){
   const candidate={x:focus.x+Math.cos(angle)*radius,z:-focus.y+Math.sin(angle)*radius};
   return clampWalkPos(candidate.x,candidate.z,curRoom)?candidate:findWalkStart(curRoom);
 }
+function favoriteCornerPose(room){
+  const focus=getRoomFocus(room);
+  const centroid=(room.furniture||[]).length
+    ? room.furniture.reduce((acc,f)=>({x:acc.x+(f.x||0),z:acc.z-(f.z||0)}),{x:0,z:0})
+    : {x:focus.x,z:-focus.y};
+  if((room.furniture||[]).length){
+    centroid.x/=(room.furniture||[]).length;
+    centroid.z/=(room.furniture||[]).length;
+  }
+  const b=getRoomBounds2D(room);
+  const corners=[
+    {x:b.x0-.8,z:-b.y0+.8},
+    {x:b.x1+.8,z:-b.y0+.8},
+    {x:b.x1+.8,z:-b.y1-.8},
+    {x:b.x0-.8,z:-b.y1-.8},
+  ];
+  let best=null;
+  corners.forEach(corner=>{
+    const dx=centroid.x-corner.x,dz=centroid.z-corner.z;
+    const dist=Math.hypot(dx,dz);
+    const score=dist+(Math.abs(dx)+Math.abs(dz))*.2;
+    if(!best||score>best.score)best={corner,score,dist,dx,dz};
+  });
+  const yaw=Math.atan2(best.dx,-best.dz);
+  const dist=Math.max(10,Math.min(24,Math.max(focus.width,focus.height)*1.12));
+  return {yaw,pitch:.32,dist,target:{x:centroid.x,y:room.height*.38,z:centroid.z}};
+}
 function startWalkthroughPreset(id){
   if(!is3D||!curRoom)return;
   walkthroughTrayOpen=false;updateWalkthroughTray();
@@ -147,7 +175,9 @@ function startWalkthroughPreset(id){
   const overview={yaw:Math.PI*.18,pitch:.78,dist:Math.max(18,Math.min(48,Math.max(focus.width,focus.height,curRoom.height)*2.2)),target:{x:focus.x,y:curRoom.height*.5,z:-focus.y}};
   const corner={yaw:Math.PI*.62,pitch:.36,dist:Math.max(12,Math.min(30,Math.max(focus.width,focus.height)*1.35)),target:{x:focus.x,y:curRoom.height*.4,z:-focus.y}};
   const romantic={yaw:Math.PI*.52,pitch:.28,dist:Math.max(10,Math.min(24,Math.max(focus.width,focus.height)*1.1)),target:{x:focus.x,y:curRoom.height*.36,z:-focus.y}};
-  if(id==='dollhouse')playCameraSequence([{duration:2200,apply:t=>applyCameraTween(current,overview,t)}]);
+  const favorite=favoriteCornerPose(curRoom);
+  if(id==='favorite_corner')playCameraSequence([{duration:1800,apply:t=>applyCameraTween(current,favorite,t)}]);
+  else if(id==='dollhouse')playCameraSequence([{duration:2200,apply:t=>applyCameraTween(current,overview,t)}]);
   else if(id==='corner_reveal')playCameraSequence([{duration:1500,apply:t=>applyCameraTween(current,overview,t)},{duration:2200,apply:t=>applyCameraTween(overview,corner,t)}]);
   else if(id==='romantic_reveal'){presentationMode=true;document.getElementById('scrEd').classList.add('presentation');document.getElementById('presentPill').classList.add('on');playCameraSequence([{duration:1600,apply:t=>applyCameraTween(current,corner,t)},{duration:2400,apply:t=>applyCameraTween(corner,romantic,t)}]);}
   else if(id==='before_after')playCameraSequence([{duration:900,onStart:()=>setCompareModeForTour('existing'),apply:t=>applyCameraTween(current,corner,t)},{duration:1200,onStart:()=>setCompareModeForTour('redesign'),apply:t=>applyCameraTween(corner,{...corner,yaw:corner.yaw+.24},t)},{duration:1200,onStart:()=>setCompareModeForTour('combined'),apply:t=>applyCameraTween({...corner,yaw:corner.yaw+.24},overview,t)}]);

@@ -136,7 +136,7 @@ function catalogPlaceholderMarkup(item){
 function buildCatalogOptionCard(item,index,compact=false){
   const collection=(item.collections||[])[0]||'Everyday Staples';
   const favClass=isFavoriteCatalogItem(item.assetKey)?' active':'';
-  return `<button class="catalog-card furn-option${compact?' compact':''}" type="button" data-asset-key="${esc(item.assetKey||'')}" data-group="${esc(item.group)}" data-category="${esc(normalizeCatalogGroup(item.group))}" data-collection="${esc((item.collections||[]).join('|'))}" data-label="${esc(catalogSearchText(item))}" onclick="placeFurn(${index})" onpointerenter="setPendingFurniturePreview(FURN_ITEMS[${index}])" onfocus="setPendingFurniturePreview(FURN_ITEMS[${index}])"><span class="catalog-fav${favClass}" onclick="event.stopPropagation();toggleFavoriteCatalogItem('${esc(item.assetKey||'')}')">&#9733;</span><span class="catalog-thumb" style="background:${catalogCardTone(item)}">${catalogPlaceholderMarkup(item)}</span><span class="catalog-meta"><span class="catalog-title">${esc(item.label)}</span><span class="catalog-sub">${esc(collection)}</span></span></button>`;
+  return `<button class="catalog-card furn-option${compact?' compact':''}" type="button" data-asset-key="${esc(item.assetKey||'')}" data-group="${esc(item.group)}" data-category="${esc(normalizeCatalogGroup(item.group))}" data-collection="${esc((item.collections||[]).join('|'))}" data-label="${esc(catalogSearchText(item))}" onclick="chooseOrPlaceFurn(${index})" onpointerenter="setPendingFurniturePreview(FURN_ITEMS[${index}],${index})" onfocus="setPendingFurniturePreview(FURN_ITEMS[${index}],${index})"><span class="catalog-fav${favClass}" onclick="event.stopPropagation();toggleFavoriteCatalogItem('${esc(item.assetKey||'')}')">&#9733;</span><span class="catalog-thumb" style="background:${catalogCardTone(item)}">${catalogPlaceholderMarkup(item)}</span><span class="catalog-meta"><span class="catalog-title">${esc(item.label)}</span><span class="catalog-sub">${esc(collection)}</span></span></button>`;
 }
 function catalogItemsForKeys(keys){return keys.map(key=>FURN_ITEM_BY_KEY.get(key)).filter(Boolean)}
 async function loadAssetManifest(){
@@ -203,14 +203,50 @@ function normalizeFurnitureRecord(f){
 let pendFurnPos=null;
 let pendFurnPreviewKey='';
 let pendFurnPreviewLabel='';
-function setPendingFurniturePreview(item){
+let pendFurnPreviewIdx=-1;
+function pendingFurniturePreviewItemRecord(){
+  if(pendFurnPreviewIdx>=0&&FURN_ITEMS[pendFurnPreviewIdx])return FURN_ITEMS[pendFurnPreviewIdx];
+  if(pendFurnPreviewKey)return FURN_ITEM_BY_KEY.get(pendFurnPreviewKey)||FURN_ITEMS.find(item=>item.assetKey===pendFurnPreviewKey)||null;
+  return null;
+}
+function pendingFurnitureBarMarkup(item,state){
+  if(!item)return '<div class="catalog-placement-bar empty">Pick a piece to see where it will land.</div>';
+  const location=state?.snapped?`${formatDistance(state.snapped.x,'compact')} · ${formatDistance(state.snapped.z,'compact')}`:'Choose a spot in the room';
+  const statusText=state?.valid?'Ready to place':(state?.reason||'Move the target inside the room');
+  const statusClass=state?.valid?'valid':'invalid';
+  const mobileCta=isTouchUi()&&window.innerWidth<=760
+    ? `<button class="mini-chip${state?.valid?'':' secondary'}" type="button" ${state?.valid?'onclick="confirmPendingFurniturePlacement()"':'disabled'}>${state?.valid?'Place Here':'Adjust Target'}</button>`
+    : `<div class="catalog-placement-inline">${state?.valid?'Click the card again to place it.':'Move the target in the room, then click again.'}</div>`;
+  return `<div class="catalog-placement-bar ${statusClass}"><div class="catalog-placement-meta"><div class="catalog-placement-title">${esc(item.label)}</div><div class="catalog-placement-copy">${esc(statusText)} · ${esc(location)}</div></div>${mobileCta}</div>`;
+}
+function updateCatalogPendingUi(){
+  const item=pendingFurniturePreviewItemRecord();
+  const state=typeof getPendingFurniturePlacementState==='function'?getPendingFurniturePlacementState(curRoom):null;
+  const bar=document.getElementById('catalogPlacementBar');
+  if(bar)bar.innerHTML=pendingFurnitureBarMarkup(item,state);
+  document.querySelectorAll('.furn-option').forEach(card=>{
+    const active=(card.dataset.assetKey||'')===(item?.assetKey||'');
+    card.classList.toggle('selected',active);
+  });
+}
+function setPendingFurniturePreview(item,idx=-1){
   pendFurnPreviewKey=item?.assetKey||'';
   pendFurnPreviewLabel=item?.label||'';
+  pendFurnPreviewIdx=Number.isFinite(idx)&&idx>=0?idx:FURN_ITEMS.indexOf(item);
+  updateCatalogPendingUi();
   if(typeof draw==='function')draw();
 }
 function clearPendingFurniturePreview(){
   pendFurnPreviewKey='';
   pendFurnPreviewLabel='';
+  pendFurnPreviewIdx=-1;
+  updateCatalogPendingUi();
+  if(typeof draw==='function')draw();
+}
+function updatePendingFurnitureTarget(wp){
+  if(!wp)return;
+  pendFurnPos={x:wp.x,y:wp.y};
+  updateCatalogPendingUi();
   if(typeof draw==='function')draw();
 }
 function showFurnPicker(wp){
@@ -225,7 +261,7 @@ function showFurnPicker(wp){
   const categoryButtons=catalogCategoryList().map(name=>`<button class="mini-chip${name===activeCatalogCategory?'':' secondary'}" type="button" onclick="setCatalogCategory('${esc(name)}')" style="padding:8px 11px;font-size:9px">${esc(name==='all'?'All Categories':name)}</button>`).join('');
   const section=(title,key,items,compact=false)=>items.length?'<div class="furn-group" data-group="'+esc(key)+'"><div class="catalog-section-title">'+esc(title)+'</div><div class="catalog-grid'+(compact?' compact':'')+'">'+items.map(item=>buildCatalogOptionCard(item,FURN_ITEMS.indexOf(item),compact)).join('')+'</div></div>':'';
   const roomLabel=(ROOM_TYPES.find(t=>t.id===(curRoom?.roomType||'living_room'))||ROOM_TYPES[0]).name;
-  const html='<div class="catalog-overlay" id="furnPickOv" onclick="if(event.target===this)closeFurnPick()"><div class="catalog-sheet"><div class="catalog-grabber"></div><div class="catalog-head"><div><div class="catalog-heading">Bring Something Beautiful In</div><div class="catalog-copy">Search the curated catalog, save favorites, and drop pieces in with confidence.</div></div><button class="mini-chip secondary" type="button" onclick="closeFurnPick()">Close</button></div><input id="furnSearch" type="search" placeholder="Search sofa, bed, lamp, console, romantic..." oninput="filterFurnPicker(this.value)" class="catalog-search"><div class="catalog-placement-note">The canvas keeps showing the drop target while you browse. Tap another spot in the room if you want to move it first.</div><div class="catalog-chip-row">'+collectionButtons+'</div><div class="catalog-chip-row catalog-chip-row-alt">'+categoryButtons+'</div>'+section('Favorites','favorites',favoriteItems,true)+section('Recent','recent',recentItems,true)+section('Quick Picks For '+roomLabel,'quick',suggested,true)+CATALOG_CATEGORY_ORDER.map(group=>section(group,group,FURN_ITEMS.filter(f=>normalizeCatalogGroup(f.group)===group),false)).join('')+'<div id="furnEmpty" class="catalog-empty">No matches yet. Try a broader word like sofa, bed, rug, mirror, or storage.</div></div></div>';
+  const html='<div class="catalog-overlay" id="furnPickOv" onclick="if(event.target===this)closeFurnPick()"><div class="catalog-sheet"><div class="catalog-grabber"></div><div class="catalog-head"><div><div class="catalog-heading">Bring Something Beautiful In</div><div class="catalog-copy">Search the curated catalog, save favorites, and drop pieces in with confidence.</div></div><button class="mini-chip secondary" type="button" onclick="closeFurnPick()">Close</button></div><input id="furnSearch" type="search" placeholder="Search sofa, bed, lamp, console, romantic..." oninput="filterFurnPicker(this.value)" class="catalog-search"><div class="catalog-placement-note">The canvas keeps showing the drop target while you browse. Tap or drag in the room to move it. On phone, use Place Here when the target looks right.</div><div id="catalogPlacementBar"></div><div class="catalog-chip-row">'+collectionButtons+'</div><div class="catalog-chip-row catalog-chip-row-alt">'+categoryButtons+'</div>'+section('Favorites','favorites',favoriteItems,true)+section('Recent','recent',recentItems,true)+section('Quick Picks For '+roomLabel,'quick',suggested,true)+CATALOG_CATEGORY_ORDER.map(group=>section(group,group,FURN_ITEMS.filter(f=>normalizeCatalogGroup(f.group)===group),false)).join('')+'<div id="furnEmpty" class="catalog-empty">No matches yet. Try a broader word like sofa, bed, rug, mirror, or storage.</div></div></div>';
   document.body.insertAdjacentHTML('beforeend',html);
   setPendingFurniturePreview(suggested[0]||favoriteItems[0]||recentItems[0]||FURN_ITEMS[0]||null);
   filterFurnPicker('');
@@ -271,13 +307,40 @@ function filterFurnPicker(query){
   const firstVisible=options.find(el=>el.dataset.match==='1');
   if(firstVisible){
     const item=FURN_ITEM_BY_KEY.get(firstVisible.dataset.assetKey)||null;
-    if(item)setPendingFurniturePreview(item);
+    if(item&&item.assetKey!==pendFurnPreviewKey)setPendingFurniturePreview(item);
   }
+  updateCatalogPendingUi();
+}
+function chooseOrPlaceFurn(itemIdx){
+  const item=FURN_ITEMS[itemIdx];
+  if(!item)return;
+  const touchFlow=isTouchUi()&&window.innerWidth<=760;
+  if(touchFlow){
+    setPendingFurniturePreview(item,itemIdx);
+    return;
+  }
+  placeFurn(itemIdx);
+}
+function confirmPendingFurniturePlacement(){
+  if(pendFurnPreviewIdx<0)return;
+  const state=typeof getPendingFurniturePlacementState==='function'?getPendingFurniturePlacementState(curRoom):null;
+  if(state&&!state.valid){
+    toast(state.reason||'Move the target inside the room');
+    return;
+  }
+  placeFurn(pendFurnPreviewIdx);
 }
 function placeFurn(itemIdx){
   if(!pendFurnPos||!curRoom)return;
   const item=FURN_ITEMS[itemIdx];
   if(!item)return;
+  const state=typeof getPendingFurniturePlacementState==='function'?getPendingFurniturePlacementState(curRoom):null;
+  if(state&&!state.valid){
+    toast(state.reason||'Move the target inside the room');
+    updateCatalogPendingUi();
+    draw();
+    return;
+  }
   const reg=item.assetKey?MODEL_REGISTRY[item.assetKey]:null;
   const pos=snapFurniturePoint(pendFurnPos.x,pendFurnPos.y);
   curRoom.furniture.push(normalizeFurnitureRecord({
