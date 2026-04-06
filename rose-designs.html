@@ -108,6 +108,11 @@ input,select{font-family:var(--fb)}
 .home-hdr{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,.04);padding-top:calc(14px + env(safe-area-inset-top,0))}
 .home-hdr h1{font-family:var(--fd);font-size:22px;font-weight:700}
 .brand-sub{font-size:10px;color:var(--taupe);font-weight:400;letter-spacing:.5px;margin-top:1px}
+.home-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.mini-chip{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.88);box-shadow:var(--sh);font-size:10px;font-weight:700;color:var(--rose-d);border:1px solid rgba(0,0,0,.04)}
+.mini-chip:active{transform:scale(.97)}
+.mini-chip.secondary{background:rgba(240,235,227,.92);color:var(--taupe)}
+.profile-note{font-size:10px;color:var(--taupe);margin-top:8px;line-height:1.45}
 .hero-card{padding:28px 22px;border-radius:var(--rl);background:linear-gradient(140deg,var(--rose),var(--gold) 70%);color:#fff;margin-bottom:16px;position:relative;overflow:hidden}
 .hero-card::before{content:'';position:absolute;top:-30%;right:-10%;width:160px;height:160px;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 70%);border-radius:50%}
 .hero-card h2{font-family:var(--fd);font-size:24px;font-weight:700;line-height:1.1;margin-bottom:4px;position:relative}
@@ -209,6 +214,7 @@ input,select{font-family:var(--fb)}
 
 .props{display:none;position:absolute;top:58px;right:10px;width:min(320px,calc(100vw - 20px));max-height:min(66vh,560px);overflow-y:auto;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-radius:20px;box-shadow:var(--shl);z-index:250;padding:12px 14px 16px;font-size:11px}
 .props.on{display:block}
+.props.peek{max-height:min(33vh,260px);padding-bottom:12px}
 .props-tab{position:absolute;right:12px;top:60px;z-index:255;padding:12px 16px;border-radius:999px;background:rgba(250,247,242,.96);box-shadow:var(--shl);font-size:10px;font-weight:700;letter-spacing:.3px;color:var(--rose-d);display:none}
 .props-tab.on{display:block}
 .props-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
@@ -221,7 +227,9 @@ input,select{font-family:var(--fb)}
 .prop-sec-title{font-size:10px;font-weight:800;letter-spacing:.55px;text-transform:uppercase;color:var(--taupe);margin-bottom:6px}
 .props label{display:block;font-size:10px;font-weight:600;color:var(--taupe);margin:6px 0 2px;letter-spacing:.3px}
 .props input,.props select{width:100%;padding:6px 8px;border:1px solid rgba(0,0,0,.08);border-radius:6px;font-size:12px;outline:none;background:var(--bg)}
+.props textarea{width:100%;padding:9px 10px;border:1px solid rgba(0,0,0,.08);border-radius:10px;font-size:12px;outline:none;background:var(--bg);resize:vertical;min-height:84px}
 .props input:focus,.props select:focus{border-color:var(--rose)}
+.props textarea:focus{border-color:var(--rose)}
 .props input[type="range"]{padding:0;background:transparent;border:none}
 .pr{display:flex;gap:6px}
 .pr>*{flex:1}
@@ -304,6 +312,7 @@ input,select{font-family:var(--fb)}
 @media (max-width:760px){
   .home-scroll{padding:14px;padding-bottom:calc(100px + env(safe-area-inset-bottom,0))}
   .home-hdr{padding-inline:14px}
+  .home-actions{width:100%;justify-content:flex-start;margin-top:10px}
   .pc{padding:15px 14px;gap:10px}
   .pci{width:60px;height:60px}
   .pab{width:42px;height:42px}
@@ -315,13 +324,20 @@ input,select{font-family:var(--fb)}
   .tb{min-width:58px;min-height:52px;padding:7px 10px}
   .tb svg{width:20px;height:20px}
   .tb span{font-size:9px}
-  .props{top:auto;bottom:calc(76px + env(safe-area-inset-bottom,0));left:8px;right:8px;width:auto;max-height:42vh;border-radius:20px}
+  .props{top:auto;bottom:calc(78px + env(safe-area-inset-bottom,0));left:8px;right:8px;width:auto;max-height:35vh;border-radius:20px}
+  .props.peek{max-height:27vh}
   .props-tab{top:auto;bottom:calc(88px + env(safe-area-inset-bottom,0));right:10px;padding:12px 16px}
   .cam-btns{right:12px;bottom:calc(70px + env(safe-area-inset-bottom,0))}
   .cmb{width:44px;height:44px}
   .present-pill{right:12px;top:calc(12px + env(safe-area-inset-top,0));padding:10px 15px}
   .walk-hint{bottom:calc(118px + env(safe-area-inset-bottom,0));width:min(88vw,320px);padding:10px 16px}
   .runtime-actions{max-width:calc(100vw - 18px)}
+}
+@media (max-width:760px) and (orientation:landscape){
+  .props{top:62px;bottom:auto;right:10px;left:auto;width:min(330px,42vw);max-height:calc(100vh - 148px)}
+  .props.peek{max-height:calc(100vh - 214px)}
+  .props-tab{top:66px;bottom:auto;right:10px}
+  .cam-btns{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0))}
 }
 
 /* Secret easter egg counter */
@@ -420,11 +436,23 @@ input,select{font-family:var(--fb)}
 
 <!-- Tutorial -->
 <div class="tut" id="tutOv"><div class="tut-card" id="tutCard"></div></div>
+<div class="modal-bg" id="profileMod">
+  <div class="msh" style="max-width:460px">
+    <div class="mhn"></div>
+    <div class="mt">Who is using this device?</div>
+    <div style="font-size:12px;color:var(--taupe);line-height:1.5;margin-bottom:12px">Each person gets their own saved rooms, welcome flow, notes, and tutorial progress. This device will remember the choice until you switch it.</div>
+    <div class="mat-grid tall">
+      <button class="mat-btn" onclick="chooseProfile('rose')">Rose's Space</button>
+      <button class="mat-btn" onclick="chooseProfile('marco')">Marco's Space</button>
+    </div>
+    <div class="profile-note">You can switch profiles any time from the home screen.</div>
+  </div>
+</div>
 
 <div id="app">
 <!-- HOME -->
 <div class="scr on" id="scrHome">
-<div class="home-hdr"><div><h1>&#127801; Rose Designs</h1><div class="brand-sub">made with care</div></div></div>
+<div class="home-hdr"><div><h1>&#127801; Rose Designs</h1><div class="brand-sub">made with care</div></div><div class="home-actions"><button class="mini-chip" id="profileChip" onclick="openProfileSwitcher()">Rose's Space</button><button class="mini-chip secondary" onclick="startTut(true)">Tutorial</button></div></div>
 <div class="home-scroll">
 <div class="hero-card"><h2 id="heroGreeting">Your Space,<br>Your Story</h2><p id="heroSub">Design rooms. Walk through them. Make them yours.</p><div class="hero-actions"><button class="bp" onclick="openCrModal()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Begin a Room</button><button class="bp ghost" onclick="openCrModal('bedroom')">Start From a Style</button></div></div>
 <div class="stl">Your Spaces</div>
@@ -472,7 +500,7 @@ input,select{font-family:var(--fb)}
 <button class="cmb soft" id="cmPresent" onclick="togglePresentationMode()" title="Presentation Mode"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H4z"/><path d="M12 16v3"/><path d="M9 21h6"/></svg></button>
 </div>
 <div class="present-pill" id="presentPill">Presentation Mode</div>
-<div class="walk-hint" id="walkHint">Drag to look around &middot; Use arrows to move</div>
+<div class="walk-hint" id="walkHint">Drag to look around &middot; Use move and turn controls &middot; Turn sideways for easier walkthroughs</div>
 <div id="printHeader" style="display:none;padding:16px 20px;font-family:var(--fd)"><h2 style="font-size:20px;font-weight:700;margin:0"></h2><p style="font-size:11px;color:var(--taupe);margin:4px 0 0"></p></div>
 <button class="props-tab" id="propsTab" onclick="openP()">Open Panel</button>
 <div class="props" id="propsP"></div>
@@ -881,12 +909,24 @@ function editorPrefs(){
     unitSystem
   };
 }
+const PROFILE_LOCAL_KEY='rose_active_profile';
+const PROFILE_LABELS={rose:"Rose's Space",marco:"Marco's Space"};
+let activeProfile='rose';
+function storageKey(key,{global=false}={}){
+  return global?`rose_global::${key}`:`rose_profile::${activeProfile}::${key}`;
+}
+function getLocal(key,{global=false}={}){
+  try{return localStorage.getItem(storageKey(key,{global}));}catch(e){return null}
+}
+function setLocal(key,val,{global=false}={}){
+  try{localStorage.setItem(storageKey(key,{global}),val)}catch(e){}
+}
 function saveEditorPrefs(){
-  try{localStorage.setItem('rose_editor_prefs',JSON.stringify(editorPrefs()))}catch(e){}
+  try{setLocal('editor_prefs',JSON.stringify(editorPrefs()))}catch(e){}
 }
 function loadEditorPrefs(){
   try{
-    const raw=localStorage.getItem('rose_editor_prefs');
+    const raw=getLocal('editor_prefs');
     if(!raw)return;
     const prefs=JSON.parse(raw);
     furnitureSnap=prefs?.furnitureSnap!==false;
@@ -1040,8 +1080,26 @@ let adjRoomCfg={width:10,depth:10};
 // ── DB ──
 const DB='RoseForRose',DBST='rooms';
 function odb(){return new Promise((r,j)=>{const q=indexedDB.open(DB,1);q.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains(DBST))e.target.result.createObjectStore(DBST)};q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)})}
-async function dg(k){try{const d=await odb();return new Promise(r=>{const q=d.transaction(DBST,'readonly').objectStore(DBST).get(k);q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)})}catch(e){return null}}
-async function ds(k,v){try{const d=await odb();return new Promise(r=>{const t=d.transaction(DBST,'readwrite');t.objectStore(DBST).put(v,k);t.oncomplete=()=>r();t.onerror=()=>r()})}catch(e){}}
+function scopedDbKey(k){return storageKey(`db::${k}`)}
+async function dg(k,{legacy=false}={}){try{const d=await odb();return new Promise(r=>{const q=d.transaction(DBST,'readonly').objectStore(DBST).get(legacy?k:scopedDbKey(k));q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)})}catch(e){return null}}
+async function ds(k,v){try{const d=await odb();return new Promise(r=>{const t=d.transaction(DBST,'readwrite');t.objectStore(DBST).put(v,scopedDbKey(k));t.oncomplete=()=>r();t.onerror=()=>r()})}catch(e){}}
+function profileSeenKey(){return `profile_seen_${activeProfile}`}
+function updateProfileChip(){const chip=document.getElementById('profileChip');if(chip)chip.textContent=PROFILE_LABELS[activeProfile]||"Rose's Space"}
+function openProfileSwitcher(){document.getElementById('profileMod')?.classList.add('on')}
+function closeProfileSwitcher(){document.getElementById('profileMod')?.classList.remove('on')}
+async function migrateLegacyProjectsIntoProfile(){
+  const scoped=await dg('projects');
+  if(scoped&&Array.isArray(scoped)&&scoped.length)return;
+  const legacy=await dg('projects',{legacy:true});
+  if(legacy&&Array.isArray(legacy)&&legacy.length)await ds('projects',legacy);
+}
+function loadActiveProfile(){
+  try{
+    const raw=localStorage.getItem(PROFILE_LOCAL_KEY);
+    if(raw&&PROFILE_LABELS[raw])activeProfile=raw;
+  }catch(e){}
+  updateProfileChip();
+}
 
 // ── STATE ──
 const DEV_MODE=location.hash.includes('dev')||location.search.includes('dev=1');
@@ -1055,7 +1113,8 @@ let drawMode=false,drawPts=[],drawCur=null,angSnap=true;
 let is3D=false,scene,cam,ren,raf3d;
 let camMode='orbit',cYaw=Math.PI*.25,cPitch=.5,cDist=20;
 let fpPos={x:0,y:4.5,z:0};
-let activeWalkDir=0,activeTurnDir=0,walkTimer=null,orbitTarget={x:0,y:0,z:0};
+let activeWalkDir=0,activeTurnDir=0,orbitTarget={x:0,y:0,z:0};
+let walkControlLayout='auto';
 let d3=false,p3x=0,p3y=0;
 let pinchDist=0,isPinch=false;
 let gltfLoader=null,assetWarned=false,orbitVel={yaw:0,pitch:0,zoom:0};
@@ -1226,7 +1285,17 @@ let runtimeDiagOpen=false,preflightPanelOpen=false;
 let rebuild3DTimer=null;
 const GROUP_CATEGORY_MAP={Seating:'seating',Tables:'tables',Storage:'storage',Lighting:'lighting',Decor:'decor',Rugs:'rugs','Wall Decor':'wall_decor','Window Decor':'window_decor'};
 
-async function loadAll(){const d=await dg('projects');if(d&&Array.isArray(d))projects=d.map(normalizeRoom)}
+async function loadAll(){
+  let d=await dg('projects');
+  if((!d||!Array.isArray(d)||!d.length)){
+    const legacy=await dg('projects',{legacy:true});
+    if(legacy&&Array.isArray(legacy)&&legacy.length){
+      d=legacy;
+      await ds('projects',legacy);
+    }
+  }
+  projects=d&&Array.isArray(d)?d.map(normalizeRoom):[];
+}
 async function saveAll(){await ds('projects',JSON.parse(JSON.stringify(projects)))}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
@@ -1554,6 +1623,10 @@ function normalizeColorValue(value,fallback){
 async function checkWelcome(){
   const w=document.getElementById('welcome');
   if(!w)return;
+  const greet=document.querySelector('.w-greeting');
+  const personal=document.querySelector('.w-personal');
+  if(greet)greet.textContent=activeProfile==='rose'?'Hi Rose':'Welcome back';
+  if(personal)personal.textContent=activeProfile==='rose'?'I made this for you':'Your own design space';
   w.classList.remove('fade','gone');
 }
 function dismissWelcome(){
@@ -1565,15 +1638,35 @@ function dismissWelcome(){
 }
 
 // ── TUTORIAL ──
+async function chooseProfile(profileId,{skipReload=false}={}){
+  activeProfile=PROFILE_LABELS[profileId]?profileId:'rose';
+  try{localStorage.setItem(PROFILE_LOCAL_KEY,activeProfile)}catch(e){}
+  updateProfileChip();
+  closeProfileSwitcher();
+  loadEditorPrefs();
+  await migrateLegacyProjectsIntoProfile();
+  if(skipReload)return;
+  projects=[];
+  curRoom=null;
+  await loadAll();
+  await checkWelcome();
+  await loadEggs();
+  await loadDS();
+  renderHome();
+  if(!getLocal(profileSeenKey()))setTimeout(()=>startTut(true),450);
+}
 let tutS=-1;
 const TUTS=[
-  {t:'Your canvas awaits',d:'This is where you shape your room. Drag corners, add doors, build closets.'},
-  {t:'Shape your space',d:'Tap Vertex to add corners. Drag them to reshape. Make it uniquely yours.'},
-  {t:'Add a door',d:'Tap the Door tool, then tap near a wall. Slide it to the perfect spot.'},
-  {t:'Draw a closet',d:'Use the Closet tool. Drag to draw a rectangle inside your room.'},
-  {t:'Step inside',d:'Tap the 3D button to see your room come alive. Try Walk mode to stand inside.'},
+  {t:'Start with one room',d:'Begin with a simple room card. You can reshape it later or grow the footprint with North, East, South, and West room buttons.'},
+  {t:'Shape the shell first',d:'Use Draw or Vertex to reshape the footprint. Doors and windows snap to walls, so build the shell before styling.'},
+  {t:'Keep the panel collapsed while placing',d:'On phone, reopen the panel only when you need details. The floating panel chip lets you place or move pieces without the sheet covering the room.'},
+  {t:'Furnish with tap, then place',d:'Choose Furnish, pick an item, then tap the exact spot where it belongs. This is the fastest way to work on iPhone.'},
+  {t:'Use Existing Room mode for redesigns',d:'Mark real pieces as Existing, then tag them Keep, Move, Replace, or Remove so the redesign stays organized.'},
+  {t:'Walk in 3D with the touch controls',d:'Switch to Walk, use the new move and turn controls, and drag to look around. Landscape is the easiest way to explore.'},
+  {t:'Save options instead of overwriting',d:'Use room Options to make Option A, B, and C. Each one keeps its own notes, compare views, and exports.'},
+  {t:'This profile keeps its own rooms',d:'This device remembers who is using it. Rose and Marco each get their own rooms, notes, and welcome flow.'},
 ];
-function startTut(){tutS=0;showTut()}
+function startTut(force=false){if(!force&&getLocal(profileSeenKey()))return;tutS=0;showTut()}
 function showTut(){
   if(tutS<0||tutS>=TUTS.length){endTut();return}
   const s=TUTS[tutS];
@@ -1583,7 +1676,7 @@ function showTut(){
     <div class="tut-dots">${TUTS.map((_,i)=>`<div class="tut-d${i===tutS?' on':''}"></div>`).join('')}</div>`;
 }
 function nextTut(){tutS++;showTut()}
-function endTut(){tutS=-1;document.getElementById('tutOv').classList.remove('on');findEgg(1)} // Easter egg: Soft Petal
+function endTut(){tutS=-1;document.getElementById('tutOv').classList.remove('on');setLocal(profileSeenKey(),'1');findEgg(1)} // Easter egg: Soft Petal
 
 // ── HOME ──
 function renderHome(){
@@ -1599,9 +1692,14 @@ function renderHome(){
       night: {h:'Still creating,<br>Rose?',s:'Late night ideas are the best ones.'},
     };
     const g = greetings[tod];
+    if(activeProfile!=='rose'){
+      g.h='Your Space,<br>Your Story';
+      g.s='Your rooms, your options, your saved design world.';
+    }
     heroEl.innerHTML = g.h;
     subEl.textContent = g.s;
   }
+  updateProfileChip();
   const l=document.getElementById('prjList');
   if(!projects.length){l.innerHTML='<div class="emp"><div class="ei">\u{1F339}</div><h3>No rooms yet</h3><p>Create your first room to start designing.</p></div>';return}
   l.innerHTML=projects.slice().reverse().map(p=>{
@@ -1667,6 +1765,7 @@ const PRESET_SVGS={
   free:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40"><path d="M8 30L15 8L35 4L52 15L48 34L25 36Z" fill="none" stroke="#B8918E" stroke-width="1.5" stroke-dasharray="3 2"/></svg>'
 };
 function popPresets(){document.getElementById('preG').innerHTML=ROOM_STARTERS.map(p=>`<div class="pi${p.id===selPreset?' sel':''}" onclick="selPre('${p.id}',this)"><span class="starter-tag">${p.tag}</span>${PRESET_SVGS[p.shape]||PRESET_SVGS.rect}<span>${p.name}</span><small>${p.hint}</small></div>`).join('')}
+function defaultPersonalRoomName(){return activeProfile==='rose'?"Rose's Room":"Marco's Room"}
 function selPre(id,el){
   selPreset=id;
   const starter=ROOM_STARTERS.find(s=>s.id===id);
@@ -1678,7 +1777,7 @@ function selPre(id,el){
   document.querySelectorAll('.pi').forEach(e=>e.classList.remove('sel'));
   el.classList.add('sel')
 }
-function openCrModal(starterId='living_room'){const starter=ROOM_STARTERS.find(s=>s.id===starterId)||ROOM_STARTERS[0];selPreset=starter.id;document.getElementById('crN').value=starter.name==="Bedroom"?"Rose's Room":starter.name;document.getElementById('crW').value=starter.width;document.getElementById('crL').value=starter.depth;document.getElementById('crH').value=starter.height;popPresets();document.getElementById('crMod').classList.add('on')}
+function openCrModal(starterId='living_room'){const starter=ROOM_STARTERS.find(s=>s.id===starterId)||ROOM_STARTERS[0];selPreset=starter.id;document.getElementById('crN').value=starter.name==="Bedroom"?defaultPersonalRoomName():starter.name;document.getElementById('crW').value=starter.width;document.getElementById('crL').value=starter.depth;document.getElementById('crH').value=starter.height;popPresets();document.getElementById('crMod').classList.add('on')}
 function closeCr(){document.getElementById('crMod').classList.remove('on')}
 document.getElementById('crMod').onclick=function(e){if(e.target===this)closeCr()};
 function buildStarterFurniture(starter,w,l){
@@ -1714,7 +1813,7 @@ function createFromPreset(){
   const w=parseFloat(document.getElementById('crW').value)||14;
   const l=parseFloat(document.getElementById('crL').value)||12;
   const h=parseFloat(document.getElementById('crH').value)||9;
-  const nm=document.getElementById('crN').value||"Rose's Room";
+  const nm=document.getElementById('crN').value||defaultPersonalRoomName();
   let poly;
   if(starter.shape==='lshape')poly=[{x:0,y:0},{x:w,y:0},{x:w,y:l*.5},{x:w*.5,y:l*.5},{x:w*.5,y:l},{x:0,y:l}];
   else if(starter.shape==='ushape'){const n=w*.3;poly=[{x:0,y:0},{x:w,y:0},{x:w,y:l},{x:w-n,y:l},{x:w-n,y:l*.4},{x:n,y:l*.4},{x:n,y:l},{x:0,y:l}]}
@@ -1729,7 +1828,7 @@ function createFromPreset(){
 }
 
 function startFreeDraw(){
-  closeCr();const nm=document.getElementById('crN').value||"Rose's Room";const h=parseFloat(document.getElementById('crH').value)||9;
+  closeCr();const nm=document.getElementById('crN').value||defaultPersonalRoomName();const h=parseFloat(document.getElementById('crH').value)||9;
   const room=normalizeRoom({id:uid(),name:nm,height:h,wallThickness:.5,polygon:[],walls:[],openings:[],structures:[],furniture:[],
     roomType:'living_room',designPreset:'',materials:{wall:WALL_PALETTES[0].color,wallFinish:'warm_white',floor:FLOOR_TYPES[0].color,floorType:FLOOR_TYPES[0].id,ceiling:'#FAF7F2',trim:TRIM_COLORS[0],ceilingBrightness:1,lightingPreset:'daylight'},createdAt:Date.now(),updatedAt:Date.now()});
   projects.push(room);saveAll();curRoom=room;drawMode=true;drawPts=[];drawCur=null;
@@ -2706,15 +2805,16 @@ function attachAdjacentRoom(side,width=adjRoomCfg.width,depth=adjRoomCfg.depth){
   const b=getRoomBounds2D(curRoom);
   const walls=curRoom.walls.filter(w=>wallMatchesSide(curRoom,w,side,b));
   if(!walls.length){toast('No exterior wall available on that side');return}
-  const usable=walls.filter(w=>!curRoom.openings.some(o=>o.wallId===w.id));
-  const wall=(usable.length?usable:walls).sort((a,b2)=>wL(curRoom,b2)-wL(curRoom,a))[0];
-  if(curRoom.openings.some(o=>o.wallId===wall.id)){toast('Choose a side without doors or windows first');return}
+  const wall=walls.sort((a,b2)=>wL(curRoom,b2)-wL(curRoom,a))[0];
   const a=wS(curRoom,wall),c=wE(curRoom,wall);
   const next=curRoom.polygon.slice();
   const i=wall.startIdx,j=wall.endIdx;
   const pts=[];
+  let connectorA=null,connectorB=null;
   if(side==='east'||side==='west'){
     const x=a.x,y0=Math.min(a.y,c.y),y1=Math.max(a.y,c.y),span=y1-y0,shared=Math.min(width,span),mid=(y0+y1)/2,start=mid-shared/2,end=mid+shared/2,outer=x+(side==='east'?depth:-depth),forward=a.y<c.y;
+    connectorA={x,y:start};
+    connectorB={x,y:end};
     if(forward){
       if(Math.abs(start-a.y)>.001)pts.push({x,y:start});
       pts.push({x:outer,y:start},{x:outer,y:end});
@@ -2726,6 +2826,8 @@ function attachAdjacentRoom(side,width=adjRoomCfg.width,depth=adjRoomCfg.depth){
     }
   }else{
     const y=a.y,x0=Math.min(a.x,c.x),x1=Math.max(a.x,c.x),span=x1-x0,shared=Math.min(width,span),mid=(x0+x1)/2,start=mid-shared/2,end=mid+shared/2,outer=y+(side==='south'?depth:-depth),forward=a.x<c.x;
+    connectorA={x:start,y};
+    connectorB={x:end,y};
     if(forward){
       if(Math.abs(start-a.x)>.001)pts.push({x:start,y});
       pts.push({x:start,y:outer},{x:end,y:outer});
@@ -2739,14 +2841,13 @@ function attachAdjacentRoom(side,width=adjRoomCfg.width,depth=adjRoomCfg.depth){
   next.splice(i+1,0,...pts);
   curRoom.polygon=next;
   curRoom.walls=genWalls(curRoom);
-  // Auto-place a door on the original shared wall so rooms connect in 3D walk mode
-  const sharedWall=curRoom.walls.find(w=>{
+  const matchesSegment=(w,p1,p2)=>{
     const wa=wS(curRoom,w),wb=wE(curRoom,w);
-    const match=(Math.abs(wa.x-a.x)<.01&&Math.abs(wa.y-a.y)<.01&&Math.abs(wb.x-c.x)<.01&&Math.abs(wb.y-c.y)<.01)||
-                (Math.abs(wa.x-c.x)<.01&&Math.abs(wa.y-c.y)<.01&&Math.abs(wb.x-a.x)<.01&&Math.abs(wb.y-a.y)<.01);
-    return match;
-  });
-  if(sharedWall&&!curRoom.openings.some(o=>o.wallId===sharedWall.id)){
+    const same=(p,q)=>Math.abs(p.x-q.x)<.01&&Math.abs(p.y-q.y)<.01;
+    return (same(wa,p1)&&same(wb,p2))||(same(wa,p2)&&same(wb,p1));
+  };
+  const sharedWall=connectorA&&connectorB?curRoom.walls.find(w=>matchesSegment(w,connectorA,connectorB)):null;
+  if(sharedWall&&!curRoom.openings.some(o=>o.wallId===sharedWall.id&&o.type==='door')){
     const wl=wL(curRoom,sharedWall);
     if(wl>4){
       curRoom.openings.push({id:uid(),type:'door',wallId:sharedWall.id,offset:wl/2,width:3,height:7,swing:'in',hinge:'left'});
@@ -2781,7 +2882,7 @@ function findNW(wp){let b=-1,bd=Infinity;const snapDist=Math.max(2,3/Math.max(1,
 function findNWO(wp){let best=null,bd=Infinity;const snapDist=Math.max(2,3/Math.max(1,vScale/20));curRoom.walls.forEach((w,i)=>{const d=psw(wp,wS(curRoom,w),wE(curRoom,w));if(d<bd&&d<snapDist){const a=wS(curRoom,w),b=wE(curRoom,w),dx=b.x-a.x,dy=b.y-a.y,wl=wL(curRoom,w),t=((wp.x-a.x)*dx+(wp.y-a.y)*dy)/(dx*dx+dy*dy);bd=d;best={wi:i,off:Math.round(Math.max(1.5,Math.min(wl-1.5,t*wl))*4)/4}}});return best}
 function addVtx(wi,wp){const w=curRoom.walls[wi];curRoom.polygon.splice(w.startIdx+1,0,{x:Math.round(wp.x*2)/2,y:Math.round(wp.y*2)/2});curRoom.walls=genWalls(curRoom);sel={type:'vertex',idx:w.startIdx+1};pushU();showP();draw();toast('Vertex added')}
 
-function setTool(t){tool=t;document.querySelectorAll('.tb').forEach(b=>b.classList.toggle('on',b.dataset.t===t));closetSt=null;pendEnd=null;if(t!=='select'){clearFurnitureSelection();sel={type:null,idx:-1};hideP()}draw()}
+function setTool(t){tool=t;document.querySelectorAll('.tb').forEach(b=>b.classList.toggle('on',b.dataset.t===t));closetSt=null;pendEnd=null;if(t!=='select'){clearFurnitureSelection();sel={type:null,idx:-1};if(isTouchUi()&&window.innerWidth<=760)panelHidden=true;hideP()}else if(isTouchUi()&&window.innerWidth<=760&&!sel.type){panelHidden=true;hideP()}draw()}
 
 // ── FURNITURE PICKER ──
 const FURN_ITEMS=[
@@ -2938,6 +3039,7 @@ function placeFurn(itemIdx){
   tool='select';
   document.querySelectorAll('.tb').forEach(b=>b.classList.toggle('on',b.dataset.t==='select'));
   setFurnitureSelection(idx);
+  if(isTouchUi()&&window.innerWidth<=760)panelHidden=true;
   pushU();closeFurnPick();draw();showP();
   toast(item.label+' placed');
   if(curRoom.furniture.length===5)findEgg(4);
@@ -3059,6 +3161,14 @@ function rotateSelectedFurniture(delta){
 function turnAroundSelectedFurniture(){rotateSelectedFurniture(180)}
 function uRoomHeight(v){curRoom.height=parseDistanceInput(v,curRoom.height||9)||9;curRoom.structures.forEach(st=>{if(st.type==='closet'&&st.rect)st.height=curRoom.height});draw();showP();pushU();scheduleRebuild3D()}
 let panelHidden=false;
+function isTouchUi(){return Math.max(navigator.maxTouchPoints||0,0)>0}
+function mobilePanelShouldPeek(){
+  if(!isTouchUi()||window.innerWidth>760)return false;
+  if(!curRoom)return false;
+  if(tool==='furniture'&&!sel.type)return true;
+  if(!sel.type||sel.idx<0)return true;
+  return false;
+}
 function propSection(title,body){return `<div class="prop-section"><div class="prop-sec-title">${title}</div>${body}</div>`}
 
 function showP(){
@@ -3068,6 +3178,7 @@ function showP(){
   normalizeFurnitureSelection();
   tab.classList.toggle('on',panelHidden);
   if(panelHidden){p.classList.remove('on');return}
+  p.classList.toggle('peek',mobilePanelShouldPeek());
   let h='';
   const cBtn='<div class="props-hdr"><h4>$T</h4><button class="props-close" onclick="closeP()">\u00D7</button></div>';
   if(!sel.type||sel.idx<0){
@@ -3100,7 +3211,7 @@ function showP(){
     }
   }
   p.innerHTML=h;p.classList.add('on')}
-function hideP(){document.getElementById('propsP').classList.remove('on');document.getElementById('propsTab').classList.toggle('on',panelHidden&&!!curRoom)}
+function hideP(){const panel=document.getElementById('propsP');panel.classList.remove('on','peek');document.getElementById('propsTab').classList.toggle('on',panelHidden&&!!curRoom)}
 function closeP(){panelHidden=true;hideP()}
 function openP(){panelHidden=false;showP()}
 function uV(k,v){curRoom.polygon[sel.idx][k]=parseDistanceInput(v,curRoom.polygon[sel.idx][k]);curRoom.walls=genWalls(curRoom);pushU();draw()}
@@ -3594,9 +3705,14 @@ function setCamMode(m){
     document.getElementById('walkHint').classList.add('on');setTimeout(()=>document.getElementById('walkHint').classList.remove('on'),2500);findEgg(6)}
   else{cYaw=Math.PI*.18;cPitch=.52;cDist=Math.max(11,Math.min(42,Math.max(cDist||17,focus.maxD*2.35,Math.max(focus.width||0,focus.height||0,r.height*.9)*1.65,r.height*1.45)));orbitVel={yaw:0,pitch:0,zoom:0}}
   updateWalkUI()}
-function startWalkHold(dir,turn){stopWalkHold();activeWalkDir=dir||0;activeTurnDir=turn||0;
-  walkTimer=true}
-function stopWalkHold(){walkTimer=null;activeWalkDir=0;activeTurnDir=0}
+function startWalkMove(dir){activeWalkDir=dir||0}
+function stopWalkMove(){activeWalkDir=0}
+function startWalkTurn(dir){activeTurnDir=dir||0}
+function stopWalkTurn(){activeTurnDir=0}
+function toggleWalkControlLayout(){
+  walkControlLayout=walkControlLayout==='wide'?'auto':'wide';
+  updateWalkUI();
+}
 function getLightingPreset(room){
   return LIGHTING_PRESETS[room?.materials?.lightingPreset||'daylight']||LIGHTING_PRESETS.daylight;
 }
@@ -3732,13 +3848,27 @@ function build3D(){
 function updateWalkUI(){
   let wc2=document.getElementById('walkCtrl');
   if(camMode==='walk'&&is3D){
-    if(!wc2){document.getElementById('cWrap').insertAdjacentHTML('beforeend',
-      `<div id="walkCtrl" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:65;display:flex;gap:10px;align-items:center">
-        <button class="cmb" style="width:46px;height:46px" onpointerdown="startWalkHold(0,-1)" onpointerup="stopWalkHold()" onpointerleave="stopWalkHold()" onpointercancel="stopWalkHold()"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--esp);fill:none;stroke-width:2"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <button class="cmb" style="width:52px;height:52px" onpointerdown="startWalkHold(1,0)" onpointerup="stopWalkHold()" onpointerleave="stopWalkHold()" onpointercancel="stopWalkHold()"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--esp);fill:none;stroke-width:2"><polyline points="18 15 12 9 6 15"/></svg></button>
-        <button class="cmb" style="width:46px;height:46px" onpointerdown="startWalkHold(0,1)" onpointerup="stopWalkHold()" onpointerleave="stopWalkHold()" onpointercancel="stopWalkHold()"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--esp);fill:none;stroke-width:2"><polyline points="9 18 15 12 9 6"/></svg></button>
-      </div>`)}
-  }else{if(wc2)wc2.remove();stopWalkHold()}}
+    const isWide=walkControlLayout==='wide'||window.innerWidth>window.innerHeight;
+    const className=isWide?'wide':'';
+    const markup=`<div id="walkCtrl" class="${className}" style="position:absolute;left:12px;right:12px;bottom:${isWide?12:18}px;z-index:65;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;pointer-events:none">
+      <div style="display:grid;grid-template-columns:repeat(2,52px);gap:8px;pointer-events:auto">
+        <button class="cmb" style="width:52px;height:52px" onpointerdown="startWalkTurn(-1)" onpointerup="stopWalkTurn()" onpointerleave="stopWalkTurn()" onpointercancel="stopWalkTurn()"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--esp);fill:none;stroke-width:2"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="cmb" style="width:52px;height:52px" onpointerdown="startWalkMove(1)" onpointerup="stopWalkMove()" onpointerleave="stopWalkMove()" onpointercancel="stopWalkMove()"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--esp);fill:none;stroke-width:2"><polyline points="18 15 12 9 6 15"/></svg></button>
+        <button class="cmb" style="width:52px;height:52px" onpointerdown="startWalkTurn(1)" onpointerup="stopWalkTurn()" onpointerleave="stopWalkTurn()" onpointercancel="stopWalkTurn()"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--esp);fill:none;stroke-width:2"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="cmb" style="width:52px;height:52px" onpointerdown="startWalkMove(-1)" onpointerup="stopWalkMove()" onpointerleave="stopWalkMove()" onpointercancel="stopWalkMove()"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--esp);fill:none;stroke-width:2"><polyline points="18 9 12 15 6 9"/></svg></button>
+      </div>
+      <div style="pointer-events:auto;display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+        <div style="padding:10px 12px;border-radius:16px;background:rgba(250,247,242,.92);box-shadow:var(--shl);font-size:10px;font-weight:700;color:var(--rose-d);max-width:${isWide?'220px':'180px'};text-align:right">${isWide?'Landscape walkthrough mode':'Turn sideways for easier walkthroughs'}</div>
+        <button class="mini-chip" style="pointer-events:auto" onclick="toggleWalkControlLayout()">${isWide?'Standard Dock':'Sideways Dock'}</button>
+      </div>
+    </div>`;
+    if(!wc2)document.getElementById('cWrap').insertAdjacentHTML('beforeend',markup);
+    else{
+      const wrap=document.createElement('div');
+      wrap.innerHTML=markup;
+      wc2.replaceWith(wrap.firstElementChild);
+    }
+  }else{if(wc2)wc2.remove();stopWalkMove();stopWalkTurn()}}
 
 function addWSeg(ws,an,s,e,botY,topY,mat){
   const sw=e-s,sh=topY-botY;if(sw<.01||sh<.01)return;
@@ -4310,7 +4440,7 @@ function placeFurnitureInScene(f,r){
     if(diagEntry){diagEntry.status='fail';diagEntry.fallbackAttempted=true;diagEntry.error=(err&&err.message)||'load exception';diagEntry.issues=[(err&&err.message)||'load exception'];updateRoomRuntimeDiag();}
   });
 }
-function attach3DPointerControls(){const el=ren.domElement;let pointerId=null;const activePtrs=new Map();let pDown,pUp,pMove,pCancel;pDown=e=>{activePtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(activePtrs.size===1){d3=true;pointerId=e.pointerId;p3x=e.clientX;p3y=e.clientY;if(el.setPointerCapture)try{el.setPointerCapture(e.pointerId)}catch(_){}}if(activePtrs.size===2){isPinch=true;const pts=[...activePtrs.values()];pinchDist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y)}};pUp=e=>{activePtrs.delete(e.pointerId);if(activePtrs.size<2)isPinch=false;if(activePtrs.size===0){d3=false;if(pointerId!==null&&el.releasePointerCapture)try{el.releasePointerCapture(pointerId)}catch(_){}pointerId=null}};pCancel=e=>{if(e&&e.pointerId)activePtrs.delete(e.pointerId);if(activePtrs.size<2)isPinch=false;if(activePtrs.size===0){d3=false;pointerId=null}};pMove=e=>{if(activePtrs.has(e.pointerId))activePtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(isPinch&&activePtrs.size===2&&camMode==='orbit'){const pts=[...activePtrs.values()],nd=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);if(pinchDist>0&&nd>0)orbitVel.zoom+=((pinchDist/nd)-1)*cDist*.48;pinchDist=nd;return}if(!d3||activePtrs.size>1)return;const dx=e.clientX-p3x,dy=e.clientY-p3y;p3x=e.clientX;p3y=e.clientY;if(camMode==='orbit'){orbitVel.yaw+=dx*.00078*cDist;orbitVel.pitch+=-dy*.00062*cDist}else{cYaw-=dx*.0023;cPitch=Math.max(-.4,Math.min(.3,cPitch-dy*.0018))}};el.addEventListener('pointerdown',pDown);el.addEventListener('pointerup',pUp);el.addEventListener('pointermove',pMove);el.addEventListener('pointercancel',pCancel);el.addEventListener('lostpointercapture',pCancel);ren._listeners={el,pDown,pUp,pMove,pCancel}}
+function attach3DPointerControls(){const el=ren.domElement;let pointerId=null;const activePtrs=new Map();let pDown,pUp,pMove,pCancel;pDown=e=>{activePtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(activePtrs.size===1){d3=true;pointerId=e.pointerId;p3x=e.clientX;p3y=e.clientY;if(el.setPointerCapture)try{el.setPointerCapture(e.pointerId)}catch(_){}}if(activePtrs.size===2){isPinch=true;const pts=[...activePtrs.values()];pinchDist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y)}};pUp=e=>{activePtrs.delete(e.pointerId);if(activePtrs.size<2)isPinch=false;if(activePtrs.size===0){d3=false;if(pointerId!==null&&el.releasePointerCapture)try{el.releasePointerCapture(pointerId)}catch(_){}pointerId=null}};pCancel=e=>{if(e&&e.pointerId)activePtrs.delete(e.pointerId);if(activePtrs.size<2)isPinch=false;if(activePtrs.size===0){d3=false;pointerId=null}};pMove=e=>{if(activePtrs.has(e.pointerId))activePtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(isPinch&&activePtrs.size===2&&camMode==='orbit'){const pts=[...activePtrs.values()],nd=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);if(pinchDist>0&&nd>0)orbitVel.zoom+=((pinchDist/nd)-1)*cDist*.48;pinchDist=nd;return}if(!d3||activePtrs.size>1)return;const dx=e.clientX-p3x,dy=e.clientY-p3y;p3x=e.clientX;p3y=e.clientY;if(camMode==='orbit'){orbitVel.yaw+=dx*.00078*cDist;orbitVel.pitch+=-dy*.00062*cDist}else{cYaw-=dx*.0023;cPitch=Math.max(-.4,Math.min(.3,cPitch+dy*.0018))}};el.addEventListener('pointerdown',pDown);el.addEventListener('pointerup',pUp);el.addEventListener('pointermove',pMove);el.addEventListener('pointercancel',pCancel);el.addEventListener('lostpointercapture',pCancel);ren._listeners={el,pDown,pUp,pMove,pCancel}}
 
 function verificationTargetSize(key){
   const map={rug:{w:3.8,d:2.8,h:.2},runner_rug:{w:6.5,d:2,h:.2},rug_round:{w:4.2,d:4.2,h:.2},curtains:{w:3.8,d:.3,h:4},blinds:{w:3.5,d:.2,h:2.7},wall_art_01:{w:2.2,d:.2,h:1.4},wall_art_04:{w:2.2,d:.2,h:1.4},wall_art_06:{w:2.2,d:.2,h:1.4},mirror:{w:1.8,d:.2,h:2.6},lamp_wall:{w:1.4,d:.4,h:2.2},lamp_table:{w:1.1,d:1.1,h:1.45},lamp_chandelier:{w:2,d:2,h:1.65},lamp_ceiling:{w:1.6,d:1.6,h:1.2},lamp_cube:{w:1.35,d:1.35,h:1.35},lamp_pendant:{w:1.6,d:1.6,h:1.9},lamp_stand:{w:1,d:1,h:4.2},shelving:{w:2.8,d:.6,h:2.1},shelf_small:{w:2.1,d:.45,h:1.2},plant_small:{w:1.1,d:1.1,h:1.6},plant_cactus:{w:1,d:1,h:1.8},plant_leafy:{w:1.4,d:1.4,h:2.1},plant_palm:{w:1.6,d:1.6,h:2.8},plant_round:{w:1.25,d:1.25,h:1.7},chair_office:{w:2,d:2,h:3},nightstand:{w:1.8,d:1.5,h:2.2},nightstand_alt:{w:1.8,d:1.55,h:2.25},dresser:{w:3.8,d:1.8,h:3.2},dresser_tall:{w:3.3,d:1.7,h:4.1},console_low:{w:4.6,d:1.35,h:2.4},tv_console:{w:4.8,d:1.5,h:2.8},dining_table:{w:5.2,d:3,h:2.8},table_round_large:{w:4.2,d:4.2,h:2.8},table_round_small:{w:2.4,d:2.4,h:2.2},stool:{w:1.4,d:1.4,h:1.9},bench:{w:3.6,d:1.4,h:2.2},sofa_small:{w:3.4,d:2.05,h:2.8},sofa_compact:{w:3.6,d:2.1,h:3},sofa_medium:{w:4.4,d:2.35,h:3.05},sofa_large:{w:5.8,d:2.6,h:3.1},sofa_modern:{w:5.2,d:2.55,h:3.05},sofa_grand:{w:6.4,d:2.8,h:3.2},bed_king:{w:6.4,d:7.4,h:2.7},bed_twin:{w:3.6,d:6.6,h:2.5},bunk_bed:{w:4.4,d:6.8,h:5.8},bookcase_books:{w:3.1,d:1.1,h:4.8},closet_tall:{w:3.4,d:1.8,h:6.2},closet_short:{w:3.1,d:1.7,h:4.2},fireplace:{w:4.2,d:1.3,h:3.6}};
@@ -4496,7 +4626,7 @@ function disposeSceneGraph(root){
 function stop3D(){
   if(raf3d){cancelAnimationFrame(raf3d);raf3d=null}
   if(rebuild3DTimer){clearTimeout(rebuild3DTimer);rebuild3DTimer=null}
-  const wc2=document.getElementById('walkCtrl');if(wc2)wc2.remove();stopWalkHold();
+const wc2=document.getElementById('walkCtrl');if(wc2)wc2.remove();stopWalkMove();stopWalkTurn();
   if(scene)disposeSceneGraph(scene);
   if(ren){
     if(ren._listeners){
@@ -4773,7 +4903,7 @@ const FOR_US=['Sunday Kitchen','Movie Night Den','Morning Coffee Corner','Future
 function pushU(){pushUBase();trackPace();maybeAffirm();maybeNoteP();resetIdle()}
 
 // ── WELCOME ──
-function updateWelcomeForTime(){const g=document.querySelector('.w-greeting');if(!g)return;const t=getTimeOfDay();if(t==='morning')g.textContent='Good morning, Rose';else if(t==='evening')g.textContent='Good evening, Rose';else if(t==='night')g.textContent='Late night, Rose'}
+function updateWelcomeForTime(){const g=document.querySelector('.w-greeting');if(!g)return;if(activeProfile!=='rose'){g.textContent='Welcome back';return}const t=getTimeOfDay();if(t==='morning')g.textContent='Good morning, Rose';else if(t==='evening')g.textContent='Good evening, Rose';else if(t==='night')g.textContent='Late night, Rose';else g.textContent='Hi Rose'}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 let selfTestPromise=null;
 async function runSelfTest(){
@@ -4862,12 +4992,15 @@ async function boot(){
   document.body.classList.toggle('dev-mode',DEV_MODE);
   const httpReady=await ensureHttpRuntime();
   if(!httpReady&&location.protocol==='file:')return;
+  loadActiveProfile();
   loadEditorPrefs();
   bindEditorKeys();
+  await migrateLegacyProjectsIntoProfile();
   await loadAll();await checkWelcome();await loadEggs();await loadDS();
   await preflightAllModels();
   applyTimeTheme();updateWelcomeForTime();checkReturn();
   renderHome();popPresets();
+  if(!getLocal(profileSeenKey()))openProfileSwitcher();
   setInterval(applyTimeTheme,60000);
   checkFullBloom();checkDeep();
   if(location.hash==='#selftest')setTimeout(()=>runSelfTest(),400);

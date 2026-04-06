@@ -4,6 +4,7 @@ node_modules/
 tmp_playwright/
 tmp_playwright_quick/
 tmpshots/
+output/
 
 debug_*.png
 output_*.png
