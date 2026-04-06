@@ -1,0 +1,847 @@
+[
+    {
+        "id":  "bed",
+        "name":  "Bed",
+        "category":  "Storage",
+        "subcategory":  "bed",
+        "modelPath":  "./assets/models/bed.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "soft-romantic",
+        "collections":  "Soft Romantic",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "bed_king",
+        "name":  "Bed King",
+        "category":  "Storage",
+        "subcategory":  "bed",
+        "modelPath":  "./assets/models/bed_king.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "soft-romantic",
+        "collections":  "Soft Romantic",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "bed_twin",
+        "name":  "Bed Twin",
+        "category":  "Storage",
+        "subcategory":  "bed",
+        "modelPath":  "./assets/models/bed_twin.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "soft-romantic",
+        "collections":  "Soft Romantic",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "bench",
+        "name":  "Bench",
+        "category":  "Seating",
+        "subcategory":  "bench",
+        "modelPath":  "./assets/models/bench.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "dining_room",
+                                     "living_room"
+                                 ]
+    },
+    {
+        "id":  "blinds",
+        "name":  "Blinds",
+        "category":  "Openings",
+        "subcategory":  "blinds",
+        "modelPath":  "./assets/models/blinds.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "tailored",
+        "collections":  "Tailored Calm",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "bookcase_books",
+        "name":  "Bookcase Books",
+        "category":  "Storage",
+        "subcategory":  "bookcase",
+        "modelPath":  "./assets/models/bookcase_books.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  [
+                                     "office",
+                                     "living_room"
+                                 ]
+    },
+    {
+        "id":  "bookshelf",
+        "name":  "Bookshelf",
+        "category":  "Storage",
+        "subcategory":  "bookshelf",
+        "modelPath":  "./assets/models/bookshelf.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "tailored",
+        "collections":  "Tailored Calm",
+        "recommendedRoomTypes":  [
+                                     "office",
+                                     "living_room"
+                                 ]
+    },
+    {
+        "id":  "bunk_bed",
+        "name":  "Bunk Bed",
+        "category":  "Decor",
+        "subcategory":  "bunk",
+        "modelPath":  "./assets/models/bunk_bed.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "soft-romantic",
+        "collections":  "Soft Romantic",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "cabinet",
+        "name":  "Cabinet",
+        "category":  "Storage",
+        "subcategory":  "cabinet",
+        "modelPath":  "./assets/models/cabinet.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "chair",
+        "name":  "Chair",
+        "category":  "Seating",
+        "subcategory":  "chair",
+        "modelPath":  "./assets/models/chair.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "chair_office",
+        "name":  "Chair Office",
+        "category":  "Seating",
+        "subcategory":  "chair",
+        "modelPath":  "./assets/models/chair_office.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "tailored",
+        "collections":  "Tailored Calm",
+        "recommendedRoomTypes":  [
+                                     "office",
+                                     "living_room"
+                                 ]
+    },
+    {
+        "id":  "closet_short",
+        "name":  "Closet Short",
+        "category":  "Storage",
+        "subcategory":  "closet",
+        "modelPath":  "./assets/models/closet_short.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "closet_tall",
+        "name":  "Closet Tall",
+        "category":  "Storage",
+        "subcategory":  "closet",
+        "modelPath":  "./assets/models/closet_tall.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "console_low",
+        "name":  "Console Low",
+        "category":  "Storage",
+        "subcategory":  "console",
+        "modelPath":  "./assets/models/console_low.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "quiet-luxury",
+        "collections":  "Quiet Luxury",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "curtains",
+        "name":  "Curtains",
+        "category":  "Openings",
+        "subcategory":  "curtains",
+        "modelPath":  "./assets/models/curtains.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "soft-romantic",
+        "collections":  "Soft Romantic",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "desk",
+        "name":  "Desk",
+        "category":  "Tables",
+        "subcategory":  "desk",
+        "modelPath":  "./assets/models/desk.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "tailored",
+        "collections":  "Tailored Calm",
+        "recommendedRoomTypes":  [
+                                     "office",
+                                     "living_room"
+                                 ]
+    },
+    {
+        "id":  "dining_table",
+        "name":  "Dining Table",
+        "category":  "Tables",
+        "subcategory":  "dining",
+        "modelPath":  "./assets/models/dining_table.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  [
+                                     "dining_room",
+                                     "living_room"
+                                 ]
+    },
+    {
+        "id":  "door_single",
+        "name":  "Door Single",
+        "category":  "Openings",
+        "subcategory":  "door",
+        "modelPath":  "./assets/models/door_single.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "dresser",
+        "name":  "Dresser",
+        "category":  "Storage",
+        "subcategory":  "dresser",
+        "modelPath":  "./assets/models/dresser.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "soft-romantic",
+        "collections":  "Soft Romantic",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "dresser_tall",
+        "name":  "Dresser Tall",
+        "category":  "Storage",
+        "subcategory":  "dresser",
+        "modelPath":  "./assets/models/dresser_tall.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "soft-romantic",
+        "collections":  "Soft Romantic",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "fireplace",
+        "name":  "Fireplace",
+        "category":  "Storage",
+        "subcategory":  "fireplace",
+        "modelPath":  "./assets/models/fireplace.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "lamp_ceiling",
+        "name":  "Lamp Ceiling",
+        "category":  "Lighting",
+        "subcategory":  "lamp",
+        "modelPath":  "./assets/models/lamp_ceiling.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "warm-modern",
+        "collections":  "Warm Modern",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "lamp_chandelier",
+        "name":  "Lamp Chandelier",
+        "category":  "Lighting",
+        "subcategory":  "lamp",
+        "modelPath":  "./assets/models/lamp_chandelier.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "quiet-luxury",
+        "collections":  "Quiet Luxury",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "lamp_cube",
+        "name":  "Lamp Cube",
+        "category":  "Lighting",
+        "subcategory":  "lamp",
+        "modelPath":  "./assets/models/lamp_cube.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "warm-modern",
+        "collections":  "Warm Modern",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "lamp_floor",
+        "name":  "Lamp Floor",
+        "category":  "Lighting",
+        "subcategory":  "lamp",
+        "modelPath":  "./assets/models/lamp_floor.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "lamp_pendant",
+        "name":  "Lamp Pendant",
+        "category":  "Lighting",
+        "subcategory":  "lamp",
+        "modelPath":  "./assets/models/lamp_pendant.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "lamp_stand",
+        "name":  "Lamp Stand",
+        "category":  "Lighting",
+        "subcategory":  "lamp",
+        "modelPath":  "./assets/models/lamp_stand.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "lamp_table",
+        "name":  "Lamp Table",
+        "category":  "Lighting",
+        "subcategory":  "lamp",
+        "modelPath":  "./assets/models/lamp_table.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "soft-romantic",
+        "collections":  "Soft Romantic",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "lamp_wall",
+        "name":  "Lamp Wall",
+        "category":  "Lighting",
+        "subcategory":  "lamp",
+        "modelPath":  "./assets/models/lamp_wall.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "mirror",
+        "name":  "Mirror",
+        "category":  "Wall Decor",
+        "subcategory":  "mirror",
+        "modelPath":  "./assets/models/mirror.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "quiet-luxury",
+        "collections":  "Quiet Luxury",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "nightstand",
+        "name":  "Nightstand",
+        "category":  "Storage",
+        "subcategory":  "nightstand",
+        "modelPath":  "./assets/models/nightstand.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "nightstand_alt",
+        "name":  "Nightstand Alt",
+        "category":  "Storage",
+        "subcategory":  "nightstand",
+        "modelPath":  "./assets/models/nightstand_alt.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "quiet-luxury",
+        "collections":  "Quiet Luxury",
+        "recommendedRoomTypes":  "bedroom"
+    },
+    {
+        "id":  "plant_cactus",
+        "name":  "Plant Cactus",
+        "category":  "Decor",
+        "subcategory":  "plant",
+        "modelPath":  "./assets/models/plant_cactus.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "plant_floor",
+        "name":  "Plant Floor",
+        "category":  "Decor",
+        "subcategory":  "plant",
+        "modelPath":  "./assets/models/plant_floor.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "plant_leafy",
+        "name":  "Plant Leafy",
+        "category":  "Decor",
+        "subcategory":  "plant",
+        "modelPath":  "./assets/models/plant_leafy.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "plant_palm",
+        "name":  "Plant Palm",
+        "category":  "Decor",
+        "subcategory":  "plant",
+        "modelPath":  "./assets/models/plant_palm.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "plant_round",
+        "name":  "Plant Round",
+        "category":  "Decor",
+        "subcategory":  "plant",
+        "modelPath":  "./assets/models/plant_round.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "plant_small",
+        "name":  "Plant Small",
+        "category":  "Decor",
+        "subcategory":  "plant",
+        "modelPath":  "./assets/models/plant_small.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "rug",
+        "name":  "Rug",
+        "category":  "Rugs",
+        "subcategory":  "rug",
+        "modelPath":  "./assets/models/rug.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "rug_round",
+        "name":  "Rug Round",
+        "category":  "Rugs",
+        "subcategory":  "rug",
+        "modelPath":  "./assets/models/rug_round.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  [
+                     "cozy",
+                     "soft-romantic"
+                 ],
+        "collections":  [
+                            "Cozy Rose",
+                            "Soft Romantic"
+                        ],
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "runner_rug",
+        "name":  "Runner Rug",
+        "category":  "Rugs",
+        "subcategory":  "runner",
+        "modelPath":  "./assets/models/runner_rug.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "shelf_small",
+        "name":  "Shelf Small",
+        "category":  "Decor",
+        "subcategory":  "shelf",
+        "modelPath":  "./assets/models/shelf_small.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "shelving",
+        "name":  "Shelving",
+        "category":  "Storage",
+        "subcategory":  "shelving",
+        "modelPath":  "./assets/models/shelving.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "sofa",
+        "name":  "Sofa",
+        "category":  "Seating",
+        "subcategory":  "sofa",
+        "modelPath":  "./assets/models/sofa.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "sofa_compact",
+        "name":  "Sofa Compact",
+        "category":  "Seating",
+        "subcategory":  "sofa",
+        "modelPath":  "./assets/models/sofa_compact.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "sofa_grand",
+        "name":  "Sofa Grand",
+        "category":  "Seating",
+        "subcategory":  "sofa",
+        "modelPath":  "./assets/models/sofa_grand.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "sofa_l",
+        "name":  "Sofa L",
+        "category":  "Seating",
+        "subcategory":  "sofa",
+        "modelPath":  "./assets/models/sofa_l.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "sofa_large",
+        "name":  "Sofa Large",
+        "category":  "Seating",
+        "subcategory":  "sofa",
+        "modelPath":  "./assets/models/sofa_large.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "sofa_medium",
+        "name":  "Sofa Medium",
+        "category":  "Seating",
+        "subcategory":  "sofa",
+        "modelPath":  "./assets/models/sofa_medium.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "sofa_modern",
+        "name":  "Sofa Modern",
+        "category":  "Seating",
+        "subcategory":  "sofa",
+        "modelPath":  "./assets/models/sofa_modern.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  [
+                     "cozy",
+                     "warm-modern"
+                 ],
+        "collections":  [
+                            "Cozy Rose",
+                            "Warm Modern"
+                        ],
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "sofa_small",
+        "name":  "Sofa Small",
+        "category":  "Seating",
+        "subcategory":  "sofa",
+        "modelPath":  "./assets/models/sofa_small.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "cozy",
+        "collections":  "Cozy Rose",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "stool",
+        "name":  "Stool",
+        "category":  "Seating",
+        "subcategory":  "stool",
+        "modelPath":  "./assets/models/stool.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  [
+                                     "dining_room",
+                                     "living_room"
+                                 ]
+    },
+    {
+        "id":  "table_coffee",
+        "name":  "Table Coffee",
+        "category":  "Tables",
+        "subcategory":  "table",
+        "modelPath":  "./assets/models/table_coffee.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "table_round_large",
+        "name":  "Table Round Large",
+        "category":  "Tables",
+        "subcategory":  "table",
+        "modelPath":  "./assets/models/table_round_large.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "table_round_small",
+        "name":  "Table Round Small",
+        "category":  "Tables",
+        "subcategory":  "table",
+        "modelPath":  "./assets/models/table_round_small.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "warm-modern",
+        "collections":  "Warm Modern",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "tv_console",
+        "name":  "Tv Console",
+        "category":  "Storage",
+        "subcategory":  "tv",
+        "modelPath":  "./assets/models/tv_console.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "quiet-luxury",
+        "collections":  "Quiet Luxury",
+        "recommendedRoomTypes":  "living_room"
+    },
+    {
+        "id":  "wall_art_01",
+        "name":  "Wall Art 01",
+        "category":  "Wall Decor",
+        "subcategory":  "wall",
+        "modelPath":  "./assets/models/wall_art_01.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "quiet-luxury",
+        "collections":  "Quiet Luxury",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "wall_art_04",
+        "name":  "Wall Art 04",
+        "category":  "Wall Decor",
+        "subcategory":  "wall",
+        "modelPath":  "./assets/models/wall_art_04.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "quiet-luxury",
+        "collections":  "Quiet Luxury",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "wall_art_06",
+        "name":  "Wall Art 06",
+        "category":  "Wall Decor",
+        "subcategory":  "wall",
+        "modelPath":  "./assets/models/wall_art_06.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "quiet-luxury",
+        "collections":  "Quiet Luxury",
+        "recommendedRoomTypes":  [
+                                     "living_room",
+                                     "bedroom",
+                                     "dining_room"
+                                 ]
+    },
+    {
+        "id":  "window_large",
+        "name":  "Window Large",
+        "category":  "Openings",
+        "subcategory":  "window",
+        "modelPath":  "./assets/models/window_large.glb",
+        "thumbnailPath":  null,
+        "defaultScale":  1,
+        "tags":  "versatile",
+        "collections":  "Everyday Staples",
+        "recommendedRoomTypes":  "living_room"
+    }
+]
