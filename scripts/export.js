@@ -58,7 +58,7 @@ function exportComparisonSheet(){
   c.fillText(curRoom.name||'Room Comparison',120,110);
   c.font='500 24px Outfit, sans-serif';
   c.fillStyle='#7B6B5E';
-  c.fillText('As-Is vs redesign plan sheet',120,152);
+  c.fillText('Before / after room story board',120,152);
   const drawCard=(img,title,x)=>{
     c.fillStyle='rgba(255,252,248,.96)';
     c.strokeStyle='rgba(123,107,94,.12)';
@@ -77,8 +77,8 @@ function exportComparisonSheet(){
   const finalize=()=>{
     loaded++;
     if(loaded<2)return;
-    drawCard(beforeImg,'As-Is',120);
-    drawCard(afterImg,'Redesign',1260);
+    drawCard(beforeImg,'Existing Room',120);
+    drawCard(afterImg,'Redesign Direction',1260);
     const a=document.createElement('a');
     a.href=out.toDataURL('image/png');
     a.download=`${(curRoom.name||'room').replace(/[^a-z0-9]/gi,'_')}_comparison_sheet.png`;
@@ -118,7 +118,7 @@ function exportDesignSummary(){
     c.fillText(curRoom.name||'Room Summary',margin,92);
     c.font='500 22px Outfit, sans-serif';
     c.fillStyle='#7B6B5E';
-    c.fillText('Option summary sheet',margin,130);
+  c.fillText('Design direction summary',margin,130);
     entries.forEach(({room,img},index)=>{
       const y=180+index*cardH;
       c.fillStyle='rgba(255,252,248,.96)';
@@ -130,7 +130,7 @@ function exportDesignSummary(){
       c.stroke();
       c.fillStyle='#4C3F34';
       c.font='700 30px Outfit, sans-serif';
-      c.fillText(room.optionName||'Main',margin+36,y+46);
+      c.fillText(room.optionName||'Main Direction',margin+36,y+46);
       const stats=collectRoomPlanStats(room);
       c.font='500 18px Outfit, sans-serif';
       c.fillStyle='#7B6B5E';
@@ -138,7 +138,7 @@ function exportDesignSummary(){
       if(img)c.drawImage(img,margin+36,y+104,420,220);
       c.fillStyle='#4C3F34';
       c.font='600 18px Outfit, sans-serif';
-      c.fillText('Notes',margin+500,y+128);
+      c.fillText('Story Notes',margin+500,y+128);
       c.font='500 18px Outfit, sans-serif';
       c.fillStyle='#6A5A4F';
       const notes=(room.optionNotes||'No notes yet.').slice(0,360);
@@ -241,16 +241,16 @@ async function exportPresentationPDF(){
   doc.setFont('helvetica','normal');
   doc.setFontSize(14);
   doc.setTextColor(muted);
-  doc.text('Client-ready redesign presentation',margin+34,112);
+  doc.text('Presentation deck for review and reveal',margin+34,112);
   doc.text(created,pageW-margin-10,88,{align:'right'});
   roundedCard(margin+28,136,370,354,'#F8EFE7');
   doc.setFont('helvetica','bold');
   doc.setFontSize(14);
   doc.setTextColor(ink);
-  doc.text('Project Overview',margin+48,170);
+  doc.text('Room Story',margin+48,170);
   doc.setFont('helvetica','normal');
   doc.setFontSize(12);
-  writeWrapped(`This presentation bundles the current room plan, redesign options, notes, and side-by-side comparisons for review.`,margin+48,196,322,18,5);
+  writeWrapped(`This deck bundles the current room, redesign directions, notes, and comparison views into a clean presentation sequence.`,margin+48,196,322,18,5);
   const hero=renderRoomModeToDataURL(curRoom,'combined',1600,1000,{legend:true,measurements:true});
   roundedCard(420,136,pageW-456,354);
   addContainImage(hero,420,136,pageW-456,354,16);
@@ -308,15 +308,15 @@ async function exportPresentationPDF(){
     doc.setFont('helvetica','bold');
     doc.setFontSize(13);
     doc.setTextColor(ink);
-    doc.text('Design Notes',margin+34,152);
+    doc.text('Story Notes',margin+34,152);
     doc.setFont('helvetica','normal');
     doc.setFontSize(11);
     writeWrapped((entry.room.optionNotes||'No notes yet for this option.').trim()||'No notes yet for this option.',margin+34,176,188,16,16);
     const slotX=254,slotY=126,slotW=pageW-slotX-margin-18,slotH=116,gap=12;
     [
-      {title:'As-Is',img:entry.images.existing},
-      {title:'Redesign',img:entry.images.redesign},
-      {title:'Combined',img:entry.images.combined}
+      {title:'Existing Room',img:entry.images.existing},
+      {title:'Redesign Direction',img:entry.images.redesign},
+      {title:'Layered View',img:entry.images.combined}
     ].forEach((panel,panelIndex)=>{
       const y=slotY+panelIndex*(slotH+gap);
       roundedCard(slotX,y,slotW,slotH);
@@ -336,11 +336,11 @@ async function exportPresentationPDF(){
     doc.setFont('times','bold');
     doc.setFontSize(24);
     doc.setTextColor(ink);
-    doc.text('Option Comparison',margin,70);
+    doc.text('Direction Comparison',margin,70);
     doc.setFont('helvetica','normal');
     doc.setFontSize(11);
     doc.setTextColor(muted);
-    doc.text('Compare alternate redesign directions at a glance.',margin,90);
+    doc.text('Compare alternate redesign directions at a glance, with notes and plan views lined up for quick decisions.',margin,90);
     const chunk=optionEntries.slice(start,start+2);
     chunk.forEach((entry,idx)=>{
       const x=margin+idx*((pageW-margin*2-20)/2+20);
@@ -358,7 +358,7 @@ async function exportPresentationPDF(){
       doc.setFont('helvetica','bold');
       doc.setFontSize(11);
       doc.setTextColor(ink);
-      doc.text('Notes',x+18,382);
+      doc.text('Story Notes',x+18,382);
       doc.setFont('helvetica','normal');
       doc.setFontSize(10);
       writeWrapped((entry.room.optionNotes||'No notes yet.').trim()||'No notes yet.',x+18,400,cardW-36,14,6);

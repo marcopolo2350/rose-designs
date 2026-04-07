@@ -17,6 +17,7 @@ It includes:
 - photo-focused 3D captures with `Photo Mode`, hero framing presets, and higher-quality PNG output
 - richer lighting control with `Lighting Mood` plus a `Light Character` slider for daylight-to-evening scene shaping
 - polished local walkthrough presets: `Dollhouse`, `Stroll`, `Corner Reveal`, `Before / After Flythrough`, and `Romantic Reveal`
+- a cleaner `Reveal Mode` for hero framing, room-story presentation, and cover-style captures
 - furniture placement with multi-select, copy/paste, snap-to-grid, and material variants
 - premium catalog browsing with stronger category taxonomy, collection filters, favorites, recents, and real generated product thumbnails
 - existing-room redesign planning with `keep / move / replace / remove`
@@ -107,6 +108,7 @@ This uses `scripts/thumbgen.html` as a consistent local render stage and writes 
 - smoother 3D camera behavior with double-click focus and walkthrough presets
 - photo mode with capture-oriented camera presets and cleaner presentation framing
 - more cinematic 3D lighting with ACES tone mapping, better shadowing, and a daylight-to-evening light character control
+- reveal mode with stronger hero framing, before/after sequencing, and presentation-first microcopy
 
 ## Reference Overlay Workflow
 

@@ -34,7 +34,7 @@ function doRedo(){
   scheduleRebuild3D();
   persistRoomHistory();
 }
-let cameraScript=null,walkthroughTrayOpen=false,photoMode=false,photoTrayOpen=false,contactShadowTexture=null;
+let cameraScript=null,walkthroughTrayOpen=false,photoMode=false,photoTrayOpen=false,contactShadowTexture=null,presentationShot='hero';
 
 // ═══════════════════════════════════
 // 3D — IMMERSIVE WALKTHROUGH
@@ -56,14 +56,100 @@ function toggle3D(){
 
 function exit3DView(){stop3D();is3D=false;camMode='orbit';presentationMode=false;compare3DMode=false;photoMode=false;photoTrayOpen=false;cameraScript=null;walkthroughTrayOpen=false;document.getElementById('scrEd').classList.remove('mode-3d','presentation','photo-mode');document.getElementById('threeC').classList.remove('on');document.getElementById('b3d').classList.remove('on');document.getElementById('vLbl').textContent='2D Plan';document.getElementById('camBtns').classList.remove('on');document.getElementById('walkHint').classList.remove('on');document.getElementById('presentPill').classList.remove('on');document.getElementById('presentPill').textContent='Presentation Mode';document.getElementById('photoPill')?.classList.remove('on');document.getElementById('cmCompare').classList.remove('act');document.getElementById('cmTour')?.classList.remove('act');document.getElementById('cmPhoto')?.classList.remove('act');updateWalkthroughTray();updatePhotoTray();resetRoomDebug();initCan();draw();showP()}
 
+function presentationShotLabel(mode){
+  return ({
+    hero:'Hero View',
+    favorite:'Favorite Corner',
+    overview:'Whole Room',
+    intimate:'Intimate View',
+    before_after:'Before / After',
+  })[mode]||'Hero View';
+}
+function roomStoryLine(room=curRoom){
+  if(!room)return 'A polished view for reviewing the current design direction.';
+  const direction=(typeof DESIGN_PRESETS!=='undefined'&&Array.isArray(DESIGN_PRESETS)?DESIGN_PRESETS.find(p=>p.id===room.designPreset)?.name:'')||'Current Direction';
+  const mood=(room.mood||'').trim();
+  const label=room.optionName||room.name||'This room';
+  if(mood)return `${label} is framed as ${mood} ${direction.toLowerCase()} living.`;
+  return `${label} is framed as ${direction.toLowerCase()} living.`;
+}
+function roomCentroidPose(room=curRoom){
+  const focus=getRoomFocus(room);
+  const centroid=(room?.furniture||[]).length
+    ? room.furniture.reduce((acc,f)=>({x:acc.x+(f.x||0),z:acc.z-(f.z||0)}),{x:0,z:0})
+    : {x:focus.x,z:-focus.y};
+  if((room?.furniture||[]).length){
+    centroid.x/=room.furniture.length;
+    centroid.z/=room.furniture.length;
+  }
+  return centroid;
+}
+function overviewRoomPose(room=curRoom){
+  const focus=getRoomFocus(room);
+  return {yaw:Math.PI*.16,pitch:.8,dist:Math.max(18,Math.min(42,Math.max(focus.width,focus.height,room.height)*1.95)),target:{x:focus.x,y:room.height*.47,z:-focus.y}};
+}
+function intimateRoomPose(room=curRoom){
+  const focus=getRoomFocus(room);
+  const centroid=roomCentroidPose(room);
+  return {yaw:Math.PI*.56,pitch:.24,dist:Math.max(8.2,Math.min(16,Math.max(focus.width,focus.height)*.88)),target:{x:centroid.x,y:room.height*.34,z:centroid.z}};
+}
+function heroRoomPose(room=curRoom){
+  const favorite=favoriteCornerPose(room);
+  const focus=getRoomFocus(room);
+  return {
+    yaw:favorite.yaw,
+    pitch:.42,
+    dist:Math.max(12.5,Math.min(26,favorite.dist*1.18)),
+    target:{
+      x:(favorite.target.x+focus.x)/2,
+      y:room.height*.4,
+      z:(favorite.target.z+(-focus.y))/2
+    }
+  };
+}
+function refreshPresentationPill(){
+  const pill=document.getElementById('presentPill');
+  if(!pill)return;
+  const compareLabel=compare3DMode&&curRoom?`${PLAN_VIEW_MODES[currentPlanViewMode(curRoom)]||'Combined'} View`:'';
+  let text='Presentation Mode';
+  if(presentationMode)text=`Reveal Mode - ${presentationShotLabel(presentationShot)}`;
+  else if(compare3DMode)text=compareLabel;
+  pill.textContent=text;
+  pill.classList.toggle('on',presentationMode||compare3DMode);
+}
+function updatePresentationTray(){
+  const existing=document.getElementById('presentTray');
+  if(!is3D||!presentationMode||photoMode){if(existing)existing.remove();return;}
+  const stats=collectRoomPlanStats(curRoom);
+  const shots=[
+    ['hero','Hero View','Balanced framing for a polished first impression.'],
+    ['favorite','Favorite Corner','Leans into the room\'s strongest composed angle.'],
+    ['overview','Whole Room','Pulls back for a calm, readable room overview.'],
+    ['intimate','Intimate View','Moves closer for warmer, more editorial storytelling.'],
+    ['before_after','Before / After','Stages the existing, redesign, and combined story in sequence.'],
+  ];
+  const markup=`<div class="present-tray" id="presentTray"><div class="present-panel"><div class="present-head"><div><div class="present-title">Reveal Mode</div><div class="present-copy">${roomStoryLine(curRoom)}</div></div><button class="mini-chip secondary" type="button" onclick="togglePresentationMode()">Exit</button></div><div class="present-story"><span class="present-story-label">${curRoom.optionName||curRoom.name||'Room Story'}</span><span class="present-story-meta">Keep ${stats.keep} | Move ${stats.move} | Replace ${stats.replace} | Remove ${stats.remove}</span></div><div class="present-grid">${shots.map(([id,label,copy])=>`<button class="present-shot${presentationShot===id?' active':''}" type="button" onclick="setPresentationShot('${id}')"><span class="present-shot-title">${label}</span><span class="present-shot-copy">${copy}</span></button>`).join('')}</div><div class="present-actions"><button class="mini-chip" type="button" onclick="capturePresentationStill()">Capture Cover</button><button class="mini-chip secondary" type="button" onclick="toggle3DCompareMode()">Cycle Compare View</button><button class="mini-chip secondary" type="button" onclick="togglePhotoMode(true)">Open Photo Mode</button></div></div></div>`;
+  if(existing)existing.outerHTML=markup; else document.getElementById('cWrap').insertAdjacentHTML('beforeend',markup);
+  refreshPresentationPill();
+}
+
 function togglePresentationMode(){
   if(!is3D)return;
   if(photoMode)togglePhotoMode(false);
   presentationMode=!presentationMode;
   document.getElementById('scrEd').classList.toggle('presentation',presentationMode);
-  document.getElementById('presentPill').classList.toggle('on',presentationMode);
   document.getElementById('cmPresent').classList.toggle('act',presentationMode);
-  if(presentationMode)setViewPreset('corner');
+  if(presentationMode){
+    walkthroughTrayOpen=false;
+    document.getElementById('cmTour')?.classList.remove('act');
+    presentationShot='hero';
+    compare3DMode=false;
+    curRoom.planViewMode='combined';
+    document.getElementById('cmCompare')?.classList.remove('act');
+    setPresentationShot('hero');
+  }else cameraScript=null;
+  refreshPresentationPill();
+  updatePresentationTray();
 }
 function setViewPreset(mode){
   if(!is3D||!curRoom)return;
@@ -71,12 +157,23 @@ function setViewPreset(mode){
   camMode='orbit';
   document.getElementById('cmOrbit').classList.add('act');
   document.getElementById('cmWalk').classList.remove('act');
+  if(mode==='hero'){
+    const pose=heroRoomPose(curRoom);
+    cYaw=pose.yaw;cPitch=pose.pitch;cDist=pose.dist;orbitTarget={...pose.target};
+    return;
+  }
   if(mode==='overview'){
-    cYaw=Math.PI*.18;cPitch=.72;cDist=Math.max(14,Math.min(44,Math.max(focus.width,focus.height,curRoom.height)*1.95));
+    const pose=overviewRoomPose(curRoom);
+    cYaw=pose.yaw;cPitch=pose.pitch;cDist=pose.dist;orbitTarget={...pose.target};
+    return;
   }else if(mode==='corner'){
-    cYaw=Math.PI*.65;cPitch=.34;cDist=Math.max(12,Math.min(36,Math.max(focus.width,focus.height)*1.45));
+    const pose=favoriteCornerPose(curRoom);
+    cYaw=pose.yaw;cPitch=pose.pitch;cDist=Math.max(12,Math.min(30,pose.dist*1.02));orbitTarget={...pose.target};
+    return;
   }else if(mode==='eye'){
-    cYaw=Math.PI*.1;cPitch=.22;cDist=Math.max(10,Math.min(26,Math.max(focus.width,focus.height)*1.18));
+    const pose=intimateRoomPose(curRoom);
+    cYaw=pose.yaw;cPitch=Math.max(.18,pose.pitch-.02);cDist=Math.max(9.5,Math.min(20,pose.dist*1.05));orbitTarget={x:focus.x,y:curRoom.height*.34,z:-focus.y};
+    return;
   }
   orbitTarget={x:focus.x,y:curRoom.height*.42,z:-focus.y};
 }
@@ -97,13 +194,14 @@ function focusFurniture3D(itemOrId){
 function toggleWalkthroughTray(){
   if(!is3D)return;
   if(photoMode)togglePhotoMode(false);
+  if(presentationMode)togglePresentationMode();
   walkthroughTrayOpen=!walkthroughTrayOpen;
   document.getElementById('cmTour')?.classList.toggle('act',walkthroughTrayOpen);
   updateWalkthroughTray();
 }
 function updateWalkthroughTray(){
   const existing=document.getElementById('tourTray');
-  if(!is3D||!walkthroughTrayOpen||photoMode){if(existing)existing.remove();return;}
+  if(!is3D||!walkthroughTrayOpen||photoMode||presentationMode){if(existing)existing.remove();return;}
   const isTouch=(navigator.maxTouchPoints||0)>0||window.innerWidth<=760;
   const presets=[
     ['favorite_corner','Favorite Corner','Finds the room’s best-composed angle.'],
@@ -210,6 +308,8 @@ function setCompareModeForTour(mode){
   compare3DMode=mode!=='combined';
   const btn=document.getElementById('cmCompare');
   if(btn)btn.classList.toggle('act',compare3DMode);
+  refreshPresentationPill();
+  updatePresentationTray();
   scheduleRebuild3D(30);
 }
 function findTourWalkPoint(index,total){
@@ -572,7 +672,8 @@ function buildFloorTexture(color,type){
   const preset=FLOOR_TYPES.find(f=>f.id===type)||FLOOR_TYPES[0];
   const can=document.createElement('canvas');can.width=768;can.height=768;const c=can.getContext('2d');
   const base=safeThreeColor(color,preset.color),accent=safeThreeColor(preset.accent,preset.color);
-  const checkerMate=base.clone().lerp(base.clone().getHSL({h:0,s:0,l:0}).l>.52?safeThreeColor('#231D1A','#231D1A'):safeThreeColor('#FBF4EA','#FBF4EA'),.78);
+  const _baseHSL={h:0,s:0,l:0};base.getHSL(_baseHSL);
+  const checkerMate=base.clone().lerp(_baseHSL.l>.52?safeThreeColor('#231D1A','#231D1A'):safeThreeColor('#FBF4EA','#FBF4EA'),.78);
   c.fillStyle='#'+base.getHexString();c.fillRect(0,0,768,768);
   if(preset.family==='wood'){
     const plankH=88,jointW=4;
@@ -1347,6 +1448,7 @@ function stop3D(){
 const wc2=document.getElementById('walkCtrl');if(wc2)wc2.remove();stopWalkMove();stopWalkTurn();
   document.getElementById('photoTray')?.remove();
   document.getElementById('tourTray')?.remove();
+  document.getElementById('presentTray')?.remove();
   if(scene)disposeSceneGraph(scene);
   if(ren){
     if(ren._listeners){
@@ -1365,6 +1467,201 @@ const wc2=document.getElementById('walkCtrl');if(wc2)wc2.remove();stopWalkMove()
   const cont=document.getElementById('threeC');if(cont)cont.innerHTML='';
   document.getElementById('scrEd')?.classList.remove('mode-3d');
   scene=null;cam=null}
+
+// Presentation / reveal polish overrides
+exit3DView=function(){
+  stop3D();
+  is3D=false;camMode='orbit';presentationMode=false;compare3DMode=false;photoMode=false;photoTrayOpen=false;cameraScript=null;walkthroughTrayOpen=false;
+  document.getElementById('scrEd').classList.remove('mode-3d','presentation','photo-mode');
+  document.getElementById('threeC').classList.remove('on');
+  document.getElementById('b3d').classList.remove('on');
+  document.getElementById('vLbl').textContent='2D Plan';
+  document.getElementById('camBtns').classList.remove('on');
+  document.getElementById('walkHint').classList.remove('on');
+  document.getElementById('presentPill').classList.remove('on');
+  document.getElementById('presentPill').textContent='Presentation Mode';
+  document.getElementById('photoPill')?.classList.remove('on');
+  document.getElementById('cmCompare').classList.remove('act');
+  document.getElementById('cmTour')?.classList.remove('act');
+  document.getElementById('cmPhoto')?.classList.remove('act');
+  document.getElementById('presentTray')?.remove();
+  updateWalkthroughTray();
+  updatePhotoTray();
+  resetRoomDebug();
+  initCan();
+  draw();
+  showP();
+}
+toggleWalkthroughTray=function(){
+  if(!is3D)return;
+  if(photoMode)togglePhotoMode(false);
+  if(presentationMode)togglePresentationMode();
+  walkthroughTrayOpen=!walkthroughTrayOpen;
+  document.getElementById('cmTour')?.classList.toggle('act',walkthroughTrayOpen);
+  updateWalkthroughTray();
+}
+updateWalkthroughTray=function(){
+  const existing=document.getElementById('tourTray');
+  if(!is3D||!walkthroughTrayOpen||photoMode||presentationMode){if(existing)existing.remove();return;}
+  const isTouch=(navigator.maxTouchPoints||0)>0||window.innerWidth<=760;
+  const presets=[
+    ['favorite_corner','Favorite Corner','Finds the room\'s best-composed angle.'],
+    ['dollhouse','Dollhouse','Pulls back for the whole-room silhouette.'],
+    ['stroll','Stroll','Walks the room at eye level with a calmer pace.'],
+    ['corner_reveal','Corner Reveal','Starts wide, then settles into the strongest corner.'],
+    ['before_after','Before / After','Stages existing, redesign, and combined in sequence.'],
+    ['romantic_reveal','Romantic Reveal','A soft, slower sweep for the final presentation feel.'],
+  ];
+  const markup='<div class="tour-tray'+(isTouch?' touch':'')+'" id="tourTray"><div class="tour-panel'+(isTouch?' touch':'')+'"><div class="tour-head"><div><div class="tour-title">Walkthrough Moves</div><div class="tour-copy">'+(isTouch?'Choose a move, then keep your thumb near the bottom edge while the room glides into place.':'Choose a guided move for a cleaner, more cinematic room reveal.')+'</div></div><button class="mini-chip secondary" type="button" onclick="toggleWalkthroughTray()">Close</button></div><div class="tour-grid'+(isTouch?' touch':'')+'">'+presets.map(([id,label,copy])=>'<button class="tour-preset'+(isTouch?' touch':'')+'" type="button" onclick="startWalkthroughPreset(\''+id+'\')"><span class="tour-preset-title">'+label+'</span><span class="tour-preset-copy">'+copy+'</span></button>').join('')+'</div></div></div>';
+  if(existing)existing.outerHTML=markup; else document.getElementById('cWrap').insertAdjacentHTML('beforeend',markup);
+}
+togglePhotoMode=function(force){
+  if(!is3D)return;
+  const next=typeof force==='boolean'?force:!photoMode;
+  photoMode=next;
+  if(photoMode){
+    presentationMode=false;
+    walkthroughTrayOpen=false;
+    photoTrayOpen=true;
+    document.getElementById('scrEd').classList.remove('presentation');
+    document.getElementById('cmPresent').classList.remove('act');
+    document.getElementById('cmTour')?.classList.remove('act');
+    setPhotoPreset('hero');
+  }else{
+    photoTrayOpen=false;
+  }
+  document.getElementById('scrEd').classList.toggle('photo-mode',photoMode);
+  document.getElementById('photoPill')?.classList.toggle('on',photoMode);
+  document.getElementById('cmPhoto')?.classList.toggle('act',photoMode);
+  updateWalkthroughTray();
+  updatePhotoTray();
+  updatePresentationTray();
+  refreshPresentationPill();
+  applyRoomStyleToScene?.();
+}
+updatePhotoTray=function(){
+  const existing=document.getElementById('photoTray');
+  if(!is3D||!photoMode||!photoTrayOpen){if(existing)existing.remove();return;}
+  const presets=[
+    ['hero','Hero Shot','Balanced hero angle for clean presentation images.'],
+    ['favorite','Favorite Corner','Frames the room from its best-composed corner.'],
+    ['intimate','Intimate','Moves in closer for softer, warmer storytelling.'],
+    ['overhead','Overhead','Pulls up for a styled layout overview.']
+  ];
+  const markup=`<div class="photo-tray" id="photoTray"><div class="photo-panel"><div class="photo-head"><div><div class="photo-title">Photo Mode</div><div class="photo-copy">Minimal chrome, styled camera presets, and cleaner capture framing for presentation-ready stills.</div></div><button class="mini-chip secondary" type="button" onclick="togglePhotoMode(false)">Exit</button></div><div class="photo-grid">${presets.map(([id,label,copy])=>`<button class="photo-preset" type="button" onclick="setPhotoPreset('${id}')"><span class="photo-preset-title">${label}</span><span class="photo-preset-copy">${copy}</span></button>`).join('')}</div><div class="photo-actions"><button class="mini-chip" type="button" onclick="capturePhotoMode()">Capture PNG</button><button class="mini-chip secondary" type="button" onclick="setViewPreset('hero')">Reset to Hero</button></div></div></div>`;
+  if(existing)existing.outerHTML=markup; else document.getElementById('cWrap').insertAdjacentHTML('beforeend',markup);
+}
+setPhotoPreset=function(mode){
+  if(!is3D||!curRoom)return;
+  const focus=getRoomFocus(curRoom);
+  const current={yaw:cYaw,pitch:cPitch,dist:cDist,target:{...(orbitTarget||{x:focus.x,y:curRoom.height*.42,z:-focus.y})}};
+  const poses={
+    hero:heroRoomPose(curRoom),
+    favorite:favoriteCornerPose(curRoom),
+    intimate:intimateRoomPose(curRoom),
+    overhead:{yaw:Math.PI*.12,pitch:.86,dist:Math.max(16,Math.min(30,Math.max(focus.width,focus.height,curRoom.height)*1.32)),target:{x:focus.x,y:curRoom.height*.46,z:-focus.y}}
+  };
+  const next=poses[mode]||poses.hero;
+  playCameraSequence([{duration:1100,apply:t=>applyCameraTween(current,next,t)}]);
+}
+function capturePresentationStill(){
+  if(!is3D||!ren||!cam)return null;
+  const size=ren.getSize(new THREE.Vector2());
+  const prevRatio=ren.getPixelRatio();
+  const targetRatio=Math.min(2.3*Math.max(1,window.devicePixelRatio||1),3);
+  ren.setPixelRatio(targetRatio);
+  ren.setSize(size.x,size.y,false);
+  ren.render(scene,cam);
+  const dataUrl=ren.domElement.toDataURL('image/png');
+  ren.setPixelRatio(prevRatio);
+  ren.setSize(size.x,size.y,false);
+  ren.render(scene,cam);
+  const a=document.createElement('a');
+  a.href=dataUrl;
+  a.download=`${(curRoom?.name||'room').replace(/[^a-z0-9]/gi,'_')}_reveal_cover.png`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  toast('Reveal cover exported');
+  return dataUrl;
+}
+favoriteCornerPose=function(room){
+  const focus=getRoomFocus(room);
+  const centroid=(room.furniture||[]).length
+    ? room.furniture.reduce((acc,f)=>({x:acc.x+(f.x||0),z:acc.z-(f.z||0)}),{x:0,z:0})
+    : {x:focus.x,z:-focus.y};
+  if((room.furniture||[]).length){
+    centroid.x/=(room.furniture||[]).length;
+    centroid.z/=(room.furniture||[]).length;
+  }
+  const b=getRoomBounds2D(room);
+  const corners=[
+    {x:b.x0-.8,z:-b.y0+.8},
+    {x:b.x1+.8,z:-b.y0+.8},
+    {x:b.x1+.8,z:-b.y1-.8},
+    {x:b.x0-.8,z:-b.y1-.8},
+  ];
+  let best=null;
+  corners.forEach(corner=>{
+    const dx=centroid.x-corner.x,dz=centroid.z-corner.z;
+    const dist=Math.hypot(dx,dz);
+    const score=dist+(Math.abs(dx)+Math.abs(dz))*.2;
+    if(!best||score>best.score)best={corner,score,dist,dx,dz};
+  });
+  const yaw=Math.atan2(best.dx,-best.dz);
+  const dist=Math.max(9.6,Math.min(22,Math.max(focus.width,focus.height)*1.06));
+  return {yaw,pitch:.3,dist,target:{x:centroid.x,y:room.height*.37,z:centroid.z}};
+}
+function setPresentationShot(mode){
+  if(!is3D||!curRoom)return;
+  presentationShot=mode;
+  refreshPresentationPill();
+  updatePresentationTray();
+  if(mode==='before_after'){
+    startWalkthroughPreset('before_after');
+    return;
+  }
+  const focus=getRoomFocus(curRoom);
+  const current={yaw:cYaw,pitch:cPitch,dist:cDist,target:{...(orbitTarget||{x:focus.x,y:curRoom.height*.42,z:-focus.y})}};
+  const poses={
+    hero:heroRoomPose(curRoom),
+    favorite:favoriteCornerPose(curRoom),
+    overview:overviewRoomPose(curRoom),
+    intimate:intimateRoomPose(curRoom),
+  };
+  const next=poses[mode]||poses.hero;
+  playCameraSequence([{duration:1350,apply:t=>applyCameraTween(current,next,t)}]);
+}
+startWalkthroughPreset=function(id){
+  if(!is3D||!curRoom)return;
+  walkthroughTrayOpen=false;updateWalkthroughTray();
+  const focus=getRoomFocus(curRoom);
+  const current={yaw:cYaw,pitch:cPitch,dist:cDist,target:{...(orbitTarget||{x:focus.x,y:curRoom.height*.42,z:-focus.y})}};
+  const overview=overviewRoomPose(curRoom);
+  const corner=favoriteCornerPose(curRoom);
+  const romantic={yaw:Math.PI*.52,pitch:.28,dist:Math.max(10,Math.min(24,Math.max(focus.width,focus.height)*1.1)),target:{x:focus.x,y:curRoom.height*.36,z:-focus.y}};
+  const favorite=favoriteCornerPose(curRoom);
+  if(id==='favorite_corner')playCameraSequence([{duration:1800,apply:t=>applyCameraTween(current,favorite,t)}]);
+  else if(id==='dollhouse')playCameraSequence([{duration:2200,apply:t=>applyCameraTween(current,overview,t)}]);
+  else if(id==='corner_reveal')playCameraSequence([{duration:1500,apply:t=>applyCameraTween(current,overview,t)},{duration:2200,apply:t=>applyCameraTween(overview,corner,t)}]);
+  else if(id==='romantic_reveal'){presentationMode=true;presentationShot='hero';document.getElementById('scrEd').classList.add('presentation');playCameraSequence([{duration:1600,apply:t=>applyCameraTween(current,corner,t)},{duration:2400,apply:t=>applyCameraTween(corner,romantic,t)}]);}
+  else if(id==='before_after'){presentationShot='before_after';playCameraSequence([{duration:900,onStart:()=>setCompareModeForTour('existing'),apply:t=>applyCameraTween(current,corner,t)},{duration:1200,onStart:()=>setCompareModeForTour('redesign'),apply:t=>applyCameraTween(corner,{...corner,yaw:corner.yaw+.24},t)},{duration:1200,onStart:()=>setCompareModeForTour('combined'),apply:t=>applyCameraTween({...corner,yaw:corner.yaw+.24},overview,t)}]);}
+  else if(id==='stroll'){
+    const pts=[findTourWalkPoint(0,3),findTourWalkPoint(1,3),findTourWalkPoint(2,3)];
+    playCameraSequence([{duration:400,onStart:()=>setCamMode('walk'),apply:()=>{}},{duration:1800,apply:t=>applyWalkTween(fpPos,pts[0],t)},{duration:1800,apply:t=>applyWalkTween(pts[0],pts[1],t)},{duration:1800,apply:t=>applyWalkTween(pts[1],pts[2],t)},{duration:900,onStart:()=>setCamMode('orbit'),apply:()=>{}}]);
+  }
+  refreshPresentationPill();
+  updatePresentationTray();
+}
+rebuild3D=function(){
+  stop3D();
+  build3D();
+  if(typeof applyRoomStyleToScene==='function')applyRoomStyleToScene();
+  refreshPresentationPill();
+  updatePresentationTray();
+  updateWalkthroughTray();
+  updatePhotoTray();
+}
 
 // ═══════════════════════════════════════════════
 // INFINITE DISCOVERY ENGINE

@@ -693,11 +693,8 @@ function toggle3DCompareMode(){
   curRoom.planViewMode=next;
   const btn=document.getElementById('cmCompare');
   if(btn)btn.classList.toggle('act',compare3DMode);
-  const pill=document.getElementById('presentPill');
-  if(pill){
-    pill.textContent=compare3DMode?`${PLAN_VIEW_MODES[next]} 3D`:'Presentation Mode';
-    pill.classList.toggle('on',compare3DMode||presentationMode);
-  }
+  if(typeof refreshPresentationPill==='function')refreshPresentationPill();
+  if(typeof updatePresentationTray==='function')updatePresentationTray();
   draw();
   showP();
   if(is3D)scheduleRebuild3D(40);
