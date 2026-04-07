@@ -575,6 +575,7 @@ function getPendingFurniturePlacementState(room=curRoom){
   if(!room||!pendFurnPos)return null;
   const item=pendingFurniturePreviewItem();
   if(!item)return null;
+  const reg=item.assetKey?MODEL_REGISTRY[item.assetKey]:null;
   const snapped=snapFurniturePoint(pendFurnPos.x,pendFurnPos.y);
   const halfW=(item.w||2)/2;
   const halfD=(item.d||1.5)/2;
@@ -596,7 +597,9 @@ function getPendingFurniturePlacementState(room=curRoom){
     const dist=psw({x:snapped.x,y:snapped.z},wS(room,wall),wE(room,wall));
     if(!nearestWall||dist<nearestWall.distance)nearestWall={idx,distance:dist};
   });
-  return {item,snapped,corners,inside,structureBlocked,collision,valid:inside&&!structureBlocked&&!collision,reason,nearestWall};
+  const windowTarget=reg?.snapToOpening&&typeof findNearestWindowOpening==='function'?findNearestWindowOpening({x:snapped.x,y:snapped.z},room):null;
+  if(reg?.snapToOpening&&!windowTarget)reason='Place this on a window wall';
+  return {item,snapped,corners,inside,structureBlocked,collision,valid:inside&&!structureBlocked&&!collision&&(!reg?.snapToOpening||!!windowTarget),reason,nearestWall,windowTarget};
 }
 function drawPendingFurniturePlacement(room){
   if(!pendFurnPos)return;
@@ -847,13 +850,13 @@ function onD(e){const p=gP(e),wp=tW(p.x,p.y);isDrag=true;dStart=p;pendEnd=null;
         sel={type:null,idx:-1};
         const ref=roomReference(curRoom);
         referenceDragStart={x:ref.centerX,y:ref.centerY};
-        panelHidden=false;
-        showP();
+        panelHidden=true;
+        hideP();
         draw();
         return;
       }
       clearFurnitureSelection();
-      sel={type:null,idx:-1};panelHidden=false;dOrig={...vOff};showP();
+      sel={type:null,idx:-1};panelHidden=true;dOrig={...vOff};hideP();
     }
   }
   else if(tool==='draw'||tool==='vertex'){const nw=findNW(wp);if(nw!==null)addVtx(nw,wp)}

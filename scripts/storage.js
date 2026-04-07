@@ -57,9 +57,9 @@ const EXISTING_ACTIONS={
   remove:{label:'Remove',stroke:'#B56767',fill:'rgba(181,103,103,.12)'}
 };
 const PLAN_VIEW_MODES={
-  combined:'Combined',
-  existing:'As-Is',
-  redesign:'Redesign'
+  combined:'Show Both',
+  existing:'Existing Only',
+  redesign:'Concept Only'
 };
 const ASSET_FINISHES=['#F5F2EC','#D8C1A4','#B58F68','#7D624F','#595F66','#A7B79D','#CDA8A4','#3F3A36'];
 const FLOOR_TYPES=[
@@ -172,7 +172,7 @@ const MODEL_REGISTRY={
   nightstand_alt:{file:'nightstand_alt.glb',category:'nightstand',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   dresser_tall:{file:'dresser_tall.glb',category:'dresser',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   console_low:{file:'console_low.glb',category:'tv_console',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
-  fireplace:{file:'fireplace.glb',category:'storage',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
+  fireplace:{file:'fireplace.glb',category:'decor',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   plant_cactus:{file:'plant_cactus.glb',category:'plant',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   plant_leafy:{file:'plant_leafy.glb',category:'plant',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   plant_palm:{file:'plant_palm.glb',category:'plant',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},

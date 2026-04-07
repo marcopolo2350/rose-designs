@@ -700,19 +700,19 @@ function addWindowAssembly3D(ws,an,os,oe,op,trimColor){
   scene?.userData?.styleTargets?.trimMats?.push(frameMat,sillMat);
   const trimDepth=.06;
   const horizTop=new THREE.Mesh(new THREE.BoxGeometry(width+.04,.08,trimDepth));
-  horizTop.material=frameMat; horizTop.position.set(cx,sill+height-.04,cz); scene.add(horizTop);
+  horizTop.material=frameMat; horizTop.position.set(cx,sill+height-.04,cz); horizTop.rotation.y=-an; scene.add(horizTop);
   const horizBottom=new THREE.Mesh(new THREE.BoxGeometry(width+.04,.08,trimDepth));
-  horizBottom.material=frameMat; horizBottom.position.set(cx,sill+.04,cz); scene.add(horizBottom);
+  horizBottom.material=frameMat; horizBottom.position.set(cx,sill+.04,cz); horizBottom.rotation.y=-an; scene.add(horizBottom);
   const left=new THREE.Mesh(new THREE.BoxGeometry(.08,height,trimDepth));
-  left.material=frameMat; left.position.set(ws.x+Math.cos(an)*(os+.04),sill+height/2,-(ws.y+Math.sin(an)*(os+.04))); scene.add(left);
+  left.material=frameMat; left.position.set(ws.x+Math.cos(an)*(os+.04),sill+height/2,-(ws.y+Math.sin(an)*(os+.04))); left.rotation.y=-an; scene.add(left);
   const right=new THREE.Mesh(new THREE.BoxGeometry(.08,height,trimDepth));
-  right.material=frameMat; right.position.set(ws.x+Math.cos(an)*(oe-.04),sill+height/2,-(ws.y+Math.sin(an)*(oe-.04))); scene.add(right);
+  right.material=frameMat; right.position.set(ws.x+Math.cos(an)*(oe-.04),sill+height/2,-(ws.y+Math.sin(an)*(oe-.04))); right.rotation.y=-an; scene.add(right);
   const mullion=new THREE.Mesh(new THREE.BoxGeometry(.05,height-.18,trimDepth*.8));
-  mullion.material=frameMat; mullion.position.set(cx,sill+height/2,cz); scene.add(mullion);
+  mullion.material=frameMat; mullion.position.set(cx,sill+height/2,cz); mullion.rotation.y=-an; scene.add(mullion);
   const transom=new THREE.Mesh(new THREE.BoxGeometry(width-.14,.05,trimDepth*.8));
-  transom.material=frameMat; transom.position.set(cx,sill+height/2,cz); scene.add(transom);
+  transom.material=frameMat; transom.position.set(cx,sill+height/2,cz); transom.rotation.y=-an; scene.add(transom);
   const sillBoard=new THREE.Mesh(new THREE.BoxGeometry(width+.14,.06,.18),sillMat);
-  sillBoard.position.set(cx,sill-.07,cz+.02); scene.add(sillBoard);
+  sillBoard.position.set(cx,sill-.07,cz+.02); sillBoard.rotation.y=-an; scene.add(sillBoard);
 }
 
 function buildFloorTexture(color,type){
@@ -1188,6 +1188,7 @@ function getFurniturePlacement(f,r){
   }
   if(f.mountType==='wall'||(reg&&reg.mountType==='wall')){
     const windowTarget=reg?.snapToOpening?findNearestWindowOpening({x:f.x,y:f.z},r):null;
+    if(reg?.snapToOpening&&!windowTarget)return null;
     const nearest=windowTarget?{wall:windowTarget.wall,offset:windowTarget.opening.offset,length:wL(r,windowTarget.wall)}:findNearestWallForPoint({x:f.x,y:f.z},r);
     const wall=nearest.wall,a=wS(r,wall),an=wA(r,wall),n=getInteriorWallNormal(r,wall),along=Math.max(.4,Math.min(nearest.length-.4,nearest.offset||nearest.length/2));
     let mountY=f.elevation||defaultElevation('wall',f.assetKey,resolveLabel(f.label));
@@ -1206,6 +1207,7 @@ function getFurniturePlacement(f,r){
 }
 function placeFurnitureInScene(f,r){
   const reg=f.assetKey?MODEL_REGISTRY[f.assetKey]:null,anchor=new THREE.Group(),placement=getFurniturePlacement(f,r);
+  if(!placement)return;
   const renderState=getFurnitureRenderState(f,r);
   anchor.position.copy(placement.position);anchor.rotation.y=placement.rotationY;anchor.visible=renderState.visible;anchor.userData.furnitureId=f.id;anchor.userData.assetKey=f.assetKey;scene.add(anchor);
   const contactShadow=buildContactShadowMesh(f);
