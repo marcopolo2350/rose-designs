@@ -26,54 +26,66 @@ function autoFit(){if(!curRoom||!canvas||!curRoom.polygon.length)return;const b=
 function tS(p){return{x:p.x*vScale+vOff.x,y:p.y*vScale+vOff.y}}
 function tW(x,y){return{x:(x-vOff.x)/vScale,y:(y-vOff.y)/vScale}}
 function floorPattern2D(mat){
-  const can=document.createElement('canvas');can.width=96;can.height=96;const c=can.getContext('2d');
+  // S=96px tile ≈ 4.8ft at vScale=20. Planks are 8px tall = ~5" wide — realistic hardwood strip.
+  const S=96;
+  const can=document.createElement('canvas');can.width=S;can.height=S;const c=can.getContext('2d');
   const preset=FLOOR_TYPES.find(f=>f.id===(mat.floorType||'light_oak'))||FLOOR_TYPES[0];
   const baseColor=mat.floor||preset.color;
-  c.fillStyle=baseColor;c.fillRect(0,0,96,96);
+  c.fillStyle=baseColor;c.fillRect(0,0,S,S);
   if(preset.family==='wood'){
-    for(let y=0;y<96;y+=16){
-      const row=Math.floor(y/16);
-      c.fillStyle=row%2===0?'rgba(255,255,255,.18)':'rgba(0,0,0,.14)';
-      c.fillRect(0,y,96,14);
-      c.fillStyle='rgba(24,14,6,.44)';c.fillRect(0,y+14,96,2);
-      const offset=row%2===0?0:24;
-      for(let x=offset;x<96;x+=32){
-        c.fillStyle='rgba(24,14,6,.3)';c.fillRect(x,y,2.5,14);
+    // 8px plank strip + 1px joint = 9px per row → ~10 rows per 96px tile, looks like fine hardwood
+    const pH=8,jH=1;
+    const step=pH+jH;
+    for(let y=0;y<S;y+=step){
+      const row=Math.floor(y/step);
+      // Subtle plank-to-plank brightness variation
+      c.fillStyle=row%2===0?'rgba(255,255,255,.07)':'rgba(0,0,0,.05)';
+      c.fillRect(0,y,S,pH);
+      // Hairline row joint
+      c.fillStyle='rgba(20,12,4,.32)';c.fillRect(0,y+pH,S,jH);
+      // Plank end joints — staggered every 3 rows, segments ≈ 48px (2.4ft long)
+      const phase=[0,S/2,S/4][row%3];
+      for(let x=phase;x<S+1;x+=S/2){
+        c.fillStyle='rgba(20,12,4,.20)';c.fillRect(x%S,y,1,pH);
       }
-      for(let g=0;g<4;g++){
-        c.strokeStyle=`rgba(255,255,255,${.07+g*.022})`;c.lineWidth=.9;
-        c.beginPath();c.moveTo(g*22+4,y+3);c.lineTo(g*22+18,y+11);c.stroke();
-        c.strokeStyle='rgba(42,24,10,.08)';c.beginPath();c.moveTo(g*22+10,y+2);c.lineTo(g*22+20,y+12);c.stroke();
-      }
-      c.fillStyle='rgba(255,255,255,.12)';c.fillRect(0,y,96,2);
-      c.fillStyle='rgba(0,0,0,.07)';c.fillRect(0,y+2,96,1);
+      // Very faint grain streak
+      c.strokeStyle='rgba(255,255,255,.05)';c.lineWidth=.5;
+      c.beginPath();c.moveTo(row*17%S,y+2);c.lineTo((row*17+40)%S,y+pH-2);c.stroke();
     }
   }else if(preset.family==='tile'){
-    const tile=24;
-    for(let y=0;y<96;y+=tile)for(let x=0;x<96;x+=tile){
-      const bright=((x+y)/tile)%3===0?.14:((x+y)/tile)%3===1?.08:.03;
-      c.fillStyle=`rgba(255,255,255,${bright})`;c.fillRect(x+2,y+2,tile-4,tile-4);
-      c.fillStyle='rgba(0,0,0,.13)';c.fillRect(x+tile-7,y+tile-7,7,7);
-      c.strokeStyle='rgba(255,255,255,.12)';c.lineWidth=1;c.strokeRect(x+3,y+3,tile-6,tile-6);
+    // 24px tile ≈ 14.4 inch tile at vScale=20
+    const T=24;
+    for(let y=0;y<S;y+=T)for(let x=0;x<S;x+=T){
+      const alt=((x/T)+(y/T))%2===0;
+      c.fillStyle=alt?'rgba(255,255,255,.06)':'rgba(0,0,0,.04)';
+      c.fillRect(x+1,y+1,T-2,T-2);
     }
-    c.strokeStyle='rgba(112,102,92,.98)';c.lineWidth=3;
-    for(let i=0;i<=96;i+=tile){c.beginPath();c.moveTo(i,0);c.lineTo(i,96);c.stroke();c.beginPath();c.moveTo(0,i);c.lineTo(96,i);c.stroke()}
+    // Grout lines — warm grey, 2px
+    c.strokeStyle='rgba(138,124,108,.75)';c.lineWidth=2;
+    for(let i=0;i<=S;i+=T){
+      c.beginPath();c.moveTo(i,0);c.lineTo(i,S);c.stroke();
+      c.beginPath();c.moveTo(0,i);c.lineTo(S,i);c.stroke();
+    }
   }else if(preset.family==='checker'){
-    const tile=24;
-    for(let y=0;y<96;y+=tile)for(let x=0;x<96;x+=tile){
-      c.fillStyle=((x+y)/tile)%2===0?baseColor:(preset.accent||'#888');c.fillRect(x,y,tile,tile);
-      c.fillStyle='rgba(255,255,255,.12)';c.fillRect(x+2,y+2,tile-4,tile-4);
-      c.fillStyle='rgba(0,0,0,.12)';c.fillRect(x,y+tile-4,tile,4);
+    const T=24;
+    for(let y=0;y<S;y+=T)for(let x=0;x<S;x+=T){
+      c.fillStyle=((x/T+y/T)%2===0)?baseColor:(preset.accent||'#888');
+      c.fillRect(x,y,T,T);
+      c.fillStyle='rgba(255,255,255,.04)';c.fillRect(x+2,y+2,T-4,T-4);
     }
-    c.strokeStyle='rgba(247,241,233,.86)';c.lineWidth=2.2;
-    for(let i=0;i<=96;i+=tile){c.beginPath();c.moveTo(i,0);c.lineTo(i,96);c.stroke();c.beginPath();c.moveTo(0,i);c.lineTo(96,i);c.stroke()}
+    c.strokeStyle='rgba(0,0,0,.18)';c.lineWidth=1.5;
+    for(let i=0;i<=S;i+=T){
+      c.beginPath();c.moveTo(i,0);c.lineTo(i,S);c.stroke();
+      c.beginPath();c.moveTo(0,i);c.lineTo(S,i);c.stroke();
+    }
   }else{
-    for(let i=0;i<36;i++){
-      c.fillStyle=`rgba(255,255,255,${.06+(i%4)*.025})`;
-      c.fillRect((i*27)%96,(i*19)%96,18+(i%3)*6,8+(i%2)*4);
+    // Concrete — subtle surface variation, no obvious grid
+    for(let i=0;i<20;i++){
+      c.fillStyle=`rgba(255,255,255,${.02+(i%4)*.01})`;
+      c.fillRect((i*37)%S,(i*29)%S,28+(i%3)*10,10+(i%2)*6);
     }
-    c.strokeStyle='rgba(0,0,0,.16)';c.lineWidth=1.4;
-    for(let i=0;i<5;i++){c.beginPath();c.moveTo(0,i*20+8);c.lineTo(96,i*20+4);c.stroke()}
+    c.strokeStyle='rgba(0,0,0,.05)';c.lineWidth=1;
+    for(let i=0;i<3;i++){c.beginPath();c.moveTo(0,i*34+10);c.lineTo(S,i*34+6);c.stroke();}
   }
   return ctx.createPattern(can,'repeat');
 }
@@ -256,11 +268,16 @@ function referenceHitUnlocked(wp,room=curRoom){
   if(!ref?.src||ref.locked||ref.visible===false||ref.calibrationActive)return false;
   return !!referenceWorldToLocal(wp,ref);
 }
+function persistReferenceOverlayState(){
+  if(typeof syncCurrentRoomRecord==='function')syncCurrentRoomRecord(false);
+  else if(typeof saveAll==='function')saveAll();
+}
 function setReferenceOpacity(value){
   const ref=roomReference();
   if(!ref)return;
   ref.opacity=Math.max(.08,Math.min(.95,parseFloat(value)||.56));
   pushU();
+  persistReferenceOverlayState();
   draw();
   showP();
 }
@@ -269,6 +286,7 @@ function setReferenceScale(value){
   if(!ref)return;
   ref.scale=Math.max(.1,Math.min(12,parseFloat(value)||1));
   pushU();
+  persistReferenceOverlayState();
   draw();
   showP();
 }
@@ -277,6 +295,7 @@ function setReferenceCenterAxis(axis,value){
   if(!ref)return;
   ref[axis]=parseDistanceInput(value,ref[axis]||0);
   pushU();
+  persistReferenceOverlayState();
   draw();
   showP();
 }
@@ -285,6 +304,7 @@ function toggleReferenceVisibility(){
   if(!ref?.src)return;
   ref.visible=!ref.visible;
   pushU();
+  persistReferenceOverlayState();
   draw();
   showP();
 }
@@ -294,6 +314,7 @@ function toggleReferenceLock(){
   ref.locked=!ref.locked;
   if(ref.locked)referenceDragStart=null;
   pushU();
+  persistReferenceOverlayState();
   draw();
   showP();
 }
@@ -303,6 +324,7 @@ function clearReferenceOverlay(){
   curRoom.referenceOverlay=normalizeReferenceOverlay({},curRoom);
   referenceDragStart=null;
   pushU();
+  persistReferenceOverlayState();
   draw();
   showP();
   toast('Reference cleared');
@@ -365,6 +387,7 @@ function handleReferenceFile(file){
         }
       }
       pushU();
+      persistReferenceOverlayState();
       draw();
       showP();
       toast(isPdf?`Reference PDF loaded${ref.pdfPageCount>1?` · page 1 of ${ref.pdfPageCount}`:''}`:'Reference image loaded');
@@ -388,6 +411,7 @@ async function setReferencePdfPage(nextPage){
     ref.naturalWidth=rendered.naturalWidth;
     ref.naturalHeight=rendered.naturalHeight;
     pushU();
+    persistReferenceOverlayState();
     draw();
     showP();
     toast(`Reference page ${ref.pdfPage} loaded`);
@@ -479,6 +503,7 @@ function submitReferenceCalibration(){
   ref.calibrationPoints=[];
   referenceCalibrationPendingDistance=0;
   pushU();
+  persistReferenceOverlayState();
   draw();
   showP();
   toast(`Reference calibrated to ${formatDistance(realDistance,'friendly')}`);
@@ -506,25 +531,31 @@ document.getElementById('refCalInput')?.addEventListener('keydown',e=>{
 // ── FURNITURE 2D TINT ──
 const FURN_GROUP_TINTS={
   'Seating':    '#87654D',
+  'Beds':       '#8A6E5A',
   'Tables':     '#A97B50',
   'Storage':    '#6C5645',
   'Lighting':   '#C59E58',
   'Decor':      '#6E8B66',
   'Rugs':       '#B46E55',
   'Wall Decor': '#8A7563',
+  'Openings':   '#A09285',
 };
 function threeColorToRgba(color,alpha=1){
   return `rgba(${Math.round(color.r*255)},${Math.round(color.g*255)},${Math.round(color.b*255)},${alpha})`;
 }
 function furniture2DStroke(f,item){
+  // Always use a clearly visible dark outline regardless of fill lightness
   const tint=safeThreeColor(furniture2DTint(f,item),'#7B6B5E');
-  return threeColorToRgba(tint.clone().offsetHSL(0,.02,-.18),.94);
+  const hsl={h:0,s:0,l:0};tint.getHSL(hsl);
+  // If the fill is light (l > .60), use a fixed dark stroke for contrast
+  if(hsl.l>.60)return 'rgba(68,52,40,.82)';
+  return threeColorToRgba(tint.clone().offsetHSL(0,.04,-.22),.96);
 }
 function furniture2DLabelInk(f,item){
   const tint=safeThreeColor(furniture2DTint(f,item),'#7B6B5E');
   const hsl={h:0,s:0,l:0};
   tint.getHSL(hsl);
-  return hsl.l>.55?'rgba(58,44,34,.82)':'rgba(248,244,236,.9)';
+  return hsl.l>.55?'rgba(58,44,34,.88)':'rgba(248,244,236,.92)';
 }
 function furniture2DTint(f,item){
   const variantColor=typeof variantDisplayColor==='function'?variantDisplayColor(f,item):'';
@@ -693,12 +724,16 @@ function draw(){
       const rr=Math.min(hw,hd)*.22;
       ctx.beginPath();ctx.roundRect(-hw,-hd,hw*2,hd*2,rr);
     }
-    ctx.shadowColor=ghosted?'rgba(51,41,34,.08)':'rgba(51,41,34,.16)';
-    ctx.shadowBlur=Math.max(4,Math.min(16,Math.min(hw,hd)*.22));
-    ctx.shadowOffsetY=Math.max(2,Math.min(8,hd*.08));
-    ctx.fillStyle=existingStyle?.fill||tint;ctx.globalAlpha=existingStyle?(ghosted?.42:.62):(is?.96:.93);ctx.fill();ctx.globalAlpha=1;
+    // Stronger shadow for light-colored pieces so they lift off the floor
+    const fillC=safeThreeColor(existingStyle?.fill||tint,'#B8A898');
+    const fillHSL={h:0,s:0,l:0};fillC.getHSL(fillHSL);
+    const shadowStrength=ghosted?.06:(fillHSL.l>.65?.30:.18);
+    ctx.shadowColor=`rgba(40,28,18,${shadowStrength})`;
+    ctx.shadowBlur=Math.max(5,Math.min(18,Math.min(hw,hd)*.28));
+    ctx.shadowOffsetY=Math.max(2,Math.min(10,hd*.12));
+    ctx.fillStyle=existingStyle?.fill||tint;ctx.globalAlpha=existingStyle?(ghosted?.42:.66):(is?.96:.94);ctx.fill();ctx.globalAlpha=1;
     ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;
-    ctx.strokeStyle=isPrimary?'#B8918E':(isGroup?'rgba(184,145,142,.82)':(existingStyle?.stroke||baseStroke));ctx.lineWidth=is?2.6:(existingStyle?1.9:1.45);ctx.stroke();
+    ctx.strokeStyle=isPrimary?'#B8918E':(isGroup?'rgba(184,145,142,.82)':(existingStyle?.stroke||baseStroke));ctx.lineWidth=is?2.6:(existingStyle?1.9:1.55);ctx.stroke();
     if(is){ctx.setLineDash(isPrimary?[6,4]:[4,4]);ctx.strokeStyle=isPrimary?'rgba(184,145,142,.5)':'rgba(184,145,142,.3)';ctx.lineWidth=1.5;ctx.stroke();ctx.setLineDash([])}
     if(existingStyle&&!is){ctx.setLineDash([5,4]);ctx.strokeStyle=existingStyle.stroke;ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([])}
     const facingY=-Math.max(10,hd*.66);
@@ -879,6 +914,7 @@ function onU(){
     isDrag=false;
     dOrig=null;
     pushU();
+    persistReferenceOverlayState();
     showP();
     return;
   }

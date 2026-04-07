@@ -401,6 +401,7 @@ function roomSnapshot(room=curRoom){
     baseRoomId:room.baseRoomId,
     optionName:room.optionName,
     optionNotes:room.optionNotes,
+    referenceOverlay:room.referenceOverlay,
     previewThumb:room.previewThumb
   });
 }
@@ -520,4 +521,3 @@ function wE(r,w){return r.polygon[w.endIdx]}
 function wL(r,w){const a=wS(r,w),b=wE(r,w);return Math.sqrt((b.x-a.x)**2+(b.y-a.y)**2)}
 function wA(r,w){const a=wS(r,w),b=wE(r,w);return Math.atan2(b.y-a.y,b.x-a.x)}
 let adjRoomCfg={width:10,depth:10};
-
