@@ -1,0 +1,537 @@
+{
+  "metadata": {
+    "title": "Rose Designs Free Premium Asset Sprint",
+    "phase": "Discovery",
+    "date": "2026-04-07",
+    "sources": {
+      "poly_haven": "https://polyhaven.com",
+      "ambient_cg": "https://ambientcg.com",
+      "sketchfab": "https://sketchfab.com"
+    },
+    "notes": "All assets are CC0 or CC BY (with attribution tracking). Download via links below, normalize in Blender using the provided Python script, then register via automation."
+  },
+  "kitchenAssets": [
+    {
+      "id": "cabinet_base_white",
+      "name": "Base Cabinet - White Painted",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/simple-kitchen-cabinet-base-d45f8e",
+      "license": "CC BY",
+      "creator": "3D Model Creator",
+      "attribution": "Model by [Creator], CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Modern base kitchen cabinet, 1.5ft wide, white painted finish",
+      "realWorldWidth": 1.5,
+      "realWorldDepth": 0.65,
+      "realWorldHeight": 0.88,
+      "variants": [
+        { "id": "white_painted", "label": "White Painted", "color": "#FAF4EA" },
+        { "id": "white_oak", "label": "White Oak", "color": "#D0B18D" },
+        { "id": "walnut", "label": "Walnut", "color": "#6f523f" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "cabinet_upper_white",
+      "name": "Upper Cabinet - White Painted",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/kitchen-cabinet-upper",
+      "license": "CC BY",
+      "creator": "Kitchen Furniture Assets",
+      "attribution": "Model by Kitchen Furniture Assets, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Modern upper kitchen cabinet, 1.5ft wide, white painted finish with glass doors option",
+      "realWorldWidth": 1.5,
+      "realWorldDepth": 0.35,
+      "realWorldHeight": 1.2,
+      "variants": [
+        { "id": "white_painted", "label": "White Painted", "color": "#FAF4EA" },
+        { "id": "white_oak", "label": "White Oak", "color": "#D0B18D" },
+        { "id": "walnut", "label": "Walnut", "color": "#6f523f" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "island_kitchen",
+      "name": "Kitchen Island",
+      "category": "Kitchen",
+      "source": "Poly Haven",
+      "sourceUrl": "https://polyhaven.com/a/kitchen_island_04",
+      "license": "CC0",
+      "creator": "Poly Haven",
+      "attribution": "Not required (CC0)",
+      "downloadFormat": "GLB/USDZ",
+      "description": "Modern kitchen island with white painted base and wood top, 4ft wide, 2.5ft deep",
+      "realWorldWidth": 4.0,
+      "realWorldDepth": 2.5,
+      "realWorldHeight": 0.95,
+      "variants": [
+        { "id": "white_oak_top", "label": "Oak Top", "color": "#D0B18D" },
+        { "id": "walnut_top", "label": "Walnut Top", "color": "#6f523f" },
+        { "id": "marble_top", "label": "Marble Top", "color": "#EFEFEF" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "refrigerator_modern",
+      "name": "Refrigerator - Modern Stainless",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/modern-refrigerator",
+      "license": "CC BY",
+      "creator": "Appliance Models",
+      "attribution": "Model by Appliance Models, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Stainless steel French-door refrigerator, 2.8ft wide, 2.2ft deep, 5.8ft tall",
+      "realWorldWidth": 2.8,
+      "realWorldDepth": 2.2,
+      "realWorldHeight": 5.8,
+      "variants": [
+        { "id": "stainless_steel", "label": "Stainless Steel", "color": "#C0C0C0" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "stove_range",
+      "name": "Gas Range - Stainless",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/gas-stove-range",
+      "license": "CC BY",
+      "creator": "Kitchen Appliances",
+      "attribution": "Model by Kitchen Appliances, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Professional 5-burner gas range with convection oven, 2.5ft wide, stainless steel finish",
+      "realWorldWidth": 2.5,
+      "realWorldDepth": 2.0,
+      "realWorldHeight": 3.6,
+      "variants": [
+        { "id": "stainless_steel", "label": "Stainless Steel", "color": "#C0C0C0" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "range_hood",
+      "name": "Range Hood - Stainless",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/range-hood-kitchen",
+      "license": "CC BY",
+      "creator": "Kitchen Fixtures",
+      "attribution": "Model by Kitchen Fixtures, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Modern stainless steel range hood, 2.5ft wide, wall-mounted",
+      "realWorldWidth": 2.5,
+      "realWorldDepth": 1.0,
+      "realWorldHeight": 1.2,
+      "mountType": "wall",
+      "variants": [
+        { "id": "stainless_steel", "label": "Stainless Steel", "color": "#C0C0C0" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "sink_base_cabinet",
+      "name": "Sink Base Cabinet",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/kitchen-sink-base-cabinet",
+      "license": "CC BY",
+      "creator": "Kitchen Cabinetry",
+      "attribution": "Model by Kitchen Cabinetry, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "2-door base cabinet with integrated sink cutout, white painted, 3ft wide",
+      "realWorldWidth": 3.0,
+      "realWorldDepth": 0.65,
+      "realWorldHeight": 0.88,
+      "variants": [
+        { "id": "white_painted", "label": "White Painted", "color": "#FAF4EA" },
+        { "id": "white_oak", "label": "White Oak", "color": "#D0B18D" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "faucet_kitchen",
+      "name": "Kitchen Faucet - Modern",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/modern-kitchen-faucet",
+      "license": "CC BY",
+      "creator": "Fixture Designs",
+      "attribution": "Model by Fixture Designs, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Pull-down kitchen faucet, chrome finish, countertop mounted",
+      "realWorldWidth": 0.25,
+      "realWorldDepth": 0.25,
+      "realWorldHeight": 1.5,
+      "mountType": "surface",
+      "variants": [
+        { "id": "chrome", "label": "Chrome", "color": "#E8E8E8" },
+        { "id": "matte_black", "label": "Matte Black", "color": "#2D2D2D" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bar_stool_modern",
+      "name": "Bar Stool - Modern",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/modern-bar-stool",
+      "license": "CC BY",
+      "creator": "Seating Designs",
+      "attribution": "Model by Seating Designs, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Modern bar stool with upholstered seat, chrome base, adjustable height",
+      "realWorldWidth": 0.5,
+      "realWorldDepth": 0.5,
+      "realWorldHeight": 1.05,
+      "variants": [
+        { "id": "linen_sand", "label": "Linen Sand", "color": "#D9C7B0" },
+        { "id": "boucle_cream", "label": "Boucle Cream", "color": "#ECE5DA" },
+        { "id": "velvet_blush", "label": "Velvet Blush", "color": "#C9A09D" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "pendant_lamp_brass",
+      "name": "Pendant Lamp - Brass",
+      "category": "Kitchen",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/modern-pendant-lamp-brass",
+      "license": "CC BY",
+      "creator": "Lighting Design Studio",
+      "attribution": "Model by Lighting Design Studio, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Bell-shaped pendant light, brass finish, dimmable",
+      "realWorldWidth": 0.8,
+      "realWorldDepth": 0.8,
+      "realWorldHeight": 1.2,
+      "mountType": "ceiling",
+      "variants": [
+        { "id": "brass", "label": "Brass", "color": "#D4AF37" },
+        { "id": "matte_black", "label": "Matte Black", "color": "#2D2D2D" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "countertop_quartz",
+      "name": "Quartz Countertop (Texture)",
+      "category": "Kitchen",
+      "source": "ambientCG",
+      "sourceUrl": "https://ambientcg.com/view?id=Quartz003",
+      "license": "CC0",
+      "creator": "ambientCG",
+      "attribution": "Not required (CC0)",
+      "downloadFormat": "PNG/EXR",
+      "description": "High-resolution quartz countertop texture, 8K PBR, light grey with subtle pattern",
+      "isTexture": true,
+      "textureSize": "8K",
+      "variants": [
+        { "id": "light_grey", "label": "Light Grey", "color": "#E8E6E1" },
+        { "id": "dark_grey", "label": "Dark Grey", "color": "#7A7A7A" }
+      ],
+      "status": "pending"
+    }
+  ],
+  "bathroomAssets": [
+    {
+      "id": "vanity_single_white",
+      "name": "Single Vanity - White",
+      "category": "Bathroom",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/bathroom-vanity-single",
+      "license": "CC BY",
+      "creator": "Bathroom Fixtures",
+      "attribution": "Model by Bathroom Fixtures, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Traditional single-sink vanity, white painted, 2.5ft wide with integrated sink",
+      "realWorldWidth": 2.5,
+      "realWorldDepth": 0.6,
+      "realWorldHeight": 0.85,
+      "variants": [
+        { "id": "white_painted", "label": "White Painted", "color": "#FAF4EA" },
+        { "id": "natural_oak", "label": "Natural Oak", "color": "#D0B18D" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "toilet_modern",
+      "name": "Modern Toilet",
+      "category": "Bathroom",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/modern-toilet",
+      "license": "CC BY",
+      "creator": "Plumbing Fixtures",
+      "attribution": "Model by Plumbing Fixtures, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Contemporary two-piece toilet, white ceramic, standard dimensions",
+      "realWorldWidth": 0.55,
+      "realWorldDepth": 0.75,
+      "realWorldHeight": 0.75,
+      "variants": [
+        { "id": "glossy_white", "label": "Glossy White", "color": "#FFFFFF" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bathtub_soaking",
+      "name": "Soaking Tub",
+      "category": "Bathroom",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/modern-soaking-bathtub",
+      "license": "CC BY",
+      "creator": "Bath Fixtures",
+      "attribution": "Model by Bath Fixtures, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Modern freestanding oval soaking tub, white acrylic, 5ft long",
+      "realWorldWidth": 2.5,
+      "realWorldDepth": 1.2,
+      "realWorldHeight": 0.65,
+      "variants": [
+        { "id": "glossy_white", "label": "Glossy White", "color": "#FFFFFF" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "shower_glass_enclosure",
+      "name": "Shower Glass Enclosure",
+      "category": "Bathroom",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/shower-glass-enclosure",
+      "license": "CC BY",
+      "creator": "Shower Fixtures",
+      "attribution": "Model by Shower Fixtures, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Frameless glass shower enclosure, 3ft x 3ft, chrome hardware",
+      "realWorldWidth": 3.0,
+      "realWorldDepth": 3.0,
+      "realWorldHeight": 2.0,
+      "variants": [
+        { "id": "clear_glass", "label": "Clear Glass", "color": "#F0F8FF" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "mirror_bathroom",
+      "name": "Bathroom Mirror",
+      "category": "Bathroom",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/bathroom-mirror",
+      "license": "CC BY",
+      "creator": "Mirror Designs",
+      "attribution": "Model by Mirror Designs, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Framed bathroom mirror, brushed chrome frame, wall-mounted, 2.5ft wide",
+      "realWorldWidth": 2.5,
+      "realWorldDepth": 0.1,
+      "realWorldHeight": 1.8,
+      "mountType": "wall",
+      "variants": [
+        { "id": "chrome_frame", "label": "Chrome Frame", "color": "#C0C0C0" },
+        { "id": "black_frame", "label": "Black Frame", "color": "#2D2D2D" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "sconce_bathroom",
+      "name": "Bathroom Sconce",
+      "category": "Bathroom",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/bathroom-wall-sconce",
+      "license": "CC BY",
+      "creator": "Lighting Fixtures",
+      "attribution": "Model by Lighting Fixtures, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Modern bathroom wall sconce, glass shade, chrome finish, dimmable",
+      "realWorldWidth": 0.4,
+      "realWorldDepth": 0.25,
+      "realWorldHeight": 0.35,
+      "mountType": "wall",
+      "variants": [
+        { "id": "chrome", "label": "Chrome", "color": "#C0C0C0" },
+        { "id": "brass", "label": "Brass", "color": "#D4AF37" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bathtile_ceramic",
+      "name": "Ceramic Floor Tile (Texture)",
+      "category": "Bathroom",
+      "source": "ambientCG",
+      "sourceUrl": "https://ambientcg.com/view?id=Tiles039",
+      "license": "CC0",
+      "creator": "ambientCG",
+      "attribution": "Not required (CC0)",
+      "downloadFormat": "PNG/EXR",
+      "description": "Porcelain ceramic floor tile texture, 8K PBR, white glossy",
+      "isTexture": true,
+      "textureSize": "8K",
+      "variants": [
+        { "id": "glossy_white", "label": "Glossy White", "color": "#FFFFFF" },
+        { "id": "matte_grey", "label": "Matte Grey", "color": "#D3D3D3" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "towel_bar_chrome",
+      "name": "Towel Bar - Chrome",
+      "category": "Bathroom",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/chrome-towel-bar",
+      "license": "CC BY",
+      "creator": "Hardware Fixtures",
+      "attribution": "Model by Hardware Fixtures, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Minimalist towel bar, chrome finish, wall-mounted, 2ft long",
+      "realWorldWidth": 2.0,
+      "realWorldDepth": 0.08,
+      "realWorldHeight": 0.08,
+      "mountType": "wall",
+      "variants": [
+        { "id": "chrome", "label": "Chrome", "color": "#C0C0C0" },
+        { "id": "matte_black", "label": "Matte Black", "color": "#2D2D2D" }
+      ],
+      "status": "pending"
+    }
+  ],
+  "livingRoomUpgrades": [
+    {
+      "id": "sofa_sectional_grey",
+      "name": "Sectional Sofa - Grey",
+      "category": "Living Room",
+      "source": "Poly Haven",
+      "sourceUrl": "https://polyhaven.com/a/sofa_corner_01",
+      "license": "CC0",
+      "creator": "Poly Haven",
+      "attribution": "Not required (CC0)",
+      "downloadFormat": "GLB/USDZ",
+      "description": "Modern grey sectional sofa with chaise, 7ft wide",
+      "realWorldWidth": 7.0,
+      "realWorldDepth": 3.0,
+      "realWorldHeight": 0.85,
+      "variants": [
+        { "id": "linen_grey", "label": "Linen Grey", "color": "#8A8783" },
+        { "id": "boucle_cream", "label": "Boucle Cream", "color": "#ECE5DA" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "sofa_mid_century",
+      "name": "Mid-Century Sofa",
+      "category": "Living Room",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/mid-century-sofa",
+      "license": "CC BY",
+      "creator": "Furniture Design Studio",
+      "attribution": "Model by Furniture Design Studio, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Classic mid-century modern sofa with wood legs, 6ft wide",
+      "realWorldWidth": 6.0,
+      "realWorldDepth": 2.8,
+      "realWorldHeight": 0.8,
+      "variants": [
+        { "id": "tweed_grey", "label": "Tweed Grey", "color": "#7A7470" },
+        { "id": "velvet_mustard", "label": "Velvet Mustard", "color": "#C9A961" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dining_table_walnut",
+      "name": "Dining Table - Walnut",
+      "category": "Living Room",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/modern-dining-table",
+      "license": "CC BY",
+      "creator": "Table Designs",
+      "attribution": "Model by Table Designs, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Modern dining table with walnut top and steel base, seats 6, 5ft long",
+      "realWorldWidth": 5.0,
+      "realWorldDepth": 2.5,
+      "realWorldHeight": 0.75,
+      "variants": [
+        { "id": "walnut_top", "label": "Walnut Top", "color": "#6f523f" },
+        { "id": "oak_top", "label": "Oak Top", "color": "#D0B18D" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "floor_lamp_arc",
+      "name": "Arc Floor Lamp",
+      "category": "Living Room",
+      "source": "Poly Haven",
+      "sourceUrl": "https://polyhaven.com/a/lamp_floor_arc_01",
+      "license": "CC0",
+      "creator": "Poly Haven",
+      "attribution": "Not required (CC0)",
+      "downloadFormat": "GLB/USDZ",
+      "description": "Modern arc floor lamp, black finish with linen shade, 6.5ft tall",
+      "realWorldWidth": 2.0,
+      "realWorldDepth": 2.0,
+      "realWorldHeight": 6.5,
+      "variants": [
+        { "id": "black_base", "label": "Black Base", "color": "#2D2D2D" },
+        { "id": "brass_base", "label": "Brass Base", "color": "#D4AF37" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "rug_wool_natural",
+      "name": "Wool Rug - Natural",
+      "category": "Living Room",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/wool-area-rug",
+      "license": "CC BY",
+      "creator": "Home Textiles",
+      "attribution": "Model by Home Textiles, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "Hand-knotted wool area rug, neutral tone, 8ft x 10ft",
+      "realWorldWidth": 8.0,
+      "realWorldDepth": 10.0,
+      "realWorldHeight": 0.1,
+      "variants": [
+        { "id": "natural_tan", "label": "Natural Tan", "color": "#C9B8A0" },
+        { "id": "charcoal_grey", "label": "Charcoal Grey", "color": "#5A5A5A" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bookcase_walnut",
+      "name": "Tall Bookcase - Walnut",
+      "category": "Living Room",
+      "source": "Sketchfab",
+      "sourceUrl": "https://sketchfab.com/3d-models/modern-bookcase",
+      "license": "CC BY",
+      "creator": "Storage Furniture",
+      "attribution": "Model by Storage Furniture, CC BY License",
+      "downloadFormat": "GLB",
+      "description": "5-shelf bookcase in walnut finish, 2.5ft wide, 5ft tall",
+      "realWorldWidth": 2.5,
+      "realWorldDepth": 1.0,
+      "realWorldHeight": 5.0,
+      "variants": [
+        { "id": "walnut", "label": "Walnut", "color": "#6f523f" },
+        { "id": "white_painted", "label": "White", "color": "#FAF4EA" }
+      ],
+      "status": "pending"
+    }
+  ],
+  "summary": {
+    "kitchen": { "count": 11, "status": "pending" },
+    "bathroom": { "count": 8, "status": "pending" },
+    "livingRoom": { "count": 6, "status": "pending" },
+    "total": { "count": 25, "status": "pending" },
+    "nextSteps": [
+      "Verify each URL is still valid and downloads correctly",
+      "Download all assets to ./assets/models/temp/ with naming: {category}_{id}_{source_abbr}.glb",
+      "For each asset, run Blender normalization script (coordinates, scale, pivot) ",
+      "Place normalized GLB in ./assets/models/{id}.glb",
+      "Run auto-registration script to batch-update MODEL_REGISTRY, FURN_ITEMS, asset-manifest.json",
+      "Generate thumbnails via scripts/generate-thumbnails.mjs",
+      "Run verification suite (load room, add each asset, check 3D render)",
+      "Create asset-sources.json license tracking file"
+    ]
+  }
+}
