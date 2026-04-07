@@ -57,6 +57,15 @@ function resolveLabel(raw) {
     {keys: ['bookshelf','shelf','shelves','bookcase','cabinet','dresser','wardrobe','armoire','tv console','console','nightstand'], type: 'storage'},
     {keys: ['mirror'], type: 'mirror'},
     {keys: ['curtain','drape','blinds'], type: 'curtain'},
+    {keys: ['base cabinet','upper cabinet','kitchen cabinet'], type: 'cabinet'},
+    {keys: ['refrigerator','fridge'], type: 'fridge'},
+    {keys: ['gas range','stove','range hood'], type: 'stove'},
+    {keys: ['kitchen sink','sink'], type: 'sink'},
+    {keys: ['kitchen island','island'], type: 'island'},
+    {keys: ['single vanity','double vanity','vanity'], type: 'vanity'},
+    {keys: ['toilet'], type: 'toilet'},
+    {keys: ['bathtub','tub'], type: 'tub'},
+    {keys: ['shower'], type: 'shower'},
   ];
   for (const entry of map) {
     for (const k of entry.keys) {

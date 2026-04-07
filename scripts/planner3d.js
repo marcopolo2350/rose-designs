@@ -1453,6 +1453,102 @@ function buildFurniture3D(f, rH) {
     const rug = new THREE.Mesh(new THREE.PlaneGeometry(f.w||5, f.d||3.5),
       new THREE.MeshStandardMaterial({color: sc, roughness: .95, side: THREE.DoubleSide}));
     rug.rotation.x = -Math.PI/2; rug.position.y = .02; g.add(rug);
+  } else if (type === 'cabinet' || type === 'base cabinet' || type === 'upper cabinet') {
+    const bm = new THREE.MeshStandardMaterial({color: sc, roughness: .55, metalness: .02});
+    const wm = new THREE.MeshStandardMaterial({color: 0x8B7355, roughness: .5, metalness: .05});
+    const hm = new THREE.MeshStandardMaterial({color: 0x888888, roughness: .2, metalness: .8});
+    const body = box3(f.w||1.5, f.d||2.9, (f.d||0.65), bm); body.position.y = (f.d||2.9)/2; g.add(body);
+    const top = box3((f.w||1.5)+.04, .06, (f.d||0.65)+.04, wm); top.position.y = (f.d||2.9)+.03; g.add(top);
+    const doors = Math.max(1, Math.round((f.w||1.5)/0.75));
+    const dw = ((f.w||1.5) - .08) / doors;
+    for(let i = 0; i < doors; i++) {
+      const door = box3(dw-.04, (f.d||2.9)-.2, .04, new THREE.MeshStandardMaterial({color: new THREE.Color(sc).offsetHSL(0,0,.04), roughness:.48}));
+      door.position.set(-((f.w||1.5)/2) + dw*(i+.5), (f.d||2.9)/2, (f.d||0.65)/2+.02); g.add(door);
+      const handle = box3(.04, .35, .03, hm); handle.position.set(-((f.w||1.5)/2)+dw*(i+.5)+dw*.35, (f.d||2.9)/2, (f.d||0.65)/2+.055); g.add(handle);
+    }
+    const plinth = box3((f.w||1.5), .18, (f.d||0.65), new THREE.MeshStandardMaterial({color:0x555555, roughness:.7})); plinth.position.y = .09; g.add(plinth);
+  } else if (type === 'refrigerator' || type === 'fridge') {
+    const bm = new THREE.MeshStandardMaterial({color: 0xE0E0E0, roughness: .15, metalness: .7});
+    const dm = new THREE.MeshStandardMaterial({color: 0xD0D0D0, roughness: .18, metalness: .65});
+    const hm = new THREE.MeshStandardMaterial({color: 0xA8A8A8, roughness: .12, metalness: .85});
+    const body = box3(f.w||2.8, f.h||5.8, f.d||2.2, bm); body.position.y = (f.h||5.8)/2; g.add(body);
+    const fdh = (f.h||5.8) * .65;
+    const doorL = box3((f.w||2.8)/2-.06, fdh-.1, .06, dm); doorL.position.set(-(f.w||2.8)/4, (f.h||5.8)-(fdh/2)-.02, (f.d||2.2)/2+.03); g.add(doorL);
+    const doorR = doorL.clone(); doorR.position.x = (f.w||2.8)/4; g.add(doorR);
+    const drawer = box3((f.w||2.8)-.08, (f.h||5.8)*.28-.1, .06, dm); drawer.position.set(0, (f.h||5.8)*.14, (f.d||2.2)/2+.03); g.add(drawer);
+    const hL = box3(.05, .7, .05, hm); hL.position.set(-(f.w||2.8)/4+.35, (f.h||5.8)-(fdh/2), (f.d||2.2)/2+.07); g.add(hL);
+    const hR = hL.clone(); hR.position.x = (f.w||2.8)/4-.35; g.add(hR);
+  } else if (type === 'stove' || type === 'range' || type === 'gas range') {
+    const bm = new THREE.MeshStandardMaterial({color: 0xD8D8D8, roughness: .2, metalness: .65});
+    const top = new THREE.MeshStandardMaterial({color: 0x2A2A2A, roughness: .35, metalness: .1});
+    const body = box3(f.w||2.5, 2.9, f.d||2.0, bm); body.position.y = 1.45; g.add(body);
+    const cooktop = box3((f.w||2.5)-.1, .04, (f.d||2.0)*.55, top); cooktop.position.set(0, 2.94, -(f.d||2.0)*.2); g.add(cooktop);
+    const burnerM = new THREE.MeshStandardMaterial({color:0x444444, roughness:.4, metalness:.5});
+    [[-0.7,.4],[0.7,.4],[-0.7,-.2],[0.7,-.2],[0,-.2]].forEach(([x,z]) => {
+      const b = new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.05,12), burnerM); b.position.set(x, 2.98, -(f.d||2.0)*.2+z); g.add(b);
+    });
+    const oven = box3((f.w||2.5)-.1, 1.5, .05, new THREE.MeshStandardMaterial({color:0xC8C8C8, roughness:.22, metalness:.6})); oven.position.set(0, .85, (f.d||2.0)/2+.025); g.add(oven);
+    const handle = box3((f.w||2.5)*.55, .06, .04, new THREE.MeshStandardMaterial({color:0x999999, roughness:.15, metalness:.9})); handle.position.set(0, 1.65, (f.d||2.0)/2+.06); g.add(handle);
+  } else if (type === 'sink' || type === 'kitchen sink') {
+    const bm = new THREE.MeshStandardMaterial({color: sc, roughness:.5, metalness:.02});
+    const sm = new THREE.MeshStandardMaterial({color: 0xE8E8E8, roughness:.1, metalness:.75});
+    const body = box3(f.w||3.0, 2.9, f.d||0.65, bm); body.position.y = 1.45; g.add(body);
+    const ctop = box3((f.w||3.0)-.04, .06, (f.d||0.65)-.04, sm); ctop.position.y = 2.92; g.add(ctop);
+    const basin = box3((f.w||3.0)*.55, .36, (f.d||0.65)*.7, new THREE.MeshStandardMaterial({color:0xDDDDDD, roughness:.08, metalness:.85})); basin.position.set(-(f.w||3.0)*.12, 2.73, 0); g.add(basin);
+    const faucetBase = new THREE.Mesh(new THREE.CylinderGeometry(.05,.06,.12,8), sm); faucetBase.position.set(0, 2.98, -(f.d||0.65)*.25); g.add(faucetBase);
+    const faucetNeck = new THREE.Mesh(new THREE.CylinderGeometry(.025,.03,.8,8), sm); faucetNeck.position.set(0, 3.45, -(f.d||0.65)*.25); g.add(faucetNeck);
+    const door = box3((f.w||3.0)-.08, 2.2, .04, new THREE.MeshStandardMaterial({color:new THREE.Color(sc).offsetHSL(0,0,.04), roughness:.48})); door.position.set(0, 1.18, (f.d||0.65)/2+.02); g.add(door);
+  } else if (type === 'island' || type === 'kitchen island') {
+    const bm = new THREE.MeshStandardMaterial({color: sc, roughness:.5, metalness:.02});
+    const wm = new THREE.MeshStandardMaterial({color: 0x8B7355, roughness:.6, metalness:.03});
+    const body = box3(f.w||4.0, 2.9, f.d||2.5, bm); body.position.y = 1.45; g.add(body);
+    const itop = box3((f.w||4.0)+.08, .08, (f.d||2.5)+.08, wm); itop.position.y = 2.96; g.add(itop);
+    for(let side of [1,-1]) {
+      const door = box3((f.w||4.0)*.45, 1.8, .04, new THREE.MeshStandardMaterial({color:new THREE.Color(sc).offsetHSL(0,0,.04), roughness:.48})); door.position.set(side*(f.w||4.0)*.24, 1.48, side*(f.d||2.5)/2+.02); door.rotation.y = side===1?0:Math.PI; g.add(door);
+    }
+  } else if (type === 'vanity' || type === 'single vanity' || type === 'double vanity') {
+    const bm = new THREE.MeshStandardMaterial({color: sc, roughness:.5, metalness:.02});
+    const sm = new THREE.MeshStandardMaterial({color: 0xE5E5E5, roughness:.08, metalness:.6});
+    const mm = new THREE.MeshStandardMaterial({color: 0xD0D0D0, roughness:.06, metalness:.75});
+    const body = box3(f.w||2.5, 2.8, f.d||0.6, bm); body.position.y = 1.4; g.add(body);
+    const counter = box3((f.w||2.5)+.04, .08, (f.d||0.6)+.04, new THREE.MeshStandardMaterial({color:0xF2EDE6, roughness:.15, metalness:.05})); counter.position.y = 2.84; g.add(counter);
+    const basins = f.label&&f.label.toLowerCase().includes('double')?2:1;
+    const bw = ((f.w||2.5)-0.3) / basins;
+    for(let i=0;i<basins;i++){
+      const basin = box3(bw*.7, .25, (f.d||0.6)*.6, sm); basin.position.set(-((f.w||2.5)/2-0.15)+bw*(i+.5), 2.75, 0); g.add(basin);
+      const fn = new THREE.Mesh(new THREE.CylinderGeometry(.02,.025,.5,8), mm); fn.position.set(-((f.w||2.5)/2-0.15)+bw*(i+.5), 3.15, -(f.d||0.6)*.2); g.add(fn);
+    }
+    const doors = Math.max(1, Math.round((f.w||2.5)/0.7));
+    const dw2 = ((f.w||2.5)-.08)/doors;
+    for(let i=0;i<doors;i++){
+      const door = box3(dw2-.04, 2.0, .04, new THREE.MeshStandardMaterial({color:new THREE.Color(sc).offsetHSL(0,0,.04), roughness:.48})); door.position.set(-(f.w||2.5)/2+dw2*(i+.5), 1.08, (f.d||0.6)/2+.02); g.add(door);
+      const handle = box3(.04, .25, .03, mm); handle.position.set(-(f.w||2.5)/2+dw2*(i+.5)+dw2*.38, 1.3, (f.d||0.6)/2+.055); g.add(handle);
+    }
+  } else if (type === 'toilet') {
+    const wm = new THREE.MeshStandardMaterial({color: 0xF9F6F0, roughness:.15, metalness:.02});
+    const gm = new THREE.MeshStandardMaterial({color: 0xDDD9D0, roughness:.2, metalness:.02});
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(.38,.42,.48,16), wm); base.position.set(0,.24,-(f.d||2.0)*.15); g.add(base);
+    const bowl = new THREE.Mesh(new THREE.CylinderGeometry(.32,.38,.28,16), wm); bowl.position.set(0,.62,-(f.d||2.0)*.15); g.add(bowl);
+    const seat = new THREE.Mesh(new THREE.TorusGeometry(.3,.06,8,24), gm); seat.rotation.x=Math.PI/2; seat.position.set(0,.78,-(f.d||2.0)*.15); g.add(seat);
+    const tank = box3(.52,.88,.26, wm); tank.position.set(0,.44,(f.d||2.0)*.35); g.add(tank);
+    const tankTop = box3(.56,.06,.3, gm); tankTop.position.set(0,.91,(f.d||2.0)*.35); g.add(tankTop);
+  } else if (type === 'bathtub' || type === 'tub') {
+    const wm = new THREE.MeshStandardMaterial({color: 0xFAF6F0, roughness:.12, metalness:.02});
+    const cm = new THREE.MeshStandardMaterial({color: 0xC0C0C0, roughness:.15, metalness:.8});
+    const outer = box3(f.w||2.5, 1.6, f.d||5.5, wm); outer.position.y = .8; g.add(outer);
+    const inner = box3((f.w||2.5)-.22, 1.2, (f.d||5.5)-.22, new THREE.MeshStandardMaterial({color:0xF0ECE6, roughness:.08, metalness:.04})); inner.position.y = 1.0; g.add(inner);
+    const rim = box3((f.w||2.5)+.06, .12, (f.d||5.5)+.06, new THREE.MeshStandardMaterial({color:0xF4F0EA, roughness:.1, metalness:.04})); rim.position.y = 1.62; g.add(rim);
+    const fn2 = new THREE.Mesh(new THREE.CylinderGeometry(.03,.035,.55,8), cm); fn2.position.set(0, 2.22, -(f.d||5.5)*.38); g.add(fn2);
+  } else if (type === 'shower') {
+    const gm = new THREE.MeshStandardMaterial({color: 0xE0EEF5, roughness:.05, metalness:.02, transparent:true, opacity:.45});
+    const fm = new THREE.MeshStandardMaterial({color: 0xDDD9D2, roughness:.35});
+    const cm2 = new THREE.MeshStandardMaterial({color: 0xC8C8C8, roughness:.15, metalness:.8});
+    const sbase = box3(f.w||3.0, .12, f.d||3.0, fm); sbase.position.y = .06; g.add(sbase);
+    const pF = box3(f.w||3.0, 5.5, .06, gm); pF.position.set(0, 2.8, (f.d||3.0)/2); g.add(pF);
+    const pL = box3(.06, 5.5, f.d||3.0, gm); pL.position.set(-(f.w||3.0)/2, 2.8, 0); g.add(pL);
+    const pR = pL.clone(); pR.position.x = (f.w||3.0)/2; g.add(pR);
+    const arm = new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.9,8), cm2); arm.rotation.z=Math.PI/2; arm.position.set(-(f.w||3.0)*.35, 6.2, -(f.d||3.0)*.3); g.add(arm);
+    const head = new THREE.Mesh(new THREE.CylinderGeometry(.18,.18,.06,16), cm2); head.rotation.z=0; head.position.set(-(f.w||3.0)*.35+.5, 6.2, -(f.d||3.0)*.3); g.add(head);
   } else {
     // Generic box
     const bx = box3(f.w||2, 1.5, f.d||1.5, new THREE.MeshStandardMaterial({color: sc, roughness: .7}));

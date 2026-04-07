@@ -1,0 +1,511 @@
+{
+  "ok": [
+    "ph_armchair_01",
+    "ph_armchair_modern",
+    "ph_chair_midcentury",
+    "ph_sofa_01",
+    "ph_sofa_02",
+    "ph_sofa_03",
+    "ph_sofa_painted",
+    "ph_ottoman_01",
+    "ph_chair_green",
+    "ph_chair_chinese",
+    "ph_chair_gallinera",
+    "ph_chair_painted",
+    "ph_bar_chair",
+    "ph_stool_metal",
+    "ph_coffee_table_01",
+    "ph_coffee_round",
+    "ph_coffee_modern",
+    "ph_coffee_modern_2",
+    "ph_coffee_gothic",
+    "ph_coffee_industrial",
+    "ph_table_wooden",
+    "ph_table_wooden_2",
+    "ph_table_round",
+    "ph_table_painted",
+    "ph_table_gallinera",
+    "ph_side_table",
+    "ph_side_table_tall",
+    "ph_shelf_01",
+    "ph_bookshelf",
+    "ph_console_01",
+    "ph_console_chinese",
+    "ph_cabinet_modern",
+    "ph_cabinet_painted",
+    "ph_cabinet_vintage",
+    "ph_cabinet_drawer",
+    "ph_cabinet_chinese",
+    "ph_chandelier_01",
+    "ph_chandelier_02",
+    "ph_chandelier_03",
+    "ph_chandelier_chinese",
+    "ph_chandelier_lantern",
+    "ph_lamp_ceiling",
+    "ph_lamp_desk",
+    "ph_lamp_industrial",
+    "ph_lamp_pipe",
+    "ph_bed_gothic",
+    "ph_nightstand_classic",
+    "ph_nightstand",
+    "ph_plant_potted_01",
+    "ph_plant_potted_02",
+    "ph_plant_potted_04",
+    "ph_planter_clay",
+    "ph_mirror_ornate",
+    "ph_vase_ceramic_01",
+    "ph_vase_brass_01"
+  ],
+  "fail": [],
+  "targets": [
+    {
+      "id": "ArmChair_01",
+      "outKey": "ph_armchair_01",
+      "category": "Seating",
+      "w": 2.6,
+      "d": 2.4,
+      "h": 3
+    },
+    {
+      "id": "modern_arm_chair_01",
+      "outKey": "ph_armchair_modern",
+      "category": "Seating",
+      "w": 2.4,
+      "d": 2.6,
+      "h": 3
+    },
+    {
+      "id": "mid_century_lounge_chair",
+      "outKey": "ph_chair_midcentury",
+      "category": "Seating",
+      "w": 2.4,
+      "d": 2.8,
+      "h": 2.8
+    },
+    {
+      "id": "Sofa_01",
+      "outKey": "ph_sofa_01",
+      "category": "Seating",
+      "w": 6.2,
+      "d": 2.8,
+      "h": 2.6
+    },
+    {
+      "id": "sofa_02",
+      "outKey": "ph_sofa_02",
+      "category": "Seating",
+      "w": 6.5,
+      "d": 2.8,
+      "h": 2.6
+    },
+    {
+      "id": "sofa_03",
+      "outKey": "ph_sofa_03",
+      "category": "Seating",
+      "w": 5.8,
+      "d": 2.6,
+      "h": 2.5
+    },
+    {
+      "id": "painted_wooden_sofa",
+      "outKey": "ph_sofa_painted",
+      "category": "Seating",
+      "w": 5.5,
+      "d": 2.4,
+      "h": 3.2
+    },
+    {
+      "id": "Ottoman_01",
+      "outKey": "ph_ottoman_01",
+      "category": "Seating",
+      "w": 2.4,
+      "d": 2.4,
+      "h": 1.4
+    },
+    {
+      "id": "GreenChair_01",
+      "outKey": "ph_chair_green",
+      "category": "Seating",
+      "w": 2,
+      "d": 2,
+      "h": 3
+    },
+    {
+      "id": "chinese_armchair",
+      "outKey": "ph_chair_chinese",
+      "category": "Seating",
+      "w": 2.2,
+      "d": 2,
+      "h": 3.4
+    },
+    {
+      "id": "gallinera_chair",
+      "outKey": "ph_chair_gallinera",
+      "category": "Seating",
+      "w": 1.8,
+      "d": 1.8,
+      "h": 3.2
+    },
+    {
+      "id": "painted_wooden_chair_01",
+      "outKey": "ph_chair_painted",
+      "category": "Seating",
+      "w": 1.6,
+      "d": 1.6,
+      "h": 3
+    },
+    {
+      "id": "bar_chair_round_01",
+      "outKey": "ph_bar_chair",
+      "category": "Seating",
+      "w": 1.4,
+      "d": 1.4,
+      "h": 2.8
+    },
+    {
+      "id": "metal_stool_01",
+      "outKey": "ph_stool_metal",
+      "category": "Seating",
+      "w": 1.2,
+      "d": 1.2,
+      "h": 2.8
+    },
+    {
+      "id": "CoffeeTable_01",
+      "outKey": "ph_coffee_table_01",
+      "category": "Tables",
+      "w": 3.8,
+      "d": 1.8,
+      "h": 1.3
+    },
+    {
+      "id": "coffee_table_round_01",
+      "outKey": "ph_coffee_round",
+      "category": "Tables",
+      "w": 2.8,
+      "d": 2.8,
+      "h": 1.4
+    },
+    {
+      "id": "modern_coffee_table_01",
+      "outKey": "ph_coffee_modern",
+      "category": "Tables",
+      "w": 3.5,
+      "d": 1.8,
+      "h": 1.2
+    },
+    {
+      "id": "modern_coffee_table_02",
+      "outKey": "ph_coffee_modern_2",
+      "category": "Tables",
+      "w": 3.2,
+      "d": 1.6,
+      "h": 1.2
+    },
+    {
+      "id": "gothic_coffee_table",
+      "outKey": "ph_coffee_gothic",
+      "category": "Tables",
+      "w": 3,
+      "d": 1.8,
+      "h": 1.4
+    },
+    {
+      "id": "industrial_coffee_table",
+      "outKey": "ph_coffee_industrial",
+      "category": "Tables",
+      "w": 3.4,
+      "d": 1.8,
+      "h": 1.4
+    },
+    {
+      "id": "WoodenTable_01",
+      "outKey": "ph_table_wooden",
+      "category": "Tables",
+      "w": 5,
+      "d": 2.6,
+      "h": 2.5
+    },
+    {
+      "id": "WoodenTable_02",
+      "outKey": "ph_table_wooden_2",
+      "category": "Tables",
+      "w": 5.5,
+      "d": 2.8,
+      "h": 2.5
+    },
+    {
+      "id": "round_wooden_table_01",
+      "outKey": "ph_table_round",
+      "category": "Tables",
+      "w": 3.5,
+      "d": 3.5,
+      "h": 2.5
+    },
+    {
+      "id": "painted_wooden_table",
+      "outKey": "ph_table_painted",
+      "category": "Tables",
+      "w": 5,
+      "d": 2.4,
+      "h": 2.6
+    },
+    {
+      "id": "gallinera_table",
+      "outKey": "ph_table_gallinera",
+      "category": "Tables",
+      "w": 4.5,
+      "d": 2.2,
+      "h": 2.5
+    },
+    {
+      "id": "side_table_01",
+      "outKey": "ph_side_table",
+      "category": "Tables",
+      "w": 1.6,
+      "d": 1.6,
+      "h": 2
+    },
+    {
+      "id": "side_table_tall_01",
+      "outKey": "ph_side_table_tall",
+      "category": "Tables",
+      "w": 1.4,
+      "d": 1.4,
+      "h": 2.8
+    },
+    {
+      "id": "Shelf_01",
+      "outKey": "ph_shelf_01",
+      "category": "Storage",
+      "w": 3.2,
+      "d": 0.8,
+      "h": 5.5
+    },
+    {
+      "id": "wooden_bookshelf_worn",
+      "outKey": "ph_bookshelf",
+      "category": "Storage",
+      "w": 3,
+      "d": 0.8,
+      "h": 6.5
+    },
+    {
+      "id": "ClassicConsole_01",
+      "outKey": "ph_console_01",
+      "category": "Storage",
+      "w": 3.5,
+      "d": 0.8,
+      "h": 2.8
+    },
+    {
+      "id": "chinese_console_table",
+      "outKey": "ph_console_chinese",
+      "category": "Storage",
+      "w": 3.2,
+      "d": 0.8,
+      "h": 3
+    },
+    {
+      "id": "modern_wooden_cabinet",
+      "outKey": "ph_cabinet_modern",
+      "category": "Storage",
+      "w": 2.8,
+      "d": 1,
+      "h": 2.8
+    },
+    {
+      "id": "painted_wooden_cabinet",
+      "outKey": "ph_cabinet_painted",
+      "category": "Storage",
+      "w": 2.4,
+      "d": 0.9,
+      "h": 2.8
+    },
+    {
+      "id": "vintage_cabinet_01",
+      "outKey": "ph_cabinet_vintage",
+      "category": "Storage",
+      "w": 2.8,
+      "d": 1.2,
+      "h": 5.2
+    },
+    {
+      "id": "drawer_cabinet",
+      "outKey": "ph_cabinet_drawer",
+      "category": "Storage",
+      "w": 2.4,
+      "d": 1,
+      "h": 2.4
+    },
+    {
+      "id": "chinese_cabinet",
+      "outKey": "ph_cabinet_chinese",
+      "category": "Storage",
+      "w": 2.8,
+      "d": 1,
+      "h": 5
+    },
+    {
+      "id": "Chandelier_01",
+      "outKey": "ph_chandelier_01",
+      "category": "Lighting",
+      "w": 2.5,
+      "d": 2.5,
+      "h": 3,
+      "mount": "ceiling"
+    },
+    {
+      "id": "Chandelier_02",
+      "outKey": "ph_chandelier_02",
+      "category": "Lighting",
+      "w": 2.8,
+      "d": 2.8,
+      "h": 3.5,
+      "mount": "ceiling"
+    },
+    {
+      "id": "Chandelier_03",
+      "outKey": "ph_chandelier_03",
+      "category": "Lighting",
+      "w": 3,
+      "d": 3,
+      "h": 4,
+      "mount": "ceiling"
+    },
+    {
+      "id": "chinese_chandelier",
+      "outKey": "ph_chandelier_chinese",
+      "category": "Lighting",
+      "w": 2.6,
+      "d": 2.6,
+      "h": 3.2,
+      "mount": "ceiling"
+    },
+    {
+      "id": "lantern_chandelier_01",
+      "outKey": "ph_chandelier_lantern",
+      "category": "Lighting",
+      "w": 2.2,
+      "d": 2.2,
+      "h": 3.5,
+      "mount": "ceiling"
+    },
+    {
+      "id": "modern_ceiling_lamp_01",
+      "outKey": "ph_lamp_ceiling",
+      "category": "Lighting",
+      "w": 1.8,
+      "d": 1.8,
+      "h": 1.2,
+      "mount": "ceiling"
+    },
+    {
+      "id": "desk_lamp_arm_01",
+      "outKey": "ph_lamp_desk",
+      "category": "Lighting",
+      "w": 1,
+      "d": 0.8,
+      "h": 2.4,
+      "mount": "surface"
+    },
+    {
+      "id": "hanging_industrial_lamp",
+      "outKey": "ph_lamp_industrial",
+      "category": "Lighting",
+      "w": 1.2,
+      "d": 1.2,
+      "h": 2,
+      "mount": "ceiling"
+    },
+    {
+      "id": "industrial_pipe_lamp",
+      "outKey": "ph_lamp_pipe",
+      "category": "Lighting",
+      "w": 1,
+      "d": 0.6,
+      "h": 5.5
+    },
+    {
+      "id": "GothicBed_01",
+      "outKey": "ph_bed_gothic",
+      "category": "Beds",
+      "w": 5.5,
+      "d": 7,
+      "h": 5
+    },
+    {
+      "id": "ClassicNightstand_01",
+      "outKey": "ph_nightstand_classic",
+      "category": "Beds",
+      "w": 1.8,
+      "d": 1.4,
+      "h": 2.2
+    },
+    {
+      "id": "painted_wooden_nightstand",
+      "outKey": "ph_nightstand",
+      "category": "Beds",
+      "w": 1.6,
+      "d": 1.4,
+      "h": 2
+    },
+    {
+      "id": "potted_plant_01",
+      "outKey": "ph_plant_potted_01",
+      "category": "Plants",
+      "w": 1.2,
+      "d": 1.2,
+      "h": 2.4
+    },
+    {
+      "id": "potted_plant_02",
+      "outKey": "ph_plant_potted_02",
+      "category": "Plants",
+      "w": 1.4,
+      "d": 1.4,
+      "h": 2.8
+    },
+    {
+      "id": "potted_plant_04",
+      "outKey": "ph_plant_potted_04",
+      "category": "Plants",
+      "w": 1,
+      "d": 1,
+      "h": 1.8
+    },
+    {
+      "id": "planter_pot_clay",
+      "outKey": "ph_planter_clay",
+      "category": "Plants",
+      "w": 0.8,
+      "d": 0.8,
+      "h": 1.2
+    },
+    {
+      "id": "ornate_mirror_01",
+      "outKey": "ph_mirror_ornate",
+      "category": "Decor",
+      "w": 2,
+      "d": 0.2,
+      "h": 4,
+      "mount": "wall"
+    },
+    {
+      "id": "ceramic_vase_01",
+      "outKey": "ph_vase_ceramic_01",
+      "category": "Decor",
+      "w": 0.5,
+      "d": 0.5,
+      "h": 1.2
+    },
+    {
+      "id": "brass_vase_01",
+      "outKey": "ph_vase_brass_01",
+      "category": "Decor",
+      "w": 0.4,
+      "d": 0.4,
+      "h": 1
+    }
+  ]
+}
