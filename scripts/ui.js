@@ -13,7 +13,6 @@ function dismissWelcome(){
   w.classList.add('fade');
   setTimeout(()=>w.classList.add('gone'),800);
   ds('welcomed',true);
-  findEgg(0);
 }
 
 // ── TUTORIAL ──
@@ -36,7 +35,7 @@ async function chooseProfile(profileId,{skipReload=false}={}){
 }
 let tutS=-1;
 const TUTS=[
-  {t:'Start with one room',d:'Begin with a simple room card. You can reshape it later or grow the footprint with North, East, South, and West room buttons.'},
+  {t:'Start with one room',d:'Begin with a simple room card. You can reshape it later or grow the footprint with the Up, Right, Down, and Left room buttons.'},
   {t:'Shape the shell first',d:'Use Draw or Vertex to reshape the footprint. Doors and windows snap to walls, so build the shell before styling.'},
   {t:'Keep the panel collapsed while placing',d:'On phone, reopen the panel only when you need details. The floating panel chip lets you place or move pieces without the sheet covering the room.'},
   {t:'Furnish with tap, then place',d:'Choose Furnish, pick an item, then tap the exact spot where it belongs. This is the fastest way to work on iPhone.'},
@@ -55,7 +54,7 @@ function showTut(){
     <div class="tut-dots">${TUTS.map((_,i)=>`<div class="tut-d${i===tutS?' on':''}"></div>`).join('')}</div>`;
 }
 function nextTut(){tutS++;showTut()}
-function endTut(){tutS=-1;document.getElementById('tutOv').classList.remove('on');setLocal(profileSeenKey(),'1');findEgg(1)} // Easter egg: Soft Petal
+function endTut(){tutS=-1;document.getElementById('tutOv').classList.remove('on');setLocal(profileSeenKey(),'1')}
 
 function compareProjectRooms(a,b){
   return (a.floorOrder-b.floorOrder)||(a.roomOrder-b.roomOrder)||String(a.name||'').localeCompare(String(b.name||''))||String(a.optionName||'').localeCompare(String(b.optionName||''));
@@ -122,34 +121,42 @@ function setCreateRoomLayoutMode(mode='empty'){
   syncCreateRoomLayoutModeUI();
 }
 
+// ── EDITOR MORE MENU ──
+function toggleEditorMore(){
+  const menu=document.getElementById('edMoreMenu');
+  if(menu)menu.classList.toggle('on');
+}
+function closeEditorMore(){
+  const menu=document.getElementById('edMoreMenu');
+  if(menu)menu.classList.remove('on');
+}
+// Close more menu when clicking outside
+document.addEventListener('pointerdown',function(e){
+  const menu=document.getElementById('edMoreMenu');
+  const btn=document.getElementById('edMoreBtn');
+  if(menu&&menu.classList.contains('on')&&!menu.contains(e.target)&&!btn?.contains(e.target)){
+    menu.classList.remove('on');
+  }
+});
+function openLastProject(){
+  const sorted=[...projects].sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+  if(sorted.length)openEd(sorted[0]);
+}
+
 // ── HOME ──
 function renderHome(){
-  // Time-aware greeting
-  const heroEl = document.getElementById('heroGreeting');
-  const subEl = document.getElementById('heroSub');
-  if (heroEl) {
-    const tod = getTimeOfDay();
-    const greetings = {
-      morning: {h:'Good morning,<br>Rose',s:'A fresh canvas for a new day.'},
-      afternoon: {h:'Your Space,<br>Your Story',s:'The afternoon light is perfect for creating.'},
-      evening: {h:'Good evening,<br>Rose',s:'A soft place to land tonight.'},
-      night: {h:'Still creating,<br>Rose?',s:'Late night ideas are the best ones.'},
-    };
-    const g = greetings[tod];
-    if(activeProfile!=='rose'){
-      g.h='Your Space,<br>Your Story';
-      g.s='Your rooms, your options, your saved design world.';
-    }
-    heroEl.innerHTML = g.h;
-    subEl.textContent = g.s;
-  }
   updateProfileChip();
+  // Show/hide continue button
+  const continueBtn=document.getElementById('continueBtn');
+  if(continueBtn){
+    if(projects.length){continueBtn.style.display='flex'}
+    else{continueBtn.style.display='none'}
+  }
   const l=document.getElementById('prjList');
-  if(!projects.length){l.innerHTML='<div class="emp"><div class="ei">\u{1F339}</div><h3>No rooms yet</h3><p>Create your first room to start designing.</p></div>';return}
+  if(!projects.length){l.innerHTML='<div class="emp"><div class="ei">+</div><h3>No projects yet</h3><p>Create your first room to start designing.</p></div>';return}
   const grouped=[...new Map(projects.map(room=>[(room.projectId||room.id),projectPrimaryRoom(room)])).values()].filter(Boolean).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
   l.innerHTML=grouped.map(p=>{
     const n=p.polygon?p.polygon.length:0;
-    const sh=n===4?'Rectangle':n===6?'L-Shape':n>0?n+'-gon':'Drawing...';
     const type=(ROOM_TYPES.find(t=>t.id===(p.roomType||'living_room'))||ROOM_TYPES[0]).name;
     const moodLabel=p.mood&&MOOD_CONFIG[p.mood]?(p.mood.charAt(0).toUpperCase()+p.mood.slice(1)):null;
     const presetLabel=p.designPreset?(DESIGN_PRESETS.find(d=>d.id===p.designPreset)?.name||'Styled'):null;
@@ -160,8 +167,8 @@ function renderHome(){
     if(!p.previewThumb&&p.polygon?.length)updateRoomPreviewThumb(p);
     const optionChip=(p.optionName&&p.optionName!=='Main')?`<span class="chip">${esc(p.optionName)}</span>`:'';
     const optionCount=optionSiblings(p).length>1?`<span class="chip">${optionSiblings(p).length} options</span>`:'';
-    const thumb=p.previewThumb?`<div style="width:92px;height:72px;border-radius:14px;overflow:hidden;flex-shrink:0;box-shadow:var(--sh)"><img src="${p.previewThumb}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>`:'';
-    return `<div class="pc" onclick="openPrj('${p.projectId||p.id}')">${thumb}<div class="pci">${p.favorite?'\u2728':'\u{1F3E0}'}</div><div class="pcf"><h3>${esc(p.projectName||p.name)}</h3><p>${roomCount} room${roomCount===1?'':'s'} &middot; ${floorCount} floor${floorCount===1?'':'s'} &middot; edited ${edited}</p><div class="pcmeta"><span class="chip">${esc(primaryChip)}</span>${presetLabel&&moodLabel?`<span class="chip">${esc(presetLabel)}</span>`:''}<span class="chip">${esc(type)}</span>${roomCount>1?`<span class="chip">${roomCount} rooms</span>`:''}${floorCount>1?`<span class="chip">${floorCount} floors</span>`:''}${optionChip}${optionCount}</div></div><div class="pca"><button class="pab" onpointerdown="favPrjClick(event,'${p.projectId||p.id}')" title="Favorite"><svg viewBox="0 0 24 24"><path d="M12 17.3 5.8 21l1.7-7-5.5-4.8 7.2-.6L12 2l2.8 6.6 7.2.6-5.5 4.8 1.7 7z"/></svg></button><button class="pab" onpointerdown="dupPrjClick(event,'${p.projectId||p.id}')" title="Duplicate"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="pab" onpointerdown="delPrjClick(event,'${p.projectId||p.id}')" title="Delete"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`}).join('')}
+    const thumb=p.previewThumb?`<div style="width:52px;height:52px;border-radius:var(--r);overflow:hidden;flex-shrink:0;box-shadow:var(--sh)"><img src="${p.previewThumb}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>`:'';
+    return `<div class="pc" onclick="openPrj('${p.projectId||p.id}')">${thumb}<div class="pci">${p.favorite?'\u2728':'\u{1F3E0}'}</div><div class="pcf"><h3>${esc(p.projectName||p.name)}</h3><p>${roomCount} room${roomCount===1?'':'s'} &middot; ${floorCount} floor${floorCount===1?'':'s'} &middot; ${edited}</p><div class="pcmeta"><span class="chip">${esc(primaryChip)}</span><span class="chip">${esc(type)}</span>${optionChip}${optionCount}</div></div><div class="pca"><button class="pab" onpointerdown="favPrjClick(event,'${p.projectId||p.id}')" title="Favorite"><svg viewBox="0 0 24 24"><path d="M12 17.3 5.8 21l1.7-7-5.5-4.8 7.2-.6L12 2l2.8 6.6 7.2.6-5.5 4.8 1.7 7z"/></svg></button><button class="pab" onpointerdown="dupPrjClick(event,'${p.projectId||p.id}')" title="Duplicate"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="pab" onpointerdown="delPrjClick(event,'${p.projectId||p.id}')" title="Delete"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`}).join('')}
 function openPrj(id){const p=projectPrimaryRoom(id)||projects.find(r=>r.id===id);if(p)openEd(p)}
 function dupPrj(id){
   const sourceRooms=projectRooms(id);
@@ -230,7 +237,7 @@ const PRESET_SVGS={
   free:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40"><path d="M8 30L15 8L35 4L52 15L48 34L25 36Z" fill="none" stroke="#B8918E" stroke-width="1.5" stroke-dasharray="3 2"/></svg>'
 };
 function popPresets(){document.getElementById('preG').innerHTML=ROOM_STARTERS.map(p=>`<div class="pi${p.id===selPreset?' sel':''}" onclick="selPre('${p.id}',this)"><span class="starter-tag">${p.tag}</span>${PRESET_SVGS[p.shape]||PRESET_SVGS.rect}<span>${p.name}</span><small>${p.hint}</small></div>`).join('')}
-function defaultPersonalRoomName(){return activeProfile==='rose'?"Rose's Room":"Marco's Room"}
+function defaultPersonalRoomName(){return activeProfile==='rose'?"Living Room":"Living Room"}
 function selPre(id,el){
   selPreset=id;
   const starter=ROOM_STARTERS.find(s=>s.id===id);
@@ -253,6 +260,13 @@ function openCrModal(starterId='living_room',ctx=null){
   document.getElementById('crW').value=starter.width;document.getElementById('crL').value=starter.depth;document.getElementById('crH').value=starter.height;popPresets();document.getElementById('crMod').classList.add('on');
   syncCreateRoomLayoutModeUI();
 }
+// Opens the create modal pre-seeded with a room type from a design brief.
+// briefId is informational only — the modal still lets the user adjust before creating.
+function openCrModalWithBrief(roomType, briefId) {
+  setCreateRoomLayoutMode('starter');
+  openCrModal(roomType);
+}
+
 function closeCr(){document.getElementById('crMod').classList.remove('on')}
 document.getElementById('crMod').onclick=function(e){if(e.target===this)closeCr()};
 function buildStarterFurniture(starter,w,l){
@@ -266,6 +280,14 @@ function buildStarterFurniture(starter,w,l){
     reading_nook:[{label:'Chair',assetKey:'chair',x:midX-1,y:midY+1,w:1.6,d:1.6,rotation:200},{label:'Round Side Table',assetKey:'table_round_small',x:midX+1.2,y:midY+.8,w:2.4,d:2.4,rotation:0},{label:'Floor Lamp',assetKey:'lamp_floor',x:midX+2.2,y:midY-1,w:1,d:1,rotation:0},{label:'Round Rug',assetKey:'rug_round',x:midX,y:midY,w:4.2,d:4.2,rotation:0}],
     studio:[{label:'Sectional Sofa',assetKey:'sofa_l',x:5.5,y:5,w:6,d:3.6,rotation:180},{label:'Desk',assetKey:'desk',x:w-4,y:l-2.5,w:4,d:2,rotation:180},{label:'Dining Table',assetKey:'dining_table',x:w-5.5,y:4,w:5,d:3,rotation:0},{label:'Runner Rug',assetKey:'runner_rug',x:midX,y:midY,w:6.5,d:2,rotation:0}],
     closet_room:[{label:'Mirror',assetKey:'mirror',x:w-0.15,y:midY,w:2,d:.3,rotation:90,mountType:'wall',elevation:5},{label:'Dresser',assetKey:'dresser',x:2.5,y:midY,w:4,d:1.8,rotation:90},{label:'Bench',assetKey:'bench',x:midX,y:l-2,w:3.5,d:1.4,rotation:180}],
+    kitchen:[{label:'Base Cabinet',assetKey:'kitchen_cabinet_base',x:1,y:l-0.5,w:1.5,d:0.65,rotation:180},{label:'Refrigerator',assetKey:'thi_kitchen_fridge',x:w-1.5,y:l-1.2,w:2.8,d:2.2,rotation:180},{label:'Oven',assetKey:'thi_kitchen_oven',x:midX,y:l-1.2,w:2.5,d:2,rotation:180},{label:'Sink',assetKey:'thi_kitchen_sink',x:midX-3,y:l-0.5,w:3,d:0.65,rotation:180},{label:'Range Hood',assetKey:'kn_hood_modern',x:midX,y:l-0.2,w:2.5,d:1.4,rotation:180,mountType:'ceiling',elevation:6.6},{label:'Kitchen Island',assetKey:'kitchen_island',x:midX,y:midY,w:4,d:2.5,rotation:0}],
+    bathroom:[{label:'Vanity Sink',assetKey:'thi_bathroom_sink',x:midX,y:l-0.5,w:2.5,d:0.6,rotation:180},{label:'Toilet',assetKey:'thi_toilet',x:w-1,y:l-1.5,w:1.2,d:2,rotation:180},{label:'Bathtub',assetKey:'thi_bathtub',x:2.1,y:2.8,w:2.5,d:5.5,rotation:90},{label:'Towel Rack',assetKey:'thi_towel_rack',x:w-0.1,y:midY,w:1.8,d:0.2,rotation:90,mountType:'wall',elevation:4.2},{label:'Bathroom Mirror',assetKey:'bathroom_mirror',x:midX,y:l-0.1,w:2.5,d:0.2,rotation:180,mountType:'wall',elevation:5}],
+    laundry:[{label:'Washing Machine',assetKey:'thi_washing_machine',x:2.2,y:l-1.6,w:2.6,d:2.7,rotation:180},{label:'Dryer',assetKey:'kn_dryer',x:5.1,y:l-1.6,w:2.6,d:2.7,rotation:180},{label:'Small Shelf',assetKey:'shelf_small',x:w-0.15,y:midY,w:2.2,d:0.45,rotation:90,mountType:'wall',elevation:5.2},{label:'Small Trashcan',assetKey:'trashcan_small',x:w-1.1,y:1.2,w:1,d:1,rotation:0}],
+    // Phase 6A — new starter furniture sets
+    home_theater:[{label:'Sectional Sofa',assetKey:'kn_lounge_sectional',x:midX,y:l-4,w:9,d:3.6,rotation:180},{label:'Coffee Table',assetKey:'table_coffee',x:midX,y:l-7,w:3.2,d:1.8,rotation:0},{label:'TV Cabinet',assetKey:'kn_cabinet_tv_doors',x:midX,y:1.2,w:5.2,d:1.6,rotation:0},{label:'Area Rug',assetKey:'rug',x:midX,y:l-5,w:9,d:6,rotation:0},{label:'Floor Lamp',assetKey:'lamp_floor',x:1.5,y:l-2,w:1,d:1,rotation:0}],
+    mudroom:[{label:'Bench',assetKey:'bench',x:midX,y:l-1.2,w:4,d:1.4,rotation:180},{label:'Standing Coat Rack',assetKey:'kn_coat_rack_standing',x:1.2,y:2,w:1.4,d:1.4,rotation:0},{label:'Coat Rack',assetKey:'kn_coat_rack',x:w-0.2,y:midY,w:2.4,d:0.2,rotation:90,mountType:'wall',elevation:4.8},{label:'Doormat',assetKey:'kn_rug_doormat',x:midX,y:1.3,w:3,d:1.8,rotation:0}],
+    kids_room:[{label:'Bunk Bed',assetKey:'thi_bunk_bed',x:midX-1,y:l-3,w:3.5,d:6.5,rotation:180},{label:'Nightstand',assetKey:'tfp_night_stand',x:midX-3.2,y:l-1.8,w:1.7,d:1.5,rotation:180},{label:'Round Rug',assetKey:'rug_round',x:midX+1,y:midY,w:5,d:5,rotation:0},{label:'Teddy Bear',assetKey:'kn_bear',x:midX+1,y:l-2,w:0.5,d:0.5,rotation:0},{label:'Short Closet',assetKey:'tfp_closet_short',x:w-1,y:2,w:2.8,d:1.8,rotation:270}],
+    primary_suite:[{label:'King Bed',assetKey:'bed_king',x:midX-2,y:l-4,w:6.4,d:7.4,rotation:180},{label:'Nightstand L',assetKey:'nightstand',x:midX-5.2,y:l-2.8,w:1.7,d:1.5,rotation:180},{label:'Nightstand R',assetKey:'nightstand_alt',x:midX+1.2,y:l-2.8,w:1.8,d:1.55,rotation:180},{label:'Area Rug',assetKey:'rug',x:midX-2,y:l-5,w:7,d:5,rotation:0},{label:'Lounge Chair',assetKey:'chair',x:midX+5,y:midY-1,w:2,d:2,rotation:200},{label:'Tall Closet',assetKey:'tfp_closet',x:w-1,y:2,w:3.2,d:2,rotation:270},{label:'Floor Lamp',assetKey:'lamp_floor',x:midX+5.5,y:l-2,w:1,d:1,rotation:0}],
   };
   return (sets[starter.id]||[]).map(item=>({
     id:uid(),
@@ -305,8 +327,6 @@ function createFromPreset(){
   room.furniture=createRoomLayoutMode==='starter'?buildStarterFurniture(starter,w,l):[];
   if(starter.designPreset)applyDesignPresetToRoom(room,starter.designPreset);
   projects.push(room);saveAll();closeCr();openEd(room);
-  // Easter egg: first room creation
-  if(projects.length===1)findEgg(2); // Rose Morning
 }
 
 function startFreeDraw(){
@@ -698,6 +718,14 @@ function togglePlanLegend(){
   draw();
   showP();
 }
+function toggleRoomLayer(key){
+  if(!curRoom||!PLAN_LAYER_DEFAULTS[key])return;
+  curRoom.layerVisibility={...PLAN_LAYER_DEFAULTS,...(curRoom.layerVisibility||{})};
+  curRoom.layerVisibility[key]=!curRoom.layerVisibility[key];
+  pushU();
+  draw();
+  showP();
+}
 function toggle3DCompareMode(){
   if(!curRoom)return;
   const current=currentPlanViewMode(curRoom);
@@ -942,3 +970,99 @@ function toggleUnitSystem(){
   draw();
   showP();
 }
+// Phase ✨ — Keyboard shortcut cheat sheet (press ? to toggle).
+const SHORTCUT_GROUPS=[
+  {label:'Tools',items:[
+    ['V','Select'],['W','Wall draw'],['D','Door'],['T','Text / annotation'],['Shift+D','Dimension note'],
+  ]},
+  {label:'View',items:[
+    ['Tab','Toggle 2D / 3D'],['+ / -','Zoom in / out'],['Esc','Deselect / close'],
+  ]},
+  {label:'Edit',items:[
+    ['Ctrl+Z','Undo'],['Ctrl+Y / Ctrl+Shift+Z','Redo'],['Ctrl+C / Ctrl+V','Copy / paste furniture'],['Del','Delete selected'],['R','Rotate selected'],
+  ]},
+  {label:'Export',items:[
+    ['Ctrl+S','Save'],['Ctrl+P','Export PDF'],['Ctrl+Shift+S','Export SVG'],
+  ]},
+  {label:'Rooms',items:[
+    ['Ctrl+Shift+Q','Auto-square room'],['?','This cheat sheet'],
+  ]},
+];
+function toggleShortcutSheet(){
+  let sheet=document.getElementById('shortcutSheet');
+  if(!sheet){
+    sheet=document.createElement('div');
+    sheet.id='shortcutSheet';
+    sheet.className='shortcut-sheet';
+    const isMac=/Mac|iPhone|iPad/i.test(navigator.platform||'');
+    const mod=isMac?'⌘':'Ctrl';
+    sheet.innerHTML=`<div class="shortcut-card">
+      <div class="shortcut-head"><div class="shortcut-title">Keyboard Shortcuts</div><button class="shortcut-x" onclick="document.getElementById('shortcutSheet').classList.remove('on')" aria-label="Close">×</button></div>
+      <div class="shortcut-grid">${SHORTCUT_GROUPS.map(g=>`
+        <div class="shortcut-group">
+          <div class="shortcut-group-label">${g.label}</div>
+          ${g.items.map(([k,l])=>`<div class="shortcut-row"><kbd>${k.replace(/Ctrl/g,mod)}</kbd><span>${l}</span></div>`).join('')}
+        </div>`).join('')}</div>
+      <div class="shortcut-hint">Press <kbd>?</kbd> anytime to open this sheet</div>
+    </div>`;
+    sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.classList.remove('on')});
+    document.body.appendChild(sheet);
+  }
+  sheet.classList.toggle('on');
+}
+if(typeof window!=='undefined')window.toggleShortcutSheet=toggleShortcutSheet;
+
+// Phase ✨ — Time-of-day slider wiring (live preview; persists per-room)
+function _todLabelForValue(v){
+  const t=v/100;
+  if(t<0.1)return'Midnight';if(t<0.22)return'Dawn';if(t<0.38)return'Morning';
+  if(t<0.58)return'Noon';if(t<0.76)return'Golden';if(t<0.9)return'Dusk';return'Night';
+}
+function onTimeOfDayChange(v){
+  const t=Number(v)/100;
+  const label=document.getElementById('todLabel');
+  if(label)label.textContent=_todLabelForValue(Number(v));
+  if(typeof applyTimeOfDay==='function')applyTimeOfDay(t);
+}
+function setTimeOfDay(v){
+  const s=document.getElementById('todSlider');
+  if(s)s.value=v;
+  onTimeOfDayChange(v);
+}
+if(typeof window!=='undefined'){window.onTimeOfDayChange=onTimeOfDayChange;window.setTimeOfDay=setTimeOfDay}
+
+// Phase ✨ — Undo timeline strip: thumbnail dots showing undo/redo stack position
+function updateUndoStrip(){
+  let strip=document.getElementById('undoStrip');
+  if(!curRoom||!is3D===false&&!curRoom){if(strip)strip.classList.remove('on');return}
+  if(!strip){
+    strip=document.createElement('div');strip.id='undoStrip';strip.className='undo-strip';
+    document.body.appendChild(strip);
+  }
+  const totalUndo=(typeof undoSt!=='undefined'?undoSt.length:1);
+  const totalRedo=(typeof redoSt!=='undefined'?redoSt.length:0);
+  const total=totalUndo+totalRedo;
+  if(total<=1){strip.classList.remove('on');return}
+  // Current position: at index (totalUndo-1) from left
+  const cur=totalUndo-1;
+  const nodes=[];
+  const max=Math.min(total,12);
+  const offset=Math.max(0,cur-Math.floor(max/2));
+  for(let i=0;i<max&&(i+offset)<total;i++){
+    const idx=i+offset;
+    const isCurrent=idx===cur;
+    const stepsBack=cur-idx;
+    nodes.push(`<div class="undo-node${isCurrent?' current':''}" data-step="${stepsBack}" title="${stepsBack===0?'Current':stepsBack>0?stepsBack+' step back':(-stepsBack)+' step forward'}" onclick="jumpUndoStep(${stepsBack})">${isCurrent?'•':''}</div>`);
+  }
+  strip.innerHTML=nodes.join('');
+  strip.classList.add('on');
+  clearTimeout(strip._t);
+  strip._t=setTimeout(()=>strip.classList.remove('on'),3200);
+}
+function jumpUndoStep(steps){
+  if(!steps||typeof doUndo!=='function')return;
+  const fn=steps>0?doUndo:doRedo;
+  for(let i=0;i<Math.abs(steps);i++)fn();
+  updateUndoStrip();
+}
+if(typeof window!=='undefined'){window.updateUndoStrip=updateUndoStrip;window.jumpUndoStep=jumpUndoStep}

@@ -9,10 +9,12 @@ const RUNTIME_MODULES = [
   './scripts/walkthrough.js',
 ];
 
+const _V = '20260410';
+
 async function loadClassicScript(src) {
   await new Promise((resolve, reject) => {
     const script = document.createElement('script');
-    script.src = src;
+    script.src = src + '?v=' + _V;
     script.async = false;
     script.onload = () => resolve();
     script.onerror = () => reject(new Error('Failed to load ' + src));

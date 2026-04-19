@@ -61,7 +61,7 @@
   <script type="importmap">
     {
       "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js"
+        "three": "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.module.js"
       }
     }
   </script>
@@ -76,7 +76,7 @@
   </div>
   <script type="module">
     import * as THREE from 'three';
-    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/loaders/GLTFLoader.js';
+    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.147.0/examples/jsm/loaders/GLTFLoader.js';
 
     const stage = document.getElementById('stage');
     const fallback = document.getElementById('fallback');
@@ -91,6 +91,9 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
+    // Phase ✨ — Filmic tone mapping + gentle exposure = warmer, "curated catalog" feel
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     stage.appendChild(renderer.domElement);

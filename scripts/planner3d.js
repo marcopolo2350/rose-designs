@@ -8,6 +8,7 @@ function pushUBase(){
   if(undoSt.length>50)undoSt.shift();
   redoSt=[];
   persistRoomHistory();
+  if(typeof updateUndoStrip==='function')updateUndoStrip();
 }
 function doUndo(){
   if(undoSt.length<=1)return;
@@ -20,6 +21,7 @@ function doUndo(){
   draw();
   scheduleRebuild3D();
   persistRoomHistory();
+  if(typeof updateUndoStrip==='function')updateUndoStrip();
 }
 function doRedo(){
   if(!redoSt.length)return;
@@ -33,8 +35,91 @@ function doRedo(){
   draw();
   scheduleRebuild3D();
   persistRoomHistory();
+  if(typeof updateUndoStrip==='function')updateUndoStrip();
 }
-let cameraScript=null,walkthroughTrayOpen=false,photoMode=false,photoTrayOpen=false,contactShadowTexture=null,presentationShot='hero';
+let cameraScript=null,walkthroughTrayOpen=false,photoMode=false,photoTrayOpen=false,contactShadowTexture=null,presentationShot='hero',composer=null,last2DViewState=null;
+// Phase 3B — HDRI environment maps (Poly Haven CC0, served via jsDelivr). Cached across scene rebuilds.
+const HDRI_SOURCES={
+  daylight:'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/equirectangular/royal_esplanade_1k.hdr',
+  evening: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/equirectangular/moonless_golf_1k.hdr',
+  warm:    'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/equirectangular/venice_sunset_1k.hdr'
+};
+const _hdriCache=new Map();
+function _resolveHdriKey(id){
+  return (id==='evening'||id==='night'||id==='moody'||id==='lamp_lit')?'evening'
+       :(id==='warm'||id==='sunset'||id==='warm_evening'||id==='soft_lamp_glow'||id==='golden_hour'||id==='dawn')?'warm'
+       :'daylight';
+}
+function loadHDRIEnvironment(presetId,renderer,sceneRef){
+  if(!window.THREE||!THREE.RGBELoader||!THREE.PMREMGenerator)return;
+  const key=_resolveHdriKey(presetId);
+  const url=HDRI_SOURCES[key];if(!url)return;
+  const apply=(envMap)=>{if(sceneRef&&sceneRef===scene){sceneRef.environment=envMap;sceneRef.userData.currentHdriKey=key}};
+  if(_hdriCache.has(key)){apply(_hdriCache.get(key));return}
+  try{
+    const pmrem=new THREE.PMREMGenerator(renderer);pmrem.compileEquirectangularShader();
+    new THREE.RGBELoader().setDataType(THREE.HalfFloatType).load(url,(tex)=>{
+      const env=pmrem.fromEquirectangular(tex).texture;
+      _hdriCache.set(key,env);
+      tex.dispose();pmrem.dispose();
+      apply(env);
+    },undefined,(err)=>{console.warn('HDRI load failed:',err)});
+  }catch(e){console.warn('HDRI setup failed:',e)}
+}
+// Time-of-day [0..1] → pick the HDRI that matches + tint the directional color.
+// 0 = deep night, 0.14 = dawn, 0.3 = morning, 0.5 = noon, 0.72 = golden hour, 0.86 = dusk, 0.96 = lamp-lit night.
+function hdriForTOD(t){
+  if(t<0.18||t>0.9)return 'evening';
+  if(t>0.62)return 'warm';
+  return 'daylight';
+}
+function _lerpHex(a,b,t){
+  const ah=parseInt(a.replace('#',''),16),bh=parseInt(b.replace('#',''),16);
+  const ar=(ah>>16)&255,ag=(ah>>8)&255,ab=ah&255;
+  const br=(bh>>16)&255,bg=(bh>>8)&255,bb=bh&255;
+  const r=Math.round(ar+(br-ar)*t),g=Math.round(ag+(bg-ag)*t),bx=Math.round(ab+(bb-ab)*t);
+  return '#'+((1<<24)|(r<<16)|(g<<8)|bx).toString(16).slice(1);
+}
+// Crossfade sky background + directional intensity based on TOD. Keep this cheap — it runs on slider drag.
+function applyTimeOfDay(t){
+  if(!scene||!curRoom)return;
+  t=Math.max(0,Math.min(1,t));
+  // Update room metadata so it persists + rebuilds pick it up
+  curRoom.materials=curRoom.materials||{};
+  curRoom.materials.timeOfDay=t;
+  // Live background tint: dawn→noon→golden→dusk→night gradient
+  const stops=[
+    {t:0.00,c:'#0a0f1e'},{t:0.14,c:'#c8b8b0'},{t:0.30,c:'#d6e5f2'},
+    {t:0.50,c:'#eef4f8'},{t:0.72,c:'#e8c79a'},{t:0.86,c:'#dcc3af'},
+    {t:0.96,c:'#2b2a32'},{t:1.00,c:'#0a0f1e'}
+  ];
+  let a=stops[0],b=stops[stops.length-1];
+  for(let i=0;i<stops.length-1;i++){if(t>=stops[i].t&&t<=stops[i+1].t){a=stops[i];b=stops[i+1];break}}
+  const lt=(t-a.t)/Math.max(0.0001,(b.t-a.t));
+  const col=_lerpHex(a.c,b.c,lt);
+  try{scene.background=new THREE.Color(col);if(scene.fog)scene.fog.color=new THREE.Color(col)}catch(_){}
+  // Exposure curve: darker at night, brighter at noon
+  if(ren){
+    const eBase=0.7+Math.sin(Math.min(1,Math.max(0,t))*Math.PI)*0.65;
+    ren.toneMappingExposure=eBase*(photoMode?1.08:1);
+  }
+  // Swap HDRI if the TOD bucket changed
+  const targetKey=hdriForTOD(t);
+  if(scene.userData.currentHdriKey!==targetKey){
+    loadHDRIEnvironment(targetKey,ren,scene);
+  }
+  // Directional light tint + intensity
+  const dir=scene.userData?.styleTargets?.dirLight;
+  if(dir){
+    const warm=t>0.65?_lerpHex('#ffd6a8','#ff9a5b',Math.min(1,(t-0.65)/0.25)):
+               t<0.25?_lerpHex('#9ab4d0','#ffd6a8',Math.min(1,t/0.25)):'#fffaf2';
+    try{dir.color=new THREE.Color(warm)}catch(_){}
+    dir.intensity=(0.3+Math.sin(Math.max(0,Math.min(1,t))*Math.PI)*1.6);
+  }
+  const hemi=scene.userData?.styleTargets?.hemiLight;
+  if(hemi){hemi.intensity=0.4+Math.sin(Math.max(0,Math.min(1,t))*Math.PI)*0.9}
+}
+if(typeof window!=='undefined'){window.applyTimeOfDay=applyTimeOfDay}
 
 // ═══════════════════════════════════
 // 3D — IMMERSIVE WALKTHROUGH
@@ -48,13 +133,14 @@ function toggle3D(){
   compare3DMode=false;
   photoMode=false;
   photoTrayOpen=false;
+  last2DViewState={vScale, vOff:{...vOff}};
   is3D=true;panelHidden=false;document.getElementById('threeC').classList.add('on');document.getElementById('b3d').classList.add('on');document.getElementById('vLbl').textContent='Step Inside 3D';document.getElementById('camBtns').classList.add('on');
   document.getElementById('cmCompare').classList.remove('act');
   document.getElementById('cmPhoto')?.classList.remove('act');
   document.getElementById('scrEd').classList.add('mode-3d');
-  hideP();build3D();setTimeout(()=>{if(is3D){setViewPreset('overview');showViewChip('3D View · Orbit');}},80);updateWalkthroughTray();updatePhotoTray();findEgg(5)}
+  hideP();build3D();setTimeout(()=>{if(is3D){setViewPreset('overview');showViewChip('3D View · Orbit');}},80);updateWalkthroughTray();updatePhotoTray();}
 
-function exit3DView(){stop3D();hideViewChip();is3D=false;camMode='orbit';presentationMode=false;compare3DMode=false;photoMode=false;photoTrayOpen=false;cameraScript=null;walkthroughTrayOpen=false;document.getElementById('scrEd').classList.remove('mode-3d','presentation','photo-mode');document.getElementById('threeC').classList.remove('on');document.getElementById('b3d').classList.remove('on');document.getElementById('vLbl').textContent='2D Plan';document.getElementById('camBtns').classList.remove('on');document.getElementById('walkHint').classList.remove('on');document.getElementById('presentPill').classList.remove('on');document.getElementById('presentPill').textContent='Presentation Mode';document.getElementById('photoPill')?.classList.remove('on');document.getElementById('cmCompare').classList.remove('act');document.getElementById('cmTour')?.classList.remove('act');document.getElementById('cmPhoto')?.classList.remove('act');updateWalkthroughTray();updatePhotoTray();resetRoomDebug();initCan();draw();showP()}
+function exit3DView(){stop3D();hideViewChip();is3D=false;camMode='orbit';presentationMode=false;compare3DMode=false;photoMode=false;photoTrayOpen=false;cameraScript=null;walkthroughTrayOpen=false;document.getElementById('scrEd').classList.remove('mode-3d','presentation','photo-mode');document.getElementById('threeC').classList.remove('on');document.getElementById('b3d').classList.remove('on');document.getElementById('vLbl').textContent='2D Plan';document.getElementById('camBtns').classList.remove('on');document.getElementById('walkHint').classList.remove('on');document.getElementById('presentPill').classList.remove('on');document.getElementById('presentPill').textContent='Presentation Mode';document.getElementById('photoPill')?.classList.remove('on');document.getElementById('cmCompare').classList.remove('act');document.getElementById('cmTour')?.classList.remove('act');document.getElementById('cmPhoto')?.classList.remove('act');updateWalkthroughTray();updatePhotoTray();resetRoomDebug();initCan();if(last2DViewState){vScale=last2DViewState.vScale;vOff={...last2DViewState.vOff}}draw();showP()}
 
 function presentationShotLabel(mode){
   return ({
@@ -136,16 +222,11 @@ function intimateRoomPose(room=curRoom){
 }
 function heroRoomPose(room=curRoom){
   const favorite=favoriteCornerPose(room);
-  const focus=getRoomFocus(room);
   return {
     yaw:favorite.yaw,
-    pitch:.42,
-    dist:Math.max(12.5,Math.min(26,favorite.dist*1.18)),
-    target:{
-      x:(favorite.target.x+focus.x)/2,
-      y:room.height*.4,
-      z:(favorite.target.z+(-focus.y))/2
-    }
+    pitch:.34,
+    dist:Math.max(10.5,Math.min(20,favorite.dist*.94)),
+    target:{...favorite.target}
   };
 }
 function refreshPresentationPill(){
@@ -211,7 +292,7 @@ function setViewPreset(mode){
     return;
   }else if(mode==='corner'){
     const pose=favoriteCornerPose(curRoom);
-    cYaw=pose.yaw;cPitch=pose.pitch;cDist=Math.max(12,Math.min(30,pose.dist*1.02));orbitTarget={...pose.target};
+    cYaw=pose.yaw;cPitch=pose.pitch;cDist=Math.max(10,Math.min(20,pose.dist));orbitTarget={...pose.target};
     showViewChip(`3D View · ${viewPresetLabel(mode)}`);
     return;
   }else if(mode==='eye'){
@@ -316,11 +397,11 @@ function capturePhotoMode(download=true){
   const targetRatio=Math.min((photoMode?2.4:2)*Math.max(1,window.devicePixelRatio||1),3);
   ren.setPixelRatio(targetRatio);
   ren.setSize(size.x,size.y,false);
-  ren.render(scene,cam);
+  if(composer){composer.setSize(size.x,size.y);if(composer._fxaa){const pr=ren.getPixelRatio();composer._fxaa.material.uniforms['resolution'].value.set(1/(size.x*pr),1/(size.y*pr))}composer.render()}else ren.render(scene,cam);
   const dataUrl=ren.domElement.toDataURL('image/png');
   ren.setPixelRatio(prevRatio);
   ren.setSize(size.x,size.y,false);
-  ren.render(scene,cam);
+  if(composer){composer.setSize(size.x,size.y);if(composer._fxaa){const pr=ren.getPixelRatio();composer._fxaa.material.uniforms['resolution'].value.set(1/(size.x*pr),1/(size.y*pr))}composer.render()}else ren.render(scene,cam);
   if(download){
     const a=document.createElement('a');
     a.href=dataUrl;
@@ -373,22 +454,28 @@ function favoriteCornerPose(room){
     centroid.z/=(room.furniture||[]).length;
   }
   const b=getRoomBounds2D(room);
+  const inset=Math.max(.9,Math.min(2.4,Math.min(focus.width,focus.height)*.08));
   const corners=[
-    {x:b.x0-.8,z:-b.y0+.8},
-    {x:b.x1+.8,z:-b.y0+.8},
-    {x:b.x1+.8,z:-b.y1-.8},
-    {x:b.x0-.8,z:-b.y1-.8},
+    {x:b.x0+inset,z:-b.y0-inset},
+    {x:b.x1-inset,z:-b.y0-inset},
+    {x:b.x1-inset,z:-b.y1+inset},
+    {x:b.x0+inset,z:-b.y1+inset},
   ];
   let best=null;
   corners.forEach(corner=>{
     const dx=centroid.x-corner.x,dz=centroid.z-corner.z;
     const dist=Math.hypot(dx,dz);
-    const score=dist+(Math.abs(dx)+Math.abs(dz))*.2;
+    const score=dist-(Math.abs(dx)+Math.abs(dz))*.08;
     if(!best||score>best.score)best={corner,score,dist,dx,dz};
   });
   const yaw=Math.atan2(best.dx,-best.dz);
-  const dist=Math.max(10,Math.min(24,Math.max(focus.width,focus.height)*1.12));
-  return {yaw,pitch:.32,dist,target:{x:centroid.x,y:room.height*.38,z:centroid.z}};
+  const target={
+    x:centroid.x+(best.dx*-0.06),
+    y:room.height*.38,
+    z:centroid.z+(best.dz*-0.06)
+  };
+  const dist=Math.max(8.5,Math.min(18,Math.max(focus.width,focus.height)*.82));
+  return {yaw,pitch:.28,dist,target};
 }
 function startWalkthroughPreset(id){
   if(!is3D||!curRoom)return;
@@ -409,13 +496,20 @@ function startWalkthroughPreset(id){
     playCameraSequence([{duration:400,onStart:()=>setCamMode('walk'),apply:()=>{}},{duration:1800,apply:t=>applyWalkTween(fpPos,pts[0],t)},{duration:1800,apply:t=>applyWalkTween(pts[0],pts[1],t)},{duration:1800,apply:t=>applyWalkTween(pts[1],pts[2],t)},{duration:900,onStart:()=>setCamMode('orbit'),apply:()=>{}}]);
   }
 }
+// Phase ✨ — Easing curves for walkthrough. Previously progress was linear, so every
+// camera move felt robotic. easeInOutCubic on the default, easeOutQuint on reveals.
+function _easeInOutCubic(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function _easeOutQuint(t){return 1-Math.pow(1-t,5)}
+function _easeInOutQuart(t){return t<0.5?8*t*t*t*t:1-Math.pow(-2*t+2,4)/2}
 function updateCameraScript(now){
   if(!cameraScript||!cameraScript.steps?.length)return;
   if(cameraScript.index===-1){cameraScript.index=0;cameraScript.stepStart=now;cameraScript.steps[0].onStart?.();}
   const step=cameraScript.steps[cameraScript.index];
-  const progress=Math.max(0,Math.min(1,(now-cameraScript.stepStart)/Math.max(1,step.duration||1)));
+  const raw=Math.max(0,Math.min(1,(now-cameraScript.stepStart)/Math.max(1,step.duration||1)));
+  const ease=step.ease||'inOutCubic';
+  const progress=ease==='outQuint'?_easeOutQuint(raw):ease==='inOutQuart'?_easeInOutQuart(raw):ease==='linear'?raw:_easeInOutCubic(raw);
   step.apply?.(progress);
-  if(progress>=1){cameraScript.index+=1;if(cameraScript.index>=cameraScript.steps.length){cameraScript=null;return;}cameraScript.stepStart=now;cameraScript.steps[cameraScript.index].onStart?.();}
+  if(raw>=1){cameraScript.index+=1;if(cameraScript.index>=cameraScript.steps.length){cameraScript=null;return;}cameraScript.stepStart=now;cameraScript.steps[cameraScript.index].onStart?.();}
 }
 
 function setCamMode(m){
@@ -424,10 +518,10 @@ function setCamMode(m){
   orbitTarget={x:focus.x,y:r.height*.42,z:-focus.y};
   const ceiling=scene?.getObjectByName?.('roomCeiling');
   if(ceiling)ceiling.visible=m==='walk';
-  if(m==='walk'){const start=findWalkStart(r);fpPos={x:start.x,y:Math.max(4.9,Math.min(r.height-1.15,r.height*.54)),z:start.z};cYaw=0;cPitch=0;orbitVel={yaw:0,pitch:0,zoom:0};bindWalkKeys();DS.walkUses++;saveDS();checkUnlocks();
+  if(m==='walk'){const start=findWalkStart(r);fpPos={x:start.x,y:Math.max(4.9,Math.min(r.height-1.15,r.height*.54)),z:start.z};cYaw=0;cPitch=0;orbitVel={yaw:0,pitch:0,zoom:0};bindWalkKeys();if(typeof recordWalkUsage==='function')recordWalkUsage();
     // Make ceiling visible for entire extended polygon in walk mode
     if(scene){scene.traverse(obj=>{if(obj.name==='roomCeiling')obj.visible=true})};
-    document.getElementById('walkHint').classList.add('on');setTimeout(()=>document.getElementById('walkHint').classList.remove('on'),2500);findEgg(6)}
+    document.getElementById('walkHint').classList.add('on');setTimeout(()=>document.getElementById('walkHint').classList.remove('on'),2500);}
   else{cYaw=Math.PI*.18;cPitch=.52;cDist=Math.max(11,Math.min(42,Math.max(cDist||17,focus.maxD*2.35,Math.max(focus.width||0,focus.height||0,r.height*.9)*1.65,r.height*1.45)));orbitVel={yaw:0,pitch:0,zoom:0}}
   showViewChip(`3D View · ${m==='walk'?'Walk':'Orbit'}`);
   updateWalkUI();updateWalkthroughTray()}
@@ -596,11 +690,64 @@ function build3D(){
     ren.toneMapping=THREE.ACESFilmicToneMapping;ren.toneMappingExposure=lightState.exposure;
     ren.outputEncoding=THREE.sRGBEncoding;
     cont.innerHTML='';cont.appendChild(ren.domElement);
-    ren.shadowMap.enabled=true;ren.shadowMap.type=THREE.PCFSoftShadowMap;
-    const hemiLight=new THREE.HemisphereLight(0xffffff,lightState.warmColor,lightState.hemiIntensity);scene.add(hemiLight);
-    const ambLight=new THREE.AmbientLight(lightState.warmColor,lightState.ambientIntensity*.76);scene.add(ambLight);
-    const dir=new THREE.DirectionalLight(lightState.dirColor,lightState.dirIntensity);dir.position.set(lightState.sunPosition.x,lightState.sunPosition.y,lightState.sunPosition.z);dir.castShadow=true;dir.shadow.mapSize.width=1536;dir.shadow.mapSize.height=1536;dir.shadow.radius=6;dir.shadow.bias=-0.00025;dir.shadow.normalBias=0.02;dir.shadow.camera.near=1;dir.shadow.camera.far=96;dir.shadow.camera.left=-28;dir.shadow.camera.right=28;dir.shadow.camera.top=28;dir.shadow.camera.bottom=-28;scene.add(dir);
-    const fill=new THREE.DirectionalLight(0xf4ede4,lightState.fillIntensity);fill.position.set(lightState.fillPosition.x,lightState.fillPosition.y,lightState.fillPosition.z);scene.add(fill);
+    ren.shadowMap.enabled=true;
+    // Phase ✨ — VSM gives genuinely soft contact-hardening shadows instead of PCFSoft's uniform edges.
+    // Fall back to PCFSoft if VSM isn't available in the build. Needs per-light shadow.blurSamples + radius set below.
+    ren.shadowMap.type=(THREE.VSMShadowMap!==undefined&&!photoMode?THREE.VSMShadowMap:THREE.PCFSoftShadowMap);
+    // Photo mode: use PCFSoft at 4K for crispest result; VSM is softer but blurrier per-pixel.
+    if(photoMode)ren.shadowMap.type=THREE.PCFSoftShadowMap;
+    // === Post-processing pipeline (Phase 3A) ===
+    // Disable heavy passes on mobile/small screens to keep 60fps; always keep FXAA for crispness.
+    try{
+      const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)||Math.min(w,h)<520;
+      const heavyFX=!isMobile&&!!(THREE.EffectComposer&&THREE.RenderPass&&THREE.ShaderPass);
+      if(THREE.EffectComposer&&THREE.RenderPass&&THREE.ShaderPass&&THREE.FXAAShader){
+        composer=new THREE.EffectComposer(ren);
+        composer.setSize(w,h);
+        composer.addPass(new THREE.RenderPass(scene,cam));
+        if(heavyFX&&THREE.SSAOPass&&THREE.SimplexNoise){
+          const ssao=new THREE.SSAOPass(scene,cam,w,h);
+          ssao.kernelRadius=photoMode?12:8;
+          ssao.minDistance=0.002;
+          ssao.maxDistance=0.12;
+          ssao.output=THREE.SSAOPass.OUTPUT.Default;
+          composer.addPass(ssao);
+          composer._ssao=ssao;
+        }
+        if(heavyFX&&THREE.UnrealBloomPass){
+          const bloom=new THREE.UnrealBloomPass(new THREE.Vector2(w,h),photoMode?0.42:0.3,0.4,0.85);
+          composer.addPass(bloom);
+          composer._bloom=bloom;
+        }
+        // Phase ✨ — Depth of field in photo mode. BokehPass keeps foreground sharp and softly blurs background,
+        // which makes exported screenshots read as "marketing render" instead of "game screenshot".
+        if(photoMode&&heavyFX&&THREE.BokehPass){
+          try{
+            const bokeh=new THREE.BokehPass(scene,cam,{focus:Math.max(8,cDist*0.9),aperture:0.00018,maxblur:0.006,width:w,height:h});
+            composer.addPass(bokeh);
+            composer._bokeh=bokeh;
+          }catch(e){console.warn('Bokeh init failed:',e)}
+        }
+        const fxaa=new THREE.ShaderPass(THREE.FXAAShader);
+        const pr=ren.getPixelRatio();
+        fxaa.material.uniforms['resolution'].value.set(1/(w*pr),1/(h*pr));
+        fxaa.renderToScreen=true;
+        composer.addPass(fxaa);
+        composer._fxaa=fxaa;
+      }else{composer=null}
+    }catch(e){console.warn('Post-processing init failed:',e);composer=null}
+    // Phase 3B — load HDRI environment for PBR reflections (async; scene renders immediately, reflections pop in once loaded).
+    loadHDRIEnvironment(preset&&preset.id,ren,scene);
+    const hemiLight=new THREE.HemisphereLight(0xfaf8f4,lightState.warmColor,lightState.hemiIntensity*1.1);scene.add(hemiLight);
+    const ambLight=new THREE.AmbientLight(lightState.warmColor,lightState.ambientIntensity*.82);scene.add(ambLight);
+    const _shMap=photoMode?4096:2048;const dir=new THREE.DirectionalLight(lightState.dirColor,lightState.dirIntensity*1.05);dir.position.set(lightState.sunPosition.x,lightState.sunPosition.y,lightState.sunPosition.z);dir.castShadow=true;dir.shadow.mapSize.width=_shMap;dir.shadow.mapSize.height=_shMap;
+    // VSM wants more blur samples + a larger radius to look smooth; PCFSoft wants a smaller radius.
+    if(ren.shadowMap.type===THREE.VSMShadowMap){dir.shadow.radius=photoMode?10:8;dir.shadow.blurSamples=photoMode?24:18}
+    else{dir.shadow.radius=photoMode?6:4}
+    dir.shadow.bias=-0.0002;dir.shadow.normalBias=0.025;dir.shadow.camera.near=1;dir.shadow.camera.far=96;dir.shadow.camera.left=-32;dir.shadow.camera.right=32;dir.shadow.camera.top=32;dir.shadow.camera.bottom=-32;scene.add(dir);
+    const fill=new THREE.DirectionalLight(0xf0e8de,lightState.fillIntensity*1.1);fill.position.set(lightState.fillPosition.x,lightState.fillPosition.y,lightState.fillPosition.z);scene.add(fill);
+    // Soft bounce light from floor
+    const bounce=new THREE.DirectionalLight(0xf5ede2,.12);bounce.position.set(cx,-2,-cz);scene.add(bounce);
     scene.userData.styleTargets.hemiLight=hemiLight;
     scene.userData.styleTargets.ambLight=ambLight;
     scene.userData.styleTargets.dirLight=dir;
@@ -611,10 +758,31 @@ function build3D(){
     const floorAccentMap=buildFloorAccentTexture(r.materials.floorType||'light_oak');
     const floorGeo=applyPlanarUVs(new THREE.ShapeGeometry(floorShape),r.polygon);
     const floorMat=new THREE.MeshStandardMaterial({color:safeThreeColor(r.materials.floor,floorPreset.color),roughness:floorPreset.roughness,metalness:floorPreset.family==='concrete'?.08:.03,map:floorMap});
-    if(floorMat.map){floorMat.map.needsUpdate=true}
+    if(floorMat.map){floorMat.map.needsUpdate=true;try{floorMat.map.anisotropy=Math.min(16,ren.capabilities.getMaxAnisotropy())}catch(_){}}
     const floorMesh=new THREE.Mesh(floorGeo,floorMat);floorMesh.rotation.x=-Math.PI/2;floorMesh.receiveShadow=true;scene.add(floorMesh);
     scene.userData.styleTargets.floorMats.push(floorMat);
     scene.userData.styleTargets.floorMesh=floorMesh;
+    // Phase ✨ — Subtle floor reflection for polished surfaces (tile, checker, concrete, marble).
+    // Users can also force it on per room via room.materials.floorReflective=true.
+    try{
+      const reflectiveFamilies=['tile','checker','concrete'];
+      const forceReflect=!!r.materials.floorReflective;
+      const family=floorPreset.family||'';
+      const wantReflect=forceReflect||reflectiveFamilies.includes(family)||/tile|marble|polished/.test(r.materials.floorType||'');
+      if(wantReflect&&THREE.Reflector&&!photoMode){
+        const reflectGeo=applyPlanarUVs(new THREE.ShapeGeometry(floorShape),r.polygon);
+        const reflector=new THREE.Reflector(reflectGeo,{textureWidth:Math.min(1024,Math.floor(w*0.75)),textureHeight:Math.min(1024,Math.floor(h*0.75)),color:0x222222,clipBias:0.003});
+        reflector.rotation.x=-Math.PI/2;reflector.position.y=0.005;
+        reflector.material.transparent=true;
+        // Tone down the reflection — architectural floors aren't mirrors.
+        if(reflector.material.uniforms&&reflector.material.uniforms.color)
+          reflector.material.uniforms.color.value=new THREE.Color(0x1a1a1e);
+        reflector.renderOrder=-1;
+        scene.add(reflector);
+        floorMat.transparent=true;floorMat.opacity=0.82;
+        scene.userData.styleTargets.floorReflector=reflector;
+      }
+    }catch(e){console.warn('Floor reflection skipped:',e.message)}
     const accentTone=safeThreeColor(r.materials.floor,floorPreset.color).lerp(safeThreeColor('#ffffff','#ffffff'),.46);
     const accentOpacity=floorPreset.family==='checker'?.36:floorPreset.family==='tile'?.42:floorPreset.family==='concrete'?.24:.34;
     const accentMat=new THREE.MeshStandardMaterial({color:accentTone,roughness:1,metalness:0,map:floorAccentMap,transparent:true,opacity:accentOpacity,depthWrite:false});
@@ -623,16 +791,104 @@ function build3D(){
     const ceilColor=safeThreeColor(r.materials.ceiling,'#FAF7F2').multiplyScalar(Math.max(.86,Math.min(1.18,r.materials.ceilingBrightness||1)));
     const ceilMesh=new THREE.Mesh(new THREE.ShapeGeometry(floorShape),new THREE.MeshStandardMaterial({color:ceilColor,roughness:.92,side:THREE.BackSide}));ceilMesh.name='roomCeiling';ceilMesh.visible=camMode==='walk';ceilMesh.rotation.x=-Math.PI/2;ceilMesh.position.y=rH-.01;scene.add(ceilMesh);
     scene.userData.styleTargets.ceilingMats.push(ceilMesh.material);
+    // Phase ✨ — Optional ceiling details. Toggle via room.materials.ceilingStyle:
+    //   'crown'   → crown molding strip around perimeter
+    //   'coffered'→ grid of recessed panels (subtle)
+    //   'beams'   → exposed wooden beams spanning the shorter dimension
+    //   default / 'flat' → nothing extra
+    try{
+      const style=r.materials.ceilingStyle||'flat';
+      if(style!=='flat'){
+        const grp=new THREE.Group();grp.name='roomCeilingDetails';grp.visible=camMode==='walk';
+        if(style==='crown'){
+          const crownMat=new THREE.MeshStandardMaterial({color:tc,roughness:.45,metalness:.04});
+          scene.userData.styleTargets.trimMats.push(crownMat);
+          r.walls.forEach(wall=>{
+            const a=wS(r,wall),b=wE(r,wall),wl=wL(r,wall),an=wA(r,wall);
+            if(wl<.2)return;
+            const crown=new THREE.Mesh(new THREE.BoxGeometry(wl,0.35,0.12),crownMat);
+            crown.position.set((a.x+b.x)/2,rH-0.18,-(a.y+b.y)/2);
+            crown.rotation.y=-an;
+            grp.add(crown);
+          });
+        }else if(style==='beams'){
+          const beamMat=new THREE.MeshStandardMaterial({color:0x5a3f27,roughness:.82,metalness:.02});
+          const bbox=new THREE.Box3().setFromPoints(r.polygon.map(p=>new THREE.Vector3(p.x,0,-p.y)));
+          const spanX=bbox.max.x-bbox.min.x,spanZ=bbox.max.z-bbox.min.z;
+          const along=spanX>spanZ?'z':'x';
+          const count=Math.max(3,Math.floor((along==='z'?spanX:spanZ)/3.2));
+          for(let i=1;i<count;i++){
+            const u=i/count;
+            if(along==='z'){
+              const x=bbox.min.x+u*spanX;
+              const beam=new THREE.Mesh(new THREE.BoxGeometry(0.35,0.32,spanZ*0.96),beamMat);
+              beam.position.set(x,rH-0.18,(bbox.min.z+bbox.max.z)/2);grp.add(beam);
+            }else{
+              const z=bbox.min.z+u*spanZ;
+              const beam=new THREE.Mesh(new THREE.BoxGeometry(spanX*0.96,0.32,0.35),beamMat);
+              beam.position.set((bbox.min.x+bbox.max.x)/2,rH-0.18,z);grp.add(beam);
+            }
+          }
+        }else if(style==='coffered'){
+          const panelMat=new THREE.MeshStandardMaterial({color:ceilColor.clone().multiplyScalar(0.94),roughness:.86,side:THREE.BackSide});
+          const trimMat=new THREE.MeshStandardMaterial({color:tc,roughness:.5,metalness:.04});
+          scene.userData.styleTargets.trimMats.push(trimMat);
+          const bbox=new THREE.Box3().setFromPoints(r.polygon.map(p=>new THREE.Vector3(p.x,0,-p.y)));
+          const cols=Math.max(2,Math.floor((bbox.max.x-bbox.min.x)/4));
+          const rows=Math.max(2,Math.floor((bbox.max.z-bbox.min.z)/4));
+          const cellW=(bbox.max.x-bbox.min.x)/cols,cellD=(bbox.max.z-bbox.min.z)/rows;
+          for(let cx2=0;cx2<cols;cx2++)for(let cz2=0;cz2<rows;cz2++){
+            const px=bbox.min.x+(cx2+0.5)*cellW,pz=bbox.min.z+(cz2+0.5)*cellD;
+            const panel=new THREE.Mesh(new THREE.BoxGeometry(cellW*0.88,0.15,cellD*0.88),panelMat);
+            panel.position.set(px,rH-0.08,pz);grp.add(panel);
+            // trim edges
+            const frameTh=0.08;
+            const frameH=new THREE.Mesh(new THREE.BoxGeometry(cellW*0.88,0.06,frameTh),trimMat);
+            frameH.position.set(px,rH-0.02,pz-cellD*0.44);grp.add(frameH);
+            const frameH2=frameH.clone();frameH2.position.z=pz+cellD*0.44;grp.add(frameH2);
+            const frameV=new THREE.Mesh(new THREE.BoxGeometry(frameTh,0.06,cellD*0.88),trimMat);
+            frameV.position.set(px-cellW*0.44,rH-0.02,pz);grp.add(frameV);
+            const frameV2=frameV.clone();frameV2.position.x=px+cellW*0.44;grp.add(frameV2);
+          }
+        }
+        scene.add(grp);
+      }
+    }catch(e){console.warn('Ceiling details skipped:',e.message)}
     const ceilLight=new THREE.PointLight(0xFFF8E8,.28*(r.materials.ceilingBrightness||1),maxD*3.2);ceilLight.position.set(cx,rH-.4,-cz);scene.add(ceilLight);
     scene.userData.styleTargets.ceilingLight=ceilLight;
-    const wallMat=new THREE.MeshStandardMaterial({color:wc,roughness:.62-wallFinish.sheen*.14,metalness:.01,side:THREE.DoubleSide,emissive:wc.clone().multiplyScalar(r.materials.wallColorCustom?.08:.04)});
+    const wallMat=new THREE.MeshStandardMaterial({color:wc,roughness:.68-wallFinish.sheen*.12,metalness:.005,side:THREE.DoubleSide,emissive:wc.clone().multiplyScalar(r.materials.wallColorCustom?.06:.03)});
     scene.userData.styleTargets.wallMats.push(wallMat);
     r.walls.forEach(wall=>{const a=wS(r,wall),b=wE(r,wall),wl=wL(r,wall),an=wA(r,wall);if(wl<.01)return;const ops=r.openings.filter(o=>o.wallId===wall.id).sort((oa,ob)=>oa.offset-ob.offset);if(!ops.length)addWSeg(a,an,0,wl,0,rH,wallMat);else{let pos=0;ops.forEach(op=>{const os=op.offset-op.width/2,oe=op.offset+op.width/2;if(os>pos)addWSeg(a,an,pos,os,0,rH,wallMat);if(op.type==='door'){addWSeg(a,an,os,oe,op.height,rH,wallMat);const frameMat=new THREE.MeshStandardMaterial({color:tc,roughness:.44,metalness:.04});scene.userData.styleTargets.trimMats.push(frameMat);addWSeg(a,an,os,os+.06,0,op.height,frameMat);addWSeg(a,an,oe-.06,oe,0,op.height,frameMat);addWSeg(a,an,os,oe,op.height-.06,op.height,frameMat);addDoorLeaf3D(a,an,os,oe,op,tc)}else{addWSeg(a,an,os,oe,0,op.sillHeight,wallMat);addWSeg(a,an,os,oe,op.sillHeight+op.height,rH,wallMat);const glassMat=new THREE.MeshStandardMaterial({color:0xBFD9EA,transparent:true,opacity:.42,roughness:.08,metalness:.18});addWSeg(a,an,os,oe,op.sillHeight,op.sillHeight+op.height,glassMat);const frameMat=new THREE.MeshStandardMaterial({color:tc,roughness:.48,metalness:.04});scene.userData.styleTargets.trimMats.push(frameMat);const ft=.08,mid=(os+oe)/2;addWSeg(a,an,os,os+ft,op.sillHeight,op.sillHeight+op.height,frameMat);addWSeg(a,an,oe-ft,oe,op.sillHeight,op.sillHeight+op.height,frameMat);addWSeg(a,an,os,oe,op.sillHeight,op.sillHeight+ft,frameMat);addWSeg(a,an,os,oe,op.sillHeight+op.height-ft,op.sillHeight+op.height,frameMat);addWSeg(a,an,mid-ft/2,mid+ft/2,op.sillHeight,op.sillHeight+op.height,frameMat);addWindowAssembly3D(a,an,os,oe,op,tc)}pos=oe});if(pos<wl)addWSeg(a,an,pos,wl,0,rH,wallMat)}const bbMat=new THREE.MeshStandardMaterial({color:tc,roughness:.28,metalness:.08});scene.userData.styleTargets.trimMats.push(bbMat);const bb=new THREE.Mesh(new THREE.PlaneGeometry(wl,.48),bbMat);bb.position.set((a.x+b.x)/2,.24,-(a.y+b.y)/2-.01);bb.rotation.y=-an;scene.add(bb)});
     r.structures.forEach(st=>{if(st.type==='closet'&&st.rect)scene.add(buildCloset3D(st,r));else if(st.type==='partition'&&st.line){const pa=st.line.a,pb=st.line.b,pl=Math.sqrt((pb.x-pa.x)**2+(pb.y-pa.y)**2),pAn=Math.atan2(pb.y-pa.y,pb.x-pa.x);const pm=new THREE.Mesh(new THREE.PlaneGeometry(pl,rH),new THREE.MeshStandardMaterial({color:wc,roughness:.65,side:THREE.DoubleSide}));pm.position.set((pa.x+pb.x)/2,rH/2,-(pa.y+pb.y)/2);pm.rotation.y=-pAn;scene.add(pm)}});
     r.furniture.forEach(f=>placeFurnitureInScene(f,r));
     applyRoomStyleToScene();
     attach3DPointerControls();updateWalkUI();
-    (function anim(){raf3d=requestAnimationFrame(anim);if(!scene||!cam||!ren)return;updateCameraScript(performance.now());if(camMode==='orbit'){cYaw+=orbitVel.yaw;cPitch=Math.max(.12,Math.min(.9,cPitch+orbitVel.pitch));cDist=Math.max(7.5,Math.min(42,cDist+orbitVel.zoom));orbitVel.yaw*=.92;orbitVel.pitch*=.9;orbitVel.zoom*=.84;cam.position.set(orbitTarget.x+Math.sin(cYaw)*Math.cos(cPitch)*cDist,orbitTarget.y+Math.sin(cPitch)*cDist,orbitTarget.z+Math.cos(cYaw)*Math.cos(cPitch)*cDist);cam.lookAt(orbitTarget.x,orbitTarget.y,orbitTarget.z)}else{if(!cameraScript)applyWalkInputStep();fpPos.y=Math.max(4.9,Math.min(rH-1.15,rH*.54));cam.position.set(fpPos.x,fpPos.y,fpPos.z);cam.lookAt(fpPos.x+Math.sin(cYaw)*10,fpPos.y+cPitch*8,fpPos.z-Math.cos(cYaw)*10)}ren.render(scene,cam)})()
+    // Phase ✨ — Inertial camera: lerp the *rendered* camera position toward the target position each frame.
+    // This makes every movement (drag, zoom, preset switch, walk tween) glide instead of snap.
+    const _smoothCam={pos:new THREE.Vector3(),look:new THREE.Vector3(),ready:false};
+    (function anim(){raf3d=requestAnimationFrame(anim);if(!scene||!cam||!ren)return;updateCameraScript(performance.now());
+      // Compute target pose first into temp vectors, then lerp the actual camera toward it.
+      const tgtPos=new THREE.Vector3(),tgtLook=new THREE.Vector3();
+      if(camMode==='orbit'){
+        cYaw+=orbitVel.yaw;cPitch=Math.max(.12,Math.min(.9,cPitch+orbitVel.pitch));cDist=Math.max(7.5,Math.min(42,cDist+orbitVel.zoom));
+        // Slightly gentler damping — 0.94/0.92/0.88 feels like it's gliding on glass
+        orbitVel.yaw*=.94;orbitVel.pitch*=.92;orbitVel.zoom*=.88;
+        tgtPos.set(orbitTarget.x+Math.sin(cYaw)*Math.cos(cPitch)*cDist,orbitTarget.y+Math.sin(cPitch)*cDist,orbitTarget.z+Math.cos(cYaw)*Math.cos(cPitch)*cDist);
+        tgtLook.set(orbitTarget.x,orbitTarget.y,orbitTarget.z);
+      }else{
+        if(!cameraScript)applyWalkInputStep();fpPos.y=Math.max(4.9,Math.min(rH-1.15,rH*.54));
+        tgtPos.set(fpPos.x,fpPos.y,fpPos.z);
+        tgtLook.set(fpPos.x+Math.sin(cYaw)*10,fpPos.y+cPitch*8,fpPos.z-Math.cos(cYaw)*10);
+      }
+      if(!_smoothCam.ready){_smoothCam.pos.copy(tgtPos);_smoothCam.look.copy(tgtLook);_smoothCam.ready=true}
+      // Walk mode lerps faster so response doesn't feel sluggish; orbit gets more glide.
+      const lerp=camMode==='walk'?0.35:0.18;
+      _smoothCam.pos.lerp(tgtPos,lerp);_smoothCam.look.lerp(tgtLook,lerp);
+      cam.position.copy(_smoothCam.pos);cam.lookAt(_smoothCam.look);
+      // Update Bokeh focus distance dynamically (keeps mid-room in focus as user orbits).
+      if(composer&&composer._bokeh){try{composer._bokeh.uniforms&&composer._bokeh.uniforms.focus&&(composer._bokeh.uniforms.focus.value=Math.max(6,cam.position.distanceTo(_smoothCam.look)*0.85))}catch(_){}}
+      if(composer)composer.render();else ren.render(scene,cam)
+    })()
   }catch(err){console.warn('3D build failed:',err);toast(`3D build failed: ${(err&&err.message)||'check room materials or shape'}`);exit3DView()}
 }
 
@@ -664,8 +920,16 @@ function updateWalkUI(){
 
 function addWSeg(ws,an,s,e,botY,topY,mat){
   const sw=e-s,sh=topY-botY;if(sw<.01||sh<.01)return;
-  const g=new THREE.PlaneGeometry(sw,sh);const m=new THREE.Mesh(g,mat);
-  const mid=(s+e)/2;m.position.set(ws.x+Math.cos(an)*mid,(botY+topY)/2,-(ws.y+Math.sin(an)*mid));
+  // Phase 5C — wall-with-holes: give walls real thickness so openings visibly
+  // cut through solid wall (door/window jambs show reveal depth). Glass window
+  // infills stay thin so they don't overlap the frame trim.
+  const isGlass=mat&&mat.transparent&&(mat.opacity||1)<.9;
+  const th=isGlass?0.04:0.18;
+  const g=new THREE.BoxGeometry(sw,sh,th);
+  const m=new THREE.Mesh(g,mat);
+  m.castShadow=!isGlass;m.receiveShadow=!isGlass;
+  const mid=(s+e)/2;
+  m.position.set(ws.x+Math.cos(an)*mid,(botY+topY)/2,-(ws.y+Math.sin(an)*mid));
   m.rotation.y=-an;scene.add(m)}
 function addDoorLeaf3D(ws,an,os,oe,op,trimColor){
   const width=Math.max(.55,oe-os),doorW=Math.max(.45,width-.12),doorH=Math.max(2.1,(op.height||7)-.08);
@@ -1249,6 +1513,8 @@ function placeFurnitureInScene(f,r){
     const targetW=target.w,targetD=target.d,targetH=target.h;
     fitObjectToFootprint(model,targetW,targetD,targetH,placement.windowTarget?'opening':(reg.fit||'footprint'));
     if(reg.defaultScale&&reg.defaultScale!==1)model.scale.multiplyScalar(reg.defaultScale);
+    // Phase ✨ — Material audit upgrades PBR props on all meshes
+    if(typeof patchGLBMaterials==='function')patchGLBMaterials(model,ren);
     applyFurnitureFinishToModel(model,f);
     if(placement.windowTarget&&f.assetKey==='curtains'){
       const topY=(placement.windowTarget.opening.sillHeight||3)+(placement.windowTarget.opening.height||4)+.35;
@@ -1305,7 +1571,7 @@ function placeFurnitureInScene(f,r){
 function attach3DPointerControls(){const el=ren.domElement;let pointerId=null;const activePtrs=new Map();const ray=new THREE.Raycaster();let pDown,pUp,pMove,pCancel,pDbl;pDown=e=>{activePtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(activePtrs.size===1){d3=true;pointerId=e.pointerId;p3x=e.clientX;p3y=e.clientY;if(el.setPointerCapture)try{el.setPointerCapture(e.pointerId)}catch(_){}}if(activePtrs.size===2){isPinch=true;const pts=[...activePtrs.values()];pinchDist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y)}};pUp=e=>{activePtrs.delete(e.pointerId);if(activePtrs.size<2)isPinch=false;if(activePtrs.size===0){d3=false;if(pointerId!==null&&el.releasePointerCapture)try{el.releasePointerCapture(pointerId)}catch(_){}pointerId=null}};pCancel=e=>{if(e&&e.pointerId)activePtrs.delete(e.pointerId);if(activePtrs.size<2)isPinch=false;if(activePtrs.size===0){d3=false;pointerId=null}};pMove=e=>{if(activePtrs.has(e.pointerId))activePtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(isPinch&&activePtrs.size===2&&camMode==='orbit'){const pts=[...activePtrs.values()],nd=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);if(pinchDist>0&&nd>0)orbitVel.zoom+=((pinchDist/nd)-1)*cDist*.42;pinchDist=nd;return}if(!d3||activePtrs.size>1)return;const dx=e.clientX-p3x,dy=e.clientY-p3y;p3x=e.clientX;p3y=e.clientY;if(camMode==='orbit'){orbitVel.yaw+=dx*.00066*cDist;orbitVel.pitch+=-dy*.00052*cDist}else{cYaw-=dx*.002;cPitch=Math.max(-.35,Math.min(.25,cPitch+dy*.0015))}};pDbl=e=>{if(!scene||!cam||camMode!=='orbit')return;const rect=el.getBoundingClientRect();const pointer=new THREE.Vector2(((e.clientX-rect.left)/rect.width)*2-1,-((e.clientY-rect.top)/rect.height)*2+1);ray.setFromCamera(pointer,cam);const hits=ray.intersectObjects(scene.children,true);const hit=hits.find(entry=>{let obj=entry.object;while(obj){if(obj.userData?.furnitureId)return true;obj=obj.parent}return false});if(!hit)return;let obj=hit.object;while(obj&&!obj.userData?.furnitureId)obj=obj.parent;if(obj?.userData?.furnitureId)focusFurniture3D(obj.userData.furnitureId)};el.addEventListener('pointerdown',pDown);el.addEventListener('pointerup',pUp);el.addEventListener('pointermove',pMove);el.addEventListener('pointercancel',pCancel);el.addEventListener('lostpointercapture',pCancel);el.addEventListener('dblclick',pDbl);ren._listeners={el,pDown,pUp,pMove,pCancel,pDbl}}
 
 function verificationTargetSize(key){
-  const map={rug:{w:3.8,d:2.8,h:.2},runner_rug:{w:6.5,d:2,h:.2},rug_round:{w:4.2,d:4.2,h:.2},curtains:{w:3.8,d:.3,h:4},blinds:{w:3.5,d:.2,h:2.7},wall_art_01:{w:2.2,d:.2,h:1.4},wall_art_04:{w:2.2,d:.2,h:1.4},wall_art_06:{w:2.2,d:.2,h:1.4},mirror:{w:1.8,d:.2,h:2.6},lamp_wall:{w:1.4,d:.4,h:2.2},lamp_table:{w:1.1,d:1.1,h:1.45},lamp_chandelier:{w:2,d:2,h:1.65},lamp_ceiling:{w:1.6,d:1.6,h:1.2},lamp_cube:{w:1.35,d:1.35,h:1.35},lamp_pendant:{w:1.6,d:1.6,h:1.9},lamp_stand:{w:1,d:1,h:4.2},shelving:{w:2.8,d:.6,h:2.1},shelf_small:{w:2.1,d:.45,h:1.2},plant_small:{w:1.1,d:1.1,h:1.6},plant_cactus:{w:1,d:1,h:1.8},plant_leafy:{w:1.4,d:1.4,h:2.1},plant_palm:{w:1.6,d:1.6,h:2.8},plant_round:{w:1.25,d:1.25,h:1.7},chair_office:{w:2,d:2,h:3},nightstand:{w:1.8,d:1.5,h:2.2},nightstand_alt:{w:1.8,d:1.55,h:2.25},dresser:{w:3.8,d:1.8,h:3.2},dresser_tall:{w:3.3,d:1.7,h:4.1},console_low:{w:4.6,d:1.35,h:2.4},tv_console:{w:4.8,d:1.5,h:2.8},dining_table:{w:5.2,d:3,h:2.8},table_round_large:{w:4.2,d:4.2,h:2.8},table_round_small:{w:2.4,d:2.4,h:2.2},stool:{w:1.4,d:1.4,h:1.9},bench:{w:3.6,d:1.4,h:2.2},sofa_small:{w:3.4,d:2.05,h:2.8},sofa_compact:{w:3.6,d:2.1,h:3},sofa_medium:{w:4.4,d:2.35,h:3.05},sofa_large:{w:5.8,d:2.6,h:3.1},sofa_modern:{w:5.2,d:2.55,h:3.05},sofa_grand:{w:6.4,d:2.8,h:3.2},bed_king:{w:6.4,d:7.4,h:2.7},bed_twin:{w:3.6,d:6.6,h:2.5},bunk_bed:{w:4.4,d:6.8,h:5.8},bookcase_books:{w:3.1,d:1.1,h:4.8},closet_tall:{w:3.4,d:1.8,h:6.2},closet_short:{w:3.1,d:1.7,h:4.2},fireplace:{w:4.2,d:1.3,h:3.6}};
+  const map={rug:{w:3.8,d:2.8,h:.2},runner_rug:{w:6.5,d:2,h:.2},rug_round:{w:4.2,d:4.2,h:.2},curtains:{w:3.8,d:.3,h:4},blinds:{w:3.5,d:.2,h:2.7},wall_art_01:{w:2.2,d:.2,h:1.4},wall_art_04:{w:2.2,d:.2,h:1.4},wall_art_06:{w:2.2,d:.2,h:1.4},mirror:{w:1.8,d:.2,h:2.6},lamp_wall:{w:1.4,d:.4,h:2.2},lamp_table:{w:1.1,d:1.1,h:1.45},lamp_chandelier:{w:2,d:2,h:1.65},lamp_ceiling:{w:1.6,d:1.6,h:1.2},lamp_cube:{w:1.35,d:1.35,h:1.35},lamp_pendant:{w:1.6,d:1.6,h:1.9},lamp_stand:{w:1,d:1,h:4.2},shelving:{w:2.8,d:.6,h:2.1},shelf_small:{w:2.1,d:.45,h:1.2},plant_small:{w:1.1,d:1.1,h:1.6},plant_cactus:{w:1,d:1,h:1.8},plant_leafy:{w:1.4,d:1.4,h:2.1},plant_palm:{w:1.6,d:1.6,h:2.8},plant_round:{w:1.25,d:1.25,h:1.7},chair_office:{w:2,d:2,h:3},nightstand:{w:1.8,d:1.5,h:2.2},nightstand_alt:{w:1.8,d:1.55,h:2.25},dresser:{w:3.8,d:1.8,h:3.2},dresser_tall:{w:3.3,d:1.7,h:4.1},console_low:{w:4.6,d:1.35,h:2.4},tv_console:{w:4.8,d:1.5,h:2.8},dining_table:{w:5.2,d:3,h:2.8},table_round_large:{w:4.2,d:4.2,h:2.8},table_round_small:{w:2.4,d:2.4,h:2.2},stool:{w:1.4,d:1.4,h:1.9},bench:{w:3.6,d:1.4,h:2.2},sofa_small:{w:3.4,d:2.05,h:2.8},sofa_compact:{w:3.6,d:2.1,h:3},sofa_medium:{w:4.4,d:2.35,h:3.05},sofa_large:{w:5.8,d:2.6,h:3.1},sofa_modern:{w:5.2,d:2.55,h:3.05},sofa_grand:{w:6.4,d:2.8,h:3.2},bed_king:{w:6.4,d:7.4,h:2.7},bed_double:{w:5.5,d:6.8,h:2.6},bed_twin:{w:3.6,d:6.6,h:2.5},bunk_bed:{w:4.4,d:6.8,h:5.8},bookcase_books:{w:3.1,d:1.1,h:4.8},closet_tall:{w:3.4,d:1.8,h:6.2},closet_full:{w:3.7,d:1.9,h:6.6},closet_short:{w:3.1,d:1.7,h:4.2},fireplace:{w:4.2,d:1.3,h:3.6},kitchen_cabinet_base:{w:3,d:2,h:3},kitchen_cabinet_upper:{w:3,d:1.1,h:2},kitchen_island:{w:4.2,d:2.5,h:3},kitchen_fridge:{w:3,d:2.6,h:6.6},kitchen_stove:{w:2.6,d:2.2,h:3.2},kitchen_hood:{w:2.6,d:1,h:1.8},kitchen_sink:{w:3,d:2.1,h:3.3},kitchen_dishwasher:{w:2,d:2.1,h:3},bathroom_vanity_single:{w:2.6,d:1.9,h:3.2},bathroom_vanity_double:{w:4.4,d:1.9,h:3.2},bathroom_toilet:{w:1.4,d:2.4,h:2.9},bathroom_tub:{w:2.8,d:5.7,h:2.4},bathroom_shower:{w:3,d:3,h:6.8},bathroom_mirror:{w:2.4,d:.2,h:2.6},bathroom_towel_bar:{w:2,d:.35,h:1.1},washing_machine:{w:2.7,d:2.8,h:3.6},column_round:{w:1.4,d:1.4,h:8.2},trashcan_small:{w:1,d:1,h:1.4},trashcan_large:{w:1.2,d:1.2,h:2.2},square_plate:{w:.9,d:.9,h:.18},table_rect:{w:4.4,d:2.6,h:2.8}};
   return map[key]||{w:3.2,d:2,h:3.6};
 }
 function updateVerificationCard(key,state){
@@ -1611,6 +1877,7 @@ const wc2=document.getElementById('walkCtrl');if(wc2)wc2.remove();stopWalkMove()
     ren=null}
   const cont=document.getElementById('threeC');if(cont)cont.innerHTML='';
   document.getElementById('scrEd')?.classList.remove('mode-3d');
+  if(composer){try{composer.passes&&composer.passes.forEach(p=>p.dispose&&p.dispose())}catch(_){}composer=null}
   scene=null;cam=null}
 
 // Presentation / reveal polish overrides
@@ -1718,11 +1985,11 @@ function capturePresentationStill(){
   const targetRatio=Math.min(2.3*Math.max(1,window.devicePixelRatio||1),3);
   ren.setPixelRatio(targetRatio);
   ren.setSize(size.x,size.y,false);
-  ren.render(scene,cam);
+  if(composer){composer.setSize(size.x,size.y);if(composer._fxaa){const pr=ren.getPixelRatio();composer._fxaa.material.uniforms['resolution'].value.set(1/(size.x*pr),1/(size.y*pr))}composer.render()}else ren.render(scene,cam);
   const dataUrl=ren.domElement.toDataURL('image/png');
   ren.setPixelRatio(prevRatio);
   ren.setSize(size.x,size.y,false);
-  ren.render(scene,cam);
+  if(composer){composer.setSize(size.x,size.y);if(composer._fxaa){const pr=ren.getPixelRatio();composer._fxaa.material.uniforms['resolution'].value.set(1/(size.x*pr),1/(size.y*pr))}composer.render()}else ren.render(scene,cam);
   const a=document.createElement('a');
   a.href=dataUrl;
   a.download=`${(curRoom?.name||'room').replace(/[^a-z0-9]/gi,'_')}_reveal_cover.png`;
@@ -1742,11 +2009,13 @@ favoriteCornerPose=function(room){
     centroid.z/=(room.furniture||[]).length;
   }
   const b=getRoomBounds2D(room);
+  const insetX=Math.max(1.2,Math.min(focus.width*.18,2.6));
+  const insetY=Math.max(1.2,Math.min(focus.height*.18,2.6));
   const corners=[
-    {x:b.x0-.8,z:-b.y0+.8},
-    {x:b.x1+.8,z:-b.y0+.8},
-    {x:b.x1+.8,z:-b.y1-.8},
-    {x:b.x0-.8,z:-b.y1-.8},
+    {x:b.x0+insetX,z:-b.y0-insetY},
+    {x:b.x1-insetX,z:-b.y0-insetY},
+    {x:b.x1-insetX,z:-b.y1+insetY},
+    {x:b.x0+insetX,z:-b.y1+insetY},
   ];
   let best=null;
   corners.forEach(corner=>{
@@ -1756,8 +2025,8 @@ favoriteCornerPose=function(room){
     if(!best||score>best.score)best={corner,score,dist,dx,dz};
   });
   const yaw=Math.atan2(best.dx,-best.dz);
-  const dist=Math.max(9.6,Math.min(22,Math.max(focus.width,focus.height)*1.06));
-  return {yaw,pitch:.3,dist,target:{x:centroid.x,y:room.height*.37,z:centroid.z}};
+  const dist=Math.max(8.8,Math.min(16,Math.max(focus.width,focus.height)*.82));
+  return {yaw,pitch:.24,dist,target:{x:centroid.x,y:room.height*.34,z:centroid.z}};
 }
 function setPresentationShot(mode){
   if(!is3D||!curRoom)return;

@@ -27,7 +27,7 @@ const DEV_MODE=location.hash.includes('dev')||location.search.includes('dev=1');
 let projects=[],curRoom=null,tool='select',selPreset='living_room';
 let canvas,ctx,vOff={x:0,y:0},vScale=1;
 let sel={type:null,idx:-1},isDrag=false,dStart={x:0,y:0},dOrig=null;
-let closetSt=null,partSt=null,pendEnd=null;
+let closetSt=null,partSt=null,pendEnd=null,dimAnnStart=null,pendDimEnd=null;
 let undoSt=[],redoSt=[],resH=null;
 let multiSelFurnitureIds=[],furnitureClipboard=null;
 let drawMode=false,drawPts=[],drawCur=null,angSnap=true;
@@ -61,6 +61,26 @@ const PLAN_VIEW_MODES={
   existing:'Existing Only',
   redesign:'Concept Only'
 };
+const PLAN_LAYER_DEFAULTS={
+  reference:true,
+  walls:true,
+  openings:true,
+  furniture_existing:true,
+  furniture_new:true,
+  room_labels:true,
+  dimensions:true,
+  annotations:true
+};
+const PLAN_LAYER_META=[
+  {id:'reference',label:'Reference Overlay'},
+  {id:'walls',label:'Walls'},
+  {id:'openings',label:'Doors & Windows'},
+  {id:'furniture_existing',label:'Existing Furniture'},
+  {id:'furniture_new',label:'New Furniture'},
+  {id:'room_labels',label:'Room Labels'},
+  {id:'dimensions',label:'Dimensions'},
+  {id:'annotations',label:'Annotations'}
+];
 const ASSET_FINISHES=['#F5F2EC','#D8C1A4','#B58F68','#7D624F','#595F66','#A7B79D','#CDA8A4','#3F3A36'];
 const FLOOR_TYPES=[
   {id:'light_oak',name:'Light Oak Hardwood',family:'wood',color:'#d0b18d',accent:'#ead6bb',roughness:.84,repeat:3.9},
@@ -84,11 +104,16 @@ const WALL_PALETTES=[
 ];
 const TRIM_COLORS=['#F8F5F0','#D8CBB8','#B79E84','#6F7C8A','#3F3A36'];
 const LIGHTING_PRESETS={
-  daylight:{name:'Daylight',background:'#d6e5f2',ambient:1.02,dir:1.72,dirColor:0xf9fdff,exposure:1.32,warm:0xFFF8EC,practical:.04,fogNear:38,fogFar:120},
-  warm_evening:{name:'Warm Evening',background:'#dcc3af',ambient:0.46,dir:0.58,dirColor:0xffd09c,exposure:0.94,warm:0xFFC27F,practical:.82,fogNear:22,fogFar:76},
-  soft_lamp_glow:{name:'Soft Lamp Glow',background:'#cdb6a6',ambient:0.26,dir:0.2,dirColor:0xffc991,exposure:0.8,warm:0xFFB96E,practical:1.12,fogNear:18,fogFar:58},
-  moody:{name:'Moody',background:'#8c878d',ambient:0.12,dir:0.16,dirColor:0xbfd0e6,exposure:0.62,warm:0xFFAA62,practical:.56,fogNear:15,fogFar:48},
-  bright_studio:{name:'Bright Studio',background:'#eef4f8',ambient:1.14,dir:1.9,dirColor:0xffffff,exposure:1.42,warm:0xFFF6E7,practical:.02,fogNear:44,fogFar:132},
+  daylight:{name:'Daylight',background:'#d6e5f2',ambient:1.02,dir:1.72,dirColor:0xf9fdff,exposure:1.32,warm:0xFFF8EC,practical:.04,fogNear:38,fogFar:120,hdri:'daylight',tod:0.5},
+  warm_evening:{name:'Warm Evening',background:'#dcc3af',ambient:0.46,dir:0.58,dirColor:0xffd09c,exposure:0.94,warm:0xFFC27F,practical:.82,fogNear:22,fogFar:76,hdri:'warm',tod:0.78},
+  soft_lamp_glow:{name:'Soft Lamp Glow',background:'#cdb6a6',ambient:0.26,dir:0.2,dirColor:0xffc991,exposure:0.8,warm:0xFFB96E,practical:1.12,fogNear:18,fogFar:58,hdri:'warm',tod:0.86},
+  moody:{name:'Moody',background:'#8c878d',ambient:0.12,dir:0.16,dirColor:0xbfd0e6,exposure:0.62,warm:0xFFAA62,practical:.56,fogNear:15,fogFar:48,hdri:'evening',tod:0.94},
+  bright_studio:{name:'Bright Studio',background:'#eef4f8',ambient:1.14,dir:1.9,dirColor:0xffffff,exposure:1.42,warm:0xFFF6E7,practical:.02,fogNear:44,fogFar:132,hdri:'daylight',tod:0.45},
+  // New cinematic presets (Phase ✨)
+  golden_hour:{name:'Golden Hour',background:'#e8c79a',ambient:0.62,dir:1.28,dirColor:0xffc074,exposure:1.14,warm:0xFFD38A,practical:.28,fogNear:26,fogFar:92,hdri:'warm',tod:0.72},
+  overcast:{name:'Overcast',background:'#c8ccd2',ambient:1.22,dir:0.54,dirColor:0xe4e9ee,exposure:1.06,warm:0xECEEF2,practical:.08,fogNear:30,fogFar:104,hdri:'daylight',tod:0.52},
+  lamp_lit:{name:'Lamp-Lit',background:'#2b2a32',ambient:0.08,dir:0.06,dirColor:0x7a8aa6,exposure:0.72,warm:0xFF9E5C,practical:1.42,fogNear:12,fogFar:42,hdri:'evening',tod:0.96},
+  dawn:{name:'Dawn',background:'#c8b8b0',ambient:0.34,dir:0.42,dirColor:0xf3c6b0,exposure:0.88,warm:0xFFDCC4,practical:.62,fogNear:24,fogFar:78,hdri:'warm',tod:0.14},
 };
 const ROOM_TYPES=[
   {id:'living_room',name:'Living Room',suggestions:['sofa_modern','sofa_large','table_coffee','rug','lamp_floor','wall_art_01','plant_palm']},
@@ -97,6 +122,9 @@ const ROOM_TYPES=[
   {id:'office',name:'Office',suggestions:['desk','chair_office','bookcase_books','shelf_small','lamp_table','plant_leafy','rug']},
   {id:'nursery',name:'Nursery',suggestions:['bed_twin','bunk_bed','dresser_tall','plant_round','rug_round','lamp_ceiling','wall_art_06']},
   {id:'entry',name:'Entry / Hall',suggestions:['console_low','mirror','runner_rug','lamp_wall','bench','plant_round']},
+  {id:'kitchen',name:'Kitchen',suggestions:['kitchen_cabinet_base','kitchen_island','kitchen_fridge','kitchen_stove','kitchen_sink','kitchen_hood']},
+  {id:'bathroom',name:'Bathroom',suggestions:['bathroom_vanity_single','bathroom_toilet','bathroom_tub','bathroom_mirror','bathroom_towel_bar']},
+  {id:'laundry',name:'Laundry',suggestions:['washing_machine','kitchen_cabinet_base','shelf_small','trashcan_small']},
 ];
 const DESIGN_PRESETS=[
   {id:'warm_modern',name:'Warm Modern',roomType:'living_room',wallFinish:'soft_beige',floorType:'medium_oak',trim:'#D8CBB8',lightingPreset:'warm_evening',ceilingBrightness:1.05,mood:'elegant',note:'Soft oak, beige walls, and cozy evening light.'},
@@ -113,7 +141,15 @@ const ROOM_STARTERS=[
   {id:'nursery',name:'Nursery',shape:'rect',width:12,depth:12,height:9,roomType:'nursery',designPreset:'airy_minimal',tag:'Tender',hint:'Soft light, clear flow, and room to breathe.'},
   {id:'reading_nook',name:'Reading Nook',shape:'lshape',width:12,depth:10,height:9,roomType:'living_room',designPreset:'warm_modern',tag:'Quiet',hint:'A cozier corner with a chair, lamp, rug, and something green.'},
   {id:'studio',name:'Studio',shape:'lshape',width:20,depth:16,height:10,roomType:'living_room',designPreset:'airy_minimal',tag:'Open',hint:'A larger starter for shaping one connected home space.'},
+  {id:'kitchen',name:'Kitchen',shape:'rect',width:14,depth:12,height:9,roomType:'kitchen',designPreset:'warm_modern',tag:'Cook',hint:'Counters, cabinets, and room to move.'},
+  {id:'bathroom',name:'Bathroom',shape:'rect',width:10,depth:8,height:9,roomType:'bathroom',designPreset:'airy_minimal',tag:'Refresh',hint:'Vanity, shower or tub, clean surfaces.'},
+  {id:'laundry',name:'Laundry',shape:'rect',width:9,depth:7,height:9,roomType:'laundry',designPreset:'airy_minimal',tag:'Refresh',hint:'Washer, storage, and a little room to breathe.'},
   {id:'closet_room',name:'Closet / Dressing Room',shape:'rect',width:11,depth:9,height:9,roomType:'bedroom',designPreset:'quiet_luxury',tag:'Dress',hint:'Made for mirrors, storage, and built-ins.'},
+  // Phase 6A — new starters
+  {id:'home_theater',name:'Home Theater',shape:'rect',width:16,depth:20,height:9,roomType:'living_room',designPreset:'tailored_masculine',tag:'Watch',hint:'A deep, focused room for cinema nights.'},
+  {id:'mudroom',name:'Mudroom / Entry',shape:'rect',width:8,depth:10,height:9,roomType:'entry',designPreset:'warm_modern',tag:'Arrive',hint:'Drop zone with hooks, bench, and a mat.'},
+  {id:'kids_room',name:'Kids Room',shape:'rect',width:12,depth:13,height:9,roomType:'bedroom',designPreset:'airy_minimal',tag:'Play',hint:'Bunk beds, soft rugs, and room to play.'},
+  {id:'primary_suite',name:'Primary Suite',shape:'lshape',width:20,depth:16,height:9,roomType:'bedroom',designPreset:'quiet_luxury',tag:'Retreat',hint:'King bed, sitting area, and a dressing nook.'},
   {id:'free',name:'Free Draw',shape:'free',width:14,depth:12,height:9,roomType:'living_room',designPreset:'',tag:'Sketch',hint:'Start with a blank page and draw your own footprint.'},
 ];
 const CLOSET_FINISHES=[
@@ -160,6 +196,7 @@ const MODEL_REGISTRY={
   rug_round:{file:'rug_round.glb',category:'rug',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0.02,snapToWall:false,snapToFloor:true,fit:'footprint'},
   runner_rug:{file:'runner_rug.glb',category:'rug',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0.02,snapToWall:false,snapToFloor:true,fit:'footprint'},
   bed_king:{file:'bed_king.glb',category:'bed',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
+  bed_double:{file:'bed_double.glb',category:'bed',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   bed_twin:{file:'bed_twin.glb',category:'bed',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   bunk_bed:{file:'bunk_bed.glb',category:'bed',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   table_round_large:{file:'table_round_large.glb',category:'table',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
@@ -168,6 +205,7 @@ const MODEL_REGISTRY={
   shelf_small:{file:'shelf_small.glb',category:'shelving',mountType:'wall',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:true,snapToFloor:false,fit:'wall'},
   bookcase_books:{file:'bookcase_books.glb',category:'bookshelf',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   closet_tall:{file:'closet_tall.glb',category:'storage',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
+  closet_full:{file:'closet_full.glb',category:'storage',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   closet_short:{file:'closet_short.glb',category:'storage',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   nightstand_alt:{file:'nightstand_alt.glb',category:'nightstand',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
   dresser_tall:{file:'dresser_tall.glb',category:'dresser',mountType:'floor',defaultScale:1,defaultRotation:0,yOffset:0,snapToWall:false,snapToFloor:true,fit:'footprint'},
@@ -239,6 +277,27 @@ const MODEL_REGISTRY={
   ph_mirror_ornate:{file:'ph_mirror_ornate.glb',category:'mirror',mountType:'wall',defaultScale:1,yOffset:0,fit:'wall',snapToWall:true,wallFacingMode:'face_interior',defaultFacing:'interior'},
   ph_vase_ceramic_01:{file:'ph_vase_ceramic_01.glb',category:'decor',mountType:'surface',defaultScale:1,yOffset:0,fit:'surface'},
   ph_vase_brass_01:{file:'ph_vase_brass_01.glb',category:'decor',mountType:'surface',defaultScale:1,yOffset:0,fit:'surface'},
+  kitchen_cabinet_base:{file:'cabinet.glb',category:'kitchen',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  kitchen_cabinet_upper:{file:'shelf_small.glb',category:'kitchen',mountType:'wall',defaultScale:1,yOffset:0,snapToWall:true,snapToFloor:false,fit:'wall',yawOffset:0,forwardAxis:'+z',wallFacingMode:'face_interior',defaultFacing:'interior'},
+  kitchen_island:{file:'dining_table.glb',category:'kitchen',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  kitchen_fridge:{file:'kitchen_fridge.glb',category:'kitchen',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  kitchen_stove:{file:'kitchen_stove.glb',category:'kitchen',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  kitchen_hood:{file:'shelf_small.glb',category:'kitchen',mountType:'wall',defaultScale:1,yOffset:0,snapToWall:true,snapToFloor:false,fit:'wall',yawOffset:0,forwardAxis:'+z',wallFacingMode:'face_interior',defaultFacing:'interior'},
+  kitchen_sink:{file:'kitchen_sink.glb',category:'kitchen',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  kitchen_dishwasher:{file:'cabinet.glb',category:'kitchen',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  bathroom_vanity_single:{file:'bathroom_vanity_single.glb',category:'bathroom',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  bathroom_vanity_double:{file:'bathroom_vanity_double.glb',category:'bathroom',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  bathroom_toilet:{file:'bathroom_toilet.glb',category:'bathroom',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  bathroom_tub:{file:'bathroom_tub.glb',category:'bathroom',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  bathroom_shower:{file:'bathroom_shower.glb',category:'bathroom',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  bathroom_mirror:{file:'mirror.glb',category:'bathroom',mountType:'wall',defaultScale:1,yOffset:0,snapToWall:true,snapToFloor:false,fit:'wall',yawOffset:0,forwardAxis:'+z',wallFacingMode:'face_interior',defaultFacing:'interior'},
+  bathroom_towel_bar:{file:'bathroom_towel_bar.glb',category:'bathroom',mountType:'wall',defaultScale:1,yOffset:0,snapToWall:true,snapToFloor:false,fit:'wall',yawOffset:0,forwardAxis:'+z',wallFacingMode:'face_interior',defaultFacing:'interior'},
+  washing_machine:{file:'washing_machine.glb',category:'laundry',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  column_round:{file:'column_round.glb',category:'decor',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  trashcan_small:{file:'trashcan_small.glb',category:'decor',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  trashcan_large:{file:'trashcan_large.glb',category:'decor',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  square_plate:{file:'square_plate.glb',category:'decor',mountType:'surface',defaultScale:1,yOffset:0,snapToFloor:false,fit:'surface',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
+  table_rect:{file:'table_rect.glb',category:'table',mountType:'floor',defaultScale:1,yOffset:0,snapToFloor:true,fit:'footprint',yawOffset:0,forwardAxis:'+z',wallFacingMode:'free',defaultFacing:'forward'},
 };
 Object.entries(MODEL_REGISTRY).forEach(([key,reg])=>{
   reg.yawOffset=Number.isFinite(reg.yawOffset)?reg.yawOffset:(Number.isFinite(reg.defaultRotation)?reg.defaultRotation:0);
@@ -247,7 +306,7 @@ Object.entries(MODEL_REGISTRY).forEach(([key,reg])=>{
   reg.defaultFacing=reg.defaultFacing||(reg.mountType==='wall'?'interior':'forward');
   delete reg.defaultRotation;
 });
-['mirror','wall_art_01','wall_art_04','wall_art_06','curtains','blinds','lamp_wall','shelving','shelf_small'].forEach(key=>{
+['mirror','wall_art_01','wall_art_04','wall_art_06','curtains','blinds','lamp_wall','shelving','shelf_small','kitchen_cabinet_upper','kitchen_hood','bathroom_mirror','bathroom_towel_bar'].forEach(key=>{
   if(MODEL_REGISTRY[key]){
     MODEL_REGISTRY[key].wallFacingMode='face_interior';
     MODEL_REGISTRY[key].defaultFacing='interior';
@@ -273,8 +332,21 @@ async function loadAll(){
     }
   }
   projects=d&&Array.isArray(d)?d.map(normalizeRoom):[];
+  // Phase 7A — merge with cloud if enabled (non-blocking; UI renders with local data first).
+  if(window.cloudSync&&typeof window.cloudSync.onLoad==='function'){
+    window.cloudSync.onLoad().then(merged=>{
+      if(merged&&typeof draw==='function')draw();
+      if(merged&&typeof refreshLibrary==='function')refreshLibrary();
+    }).catch(()=>{});
+  }
 }
-async function saveAll(){await ds('projects',JSON.parse(JSON.stringify(projects)))}
+async function saveAll(){
+  await ds('projects',JSON.parse(JSON.stringify(projects)));
+  // Phase 7A — fire-and-forget cloud push if enabled.
+  if(window.cloudSync&&typeof window.cloudSync.afterSave==='function'){
+    window.cloudSync.afterSave().catch(()=>{});
+  }
+}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function updateDebugBadge(){
@@ -538,6 +610,8 @@ function normalizeRoom(room){
   room.openings=Array.isArray(room.openings)?room.openings:[];
   room.structures=Array.isArray(room.structures)?room.structures:[];
   room.furniture=Array.isArray(room.furniture)?room.furniture:[];
+  room.dimensionAnnotations=Array.isArray(room.dimensionAnnotations)?room.dimensionAnnotations:[];
+  room.textAnnotations=Array.isArray(room.textAnnotations)?room.textAnnotations:[];
   room.materials=room.materials||{};
   room.materials.wallFinish=room.materials.wallFinish||'warm_white';
   const wallPreset=WALL_PALETTES.find(w=>w.id===room.materials.wallFinish)||WALL_PALETTES[0];
@@ -565,6 +639,13 @@ function normalizeRoom(room){
   room.ghostExisting=room.ghostExisting!==false;
   room.planViewMode=PLAN_VIEW_MODES[room.planViewMode]?room.planViewMode:'combined';
   room.showPlanLegend=room.showPlanLegend!==false;
+  const nextLayerVisibility={...PLAN_LAYER_DEFAULTS};
+  if(room.layerVisibility&&typeof room.layerVisibility==='object'){
+    Object.keys(PLAN_LAYER_DEFAULTS).forEach(key=>{
+      if(typeof room.layerVisibility[key]==='boolean')nextLayerVisibility[key]=room.layerVisibility[key];
+    });
+  }
+  room.layerVisibility=nextLayerVisibility;
   room.projectId=room.projectId||room.id;
   room.projectName=(typeof room.projectName==='string'&&room.projectName.trim())?room.projectName.trim():room.name||'Home Project';
   room.floorId=room.floorId||'floor_1';
@@ -591,6 +672,17 @@ function normalizeRoom(room){
     hinge:op.hinge||'left'
   }));
   room.furniture=room.furniture.map(normalizeFurnitureRecord);
+  room.dimensionAnnotations=room.dimensionAnnotations.map(note=>({
+    id:note?.id||uid(),
+    x1:Number.isFinite(note?.x1)?note.x1:0,
+    z1:Number.isFinite(note?.z1)?note.z1:0,
+    x2:Number.isFinite(note?.x2)?note.x2:0,
+    z2:Number.isFinite(note?.z2)?note.z2:0,
+    label:typeof note?.label==='string'?note.label:'',
+    color:typeof note?.color==='string'&&note.color?note.color:'#8E6E6B',
+    fontSize:Number.isFinite(note?.fontSize)?Math.max(10,Math.min(28,note.fontSize)):13,
+    offset:Number.isFinite(note?.offset)?Math.max(.3,Math.min(2.5,note.offset)):.8
+  }));
   room.structures=room.structures.map(st=>{
     if(st.type==='closet'&&st.rect){
       st.height=st.height||room.height;
@@ -599,7 +691,21 @@ function normalizeRoom(room){
     }
     return st;
   });
+  room.textAnnotations=room.textAnnotations.map(note=>({
+    id:note?.id||uid(),
+    text:typeof note?.text==='string'&&note.text.trim()?note.text.trim():'Note',
+    x:Number.isFinite(note?.x)?note.x:0,
+    z:Number.isFinite(note?.z)?note.z:0,
+    color:typeof note?.color==='string'&&note.color?note.color:'#8E6E6B',
+    fontSize:Number.isFinite(note?.fontSize)?Math.max(10,Math.min(28,note.fontSize)):14,
+    rotation:Number.isFinite(note?.rotation)?note.rotation:0
+  }));
   return room;
+}
+function roomLayerVisible(room,key){
+  if(!room)return true;
+  const visibility=room.layerVisibility||PLAN_LAYER_DEFAULTS;
+  return visibility[key]!==false;
 }
 function safeThreeColor(value,fallback){
   try{return new THREE.Color(value);}

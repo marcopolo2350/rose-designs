@@ -1,8 +1,10 @@
 node_modules/
 .edge-headless/
 .edge-profile/
+.claude/
 tmp_playwright/
 tmp_playwright_quick/
+tmp_playwright_selftest/
 tmpshots/
 output/
 
@@ -10,12 +12,22 @@ debug_*.png
 output_*.png
 preview_existing_room_*.png
 rose-selftest.png
+presentation-pass.png
+presentation-reveal*.png
 
 .selftest-dom.html
 .selftest-server.pid
+tmp_actions.json
 
 temp_furniture_pack/
 temp_house_interior/
 temp_furniture_pack.zip
 temp_house_interior.zip
 poly_bundle_test.bin
+
+# raw source packs and extracted asset kits
+assets/*.zip
+assets/*.fbx
+assets/*.glb
+assets/kenney_*/
+assets/models/tmp_ph/

@@ -3250,5 +3250,6272 @@
     "recommendedRoomTypes": [
       "living_room"
     ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/kitchen_cabinet_base.png",
+    "defaultVariantId": null,
+    "id": "kitchen_cabinet_base",
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/ph_cabinet_painted.glb",
+    "category": "Kitchen",
+    "tags": [
+      "kitchen",
+      "cabinet",
+      "starter"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Base Cabinet",
+    "subcategory": "cabinet",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/kitchen_cabinet_upper.png",
+    "defaultVariantId": null,
+    "id": "kitchen_cabinet_upper",
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/ph_shelf_01.glb",
+    "category": "Kitchen",
+    "tags": [
+      "kitchen",
+      "cabinet",
+      "wall"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Upper Cabinet",
+    "subcategory": "cabinet",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/kitchen_island.png",
+    "defaultVariantId": null,
+    "id": "kitchen_island",
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/ph_table_wooden.glb",
+    "category": "Kitchen",
+    "tags": [
+      "kitchen",
+      "island",
+      "prep"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Kitchen Island",
+    "subcategory": "island",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/kitchen_fridge.png",
+    "defaultVariantId": null,
+    "id": "kitchen_fridge",
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/kitchen_fridge.glb",
+    "category": "Kitchen",
+    "tags": [
+      "kitchen",
+      "appliance",
+      "fridge"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Refrigerator",
+    "subcategory": "appliance",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/kitchen_stove.png",
+    "defaultVariantId": null,
+    "id": "kitchen_stove",
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/kitchen_stove.glb",
+    "category": "Kitchen",
+    "tags": [
+      "kitchen",
+      "appliance",
+      "range"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Gas Range",
+    "subcategory": "appliance",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/kitchen_hood.png",
+    "defaultVariantId": null,
+    "id": "kitchen_hood",
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/shelf_small.glb",
+    "category": "Kitchen",
+    "tags": [
+      "kitchen",
+      "appliance",
+      "hood"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Range Hood",
+    "subcategory": "appliance",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/kitchen_sink.png",
+    "defaultVariantId": null,
+    "id": "kitchen_sink",
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/kitchen_sink.glb",
+    "category": "Kitchen",
+    "tags": [
+      "kitchen",
+      "sink",
+      "fixture"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Kitchen Sink",
+    "subcategory": "fixture",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/kitchen_dishwasher.png",
+    "defaultVariantId": null,
+    "id": "kitchen_dishwasher",
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/cabinet.glb",
+    "category": "Kitchen",
+    "tags": [
+      "kitchen",
+      "appliance",
+      "dishwasher"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Dishwasher",
+    "subcategory": "appliance",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/bathroom_vanity_single.png",
+    "defaultVariantId": null,
+    "id": "bathroom_vanity_single",
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "modelPath": "./assets/models/bathroom_vanity_single.glb",
+    "category": "Bathroom",
+    "tags": [
+      "bathroom",
+      "vanity",
+      "sink"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Single Vanity",
+    "subcategory": "vanity",
+    "collections": [
+      "Airy Minimal",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/bathroom_vanity_double.png",
+    "defaultVariantId": null,
+    "id": "bathroom_vanity_double",
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "modelPath": "./assets/models/bathroom_vanity_double.glb",
+    "category": "Bathroom",
+    "tags": [
+      "bathroom",
+      "vanity",
+      "sink"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Double Vanity",
+    "subcategory": "vanity",
+    "collections": [
+      "Airy Minimal",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/bathroom_toilet.png",
+    "defaultVariantId": null,
+    "id": "bathroom_toilet",
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "modelPath": "./assets/models/bathroom_toilet.glb",
+    "category": "Bathroom",
+    "tags": [
+      "bathroom",
+      "fixture",
+      "toilet"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Toilet",
+    "subcategory": "fixture",
+    "collections": [
+      "Airy Minimal",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/bathroom_tub.png",
+    "defaultVariantId": null,
+    "id": "bathroom_tub",
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "modelPath": "./assets/models/bathroom_tub.glb",
+    "category": "Bathroom",
+    "tags": [
+      "bathroom",
+      "fixture",
+      "tub"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Bathtub",
+    "subcategory": "fixture",
+    "collections": [
+      "Airy Minimal",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/bathroom_shower.png",
+    "defaultVariantId": null,
+    "id": "bathroom_shower",
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "modelPath": "./assets/models/bathroom_shower.glb",
+    "category": "Bathroom",
+    "tags": [
+      "bathroom",
+      "fixture",
+      "shower"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Shower",
+    "subcategory": "fixture",
+    "collections": [
+      "Airy Minimal",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/bathroom_mirror.png",
+    "defaultVariantId": null,
+    "id": "bathroom_mirror",
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "modelPath": "./assets/models/mirror.glb",
+    "category": "Bathroom",
+    "tags": [
+      "bathroom",
+      "mirror",
+      "wall"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Bathroom Mirror",
+    "subcategory": "mirror",
+    "collections": [
+      "Airy Minimal",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/bathroom_towel_bar.png",
+    "defaultVariantId": null,
+    "id": "bathroom_towel_bar",
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "modelPath": "./assets/models/bathroom_towel_bar.glb",
+    "category": "Bathroom",
+    "tags": [
+      "bathroom",
+      "towel",
+      "wall"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Towel Bar",
+    "subcategory": "fixture",
+    "collections": [
+      "Airy Minimal",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/washing_machine.png",
+    "defaultVariantId": null,
+    "id": "washing_machine",
+    "recommendedRoomTypes": [
+      "laundry"
+    ],
+    "modelPath": "./assets/models/washing_machine.glb",
+    "category": "Laundry",
+    "tags": [
+      "laundry",
+      "appliance",
+      "washer"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Washing Machine",
+    "subcategory": "appliance",
+    "collections": [
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/column_round.png",
+    "defaultVariantId": null,
+    "id": "column_round",
+    "recommendedRoomTypes": [
+      "living_room",
+      "entry"
+    ],
+    "modelPath": "./assets/models/column_round.glb",
+    "category": "Decor",
+    "tags": [
+      "column",
+      "architectural",
+      "decor"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Round Column",
+    "subcategory": "architectural",
+    "collections": [
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/trashcan_small.png",
+    "defaultVariantId": null,
+    "id": "trashcan_small",
+    "recommendedRoomTypes": [
+      "kitchen",
+      "bathroom",
+      "laundry"
+    ],
+    "modelPath": "./assets/models/trashcan_small.glb",
+    "category": "Decor",
+    "tags": [
+      "trashcan",
+      "utility",
+      "decor"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Small Trashcan",
+    "subcategory": "utility",
+    "collections": [
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/trashcan_large.png",
+    "defaultVariantId": null,
+    "id": "trashcan_large",
+    "recommendedRoomTypes": [
+      "kitchen",
+      "laundry"
+    ],
+    "modelPath": "./assets/models/trashcan_large.glb",
+    "category": "Decor",
+    "tags": [
+      "trashcan",
+      "utility",
+      "decor"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Large Trashcan",
+    "subcategory": "utility",
+    "collections": [
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/square_plate.png",
+    "defaultVariantId": null,
+    "id": "square_plate",
+    "recommendedRoomTypes": [
+      "dining_room",
+      "kitchen"
+    ],
+    "modelPath": "./assets/models/square_plate.glb",
+    "category": "Decor",
+    "tags": [
+      "plate",
+      "tabletop",
+      "decor"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Square Plate",
+    "subcategory": "tabletop",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/bed_double.png",
+    "defaultVariantId": null,
+    "id": "bed_double",
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "modelPath": "./assets/models/bed_double.glb",
+    "category": "Beds",
+    "tags": [
+      "bed",
+      "double",
+      "sleep"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Double Bed",
+    "subcategory": "bed",
+    "collections": [
+      "Soft Romantic",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/closet_full.png",
+    "defaultVariantId": null,
+    "id": "closet_full",
+    "recommendedRoomTypes": [
+      "bedroom",
+      "closet_room"
+    ],
+    "modelPath": "./assets/models/closet_full.glb",
+    "category": "Storage",
+    "tags": [
+      "closet",
+      "storage",
+      "wardrobe"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Full Closet",
+    "subcategory": "closet",
+    "collections": [
+      "Quiet Luxury",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "thumbnailPath": "./assets/thumbnails/table_rect.png",
+    "defaultVariantId": null,
+    "id": "table_rect",
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room"
+    ],
+    "modelPath": "./assets/models/table_rect.glb",
+    "category": "Tables",
+    "tags": [
+      "table",
+      "dining",
+      "surface"
+    ],
+    "variants": [],
+    "defaultScale": 1,
+    "name": "Rectangular Table",
+    "subcategory": "table",
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ]
+  },
+  {
+    "id": "ph_armchair_01",
+    "name": "Armchair Classic",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_armchair_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_armchair_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "cozy",
+      "classic"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "linen_sand"
+  },
+  {
+    "id": "ph_armchair_modern",
+    "name": "Armchair Modern",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_armchair_modern.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_armchair_modern.png",
+    "defaultScale": 1,
+    "tags": [
+      "modern",
+      "accent"
+    ],
+    "collections": [
+      "Warm Modern",
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "boucle_cream"
+  },
+  {
+    "id": "ph_bar_chair",
+    "name": "Bar Chair",
+    "category": "Seating",
+    "subcategory": "stool",
+    "modelPath": "./assets/models/ph_bar_chair.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_bar_chair.png",
+    "defaultScale": 1,
+    "tags": [
+      "kitchen",
+      "bar"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen",
+      "dining_room"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "linen_sand"
+  },
+  {
+    "id": "ph_chair_chinese",
+    "name": "Chair Chinese",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_chair_chinese.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chair_chinese.png",
+    "defaultScale": 1,
+    "tags": [
+      "eclectic",
+      "accent"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "dark_walnut"
+  },
+  {
+    "id": "ph_chair_gallinera",
+    "name": "Chair Gallinera",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_chair_gallinera.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chair_gallinera.png",
+    "defaultScale": 1,
+    "tags": [
+      "accent",
+      "dining"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "linen_sand"
+  },
+  {
+    "id": "ph_chair_green",
+    "name": "Chair Upholstered",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_chair_green.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chair_green.png",
+    "defaultScale": 1,
+    "tags": [
+      "accent",
+      "cozy"
+    ],
+    "collections": [
+      "Soft Romantic"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "velvet_blush"
+  },
+  {
+    "id": "ph_chair_midcentury",
+    "name": "Chair Mid-Century",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_chair_midcentury.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chair_midcentury.png",
+    "defaultScale": 1,
+    "tags": [
+      "modern",
+      "accent"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "tailored_charcoal"
+  },
+  {
+    "id": "ph_chair_painted",
+    "name": "Chair Painted Wood",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_chair_painted.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chair_painted.png",
+    "defaultScale": 1,
+    "tags": [
+      "dining",
+      "classic"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "kitchen"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_ottoman_01",
+    "name": "Ottoman",
+    "category": "Seating",
+    "subcategory": "ottoman",
+    "modelPath": "./assets/models/ph_ottoman_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_ottoman_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "cozy",
+      "accent"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "boucle_cream"
+  },
+  {
+    "id": "ph_stool_metal",
+    "name": "Stool Metal",
+    "category": "Seating",
+    "subcategory": "stool",
+    "modelPath": "./assets/models/ph_stool_metal.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_stool_metal.png",
+    "defaultScale": 1,
+    "tags": [
+      "kitchen",
+      "industrial"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen",
+      "dining_room"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "matte_black"
+  },
+  {
+    "id": "ph_sofa_01",
+    "name": "Sofa Classic",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/ph_sofa_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_sofa_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "cozy",
+      "classic"
+    ],
+    "collections": [
+      "Soft Romantic"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "linen_sand"
+  },
+  {
+    "id": "ph_sofa_02",
+    "name": "Sofa Modern",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/ph_sofa_02.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_sofa_02.png",
+    "defaultScale": 1,
+    "tags": [
+      "modern",
+      "accent"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "boucle_cream"
+  },
+  {
+    "id": "ph_sofa_03",
+    "name": "Sofa Grand",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/ph_sofa_03.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_sofa_03.png",
+    "defaultScale": 1,
+    "tags": [
+      "cozy",
+      "large"
+    ],
+    "collections": [
+      "Soft Romantic"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "velvet_blush"
+  },
+  {
+    "id": "ph_sofa_painted",
+    "name": "Sofa Painted Frame",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/ph_sofa_painted.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_sofa_painted.png",
+    "defaultScale": 1,
+    "tags": [
+      "classic",
+      "eclectic"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "velvet_blush"
+  },
+  {
+    "id": "ph_coffee_gothic",
+    "name": "Coffee Table Gothic",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_coffee_gothic.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_coffee_gothic.png",
+    "defaultScale": 1,
+    "tags": [
+      "eclectic",
+      "accent"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "dark_walnut"
+  },
+  {
+    "id": "ph_coffee_industrial",
+    "name": "Coffee Table Industrial",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_coffee_industrial.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_coffee_industrial.png",
+    "defaultScale": 1,
+    "tags": [
+      "modern",
+      "industrial"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "medium_oak"
+  },
+  {
+    "id": "ph_coffee_modern",
+    "name": "Coffee Table Minimal",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_coffee_modern.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_coffee_modern.png",
+    "defaultScale": 1,
+    "tags": [
+      "modern",
+      "minimal"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_coffee_modern_2",
+    "name": "Coffee Table Square",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_coffee_modern_2.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_coffee_modern_2.png",
+    "defaultScale": 1,
+    "tags": [
+      "modern",
+      "minimal"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_coffee_round",
+    "name": "Coffee Table Round",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_coffee_round.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_coffee_round.png",
+    "defaultScale": 1,
+    "tags": [
+      "cozy",
+      "round"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "medium_oak"
+  },
+  {
+    "id": "ph_coffee_table_01",
+    "name": "Coffee Table Natural",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_coffee_table_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_coffee_table_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "natural",
+      "accent"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_side_table",
+    "name": "Side Table",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_side_table.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_side_table.png",
+    "defaultScale": 1,
+    "tags": [
+      "accent",
+      "versatile"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_side_table_tall",
+    "name": "Side Table Tall",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_side_table_tall.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_side_table_tall.png",
+    "defaultScale": 1,
+    "tags": [
+      "accent",
+      "narrow"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "medium_oak"
+  },
+  {
+    "id": "ph_table_gallinera",
+    "name": "Table Gallinera",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_table_gallinera.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_table_gallinera.png",
+    "defaultScale": 1,
+    "tags": [
+      "dining",
+      "accent"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "medium_oak"
+  },
+  {
+    "id": "ph_table_painted",
+    "name": "Table Painted",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_table_painted.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_table_painted.png",
+    "defaultScale": 1,
+    "tags": [
+      "dining",
+      "classic"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "kitchen"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_table_round",
+    "name": "Table Round",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_table_round.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_table_round.png",
+    "defaultScale": 1,
+    "tags": [
+      "dining",
+      "cozy"
+    ],
+    "collections": [
+      "Soft Romantic"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_table_wooden",
+    "name": "Table Wood Plank",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_table_wooden.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_table_wooden.png",
+    "defaultScale": 1,
+    "tags": [
+      "dining",
+      "rustic"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "medium_oak"
+  },
+  {
+    "id": "ph_table_wooden_2",
+    "name": "Table Wood Trestle",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_table_wooden_2.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_table_wooden_2.png",
+    "defaultScale": 1,
+    "tags": [
+      "dining",
+      "rustic"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "dark_walnut"
+  },
+  {
+    "id": "ph_bookshelf",
+    "name": "Bookshelf Open",
+    "category": "Storage",
+    "subcategory": "shelf",
+    "modelPath": "./assets/models/ph_bookshelf.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_bookshelf.png",
+    "defaultScale": 1,
+    "tags": [
+      "storage",
+      "books"
+    ],
+    "collections": [
+      "Warm Modern",
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_cabinet_chinese",
+    "name": "Cabinet Chinese",
+    "category": "Storage",
+    "subcategory": "cabinet",
+    "modelPath": "./assets/models/ph_cabinet_chinese.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_cabinet_chinese.png",
+    "defaultScale": 1,
+    "tags": [
+      "eclectic",
+      "accent"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "dark_walnut"
+  },
+  {
+    "id": "ph_cabinet_drawer",
+    "name": "Cabinet Drawers",
+    "category": "Storage",
+    "subcategory": "cabinet",
+    "modelPath": "./assets/models/ph_cabinet_drawer.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_cabinet_drawer.png",
+    "defaultScale": 1,
+    "tags": [
+      "storage",
+      "drawers"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "white_painted",
+        "label": "White Painted",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#F0EBE3",
+        "accentColor": "#FAF6F0",
+        "roughness": 0.58,
+        "metalness": 0.08,
+        "tintStrength": 0.55
+      },
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "sage_matte",
+        "label": "Sage Matte",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#8FA896",
+        "accentColor": "#B3C4B8",
+        "roughness": 0.62,
+        "metalness": 0.06,
+        "tintStrength": 0.58
+      }
+    ],
+    "defaultVariantId": "white_painted"
+  },
+  {
+    "id": "ph_cabinet_modern",
+    "name": "Cabinet Modern",
+    "category": "Storage",
+    "subcategory": "cabinet",
+    "modelPath": "./assets/models/ph_cabinet_modern.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_cabinet_modern.png",
+    "defaultScale": 1,
+    "tags": [
+      "storage",
+      "modern"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "white_painted",
+        "label": "White Painted",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#F0EBE3",
+        "accentColor": "#FAF6F0",
+        "roughness": 0.58,
+        "metalness": 0.08,
+        "tintStrength": 0.55
+      },
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "sage_matte",
+        "label": "Sage Matte",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#8FA896",
+        "accentColor": "#B3C4B8",
+        "roughness": 0.62,
+        "metalness": 0.06,
+        "tintStrength": 0.58
+      }
+    ],
+    "defaultVariantId": "white_painted"
+  },
+  {
+    "id": "ph_cabinet_painted",
+    "name": "Cabinet Painted",
+    "category": "Storage",
+    "subcategory": "cabinet",
+    "modelPath": "./assets/models/ph_cabinet_painted.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_cabinet_painted.png",
+    "defaultScale": 1,
+    "tags": [
+      "storage",
+      "classic"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "kitchen"
+    ],
+    "variants": [
+      {
+        "id": "white_painted",
+        "label": "White Painted",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#F0EBE3",
+        "accentColor": "#FAF6F0",
+        "roughness": 0.58,
+        "metalness": 0.08,
+        "tintStrength": 0.55
+      },
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "sage_matte",
+        "label": "Sage Matte",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#8FA896",
+        "accentColor": "#B3C4B8",
+        "roughness": 0.62,
+        "metalness": 0.06,
+        "tintStrength": 0.58
+      }
+    ],
+    "defaultVariantId": "white_painted"
+  },
+  {
+    "id": "ph_cabinet_vintage",
+    "name": "Cabinet Vintage",
+    "category": "Storage",
+    "subcategory": "cabinet",
+    "modelPath": "./assets/models/ph_cabinet_vintage.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_cabinet_vintage.png",
+    "defaultScale": 1,
+    "tags": [
+      "vintage",
+      "accent"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "dark_walnut"
+  },
+  {
+    "id": "ph_console_01",
+    "name": "Console Table",
+    "category": "Storage",
+    "subcategory": "console",
+    "modelPath": "./assets/models/ph_console_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_console_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "entryway",
+      "accent"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "entryway"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_console_chinese",
+    "name": "Console Chinese",
+    "category": "Storage",
+    "subcategory": "console",
+    "modelPath": "./assets/models/ph_console_chinese.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_console_chinese.png",
+    "defaultScale": 1,
+    "tags": [
+      "eclectic",
+      "entryway"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "entryway"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "dark_walnut"
+  },
+  {
+    "id": "ph_shelf_01",
+    "name": "Shelf Wall",
+    "category": "Storage",
+    "subcategory": "shelf",
+    "modelPath": "./assets/models/ph_shelf_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_shelf_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "wall",
+      "storage"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "kitchen"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_nightstand",
+    "name": "Nightstand Classic",
+    "category": "Storage",
+    "subcategory": "nightstand",
+    "modelPath": "./assets/models/ph_nightstand.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_nightstand.png",
+    "defaultScale": 1,
+    "tags": [
+      "bedroom",
+      "classic"
+    ],
+    "collections": [
+      "Soft Romantic"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "light_oak"
+  },
+  {
+    "id": "ph_nightstand_classic",
+    "name": "Nightstand Drawer",
+    "category": "Storage",
+    "subcategory": "nightstand",
+    "modelPath": "./assets/models/ph_nightstand_classic.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_nightstand_classic.png",
+    "defaultScale": 1,
+    "tags": [
+      "bedroom",
+      "storage"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "light_oak",
+        "label": "Light Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#D4B28D",
+        "accentColor": "#EAD2B6",
+        "roughness": 0.62,
+        "metalness": 0.05,
+        "tintStrength": 0.58
+      },
+      {
+        "id": "medium_oak",
+        "label": "Medium Oak",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#B88C63",
+        "accentColor": "#D9B28A",
+        "roughness": 0.58,
+        "metalness": 0.05,
+        "tintStrength": 0.62
+      },
+      {
+        "id": "dark_walnut",
+        "label": "Dark Walnut",
+        "type": "finish",
+        "family": "wood",
+        "previewColor": "#6D503C",
+        "accentColor": "#92735D",
+        "roughness": 0.54,
+        "metalness": 0.06,
+        "tintStrength": 0.66
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#343232",
+        "accentColor": "#5A5655",
+        "roughness": 0.48,
+        "metalness": 0.18,
+        "tintStrength": 0.75
+      }
+    ],
+    "defaultVariantId": "medium_oak"
+  },
+  {
+    "id": "ph_chandelier_01",
+    "name": "Chandelier Modern",
+    "category": "Lighting",
+    "subcategory": "ceiling",
+    "modelPath": "./assets/models/ph_chandelier_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chandelier_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "statement",
+      "ceiling"
+    ],
+    "collections": [
+      "Quiet Luxury",
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "dining_room"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "brass_warm"
+  },
+  {
+    "id": "ph_chandelier_02",
+    "name": "Chandelier Elegant",
+    "category": "Lighting",
+    "subcategory": "ceiling",
+    "modelPath": "./assets/models/ph_chandelier_02.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chandelier_02.png",
+    "defaultScale": 1,
+    "tags": [
+      "statement",
+      "ceiling"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "brass_warm"
+  },
+  {
+    "id": "ph_chandelier_03",
+    "name": "Chandelier Globe",
+    "category": "Lighting",
+    "subcategory": "ceiling",
+    "modelPath": "./assets/models/ph_chandelier_03.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chandelier_03.png",
+    "defaultScale": 1,
+    "tags": [
+      "statement",
+      "ceiling"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "entryway"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "matte_black"
+  },
+  {
+    "id": "ph_chandelier_chinese",
+    "name": "Chandelier Chinese",
+    "category": "Lighting",
+    "subcategory": "ceiling",
+    "modelPath": "./assets/models/ph_chandelier_chinese.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chandelier_chinese.png",
+    "defaultScale": 1,
+    "tags": [
+      "eclectic",
+      "accent"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "brass_warm"
+  },
+  {
+    "id": "ph_chandelier_lantern",
+    "name": "Lantern Pendant",
+    "category": "Lighting",
+    "subcategory": "pendant",
+    "modelPath": "./assets/models/ph_chandelier_lantern.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_chandelier_lantern.png",
+    "defaultScale": 1,
+    "tags": [
+      "lantern",
+      "warm"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "entryway",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "brass_warm"
+  },
+  {
+    "id": "ph_lamp_ceiling",
+    "name": "Ceiling Lamp Flush",
+    "category": "Lighting",
+    "subcategory": "ceiling",
+    "modelPath": "./assets/models/ph_lamp_ceiling.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_lamp_ceiling.png",
+    "defaultScale": 1,
+    "tags": [
+      "ceiling",
+      "minimal"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "kitchen",
+      "bathroom"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "brushed_nickel"
+  },
+  {
+    "id": "ph_lamp_desk",
+    "name": "Desk Lamp",
+    "category": "Lighting",
+    "subcategory": "desk",
+    "modelPath": "./assets/models/ph_lamp_desk.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_lamp_desk.png",
+    "defaultScale": 1,
+    "tags": [
+      "desk",
+      "task"
+    ],
+    "collections": [
+      "Everyday Staples"
+    ],
+    "recommendedRoomTypes": [
+      "office",
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "matte_black"
+  },
+  {
+    "id": "ph_lamp_industrial",
+    "name": "Floor Lamp Industrial",
+    "category": "Lighting",
+    "subcategory": "floor",
+    "modelPath": "./assets/models/ph_lamp_industrial.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_lamp_industrial.png",
+    "defaultScale": 1,
+    "tags": [
+      "industrial",
+      "accent"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "matte_black"
+  },
+  {
+    "id": "ph_lamp_pipe",
+    "name": "Pipe Sconce",
+    "category": "Lighting",
+    "subcategory": "wall",
+    "modelPath": "./assets/models/ph_lamp_pipe.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_lamp_pipe.png",
+    "defaultScale": 1,
+    "tags": [
+      "wall",
+      "industrial"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "bathroom"
+    ],
+    "variants": [
+      {
+        "id": "brass_warm",
+        "label": "Brass Warm",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#C9A96E",
+        "accentColor": "#E4C98E",
+        "roughness": 0.28,
+        "metalness": 0.82,
+        "tintStrength": 0.7
+      },
+      {
+        "id": "matte_black",
+        "label": "Matte Black",
+        "type": "finish",
+        "family": "painted",
+        "previewColor": "#2E2C2C",
+        "accentColor": "#514F4F",
+        "roughness": 0.55,
+        "metalness": 0.22,
+        "tintStrength": 0.75
+      },
+      {
+        "id": "brushed_nickel",
+        "label": "Brushed Nickel",
+        "type": "finish",
+        "family": "metal",
+        "previewColor": "#AFAFAF",
+        "accentColor": "#D2D2D2",
+        "roughness": 0.35,
+        "metalness": 0.88,
+        "tintStrength": 0.65
+      }
+    ],
+    "defaultVariantId": "matte_black"
+  },
+  {
+    "id": "ph_bed_gothic",
+    "name": "Bed Canopy",
+    "category": "Beds",
+    "subcategory": "bed",
+    "modelPath": "./assets/models/ph_bed_gothic.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_bed_gothic.png",
+    "defaultScale": 1,
+    "tags": [
+      "statement",
+      "romantic"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "variants": [
+      {
+        "id": "linen_sand",
+        "label": "Linen Sand",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#D9C7B0",
+        "accentColor": "#F0E4D6",
+        "roughness": 0.95,
+        "metalness": 0.01,
+        "tintStrength": 0.42
+      },
+      {
+        "id": "boucle_cream",
+        "label": "Boucle Cream",
+        "type": "material",
+        "family": "fabric",
+        "previewColor": "#ECE5DA",
+        "accentColor": "#F9F4EB",
+        "roughness": 0.97,
+        "metalness": 0.01,
+        "tintStrength": 0.44
+      },
+      {
+        "id": "velvet_blush",
+        "label": "Velvet Blush",
+        "type": "colorway",
+        "family": "velvet",
+        "previewColor": "#C9A09D",
+        "accentColor": "#E6C9C5",
+        "roughness": 0.74,
+        "metalness": 0.02,
+        "tintStrength": 0.5
+      },
+      {
+        "id": "tailored_charcoal",
+        "label": "Tailored Charcoal",
+        "type": "colorway",
+        "family": "fabric",
+        "previewColor": "#67625E",
+        "accentColor": "#8A847F",
+        "roughness": 0.88,
+        "metalness": 0.02,
+        "tintStrength": 0.54
+      }
+    ],
+    "defaultVariantId": "velvet_blush"
+  },
+  {
+    "id": "ph_plant_potted_01",
+    "name": "Plant Potted",
+    "category": "Decor",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/ph_plant_potted_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_plant_potted_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "plant",
+      "natural"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "bathroom"
+    ]
+  },
+  {
+    "id": "ph_plant_potted_02",
+    "name": "Plant Leafy",
+    "category": "Decor",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/ph_plant_potted_02.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_plant_potted_02.png",
+    "defaultScale": 1,
+    "tags": [
+      "plant",
+      "lush"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ]
+  },
+  {
+    "id": "ph_plant_potted_04",
+    "name": "Plant Tropical",
+    "category": "Decor",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/ph_plant_potted_04.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_plant_potted_04.png",
+    "defaultScale": 1,
+    "tags": [
+      "plant",
+      "tropical"
+    ],
+    "collections": [
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ]
+  },
+  {
+    "id": "ph_planter_clay",
+    "name": "Planter Clay",
+    "category": "Decor",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/ph_planter_clay.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_planter_clay.png",
+    "defaultScale": 1,
+    "tags": [
+      "plant",
+      "ceramic"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Warm Modern"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "kitchen"
+    ]
+  },
+  {
+    "id": "ph_vase_brass_01",
+    "name": "Vase Brass",
+    "category": "Decor",
+    "subcategory": "decor",
+    "modelPath": "./assets/models/ph_vase_brass_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_vase_brass_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "vase",
+      "brass",
+      "accent"
+    ],
+    "collections": [
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "dining_room"
+    ]
+  },
+  {
+    "id": "ph_vase_ceramic_01",
+    "name": "Vase Ceramic",
+    "category": "Decor",
+    "subcategory": "decor",
+    "modelPath": "./assets/models/ph_vase_ceramic_01.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_vase_ceramic_01.png",
+    "defaultScale": 1,
+    "tags": [
+      "vase",
+      "ceramic",
+      "accent"
+    ],
+    "collections": [
+      "Soft Romantic"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "dining_room"
+    ]
+  },
+  {
+    "id": "ph_mirror_ornate",
+    "name": "Mirror Ornate",
+    "category": "Wall Decor",
+    "subcategory": "mirror",
+    "modelPath": "./assets/models/ph_mirror_ornate.glb",
+    "thumbnailPath": "./assets/thumbnails/ph_mirror_ornate.png",
+    "defaultScale": 1,
+    "tags": [
+      "mirror",
+      "statement"
+    ],
+    "collections": [
+      "Soft Romantic",
+      "Quiet Luxury"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "living_room",
+      "bathroom"
+    ]
+  },
+  {
+    "id": "kn_ceiling_fan",
+    "name": "Ceiling Fan",
+    "category": "Lighting",
+    "subcategory": "fan",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/ceilingFan.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_ceiling_fan.png",
+    "defaultScale": 1.4,
+    "mountType": "ceiling",
+    "tags": [
+      "utility"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "living_room"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_pillow",
+    "name": "Pillow",
+    "category": "Decor",
+    "subcategory": "pillow",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/pillow.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_pillow.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "decor"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "living_room"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_pillow_blue",
+    "name": "Pillow Blue",
+    "category": "Decor",
+    "subcategory": "pillow",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/pillowBlue.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_pillow_blue.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "decor"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "living_room"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_pillow_long",
+    "name": "Pillow Long",
+    "category": "Decor",
+    "subcategory": "pillow",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/pillowLong.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_pillow_long.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "decor"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_books",
+    "name": "Books Stack",
+    "category": "Decor",
+    "subcategory": "books",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/books.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_books.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "decor"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "office",
+      "living_room"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_potted_plant",
+    "name": "Potted Plant",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/pottedPlant.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_potted_plant.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "plant"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_plant_small_1",
+    "name": "Plant Small 1",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/plantSmall1.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_plant_small_1.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "plant"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_plant_small_2",
+    "name": "Plant Small 2",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/plantSmall2.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_plant_small_2.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "plant"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_plant_small_3",
+    "name": "Plant Small 3",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/plantSmall3.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_plant_small_3.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "plant"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_radio",
+    "name": "Radio",
+    "category": "Decor",
+    "subcategory": "radio",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/radio.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_radio.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "decor"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_speaker",
+    "name": "Speaker",
+    "category": "Decor",
+    "subcategory": "speaker",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/speaker.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_speaker.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "audio"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_speaker_small",
+    "name": "Speaker Small",
+    "category": "Decor",
+    "subcategory": "speaker",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/speakerSmall.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_speaker_small.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "audio"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_laptop",
+    "name": "Laptop",
+    "category": "Decor",
+    "subcategory": "laptop",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/laptop.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_laptop.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "tech"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_computer_screen",
+    "name": "Monitor",
+    "category": "Decor",
+    "subcategory": "monitor",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/computerScreen.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_computer_screen.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "tech"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_computer_keyboard",
+    "name": "Keyboard",
+    "category": "Decor",
+    "subcategory": "keyboard",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/computerKeyboard.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_computer_keyboard.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "tech"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_tv_modern",
+    "name": "Television Modern",
+    "category": "Decor",
+    "subcategory": "tv",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/televisionModern.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_tv_modern.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "tech"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_kitchen_microwave",
+    "name": "Microwave",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/kitchenMicrowave.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_kitchen_microwave.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "appliance"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_kitchen_blender",
+    "name": "Blender",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/kitchenBlender.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_kitchen_blender.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "appliance"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_kitchen_coffee",
+    "name": "Coffee Machine",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/kitchenCoffeeMachine.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_kitchen_coffee.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "appliance"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_toaster",
+    "name": "Toaster",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/toaster.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_toaster.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "appliance"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_trashcan",
+    "name": "Trashcan",
+    "category": "Utility",
+    "subcategory": "trash",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/trashcan.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_trashcan.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "utility"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen",
+      "bathroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_coat_rack",
+    "name": "Coat Rack",
+    "category": "Storage",
+    "subcategory": "rack",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/coatRackStanding.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_coat_rack.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "storage"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_bear",
+    "name": "Teddy Bear",
+    "category": "Decor",
+    "subcategory": "toy",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/bear.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_bear.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "decor",
+      "kids"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "nursery",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "kn_cardboard_box",
+    "name": "Moving Box",
+    "category": "Decor",
+    "subcategory": "box",
+    "modelPath": "./assets/kenney_furniture-kit/Models/GLTF format/cardboardBoxClosed.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_cardboard_box.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "prop"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney furniture-kit (CC0)"
+  },
+  {
+    "id": "ph_barbershopchair_01",
+    "name": "Barber Shop Chair 01",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_barbershopchair_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_barbershopchair_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_greenchair_01",
+    "name": "Green Chair 01",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_greenchair_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_greenchair_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_rockingchair_01",
+    "name": "Rockingchair 01",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_rockingchair_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_rockingchair_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_chinese_sofa",
+    "name": "Chinese Sofa",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/ph_chinese_sofa.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_chinese_sofa.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_painted_wooden_sofa",
+    "name": "Painted Wooden Sofa",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/ph_painted_wooden_sofa.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_painted_wooden_sofa.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_coffeetable_01",
+    "name": "Coffee Table 01",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_coffeetable_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_coffeetable_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_woodentable_01",
+    "name": "Wooden Table 01",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_woodentable_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_woodentable_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_woodentable_02",
+    "name": "Wooden Table 02",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_woodentable_02.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_woodentable_02.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_caged_hanging_light",
+    "name": "Caged Hanging Light",
+    "category": "Lighting",
+    "subcategory": "lamp",
+    "modelPath": "./assets/models/ph_caged_hanging_light.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_caged_hanging_light.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_desk_lamp_arm_01",
+    "name": "Desk Lamp Arm 01",
+    "category": "Lighting",
+    "subcategory": "lamp",
+    "modelPath": "./assets/models/ph_desk_lamp_arm_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_desk_lamp_arm_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_hanging_industrial_lamp",
+    "name": "Hanging Industrial Lamp",
+    "category": "Lighting",
+    "subcategory": "lamp",
+    "modelPath": "./assets/models/ph_hanging_industrial_lamp.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_hanging_industrial_lamp.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_brass_pot_01",
+    "name": "Brass Pot 01",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/ph_brass_pot_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_brass_pot_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_brass_pot_02",
+    "name": "Brass Pot 02",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/ph_brass_pot_02.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_brass_pot_02.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_antique_ceramic_vase_01",
+    "name": "Antique Ceramic Vase 01",
+    "category": "Decor",
+    "subcategory": "vessel",
+    "modelPath": "./assets/models/ph_antique_ceramic_vase_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_antique_ceramic_vase_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_brass_vase_01",
+    "name": "Brass Vase 01",
+    "category": "Decor",
+    "subcategory": "vessel",
+    "modelPath": "./assets/models/ph_brass_vase_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_brass_vase_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_schoolchair_01",
+    "name": "School Chair 01",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_schoolchair_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_schoolchair_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_woodenchair_01",
+    "name": "Wooden Chair 01",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_woodenchair_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_woodenchair_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_bar_chair_round_01",
+    "name": "Bar Chair Round 01",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/ph_bar_chair_round_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_bar_chair_round_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_woodentable_03",
+    "name": "Wooden Table 03",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_woodentable_03.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_woodentable_03.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_chinese_console_table",
+    "name": "Chinese Console Table",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_chinese_console_table.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_chinese_console_table.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_chinese_tea_table",
+    "name": "Chinese Tea Table",
+    "category": "Tables",
+    "subcategory": "table",
+    "modelPath": "./assets/models/ph_chinese_tea_table.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_chinese_tea_table.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_industrial_pipe_lamp",
+    "name": "Industrial Pipe Lamp",
+    "category": "Lighting",
+    "subcategory": "lamp",
+    "modelPath": "./assets/models/ph_industrial_pipe_lamp.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_industrial_pipe_lamp.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_industrial_wall_lamp",
+    "name": "Industrial Wall Lamp",
+    "category": "Lighting",
+    "subcategory": "lamp",
+    "modelPath": "./assets/models/ph_industrial_wall_lamp.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_industrial_wall_lamp.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_lightbulb_01",
+    "name": "Lightbulb 01",
+    "category": "Lighting",
+    "subcategory": "lamp",
+    "modelPath": "./assets/models/ph_lightbulb_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_lightbulb_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_crystalline_iceplant",
+    "name": "Crystalline Iceplant",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/ph_crystalline_iceplant.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_crystalline_iceplant.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_nettle_plant",
+    "name": "Nettle Plant",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/ph_nettle_plant.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_nettle_plant.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_brass_vase_02",
+    "name": "Brass Vase 02",
+    "category": "Decor",
+    "subcategory": "vessel",
+    "modelPath": "./assets/models/ph_brass_vase_02.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_brass_vase_02.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_brass_vase_03",
+    "name": "Brass Vase 03",
+    "category": "Decor",
+    "subcategory": "vessel",
+    "modelPath": "./assets/models/ph_brass_vase_03.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_brass_vase_03.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_alarm_clock_01",
+    "name": "Alarm Clock 01",
+    "category": "Decor",
+    "subcategory": "prop",
+    "modelPath": "./assets/models/ph_alarm_clock_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_alarm_clock_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_book_encyclopedia_set_01",
+    "name": "Book Encyclopedia Set 01",
+    "category": "Decor",
+    "subcategory": "prop",
+    "modelPath": "./assets/models/ph_book_encyclopedia_set_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_book_encyclopedia_set_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_throw_pillows_01",
+    "name": "Throw Pillows 01",
+    "category": "Decor",
+    "subcategory": "pillow",
+    "modelPath": "./assets/models/ph_throw_pillows_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_throw_pillows_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_fancy_picture_frame_01",
+    "name": "Fancy Picture Frame 01",
+    "category": "Wall Decor",
+    "subcategory": "art",
+    "modelPath": "./assets/models/ph_fancy_picture_frame_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_fancy_picture_frame_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_fancy_picture_frame_02",
+    "name": "Fancy Picture Frame 02",
+    "category": "Wall Decor",
+    "subcategory": "art",
+    "modelPath": "./assets/models/ph_fancy_picture_frame_02.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_fancy_picture_frame_02.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_hanging_picture_frame_01",
+    "name": "Hanging Picture Frame 01",
+    "category": "Wall Decor",
+    "subcategory": "art",
+    "modelPath": "./assets/models/ph_hanging_picture_frame_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_hanging_picture_frame_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom",
+      "office"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_ornate_mirror_01",
+    "name": "Ornate Mirror 01",
+    "category": "Wall Decor",
+    "subcategory": "mirror",
+    "modelPath": "./assets/models/ph_ornate_mirror_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_ornate_mirror_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "bathroom",
+      "entry"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_brass_candleholders",
+    "name": "Brass Candleholders",
+    "category": "Decor",
+    "subcategory": "candle",
+    "modelPath": "./assets/models/ph_brass_candleholders.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_brass_candleholders.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "ph_food_apple_01",
+    "name": "Food Apple 01",
+    "category": "Decor",
+    "subcategory": "tabletop",
+    "modelPath": "./assets/models/ph_food_apple_01.gltf",
+    "thumbnailPath": "./assets/thumbnails/ph_food_apple_01.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "polyhaven"
+    ],
+    "collections": [
+      "Poly Haven"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Poly Haven (CC0)"
+  },
+  {
+    "id": "thi_kitchen_fridge",
+    "name": "Fridge (Realistic)",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/thi_kitchen_fridge.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_kitchen_fridge.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "appliance",
+      "fridge",
+      "realistic"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_kitchen_sink",
+    "name": "Kitchen Sink (Realistic)",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/thi_kitchen_sink.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_kitchen_sink.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "appliance",
+      "sink",
+      "realistic"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_kitchen_oven",
+    "name": "Oven (Realistic)",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/thi_kitchen_oven.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_kitchen_oven.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "appliance",
+      "oven",
+      "stove",
+      "realistic"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_bathroom_sink",
+    "name": "Bathroom Sink (Realistic)",
+    "category": "Bathroom",
+    "subcategory": "fixture",
+    "modelPath": "./assets/models/thi_bathroom_sink.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_bathroom_sink.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bathroom",
+      "fixture",
+      "sink",
+      "realistic"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_bathtub",
+    "name": "Bathtub (Realistic)",
+    "category": "Bathroom",
+    "subcategory": "fixture",
+    "modelPath": "./assets/models/thi_bathtub.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_bathtub.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bathroom",
+      "fixture",
+      "tub",
+      "realistic"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_toilet",
+    "name": "Toilet (Realistic)",
+    "category": "Bathroom",
+    "subcategory": "fixture",
+    "modelPath": "./assets/models/thi_toilet.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_toilet.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bathroom",
+      "fixture",
+      "toilet",
+      "realistic"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_toilet_paper",
+    "name": "Toilet Paper Roll",
+    "category": "Bathroom",
+    "subcategory": "accessory",
+    "modelPath": "./assets/models/thi_toilet_paper.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_toilet_paper.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bathroom",
+      "accessory",
+      "paper"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_toilet_paper_stack",
+    "name": "Toilet Paper Stack",
+    "category": "Bathroom",
+    "subcategory": "accessory",
+    "modelPath": "./assets/models/thi_toilet_paper_stack.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_toilet_paper_stack.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bathroom",
+      "accessory",
+      "paper",
+      "stack"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_towel_rack",
+    "name": "Towel Rack (Realistic)",
+    "category": "Bathroom",
+    "subcategory": "accessory",
+    "modelPath": "./assets/models/thi_towel_rack.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_towel_rack.png",
+    "defaultScale": 1,
+    "mountType": "wall",
+    "tags": [
+      "bathroom",
+      "accessory",
+      "towel",
+      "rack"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bathroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_washing_machine",
+    "name": "Washing Machine (Realistic)",
+    "category": "Laundry",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/thi_washing_machine.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_washing_machine.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "laundry",
+      "appliance",
+      "washer",
+      "realistic"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "laundry"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_fireplace",
+    "name": "Fireplace",
+    "category": "Decor",
+    "subcategory": "feature",
+    "modelPath": "./assets/models/thi_fireplace.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_fireplace.png",
+    "defaultScale": 1,
+    "mountType": "wall",
+    "tags": [
+      "fireplace",
+      "feature",
+      "hearth"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_column_round",
+    "name": "Round Column",
+    "category": "Decor",
+    "subcategory": "structural",
+    "modelPath": "./assets/models/thi_column_round.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_column_round.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "column",
+      "structural",
+      "round"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "entry",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_bunk_bed",
+    "name": "Bunk Bed",
+    "category": "Beds",
+    "subcategory": "bed",
+    "modelPath": "./assets/models/thi_bunk_bed.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_bunk_bed.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bed",
+      "bunk",
+      "kids"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_l_couch",
+    "name": "L-Shaped Sectional",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/thi_l_couch.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_l_couch.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "sofa",
+      "sectional",
+      "l-shape"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_stool",
+    "name": "Stool",
+    "category": "Seating",
+    "subcategory": "stool",
+    "modelPath": "./assets/models/thi_stool.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_stool.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "stool",
+      "seat"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_trashcan_large",
+    "name": "Trash Can (Large)",
+    "category": "Utility",
+    "subcategory": "trashcan",
+    "modelPath": "./assets/models/thi_trashcan_large.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_trashcan_large.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "trash",
+      "bin",
+      "utility"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen",
+      "office"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_trashcan",
+    "name": "Trash Can",
+    "category": "Utility",
+    "subcategory": "trashcan",
+    "modelPath": "./assets/models/thi_trashcan.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_trashcan.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "trash",
+      "bin",
+      "utility"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen",
+      "office",
+      "bathroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_chandelier",
+    "name": "Chandelier",
+    "category": "Lighting",
+    "subcategory": "ceiling",
+    "modelPath": "./assets/models/thi_chandelier.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_chandelier.png",
+    "defaultScale": 1,
+    "mountType": "ceiling",
+    "tags": [
+      "lighting",
+      "chandelier",
+      "ceiling"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_dead_houseplant",
+    "name": "Dead Houseplant",
+    "category": "Plants",
+    "subcategory": "plant",
+    "modelPath": "./assets/models/thi_dead_houseplant.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_dead_houseplant.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "plant",
+      "dead",
+      "humor"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "thi_square_plate",
+    "name": "Square Plate",
+    "category": "Decor",
+    "subcategory": "tabletop",
+    "modelPath": "./assets/models/thi_square_plate.glb",
+    "thumbnailPath": "./assets/thumbnails/thi_square_plate.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "plate",
+      "tableware",
+      "tabletop"
+    ],
+    "collections": [
+      "House Interior Pack"
+    ],
+    "recommendedRoomTypes": [
+      "dining_room",
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "temp_house_interior"
+  },
+  {
+    "id": "tfp_bed_double",
+    "name": "Double Bed",
+    "category": "Beds",
+    "subcategory": "bed",
+    "modelPath": "./assets/models/tfp_bed_double.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_bed_double.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bed",
+      "double",
+      "full"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_bed_twin",
+    "name": "Twin Bed",
+    "category": "Beds",
+    "subcategory": "bed",
+    "modelPath": "./assets/models/tfp_bed_twin.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_bed_twin.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bed",
+      "twin",
+      "single"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_bookcase_books",
+    "name": "Bookcase with Books",
+    "category": "Storage",
+    "subcategory": "bookcase",
+    "modelPath": "./assets/models/tfp_bookcase_books.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_bookcase_books.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "bookcase",
+      "shelf",
+      "books",
+      "decor"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "office",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_office_chair",
+    "name": "Office Chair",
+    "category": "Seating",
+    "subcategory": "chair",
+    "modelPath": "./assets/models/tfp_office_chair.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_office_chair.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "chair",
+      "office",
+      "desk",
+      "task"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "office",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_closet",
+    "name": "Tall Closet",
+    "category": "Storage",
+    "subcategory": "closet",
+    "modelPath": "./assets/models/tfp_closet.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_closet.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "closet",
+      "wardrobe",
+      "storage"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "entry"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_closet_short",
+    "name": "Short Closet",
+    "category": "Storage",
+    "subcategory": "closet",
+    "modelPath": "./assets/models/tfp_closet_short.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_closet_short.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "closet",
+      "wardrobe",
+      "storage",
+      "short"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom",
+      "entry"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_desk",
+    "name": "Desk",
+    "category": "Tables",
+    "subcategory": "desk",
+    "modelPath": "./assets/models/tfp_desk.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_desk.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "desk",
+      "office",
+      "work"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "office",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_sofa",
+    "name": "Sofa (Realistic)",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/tfp_sofa.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_sofa.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "sofa",
+      "couch",
+      "realistic"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_stool",
+    "name": "Stool (Variant)",
+    "category": "Seating",
+    "subcategory": "stool",
+    "modelPath": "./assets/models/tfp_stool.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_stool.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "stool",
+      "seat",
+      "variant"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "tfp_night_stand",
+    "name": "Nightstand (Realistic)",
+    "category": "Storage",
+    "subcategory": "nightstand",
+    "modelPath": "./assets/models/tfp_night_stand.glb",
+    "thumbnailPath": "./assets/thumbnails/tfp_night_stand.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "nightstand",
+      "bedside",
+      "storage"
+    ],
+    "collections": [
+      "Furniture Pack"
+    ],
+    "recommendedRoomTypes": [
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "temp_furniture_pack"
+  },
+  {
+    "id": "kn_dryer",
+    "name": "Dryer",
+    "category": "Laundry",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/kn_dryer.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_dryer.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "laundry",
+      "dryer",
+      "appliance"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "laundry"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_kitchen_corner_inner",
+    "name": "Corner Cabinet (Inner)",
+    "category": "Kitchen",
+    "subcategory": "cabinet",
+    "modelPath": "./assets/models/kn_kitchen_corner_inner.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_kitchen_corner_inner.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "cabinet",
+      "corner"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_kitchen_corner_round",
+    "name": "Corner Cabinet (Round)",
+    "category": "Kitchen",
+    "subcategory": "cabinet",
+    "modelPath": "./assets/models/kn_kitchen_corner_round.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_kitchen_corner_round.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "cabinet",
+      "corner",
+      "round"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_kitchen_bar",
+    "name": "Kitchen Bar",
+    "category": "Kitchen",
+    "subcategory": "counter",
+    "modelPath": "./assets/models/kn_kitchen_bar.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_kitchen_bar.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "bar",
+      "counter"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_kitchen_bar_end",
+    "name": "Bar End",
+    "category": "Kitchen",
+    "subcategory": "counter",
+    "modelPath": "./assets/models/kn_kitchen_bar_end.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_kitchen_bar_end.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "bar",
+      "end"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_hood_modern",
+    "name": "Range Hood (Modern)",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/kn_hood_modern.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_hood_modern.png",
+    "defaultScale": 1,
+    "mountType": "ceiling",
+    "tags": [
+      "kitchen",
+      "hood",
+      "vent",
+      "modern"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_hood_large",
+    "name": "Range Hood (Large)",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/kn_hood_large.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_hood_large.png",
+    "defaultScale": 1,
+    "mountType": "ceiling",
+    "tags": [
+      "kitchen",
+      "hood",
+      "vent",
+      "large"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_cabinet_tv",
+    "name": "TV Cabinet",
+    "category": "Storage",
+    "subcategory": "media",
+    "modelPath": "./assets/models/kn_cabinet_tv.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_cabinet_tv.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "tv",
+      "cabinet",
+      "media"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_cabinet_tv_doors",
+    "name": "TV Cabinet (Doors)",
+    "category": "Storage",
+    "subcategory": "media",
+    "modelPath": "./assets/models/kn_cabinet_tv_doors.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_cabinet_tv_doors.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "tv",
+      "cabinet",
+      "media",
+      "doors"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_doorway_open",
+    "name": "Open Doorway Frame",
+    "category": "Openings",
+    "subcategory": "doorway",
+    "modelPath": "./assets/models/kn_doorway_open.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_doorway_open.png",
+    "defaultScale": 1,
+    "mountType": "wall",
+    "tags": [
+      "doorway",
+      "opening",
+      "passage"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "entry",
+      "dining_room"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_paneling",
+    "name": "Wall Paneling",
+    "category": "Wall Decor",
+    "subcategory": "panel",
+    "modelPath": "./assets/models/kn_paneling.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_paneling.png",
+    "defaultScale": 1,
+    "mountType": "wall",
+    "tags": [
+      "paneling",
+      "wall",
+      "trim"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room",
+      "dining_room",
+      "entry"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_fridge_small",
+    "name": "Fridge (Small)",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/kn_fridge_small.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_fridge_small.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "fridge",
+      "small",
+      "apartment"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_fridge_builtin",
+    "name": "Fridge (Built-in)",
+    "category": "Kitchen",
+    "subcategory": "appliance",
+    "modelPath": "./assets/models/kn_fridge_builtin.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_fridge_builtin.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "kitchen",
+      "fridge",
+      "builtin",
+      "luxury"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "kitchen"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_lounge_sectional",
+    "name": "Corner Sectional Sofa",
+    "category": "Seating",
+    "subcategory": "sofa",
+    "modelPath": "./assets/models/kn_lounge_sectional.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_lounge_sectional.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "sofa",
+      "sectional",
+      "corner",
+      "lounge"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "living_room"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_computer_mouse",
+    "name": "Computer Mouse",
+    "category": "Decor",
+    "subcategory": "tech",
+    "modelPath": "./assets/models/kn_computer_mouse.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_computer_mouse.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "mouse",
+      "computer",
+      "desk"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "office"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_rug_doormat",
+    "name": "Doormat",
+    "category": "Rugs",
+    "subcategory": "doormat",
+    "modelPath": "./assets/models/kn_rug_doormat.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_rug_doormat.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "rug",
+      "doormat",
+      "entry"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "entry"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
+  },
+  {
+    "id": "kn_coat_rack_standing",
+    "name": "Standing Coat Rack",
+    "category": "Storage",
+    "subcategory": "rack",
+    "modelPath": "./assets/models/kn_coat_rack_standing.glb",
+    "thumbnailPath": "./assets/thumbnails/kn_coat_rack_standing.png",
+    "defaultScale": 1,
+    "mountType": "floor",
+    "tags": [
+      "coat",
+      "rack",
+      "standing"
+    ],
+    "collections": [
+      "Kenney Kit"
+    ],
+    "recommendedRoomTypes": [
+      "entry",
+      "bedroom"
+    ],
+    "variants": [],
+    "source": "Kenney (CC0)"
   }
 ]

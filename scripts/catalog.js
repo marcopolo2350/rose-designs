@@ -1,5 +1,25 @@
 // Catalog
-const CATALOG_CATEGORY_ORDER=['Seating','Beds','Tables','Storage','Lighting','Decor','Rugs','Wall Decor','Openings'];
+const CATALOG_CATEGORY_ORDER=['Seating','Beds','Tables','Storage','Kitchen','Bathroom','Laundry','Lighting','Decor','Rugs','Wall Decor','Openings'];
+// Phase ✨ — Category glyphs (small illustrated icons). Returned as inline SVG markup
+// so they render consistently across devices without icon-font dependencies.
+const CATALOG_GLYPHS={
+  Seating:'<svg viewBox="0 0 24 24"><path d="M4 13v4M20 13v4M4 17h16M5 13h14a2 2 0 0 0-2-2h-10a2 2 0 0 0-2 2z"/></svg>',
+  Beds:'<svg viewBox="0 0 24 24"><path d="M3 18V8M21 18v-6M3 12h18M3 18h18M7 11h4v1H7z"/></svg>',
+  Tables:'<svg viewBox="0 0 24 24"><path d="M3 10h18M5 10v10M19 10v10M3 10l2-4h14l2 4"/></svg>',
+  Storage:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 12h16M10 7v2M14 15v2"/></svg>',
+  Kitchen:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 10h16M8 14h3M8 17h3M14 14h2M14 17h2"/></svg>',
+  Bathroom:'<svg viewBox="0 0 24 24"><path d="M4 12h16v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M7 12V6a2 2 0 0 1 2-2h2"/><circle cx="11" cy="6" r="1"/></svg>',
+  Laundry:'<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><circle cx="12" cy="13" r="5"/><circle cx="7" cy="7" r="1"/></svg>',
+  Lighting:'<svg viewBox="0 0 24 24"><path d="M9 3h6l-1 10H10z"/><path d="M11 13v4h2v-4M10 21h4"/></svg>',
+  Decor:'<svg viewBox="0 0 24 24"><path d="M10 3c-1.5 3-1.5 6 2 9 3.5 3 3.5 6 2 9M14 3c1.5 3 1.5 6-2 9-3.5 3-3.5 6-2 9"/></svg>',
+  Rugs:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1"/><path d="M3 9h18M3 15h18M6 6v12M18 6v12"/></svg>',
+  'Wall Decor':'<svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="14"/><path d="M5 10l3 4 3-3 4 5h4"/><path d="M11 21h2"/></svg>',
+  Openings:'<svg viewBox="0 0 24 24"><path d="M4 21V4h9l7 5v12"/><path d="M13 4v17M7 14h3"/></svg>',
+};
+function categoryGlyphMarkup(cat){
+  const svg=CATALOG_GLYPHS[cat]||'';
+  return svg?`<span class="cat-glyph">${svg}</span>`:'';
+}
 const CATEGORY_ALIAS_MAP={'Window Decor':'Openings'};
 const COLLECTION_THEMES={
   'Cozy Rose':'linear-gradient(135deg,#fff4f1,#edd7d0)',
@@ -25,6 +45,7 @@ const FURN_ITEMS=[
   {label:'Bench',w:3.5,d:1.4,icon:'??',symbol:'B',assetKey:'bench',group:'Seating'},
   {label:'Bed',w:6.2,d:7.2,icon:'???',symbol:'B',assetKey:'bed',group:'Beds'},
   {label:'King Bed',w:6.4,d:7.4,icon:'???',symbol:'K',assetKey:'bed_king',group:'Beds'},
+  {label:'Double Bed',w:5.5,d:6.8,icon:'???',symbol:'D',assetKey:'bed_double',group:'Beds'},
   {label:'Twin Bed',w:3.6,d:6.6,icon:'???',symbol:'T',assetKey:'bed_twin',group:'Beds'},
   {label:'Bunk Bed',w:4.4,d:6.8,icon:'???',symbol:'U',assetKey:'bunk_bed',group:'Beds'},
   {label:'Coffee Table',w:3.2,d:1.8,icon:'??',symbol:'T',assetKey:'table_coffee',group:'Tables'},
@@ -32,12 +53,14 @@ const FURN_ITEMS=[
   {label:'Round Dining Table',w:4.2,d:4.2,icon:'???',symbol:'R',assetKey:'table_round_large',group:'Tables'},
   {label:'Round Side Table',w:2.4,d:2.4,icon:'???',symbol:'R',assetKey:'table_round_small',group:'Tables'},
   {label:'Desk',w:4,d:2,icon:'??',symbol:'K',assetKey:'desk',group:'Tables'},
+  {label:'Rectangular Table',w:4.4,d:2.6,icon:'??',symbol:'T',assetKey:'table_rect',group:'Tables'},
   {label:'Bookshelf',w:3.2,d:1.1,icon:'??',symbol:'H',assetKey:'bookshelf',group:'Storage'},
   {label:'Bookcase With Books',w:3.2,d:1.1,icon:'??',symbol:'B',assetKey:'bookcase_books',group:'Storage'},
   {label:'Shelving',w:3.5,d:.6,icon:'??',symbol:'E',assetKey:'shelving',group:'Storage'},
   {label:'Small Shelf',w:2.2,d:.45,icon:'??',symbol:'S',assetKey:'shelf_small',group:'Storage'},
   {label:'Dresser',w:4,d:1.8,icon:'???',symbol:'R',assetKey:'dresser',group:'Storage'},
   {label:'Tall Dresser',w:3.4,d:1.7,icon:'???',symbol:'T',assetKey:'dresser_tall',group:'Storage'},
+  {label:'Full Closet',w:3.6,d:1.8,icon:'??',symbol:'C',assetKey:'closet_full',group:'Storage'},
   {label:'TV Console',w:5,d:1.4,icon:'??',symbol:'V',assetKey:'tv_console',group:'Storage'},
   {label:'Low Console',w:4.6,d:1.35,icon:'??',symbol:'L',assetKey:'console_low',group:'Storage'},
   {label:'Nightstand',w:1.7,d:1.5,icon:'??',symbol:'N',assetKey:'nightstand',group:'Storage'},
@@ -66,85 +89,90 @@ const FURN_ITEMS=[
   {label:'Wall Art III',w:2.4,d:.2,icon:'???',symbol:'A',assetKey:'wall_art_06',group:'Wall Decor'},
   {label:'Curtains',w:4,d:.4,icon:'??',symbol:'C',assetKey:'curtains',group:'Openings'},
   {label:'Blinds',w:4,d:.3,icon:'??',symbol:'B',assetKey:'blinds',group:'Openings'},
-  // ── Poly Haven Premium Seating ──
-  {label:'Armchair Classic',w:2.6,d:2.4,icon:'🪑',symbol:'AC',assetKey:'ph_armchair_01',group:'Seating'},
-  {label:'Armchair Modern',w:2.4,d:2.6,icon:'🪑',symbol:'AM',assetKey:'ph_armchair_modern',group:'Seating'},
-  {label:'Armchair Midcentury',w:2.4,d:2.8,icon:'🪑',symbol:'MC',assetKey:'ph_chair_midcentury',group:'Seating'},
-  {label:'Sofa Textured',w:6.2,d:2.8,icon:'🛋',symbol:'ST',assetKey:'ph_sofa_01',group:'Seating'},
-  {label:'Sofa Clean',w:6.5,d:2.8,icon:'🛋',symbol:'SC',assetKey:'ph_sofa_02',group:'Seating'},
-  {label:'Sofa Upholstered',w:5.8,d:2.6,icon:'🛋',symbol:'SU',assetKey:'ph_sofa_03',group:'Seating'},
-  {label:'Sofa Wooden Frame',w:5.5,d:2.4,icon:'🛋',symbol:'SW',assetKey:'ph_sofa_painted',group:'Seating'},
-  {label:'Ottoman',w:2.4,d:2.4,icon:'🪑',symbol:'OT',assetKey:'ph_ottoman_01',group:'Seating'},
-  {label:'Accent Chair',w:2.0,d:2.0,icon:'🪑',symbol:'AC',assetKey:'ph_chair_green',group:'Seating'},
-  {label:'Chinese Armchair',w:2.2,d:2.0,icon:'🪑',symbol:'CA',assetKey:'ph_chair_chinese',group:'Seating'},
-  {label:'Wicker Chair',w:1.8,d:1.8,icon:'🪑',symbol:'WC',assetKey:'ph_chair_gallinera',group:'Seating'},
-  {label:'Painted Chair',w:1.6,d:1.6,icon:'🪑',symbol:'PC',assetKey:'ph_chair_painted',group:'Seating'},
-  {label:'Bar Chair',w:1.4,d:1.4,icon:'🪑',symbol:'BC',assetKey:'ph_bar_chair',group:'Seating'},
-  {label:'Metal Stool',w:1.2,d:1.2,icon:'🪑',symbol:'MS',assetKey:'ph_stool_metal',group:'Seating'},
-  // ── Poly Haven Premium Tables ──
-  {label:'Coffee Table Classic',w:3.8,d:1.8,icon:'☕',symbol:'CT',assetKey:'ph_coffee_table_01',group:'Tables'},
-  {label:'Coffee Table Round',w:2.8,d:2.8,icon:'☕',symbol:'CR',assetKey:'ph_coffee_round',group:'Tables'},
-  {label:'Coffee Table Modern',w:3.5,d:1.8,icon:'☕',symbol:'CM',assetKey:'ph_coffee_modern',group:'Tables'},
-  {label:'Coffee Table Low',w:3.2,d:1.6,icon:'☕',symbol:'CL',assetKey:'ph_coffee_modern_2',group:'Tables'},
-  {label:'Coffee Table Gothic',w:3.0,d:1.8,icon:'☕',symbol:'CG',assetKey:'ph_coffee_gothic',group:'Tables'},
-  {label:'Coffee Table Industrial',w:3.4,d:1.8,icon:'☕',symbol:'CI',assetKey:'ph_coffee_industrial',group:'Tables'},
-  {label:'Dining Table Wood',w:5.0,d:2.6,icon:'🍽',symbol:'DW',assetKey:'ph_table_wooden',group:'Tables'},
-  {label:'Dining Table Rustic',w:5.5,d:2.8,icon:'🍽',symbol:'DR',assetKey:'ph_table_wooden_2',group:'Tables'},
-  {label:'Dining Table Round',w:3.5,d:3.5,icon:'🍽',symbol:'RT',assetKey:'ph_table_round',group:'Tables'},
-  {label:'Dining Table Painted',w:5.0,d:2.4,icon:'🍽',symbol:'DP',assetKey:'ph_table_painted',group:'Tables'},
-  {label:'Dining Table Cane',w:4.5,d:2.2,icon:'🍽',symbol:'DC',assetKey:'ph_table_gallinera',group:'Tables'},
-  {label:'Side Table',w:1.6,d:1.6,icon:'🟫',symbol:'ST',assetKey:'ph_side_table',group:'Tables'},
-  {label:'Side Table Tall',w:1.4,d:1.4,icon:'🟫',symbol:'TT',assetKey:'ph_side_table_tall',group:'Tables'},
-  // ── Poly Haven Premium Storage ──
-  {label:'Open Shelf Unit',w:3.2,d:0.8,icon:'📚',symbol:'SH',assetKey:'ph_shelf_01',group:'Storage'},
-  {label:'Bookshelf Worn',w:3.0,d:0.8,icon:'📚',symbol:'BW',assetKey:'ph_bookshelf',group:'Storage'},
-  {label:'Console Table',w:3.5,d:0.8,icon:'🪵',symbol:'CO',assetKey:'ph_console_01',group:'Storage'},
-  {label:'Console Chinese',w:3.2,d:0.8,icon:'🪵',symbol:'CC',assetKey:'ph_console_chinese',group:'Storage'},
-  {label:'Cabinet Modern',w:2.8,d:1.0,icon:'🚪',symbol:'CM',assetKey:'ph_cabinet_modern',group:'Storage'},
-  {label:'Cabinet Painted',w:2.4,d:0.9,icon:'🚪',symbol:'CP',assetKey:'ph_cabinet_painted',group:'Storage'},
-  {label:'Cabinet Vintage',w:2.8,d:1.2,icon:'🚪',symbol:'CV',assetKey:'ph_cabinet_vintage',group:'Storage'},
-  {label:'Cabinet Drawer',w:2.4,d:1.0,icon:'🚪',symbol:'CD',assetKey:'ph_cabinet_drawer',group:'Storage'},
-  {label:'Chinese Cabinet',w:2.8,d:1.0,icon:'🚪',symbol:'CH',assetKey:'ph_cabinet_chinese',group:'Storage'},
-  // ── Poly Haven Premium Lighting ──
-  {label:'Chandelier Classic',w:2.5,d:2.5,icon:'💡',symbol:'CH',assetKey:'ph_chandelier_01',group:'Lighting'},
-  {label:'Chandelier Globe',w:2.8,d:2.8,icon:'💡',symbol:'CG',assetKey:'ph_chandelier_02',group:'Lighting'},
-  {label:'Chandelier Crystal',w:3.0,d:3.0,icon:'💡',symbol:'CC',assetKey:'ph_chandelier_03',group:'Lighting'},
-  {label:'Chandelier Chinese',w:2.6,d:2.6,icon:'💡',symbol:'CN',assetKey:'ph_chandelier_chinese',group:'Lighting'},
-  {label:'Lantern Chandelier',w:2.2,d:2.2,icon:'💡',symbol:'LC',assetKey:'ph_chandelier_lantern',group:'Lighting'},
-  {label:'Ceiling Lamp Modern',w:1.8,d:1.8,icon:'💡',symbol:'CL',assetKey:'ph_lamp_ceiling',group:'Lighting'},
-  {label:'Desk Lamp Arm',w:1.0,d:0.8,icon:'💡',symbol:'DL',assetKey:'ph_lamp_desk',group:'Lighting'},
-  {label:'Industrial Pendant',w:1.2,d:1.2,icon:'💡',symbol:'IP',assetKey:'ph_lamp_industrial',group:'Lighting'},
-  {label:'Pipe Lamp',w:1.0,d:0.6,icon:'💡',symbol:'PL',assetKey:'ph_lamp_pipe',group:'Lighting'},
-  // ── Poly Haven Premium Beds ──
-  {label:'Gothic Bed',w:5.5,d:7.0,icon:'🛏',symbol:'GB',assetKey:'ph_bed_gothic',group:'Beds'},
-  {label:'Nightstand Classic',w:1.8,d:1.4,icon:'🪵',symbol:'NC',assetKey:'ph_nightstand_classic',group:'Beds'},
-  {label:'Nightstand',w:1.6,d:1.4,icon:'🪵',symbol:'NS',assetKey:'ph_nightstand',group:'Beds'},
-  // ── Poly Haven Premium Plants ──
-  {label:'Potted Plant Large',w:1.2,d:1.2,icon:'🌿',symbol:'PL',assetKey:'ph_plant_potted_01',group:'Plants'},
-  {label:'Potted Plant Medium',w:1.4,d:1.4,icon:'🌿',symbol:'PM',assetKey:'ph_plant_potted_02',group:'Plants'},
-  {label:'Potted Plant Small',w:1.0,d:1.0,icon:'🌿',symbol:'PS',assetKey:'ph_plant_potted_04',group:'Plants'},
-  {label:'Clay Planter',w:0.8,d:0.8,icon:'🌿',symbol:'CP',assetKey:'ph_planter_clay',group:'Plants'},
-  // ── Poly Haven Premium Decor ──
-  {label:'Ornate Mirror',w:2.0,d:0.2,icon:'🪞',symbol:'OM',assetKey:'ph_mirror_ornate',group:'Decor'},
-  {label:'Ceramic Vase',w:0.5,d:0.5,icon:'🏺',symbol:'CV',assetKey:'ph_vase_ceramic_01',group:'Decor'},
-  {label:'Brass Vase',w:0.4,d:0.4,icon:'🏺',symbol:'BV',assetKey:'ph_vase_brass_01',group:'Decor'},
-  // ── Kitchen ──
-  {label:'Base Cabinet',w:1.5,d:0.65,icon:'🍳',symbol:'BC',assetKey:'kitchen_cabinet_base',group:'Kitchen'},
-  {label:'Upper Cabinet',w:1.5,d:0.35,icon:'🍳',symbol:'UC',assetKey:'kitchen_cabinet_upper',group:'Kitchen'},
-  {label:'Kitchen Island',w:4.0,d:2.5,icon:'🍳',symbol:'KI',assetKey:'kitchen_island',group:'Kitchen'},
-  {label:'Refrigerator',w:2.8,d:2.2,icon:'🧊',symbol:'RF',assetKey:'kitchen_fridge',group:'Kitchen'},
-  {label:'Gas Range',w:2.5,d:2.0,icon:'🔥',symbol:'GR',assetKey:'kitchen_stove',group:'Kitchen'},
-  {label:'Range Hood',w:2.5,d:1.0,icon:'💨',symbol:'RH',assetKey:'kitchen_hood',group:'Kitchen'},
-  {label:'Sink',w:3.0,d:0.65,icon:'🚿',symbol:'SK',assetKey:'kitchen_sink',group:'Kitchen'},
-  {label:'Dishwasher',w:1.5,d:1.8,icon:'🫧',symbol:'DW',assetKey:'kitchen_dishwasher',group:'Kitchen'},
-  // ── Bathroom ──
-  {label:'Single Vanity',w:2.5,d:0.6,icon:'🚿',symbol:'SV',assetKey:'bathroom_vanity_single',group:'Bathroom'},
-  {label:'Double Vanity',w:4.5,d:0.6,icon:'🚿',symbol:'DV',assetKey:'bathroom_vanity_double',group:'Bathroom'},
-  {label:'Toilet',w:1.2,d:2.0,icon:'🚽',symbol:'TO',assetKey:'bathroom_toilet',group:'Bathroom'},
-  {label:'Bathtub',w:2.5,d:5.5,icon:'🛁',symbol:'BT',assetKey:'bathroom_tub',group:'Bathroom'},
-  {label:'Shower',w:3.0,d:3.0,icon:'🚿',symbol:'SH',assetKey:'bathroom_shower',group:'Bathroom'},
-  {label:'Bathroom Mirror',w:2.5,d:0.2,icon:'🪞',symbol:'BM',assetKey:'bathroom_mirror',group:'Bathroom'},
-  {label:'Towel Bar',w:1.5,d:0.1,icon:'🧺',symbol:'TB',assetKey:'bathroom_towel_bar',group:'Bathroom'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Seating ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Armchair Classic',w:2.6,d:2.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'AC',assetKey:'ph_armchair_01',group:'Seating'},
+  {label:'Armchair Modern',w:2.4,d:2.6,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'AM',assetKey:'ph_armchair_modern',group:'Seating'},
+  {label:'Armchair Midcentury',w:2.4,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'MC',assetKey:'ph_chair_midcentury',group:'Seating'},
+  {label:'Sofa Textured',w:6.2,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ¢â‚¬Â¹',symbol:'ST',assetKey:'ph_sofa_01',group:'Seating'},
+  {label:'Sofa Clean',w:6.5,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ¢â‚¬Â¹',symbol:'SC',assetKey:'ph_sofa_02',group:'Seating'},
+  {label:'Sofa Upholstered',w:5.8,d:2.6,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ¢â‚¬Â¹',symbol:'SU',assetKey:'ph_sofa_03',group:'Seating'},
+  {label:'Sofa Wooden Frame',w:5.5,d:2.4,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ¢â‚¬Â¹',symbol:'SW',assetKey:'ph_sofa_painted',group:'Seating'},
+  {label:'Ottoman',w:2.4,d:2.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'OT',assetKey:'ph_ottoman_01',group:'Seating'},
+  {label:'Accent Chair',w:2.0,d:2.0,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'AC',assetKey:'ph_chair_green',group:'Seating'},
+  {label:'Chinese Armchair',w:2.2,d:2.0,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'CA',assetKey:'ph_chair_chinese',group:'Seating'},
+  {label:'Wicker Chair',w:1.8,d:1.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'WC',assetKey:'ph_chair_gallinera',group:'Seating'},
+  {label:'Painted Chair',w:1.6,d:1.6,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'PC',assetKey:'ph_chair_painted',group:'Seating'},
+  {label:'Bar Chair',w:1.4,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'BC',assetKey:'ph_bar_chair',group:'Seating'},
+  {label:'Metal Stool',w:1.2,d:1.2,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'MS',assetKey:'ph_stool_metal',group:'Seating'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Tables ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Coffee Table Classic',w:3.8,d:1.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CT',assetKey:'ph_coffee_table_01',group:'Tables'},
+  {label:'Coffee Table Round',w:2.8,d:2.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CR',assetKey:'ph_coffee_round',group:'Tables'},
+  {label:'Coffee Table Modern',w:3.5,d:1.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CM',assetKey:'ph_coffee_modern',group:'Tables'},
+  {label:'Coffee Table Low',w:3.2,d:1.6,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CL',assetKey:'ph_coffee_modern_2',group:'Tables'},
+  {label:'Coffee Table Gothic',w:3.0,d:1.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CG',assetKey:'ph_coffee_gothic',group:'Tables'},
+  {label:'Coffee Table Industrial',w:3.4,d:1.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CI',assetKey:'ph_coffee_industrial',group:'Tables'},
+  {label:'Dining Table Wood',w:5.0,d:2.6,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'DW',assetKey:'ph_table_wooden',group:'Tables'},
+  {label:'Dining Table Rustic',w:5.5,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'DR',assetKey:'ph_table_wooden_2',group:'Tables'},
+  {label:'Dining Table Round',w:3.5,d:3.5,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'RT',assetKey:'ph_table_round',group:'Tables'},
+  {label:'Dining Table Painted',w:5.0,d:2.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'DP',assetKey:'ph_table_painted',group:'Tables'},
+  {label:'Dining Table Cane',w:4.5,d:2.2,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'DC',assetKey:'ph_table_gallinera',group:'Tables'},
+  {label:'Side Table',w:1.6,d:1.6,icon:'ÃƒÂ°Ã…Â¸Ã…Â¸Ã‚Â«',symbol:'ST',assetKey:'ph_side_table',group:'Tables'},
+  {label:'Side Table Tall',w:1.4,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã…Â¸Ã‚Â«',symbol:'TT',assetKey:'ph_side_table_tall',group:'Tables'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Storage ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Open Shelf Unit',w:3.2,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â¡',symbol:'SH',assetKey:'ph_shelf_01',group:'Storage'},
+  {label:'Bookshelf Worn',w:3.0,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â¡',symbol:'BW',assetKey:'ph_bookshelf',group:'Storage'},
+  {label:'Console Table',w:3.5,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ‚Âµ',symbol:'CO',assetKey:'ph_console_01',group:'Storage'},
+  {label:'Console Chinese',w:3.2,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ‚Âµ',symbol:'CC',assetKey:'ph_console_chinese',group:'Storage'},
+  {label:'Cabinet Modern',w:2.8,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CM',assetKey:'ph_cabinet_modern',group:'Storage'},
+  {label:'Cabinet Painted',w:2.4,d:0.9,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CP',assetKey:'ph_cabinet_painted',group:'Storage'},
+  {label:'Cabinet Vintage',w:2.8,d:1.2,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CV',assetKey:'ph_cabinet_vintage',group:'Storage'},
+  {label:'Cabinet Drawer',w:2.4,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CD',assetKey:'ph_cabinet_drawer',group:'Storage'},
+  {label:'Chinese Cabinet',w:2.8,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CH',assetKey:'ph_cabinet_chinese',group:'Storage'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Lighting ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Chandelier Classic',w:2.5,d:2.5,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CH',assetKey:'ph_chandelier_01',group:'Lighting'},
+  {label:'Chandelier Globe',w:2.8,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CG',assetKey:'ph_chandelier_02',group:'Lighting'},
+  {label:'Chandelier Crystal',w:3.0,d:3.0,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CC',assetKey:'ph_chandelier_03',group:'Lighting'},
+  {label:'Chandelier Chinese',w:2.6,d:2.6,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CN',assetKey:'ph_chandelier_chinese',group:'Lighting'},
+  {label:'Lantern Chandelier',w:2.2,d:2.2,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'LC',assetKey:'ph_chandelier_lantern',group:'Lighting'},
+  {label:'Ceiling Lamp Modern',w:1.8,d:1.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CL',assetKey:'ph_lamp_ceiling',group:'Lighting'},
+  {label:'Desk Lamp Arm',w:1.0,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'DL',assetKey:'ph_lamp_desk',group:'Lighting'},
+  {label:'Industrial Pendant',w:1.2,d:1.2,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'IP',assetKey:'ph_lamp_industrial',group:'Lighting'},
+  {label:'Pipe Lamp',w:1.0,d:0.6,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'PL',assetKey:'ph_lamp_pipe',group:'Lighting'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Beds ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Gothic Bed',w:5.5,d:7.0,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ‚Â',symbol:'GB',assetKey:'ph_bed_gothic',group:'Beds'},
+  {label:'Nightstand Classic',w:1.8,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ‚Âµ',symbol:'NC',assetKey:'ph_nightstand_classic',group:'Beds'},
+  {label:'Nightstand',w:1.6,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ‚Âµ',symbol:'NS',assetKey:'ph_nightstand',group:'Beds'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Plants ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Potted Plant Large',w:1.2,d:1.2,icon:'ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¿',symbol:'PL',assetKey:'ph_plant_potted_01',group:'Plants'},
+  {label:'Potted Plant Medium',w:1.4,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¿',symbol:'PM',assetKey:'ph_plant_potted_02',group:'Plants'},
+  {label:'Potted Plant Small',w:1.0,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¿',symbol:'PS',assetKey:'ph_plant_potted_04',group:'Plants'},
+  {label:'Clay Planter',w:0.8,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¿',symbol:'CP',assetKey:'ph_planter_clay',group:'Plants'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Decor ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Ornate Mirror',w:2.0,d:0.2,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ…Â¾',symbol:'OM',assetKey:'ph_mirror_ornate',group:'Decor'},
+  {label:'Ceramic Vase',w:0.5,d:0.5,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Âº',symbol:'CV',assetKey:'ph_vase_ceramic_01',group:'Decor'},
+  {label:'Brass Vase',w:0.4,d:0.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Âº',symbol:'BV',assetKey:'ph_vase_brass_01',group:'Decor'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Kitchen ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Base Cabinet',w:1.5,d:0.65,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â³',symbol:'BC',assetKey:'kitchen_cabinet_base',group:'Kitchen'},
+  {label:'Upper Cabinet',w:1.5,d:0.35,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â³',symbol:'UC',assetKey:'kitchen_cabinet_upper',group:'Kitchen'},
+  {label:'Kitchen Island',w:4.0,d:2.5,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â³',symbol:'KI',assetKey:'kitchen_island',group:'Kitchen'},
+  {label:'Refrigerator',w:2.8,d:2.2,icon:'ÃƒÂ°Ã…Â¸Ã‚Â§Ã…Â ',symbol:'RF',assetKey:'kitchen_fridge',group:'Kitchen'},
+  {label:'Gas Range',w:2.5,d:2.0,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â¥',symbol:'GR',assetKey:'kitchen_stove',group:'Kitchen'},
+  {label:'Range Hood',w:2.5,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¨',symbol:'RH',assetKey:'kitchen_hood',group:'Kitchen'},
+  {label:'Sink',w:3.0,d:0.65,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¿',symbol:'SK',assetKey:'kitchen_sink',group:'Kitchen'},
+  {label:'Dishwasher',w:1.5,d:1.8,icon:'ÃƒÂ°Ã…Â¸Ã‚Â«Ã‚Â§',symbol:'DW',assetKey:'kitchen_dishwasher',group:'Kitchen'},
+  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Bathroom ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+  {label:'Single Vanity',w:2.5,d:0.6,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¿',symbol:'SV',assetKey:'bathroom_vanity_single',group:'Bathroom'},
+  {label:'Double Vanity',w:4.5,d:0.6,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¿',symbol:'DV',assetKey:'bathroom_vanity_double',group:'Bathroom'},
+  {label:'Toilet',w:1.2,d:2.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â½',symbol:'TO',assetKey:'bathroom_toilet',group:'Bathroom'},
+  {label:'Bathtub',w:2.5,d:5.5,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ‚Â',symbol:'BT',assetKey:'bathroom_tub',group:'Bathroom'},
+  {label:'Shower',w:3.0,d:3.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¿',symbol:'SH',assetKey:'bathroom_shower',group:'Bathroom'},
+  {label:'Bathroom Mirror',w:2.5,d:0.2,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ…Â¾',symbol:'BM',assetKey:'bathroom_mirror',group:'Bathroom'},
+  {label:'Towel Bar',w:1.5,d:0.1,icon:'ÃƒÂ°Ã…Â¸Ã‚Â§Ã‚Âº',symbol:'TB',assetKey:'bathroom_towel_bar',group:'Bathroom'},
+  {label:'Washing Machine',w:2.6,d:2.7,icon:'Ã°Å¸Â§Âº',symbol:'WM',assetKey:'washing_machine',group:'Laundry'},
+  {label:'Round Column',w:1.3,d:1.3,icon:'â—¯',symbol:'RC',assetKey:'column_round',group:'Decor'},
+  {label:'Small Trashcan',w:1.0,d:1.0,icon:'ðŸ—‘',symbol:'TS',assetKey:'trashcan_small',group:'Decor'},
+  {label:'Large Trashcan',w:1.2,d:1.2,icon:'ðŸ—‘',symbol:'TL',assetKey:'trashcan_large',group:'Decor'},
+  {label:'Square Plate',w:0.9,d:0.9,icon:'â–£',symbol:'SP',assetKey:'square_plate',group:'Decor'},
 ];
 const DEFAULT_COLLECTIONS=['all','Cozy Rose','Soft Romantic','Quiet Luxury','Warm Modern','Tailored Calm'];
 let assetManifest=[];
@@ -392,7 +420,7 @@ function pendingFurniturePreviewItemRecord(){
 }
 function pendingFurnitureBarMarkup(item,state){
   if(!item)return '<div class="catalog-placement-bar empty">Pick a piece to see where it will land.</div>';
-  const location=state?.snapped?`${formatDistance(state.snapped.x,'compact')} · ${formatDistance(state.snapped.z,'compact')}`:'Choose a spot in the room';
+  const location=state?.snapped?`${formatDistance(state.snapped.x,'compact')} Ãƒâ€šÃ‚Â· ${formatDistance(state.snapped.z,'compact')}`:'Choose a spot in the room';
   const statusText=state?.valid?'Ready to place':(state?.reason||'Move the target inside the room');
   const statusClass=state?.valid?'valid':'invalid';
   const selectedVariant=getSelectedCatalogVariant(item);
@@ -400,9 +428,9 @@ function pendingFurnitureBarMarkup(item,state){
     ? `<button class="mini-chip${state?.valid?'':' secondary'}" type="button" ${state?.valid?'onclick="confirmPendingFurniturePlacement()"':'disabled'}>${state?.valid?'Place Here':'Adjust Target'}</button>`
     : `<div class="catalog-placement-inline">${state?.valid?'Click the card again to place it.':'Move the target in the room, then click again.'}</div>`;
   const variantUi=itemSupportsVariants(item)
-    ? `<div class="catalog-placement-variants"><div class="catalog-placement-copy">Style Variant · ${esc(selectedVariant?.label||'')}</div>${buildVariantSelector(item,selectedVariant?.id||'', 'setCatalogVariant','catalog')}</div>`
+    ? `<div class="catalog-placement-variants"><div class="catalog-placement-copy">Style Variant Ãƒâ€šÃ‚Â· ${esc(selectedVariant?.label||'')}</div>${buildVariantSelector(item,selectedVariant?.id||'', 'setCatalogVariant','catalog')}</div>`
     : '';
-  return `<div class="catalog-placement-bar ${statusClass}"><div class="catalog-placement-meta"><div class="catalog-placement-title">${esc(item.label)}</div><div class="catalog-placement-copy">${esc(statusText)} · ${esc(location)}</div>${variantUi}</div>${mobileCta}</div>`;
+  return `<div class="catalog-placement-bar ${statusClass}"><div class="catalog-placement-meta"><div class="catalog-placement-title">${esc(item.label)}</div><div class="catalog-placement-copy">${esc(statusText)} Ãƒâ€šÃ‚Â· ${esc(location)}</div>${variantUi}</div>${mobileCta}</div>`;
 }
 function updateCatalogPendingUi(){
   const item=pendingFurniturePreviewItemRecord();
@@ -445,7 +473,7 @@ function showFurnPicker(wp){
   const recentItems=catalogItemsForKeys(catalogRecent);
   const collectionButtons=catalogCollections().map(name=>`<button class="mini-chip${name===activeCatalogCollection?'':' secondary'}" type="button" onclick="setCatalogCollection('${esc(name)}')" style="padding:8px 11px;font-size:9px">${esc(name==='all'?'All Collections':name)}</button>`).join('');
   const categoryButtons=catalogCategoryList().map(name=>`<button class="mini-chip${name===activeCatalogCategory?'':' secondary'}" type="button" onclick="setCatalogCategory('${esc(name)}')" style="padding:8px 11px;font-size:9px">${esc(name==='all'?'All Categories':name)}</button>`).join('');
-  const section=(title,key,items,compact=false)=>items.length?'<div class="furn-group" data-group="'+esc(key)+'"><div class="catalog-section-title">'+esc(title)+'</div><div class="catalog-grid'+(compact?' compact':'')+'">'+items.map(item=>buildCatalogOptionCard(item,FURN_ITEMS.indexOf(item),compact)).join('')+'</div></div>':'';
+  const section=(title,key,items,compact=false)=>items.length?'<div class="furn-group" data-group="'+esc(key)+'"><div class="catalog-section-title">'+categoryGlyphMarkup(title)+esc(title)+'</div><div class="catalog-grid'+(compact?' compact':'')+'">'+items.map(item=>buildCatalogOptionCard(item,FURN_ITEMS.indexOf(item),compact)).join('')+'</div></div>':'';
   const roomLabel=(ROOM_TYPES.find(t=>t.id===(curRoom?.roomType||'living_room'))||ROOM_TYPES[0]).name;
   const html='<div class="catalog-overlay" id="furnPickOv" onclick="if(event.target===this)closeFurnPick()"><div class="catalog-sheet"><div class="catalog-grabber"></div><div class="catalog-head"><div><div class="catalog-heading">Bring Something Beautiful In</div><div class="catalog-copy">Search the curated catalog, save favorites, and drop pieces in with confidence.</div></div><button class="mini-chip secondary" type="button" onclick="closeFurnPick()">Close</button></div><input id="furnSearch" type="search" placeholder="Search sofa, bed, lamp, console, romantic..." oninput="filterFurnPicker(this.value)" class="catalog-search"><div class="catalog-placement-note">The canvas keeps showing the drop target while you browse. Tap or drag in the room to move it. On phone, use Place Here when the target looks right.</div><div id="catalogPlacementBar"></div><div class="catalog-chip-row">'+collectionButtons+'</div><div class="catalog-chip-row catalog-chip-row-alt">'+categoryButtons+'</div>'+section('Favorites','favorites',favoriteItems,true)+section('Recent','recent',recentItems,true)+section('Quick Picks For '+roomLabel,'quick',suggested,true)+CATALOG_CATEGORY_ORDER.map(group=>section(group,group,FURN_ITEMS.filter(f=>normalizeCatalogGroup(f.group)===group),false)).join('')+'<div id="furnEmpty" class="catalog-empty">No matches yet. Try a broader word like sofa, bed, rug, mirror, or storage.</div></div></div>';
   document.body.insertAdjacentHTML('beforeend',html);
@@ -555,10 +583,9 @@ function placeFurn(itemIdx){
   rememberCatalogRecent(item.assetKey);
   pushU();closeFurnPick();draw();showP();
   toast(item.label+' placed');
-  if(curRoom.furniture.length===5)findEgg(4);
 }
 
-// ── PROPS ──
+// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ PROPS ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
 function getWallStylePreset(room=curRoom){
   return WALL_PALETTES.find(w=>w.id===(room?.materials?.wallFinish||'warm_white'))||WALL_PALETTES[0];
 }
@@ -649,7 +676,7 @@ function applyDesignPresetToRoom(room,id){
   const preset=DESIGN_PRESETS.find(p=>p.id===id);
   if(!preset)return;
   room.designPreset=id;
-  room.roomType=preset.roomType||room.roomType||'living_room';
+  room.roomType=room.roomType||preset.roomType||'living_room';
   const wall=WALL_PALETTES.find(w=>w.id===preset.wallFinish);
   const floor=FLOOR_TYPES.find(f=>f.id===preset.floorType);
   if(wall){room.materials.wallFinish=wall.id;room.materials.wall=wall.color;room.materials.wallColorCustom=false;}
@@ -820,14 +847,15 @@ function referenceCalibrationStatus(ref){
     : 'Reference is unlocked. Drag it into place, then lock it again before tracing walls.';
 }
 function renderRoomPanelNoSelection(r,{cBtn,activeLightingPreset,ref,refLoaded,refScale,refWidth,floors,currentFloorId,roomCards}){
-  const homePlanSection=propSection('Home Plan',`<label>PROJECT NAME</label><input value="${esc(currentProjectName())}" onchange="renameCurrentProject(this.value)"><label style="margin-top:8px">CURRENT ROOM</label><input value="${esc(r.name||'Room')}" onchange="renameCurrentRoom(this.value)"><div class="prop-state">Project has <strong>${projectMainRooms(r).length} rooms</strong> across <strong>${floors.length} floor${floors.length===1?'':'s'}</strong>. Exports still focus on the current room and option so every sheet stays intentional.</div><label style="margin-top:8px">FLOORS</label><div class="mat-grid tall">${floors.map(floor=>`<button class="mat-btn${currentFloorId===floor.id?' sel':''}" onclick="setActiveFloor('${floor.id}')">${esc(floor.label)} · ${floor.rooms.length}</button>`).join('')}</div><div class="quick-rotate-row"><button class="pbtn soft" onclick="openAddRoomModalForProject('${currentFloorId}')">Add Room</button><button class="pbtn soft" onclick="createNextFloor()">Add Floor</button>${floors.length>1?`<button class="pbtn soft" onclick="moveCurrentRoomToFloor('${floors.find(floor=>floor.id!==currentFloorId)?.id||currentFloorId}')">Move to Floor</button>`:''}</div><div class="quick-rotate-row"><button class="pbtn soft" onclick="moveCurrentRoomOrder(-1)">Move Up</button><button class="pbtn soft" onclick="moveCurrentRoomOrder(1)">Move Down</button><button class="pbtn soft" onclick="duplicateCurrentRoom()">Duplicate Room</button></div><div class="room-card-stack">${roomCards||'<div class="prop-tip">No rooms on this floor yet.</div>'}</div><div class="prop-tip">Use this organizer to move around the home quickly. Connected rooms stay grouped here instead of hiding inside one stretched floor plan.</div>`);
+  const homePlanSection=propSection('Home Plan',`<label>PROJECT NAME</label><input value="${esc(currentProjectName())}" onchange="renameCurrentProject(this.value)"><label style="margin-top:8px">CURRENT ROOM</label><input value="${esc(r.name||'Room')}" onchange="renameCurrentRoom(this.value)"><div class="prop-state">Project has <strong>${projectMainRooms(r).length} rooms</strong> across <strong>${floors.length} floor${floors.length===1?'':'s'}</strong>. Exports still focus on the current room and option so every sheet stays intentional.</div><label style="margin-top:8px">FLOORS</label><div class="mat-grid tall">${floors.map(floor=>`<button class="mat-btn${currentFloorId===floor.id?' sel':''}" onclick="setActiveFloor('${floor.id}')">${esc(floor.label)} Ãƒâ€šÃ‚Â· ${floor.rooms.length}</button>`).join('')}</div><div class="quick-rotate-row"><button class="pbtn soft" onclick="createNextFloor()">Add Floor</button>${floors.length>1?`<button class="pbtn soft" onclick="moveCurrentRoomToFloor('${floors.find(floor=>floor.id!==currentFloorId)?.id||currentFloorId}')">Move to Floor</button>`:''}<button class="pbtn soft" onclick="duplicateCurrentRoom()">Duplicate Room</button></div><div class="quick-rotate-row"><button class="pbtn soft" onclick="moveCurrentRoomOrder(-1)">Move Up</button><button class="pbtn soft" onclick="moveCurrentRoomOrder(1)">Move Down</button><button class="pbtn soft" onclick="deleteCurrentRoom()">Delete Room</button></div><div class="room-card-stack">${roomCards||'<div class="prop-tip">No rooms on this floor yet.</div>'}</div><div class="prop-tip">Use this organizer to move around the home quickly. Connected rooms stay grouped here instead of hiding inside one stretched floor plan.</div>`);
   const surfacesSection=propSection('Surfaces',`<label>WALL STYLE</label><div class="mat-grid">${WALL_PALETTES.map(c=>`<button class="mat-btn${(r.materials.wallFinish||'warm_white')===c.id?' sel':''}" onclick="setWallFinish('${c.id}')" style="background:${c.color};color:${c.id==='charcoal_accent'?'#fff':'#332922'}">${c.name}</button>`).join('')}</div><div class="prop-state${wallColorIsCustom(r)?' custom':''}">${wallColorIsCustom(r)?`Custom wall color active <button class="prop-link-btn" onclick="resetWallColorToStyle()">Reset to style</button>`:'Wall color follows the selected wall style.'}</div><label style="margin-top:8px">CUSTOM WALL COLOR</label><div class="color-input-row"><input class="color-input" type="color" value="${colorInputValue(r.materials.wall,WALL_PALETTES[0].color)}" onchange="setWallPaint(this.value)"><span class="color-input-copy">Use any wall color, or tap a quick swatch below.</span></div><div class="paint-row">${WALL_PALETTES.map(c=>`<button class="swatch${r.materials.wall===c.color?' sel':''}" style="background:${c.color}" onclick="setWallPaint('${c.color}')" title="Use ${c.name} as a custom wall color"></button>`).join('')}</div><div class="prop-tip">Choose a style first, then use custom color only when you want a deliberate override.</div><label style="margin-top:8px">FLOOR STYLE</label><div class="mat-grid">${FLOOR_TYPES.map(ft=>`<button class="mat-btn${(r.materials.floorType||'light_oak')===ft.id?' sel':''}" onclick="setFloorType('${ft.id}')">${ft.name}</button>`).join('')}</div><div class="prop-state${floorColorIsCustom(r)?' custom':''}">${floorColorIsCustom(r)?`Custom floor color active <button class="prop-link-btn" onclick="resetFloorColorToStyle()">Reset to style</button>`:'Floor color follows the selected floor style.'}</div><label style="margin-top:8px">CUSTOM FLOOR COLOR</label><div class="color-input-row"><input class="color-input" type="color" value="${colorInputValue(r.materials.floor,FLOOR_TYPES[0].color)}" onchange="setFloorPaint(this.value)"><span class="color-input-copy">Keep the floor pattern, but tune the color more freely.</span></div><div class="paint-row">${FLOOR_TYPES.map(ft=>`<button class="swatch${r.materials.floor===ft.color?' sel':''}" style="background:${ft.color}" onclick="setFloorPaint('${ft.color}')" title="Use ${ft.name} as a custom floor color"></button>`).join('')}</div><div class="prop-tip">Floor style controls both the material family and the default finish tone.</div><label style="margin-top:8px">TRIM COLOR</label><div class="color-input-row"><input class="color-input" type="color" value="${colorInputValue(r.materials.trim,TRIM_COLORS[0])}" onchange="setTrimColor(this.value)"><span class="color-input-copy">Fine-tune trim while keeping quick trim swatches.</span></div><div class="paint-row">${TRIM_COLORS.map(c=>`<button class="swatch${r.materials.trim===c?' sel':''}" style="background:${c}" onclick="setTrimColor('${c}')"></button>`).join('')}</div>`);
   const lightingSection=propSection('Lighting Mood',`<label>LIGHTING MOOD</label><div class="mat-grid tall">${Object.entries(LIGHTING_PRESETS).map(([id,preset])=>`<button class="mat-btn${activeLightingPreset===id?' sel':''}" onclick="setLightingPreset('${id}')">${preset.name}</button>`).join('')}</div><div class="prop-state">Active mood: <strong>${LIGHTING_PRESETS[activeLightingPreset]?.name||'Daylight'}</strong></div><div class="prop-tip">${lightingPresetHelp(activeLightingPreset)}</div><label style="margin-top:8px">LIGHT CHARACTER</label><input type="range" min="0" max="1" step="0.05" value="${r.materials.lightCharacter??.5}" oninput="setLightCharacter(this.value)"><div class="prop-tip">Move from crisp daylight toward warmer evening or moodier blue-hour character.</div><div class="prop-state">${lightCharacterLabel(r)}</div><label style="margin-top:8px">CEILING BRIGHTNESS</label><input type="range" min="0.7" max="1.35" step="0.05" value="${r.materials.ceilingBrightness||1}" oninput="setCeilingBrightness(this.value)"><div class="prop-tip">Brightness only changes how much light the ceiling appears to bounce in 3D. It does not change room size.</div><div class="prop-state">${ceilingBrightnessLabel(r)}</div>${is3D?`<div class="quick-rotate-row" style="margin-top:8px"><button class="pbtn soft" onclick="togglePhotoMode()">${photoMode?'Exit Photo Mode':'Open Photo Mode'}</button><button class="pbtn soft" onclick="toggleWalkthroughTray()">Open Walkthroughs</button></div>`:''}`);
   const geometrySection=propSection('Ceiling Geometry',`<label>CEILING HEIGHT (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(r.height)}" onchange="uRoomHeight(this.value)"><div class="prop-tip">Height changes the room geometry, wall proportions, and how the 3D space feels. It is a structural room value, not a lighting effect.</div><div class="prop-tip">Closets live in the dedicated structural tool, not the furniture catalog.</div>`);
   const designDirectionSection=propSection('Design Direction',`<label>ROOM TYPE</label><div class="mat-grid">${ROOM_TYPES.map(type=>`<button class="mat-btn${(r.roomType||'living_room')===type.id?' sel':''}" onclick="setRoomType('${type.id}')">${type.name}</button>`).join('')}</div><div class="prop-tip">Room type tunes suggestions without changing your current furniture.</div><label style="margin-top:8px">STYLE PRESETS</label><div class="prop-state">Presets are optional design directions. They update finishes and lighting, so they sit behind a deliberate review step.</div><button class="pbtn soft" style="width:100%;margin-top:8px" onclick="toggleDesignPresetPanel()">${designPresetPanelOpen?'Hide Style Presets':'Review Style Presets'}</button>${designPresetPanelOpen?`<div class="mat-grid tall" style="margin-top:8px">${DESIGN_PRESETS.map(preset=>`<button class="mat-btn${(pendingDesignPresetId||r.designPreset||'')===preset.id?' sel':''}" onclick="selectPendingDesignPreset('${preset.id}')">${preset.name}</button>`).join('')}</div><div class="prop-tip">${(DESIGN_PRESETS.find(p=>p.id===(pendingDesignPresetId||r.designPreset))?.note)||'Choose a style direction to coordinate finishes, lighting, and mood.'}</div><button class="pbtn" style="width:100%;margin-top:8px" onclick="applyPendingDesignPreset()">Apply Selected Preset</button>`:''}`);
-  const connectionsSection=propSection('Connected Rooms',`<div class="pr"><div><label>SHARED WALL (${distanceLabel()})</label><input type="number" step="${distanceInputStep(1)}" value="${distanceInputValue(adjRoomCfg.width)}" onchange="setAdjRoomWidth(this.value)"></div><div><label>ROOM DEPTH (${distanceLabel()})</label><input type="number" step="${distanceInputStep(1)}" value="${distanceInputValue(adjRoomCfg.depth)}" onchange="setAdjRoomDepth(this.value)"></div></div><div class="mat-grid tall"><button class="mat-btn" onclick="attachAdjacentRoom('north')">Add North Room</button><button class="mat-btn" onclick="attachAdjacentRoom('east')">Add East Room</button><button class="mat-btn" onclick="attachAdjacentRoom('south')">Add South Room</button><button class="mat-btn" onclick="attachAdjacentRoom('west')">Add West Room</button></div><div class="prop-tip">Creates a separate connected room in the same project, adds a doorway on both sides when possible, and keeps each room's furniture, tracing, and options independent.</div>`);
-  const referenceSection=propSection('Tracing Reference',`${!refLoaded?`<div class="prop-tip">Import a floor plan image, PDF, or room photo, then trace your room geometry right on top of it in 2D.</div><button class="pbtn soft" style="width:100%;margin-top:8px" onclick="importReferenceAsset()">Import Image or PDF</button><div class="prop-tip">PDF pages render locally into the same tracing overlay, so calibration and editing work the same way.</div>`:`<div class="quick-rotate-row"><button class="pbtn soft" onclick="importReferenceAsset()">Replace ${ref.sourceType==='pdf'?'PDF / Image':'Image / PDF'}</button><button class="pbtn soft" onclick="toggleReferenceVisibility()">${ref.visible===false?'Show':'Hide'}</button><button class="pbtn soft" onclick="toggleReferenceLock()">${ref.locked?'Unlock':'Lock'}</button></div>${ref.sourceType==='pdf'&&ref.pdfPageCount>1?`<div class="quick-rotate-row"><button class="pbtn soft" onclick="setReferencePdfPage(${Math.max(1,(ref.pdfPage||1)-1)})"${(ref.pdfPage||1)<=1?' disabled':''}>Previous Page</button><button class="pbtn soft" onclick="setReferencePdfPage(${Math.min(ref.pdfPageCount||1,(ref.pdfPage||1)+1)})"${(ref.pdfPage||1)>=(ref.pdfPageCount||1)?' disabled':''}>Next Page</button></div><div class="prop-tip">PDF page ${(ref.pdfPage||1)} of ${ref.pdfPageCount||1}${ref.sourceName?` · ${esc(ref.sourceName)}`:''}</div>`:''}<div class="quick-rotate-row"><button class="pbtn soft" onclick="${ref.calibrationActive?'cancelReferenceCalibration()':'startReferenceCalibration()'}">${ref.calibrationActive?'Cancel Calibration':'Calibrate Scale'}</button><button class="pbtn soft" onclick="clearReferenceOverlay()">Remove</button></div><div class="prop-state">Reference: <strong>${ref.locked?'Locked':'Unlocked'}</strong> · ${ref.visible===false?'Hidden':'Visible'} · scale ${refScale}${refWidth?` · width ${refWidth}`:''}</div><div class="prop-tip">${referenceCalibrationStatus(ref)}</div><label style="margin-top:8px">OPACITY</label><input type="range" min="0.08" max="0.95" step="0.02" value="${ref.opacity||.56}" oninput="setReferenceOpacity(this.value)"><div class="pr"><div><label>CENTER X (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(ref.centerX||0)}" onchange="setReferenceCenterAxis('centerX',this.value)"></div><div><label>CENTER Y (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(ref.centerY||0)}" onchange="setReferenceCenterAxis('centerY',this.value)"></div></div><label>REFERENCE SCALE</label><input type="range" min="0.25" max="4" step="0.05" value="${ref.scale||1}" oninput="setReferenceScale(this.value)">`}`);
+  const connectionsSection=propSection('Add Room',`<div class="pr"><div><label>SHARED WALL (${distanceLabel()})</label><input type="number" step="${distanceInputStep(1)}" value="${distanceInputValue(adjRoomCfg.width)}" onchange="setAdjRoomWidth(this.value)"></div><div><label>ROOM DEPTH (${distanceLabel()})</label><input type="number" step="${distanceInputStep(1)}" value="${distanceInputValue(adjRoomCfg.depth)}" onchange="setAdjRoomDepth(this.value)"></div></div><div class="mat-grid tall"><button class="mat-btn" onclick="attachAdjacentRoom('north')">Up</button><button class="mat-btn" onclick="attachAdjacentRoom('east')">Right</button><button class="mat-btn" onclick="attachAdjacentRoom('south')">Down</button><button class="mat-btn" onclick="attachAdjacentRoom('west')">Left</button></div><div class="prop-tip">Add one connected room from here. Pick the direction you want the next room to grow, and the app will cut a doorway between the two rooms automatically.</div>`);
+  const referenceSection=propSection('Tracing Reference',`${!refLoaded?`<div class="prop-tip">Import a floor plan image, PDF, or room photo, then trace your room geometry right on top of it in 2D.</div><button class="pbtn soft" style="width:100%;margin-top:8px" onclick="importReferenceAsset()">Import Image or PDF</button><div class="prop-tip">PDF pages render locally into the same tracing overlay, so calibration and editing work the same way.</div>`:`<div class="quick-rotate-row"><button class="pbtn soft" onclick="importReferenceAsset()">Replace ${ref.sourceType==='pdf'?'PDF / Image':'Image / PDF'}</button><button class="pbtn soft" onclick="toggleReferenceVisibility()">${ref.visible===false?'Show':'Hide'}</button><button class="pbtn soft" onclick="toggleReferenceLock()">${ref.locked?'Unlock':'Lock'}</button></div>${ref.sourceType==='pdf'&&ref.pdfPageCount>1?`<div class="quick-rotate-row"><button class="pbtn soft" onclick="setReferencePdfPage(${Math.max(1,(ref.pdfPage||1)-1)})"${(ref.pdfPage||1)<=1?' disabled':''}>Previous Page</button><button class="pbtn soft" onclick="setReferencePdfPage(${Math.min(ref.pdfPageCount||1,(ref.pdfPage||1)+1)})"${(ref.pdfPage||1)>=(ref.pdfPageCount||1)?' disabled':''}>Next Page</button></div><div class="prop-tip">PDF page ${(ref.pdfPage||1)} of ${ref.pdfPageCount||1}${ref.sourceName?` Ãƒâ€šÃ‚Â· ${esc(ref.sourceName)}`:''}</div>`:''}<div class="quick-rotate-row"><button class="pbtn soft" onclick="${ref.calibrationActive?'cancelReferenceCalibration()':'startReferenceCalibration()'}">${ref.calibrationActive?'Cancel Calibration':'Calibrate Scale'}</button><button class="pbtn soft" onclick="clearReferenceOverlay()">Remove</button></div><div class="prop-state">Reference: <strong>${ref.locked?'Locked':'Unlocked'}</strong> Ãƒâ€šÃ‚Â· ${ref.visible===false?'Hidden':'Visible'} Ãƒâ€šÃ‚Â· scale ${refScale}${refWidth?` Ãƒâ€šÃ‚Â· width ${refWidth}`:''}</div><div class="prop-tip">${referenceCalibrationStatus(ref)}</div><label style="margin-top:8px">OPACITY</label><input type="range" min="0.08" max="0.95" step="0.02" value="${ref.opacity||.56}" oninput="setReferenceOpacity(this.value)"><div class="pr"><div><label>CENTER X (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(ref.centerX||0)}" onchange="setReferenceCenterAxis('centerX',this.value)"></div><div><label>CENTER Y (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(ref.centerY||0)}" onchange="setReferenceCenterAxis('centerY',this.value)"></div></div><label>REFERENCE SCALE</label><input type="range" min="0.25" max="4" step="0.05" value="${ref.scale||1}" oninput="setReferenceScale(this.value)">`}`);
   const redesignSection=propSection('Redesign Planning',`<div class="mat-grid tall"><button class="mat-btn${r.existingRoomMode?' sel':''}" onclick="toggleExistingRoomMode()">Existing Room Mode ${r.existingRoomMode?'On':'Off'}</button><button class="mat-btn${r.ghostExisting?' sel':''}" onclick="toggleGhostExisting()">Fade Existing Pieces ${r.ghostExisting?'On':'Off'}</button><button class="mat-btn${r.hideRemovedExisting?' sel':''}" onclick="toggleHideRemovedExisting()">Hide Removed ${r.hideRemovedExisting?'On':'Off'}</button><button class="mat-btn${r.showPlanLegend?' sel':''}" onclick="togglePlanLegend()">Legend ${r.showPlanLegend?'On':'Off'}</button></div><label style="margin-top:8px">WHAT TO SHOW IN PLAN</label><div class="mat-grid tall">${Object.entries(PLAN_VIEW_MODES).map(([mode,label])=>`<button class="mat-btn${currentPlanViewMode(r)===mode?' sel':''}" onclick="setPlanViewMode('${mode}')">${label}</button>`).join('')}</div><div class="prop-tip">${planViewMeaning(currentPlanViewMode(r))}</div><div class="quick-rotate-row"><button class="pbtn soft" onclick="setSelectedFurnitureSource('existing')">Mark Selected Existing</button><button class="pbtn soft" onclick="setSelectedFurnitureSource('new')">Mark Selected New</button><button class="pbtn soft" onclick="duplicateForRedesign()">Make Redesign Copy</button></div><button class="pbtn soft" style="width:100%;margin-top:8px" onclick="exportComparisonSheet()">Export Before / After Story</button><div class="prop-tip">Use this when the real room is already furnished. Existing pieces get design tags so Rose can plan what stays, moves, gets replaced, or disappears.</div>`);
+  const layerSection=propSection('Plan Layers',`<div class="mat-grid tall">${PLAN_LAYER_META.map(layer=>`<button class="mat-btn${roomLayerVisible(r,layer.id)?' sel':''}" onclick="toggleRoomLayer('${layer.id}')">${layer.label} ${roomLayerVisible(r,layer.id)?'On':'Off'}</button>`).join('')}</div><div class="prop-tip">Hide noisy parts of the plan while you trace, present, or focus on one pass of the redesign.</div>`);
   const optionsSection=propSection('Design Options',`<label>OPTION NAME</label><input value="${esc(r.optionName||'Main')}" onchange="renameCurrentOption(this.value)"><label style="margin-top:8px">STORY NOTES</label><textarea rows="4" onchange="setCurrentOptionNotes(this.value)" placeholder="What changes does this option explore?">${esc(r.optionNotes||'')}</textarea><div class="quick-rotate-row"><button class="pbtn soft" onclick="createRoomOptionFromCurrent()">Create New Option</button><button class="pbtn soft" onclick="exportComparisonSheet()">Export Before / After</button><button class="pbtn soft" onclick="exportDesignSummary()">Export Story Summary</button></div><div class="quick-rotate-row"><button class="pbtn soft" style="width:100%" onclick="exportPresentationPDF()">Export Presentation Deck</button></div><div class="mat-grid tall">${optionSiblings(r).sort((a,b)=>(a.optionName||'').localeCompare(b.optionName||'')).map(opt=>`<button class="mat-btn${opt.id===r.id?' sel':''}" onclick="switchToOption('${opt.id}')">${esc(opt.optionName||'Main')}</button>`).join('')}</div><div class="prop-tip">Options let you save alternate redesign directions for the same room without overwriting each other, then present each direction as its own story.</div>`);
   const moodSection=propSection('Mood',`<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px"><div class="prop-tip" style="margin:0">Mood tags guide storytelling and ambiance labels for this room.</div><button class="props-close" style="flex-shrink:0" onclick="showMoodHelp()" title="What do moods do?">?</button></div><div class="mood-tags premium">${MOODS.map(m=>`<button class="mood-tag premium${(r.mood||'')===m.toLowerCase()?' sel':''}" onclick="setRoomMood('${m.toLowerCase()}')">${m}</button>`).join('')}</div>`);
   const styleMovesSection=propSection('Style Moves',`<div class="mat-grid tall"><button class="mat-btn" onclick="nudgeStyle('softer')">Make It Softer</button><button class="mat-btn" onclick="nudgeStyle('warmer')">Make It Warmer</button><button class="mat-btn" onclick="nudgeStyle('brighter')">Make It Brighter</button><button class="mat-btn" onclick="nudgeStyle('cozier')">Make It Cozier</button><button class="mat-btn" onclick="nudgeStyle('romantic')">Make It More Romantic</button><button class="mat-btn" onclick="nudgeStyle('elegant')">Make It More Elegant</button><button class="mat-btn" onclick="nudgeStyle('minimal')">Make It More Minimal</button></div><div class="prop-tip">Each move shifts multiple finishes and lighting together so the room changes like a design decision, not just a color swap.</div>`);
@@ -835,9 +863,9 @@ function renderRoomPanelNoSelection(r,{cBtn,activeLightingPreset,ref,refLoaded,r
   const furnishHintSection=propSection('Placing Furniture',`<div class="prop-tip">Tap any item in the catalog below to start placing it. Tap the room to drop it in place, or drag to reposition after placing. Select a piece to adjust size, rotation, mount, and finish.</div>${furnitureClipboard?.items?.length?`<div class="quick-rotate-row" style="margin-top:8px"><button class="pbtn soft" onclick="pasteFurniture()">Paste ${furnitureClipboard.items.length>1?`${furnitureClipboard.items.length} pieces`:'Furniture'}</button></div>`:''}`);
   const presentSection=propSection('Presentation',`<div class="quick-rotate-row"><button class="pbtn soft" onclick="exportPNG()">Export PNG</button><button class="pbtn soft" onclick="exportComparisonSheet()">Before / After</button><button class="pbtn soft" onclick="exportDesignSummary()">Story Summary</button></div><button class="pbtn soft" style="width:100%;margin-top:8px" onclick="exportPresentationPDF()">Export Presentation Deck</button>${is3D?`<div class="quick-rotate-row" style="margin-top:8px"><button class="pbtn soft" onclick="togglePhotoMode()">${photoMode?'Exit Photo Mode':'Open Photo Mode'}</button><button class="pbtn soft" onclick="toggleWalkthroughTray()">Walkthroughs</button></div><div class="prop-tip">Photo mode gives a full-screen render view. Walkthroughs create scripted camera tours you can export and share.</div>`:'<div class="prop-tip" style="margin-top:8px">Switch to 3D to access photo mode and walkthrough presentation tools.</div>'}`);
   let h=cBtn.replace('$T','Room Tools')+roomPanelTabs();
-  if(roomPanelGroup==='build')h+=homePlanSection+connectionsSection+referenceSection+geometrySection;
+  if(roomPanelGroup==='build')h+=homePlanSection+connectionsSection+referenceSection+geometrySection+layerSection;
   if(roomPanelGroup==='style')h+=surfacesSection+lightingSection+designDirectionSection+moodSection+styleMovesSection;
-  if(roomPanelGroup==='furnish')h+=furnishHintSection+editorSection+redesignSection;
+  if(roomPanelGroup==='furnish')h+=furnishHintSection+editorSection+layerSection+redesignSection;
   if(roomPanelGroup==='present')h+=optionsSection+presentSection;
   return h;
 }
@@ -868,7 +896,7 @@ function showP(){
       const active=(curRoom.baseRoomId||curRoom.id)===baseId;
       const optionCount=optionSiblings(room).length;
       const connections=(room.connections||[]).filter(link=>projectRooms(r).some(candidate=>candidate.id===link.roomId));
-      return `<div class="room-card-mini${active?' active':''}"><div class="room-card-main" onclick="openProjectRoom('${baseId}')"><div class="room-card-title">${esc(room.name)}</div><div class="room-card-meta">${esc(room.floorLabel||'Floor 1')}${optionCount>1?` · ${optionCount} options`:''}${connections.length?` · ${connections.length} connection${connections.length===1?'':'s'}`:''}</div></div><div class="room-card-actions"><button class="mini-chip secondary" type="button" onclick="openProjectRoom('${baseId}')">Open</button>${active?`<button class="mini-chip secondary" type="button" onclick="duplicateCurrentRoom()">Duplicate</button><button class="mini-chip secondary" type="button" onclick="deleteCurrentRoom()">Delete</button>`:''}</div></div>`;
+      return `<div class="room-card-mini${active?' active':''}"><div class="room-card-main" onclick="openProjectRoom('${baseId}')"><div class="room-card-title">${esc(room.name)}</div><div class="room-card-meta">${esc(room.floorLabel||'Floor 1')}${optionCount>1?` Ãƒâ€šÃ‚Â· ${optionCount} options`:''}${connections.length?` Ãƒâ€šÃ‚Â· ${connections.length} connection${connections.length===1?'':'s'}`:''}</div></div><div class="room-card-actions"><button class="mini-chip secondary" type="button" onclick="openProjectRoom('${baseId}')">Open</button>${active?`<button class="mini-chip secondary" type="button" onclick="duplicateCurrentRoom()">Duplicate</button><button class="mini-chip secondary" type="button" onclick="deleteCurrentRoom()">Delete</button>`:''}</div></div>`;
     }).join('');
     p.innerHTML=renderRoomPanelNoSelection(r,{cBtn,activeLightingPreset,ref,refLoaded,refScale,refWidth,floors,currentFloorId,roomCards});
     p.classList.add('on');
@@ -877,6 +905,8 @@ function showP(){
   if(sel.type==='vertex'){const pt=r.polygon[sel.idx];h=cBtn.replace('$T','Vertex '+(sel.idx+1))+`<label>X (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(pt.x)}" onchange="uV('x',this.value)"><label>Y (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(pt.y)}" onchange="uV('y',this.value)"><button class="pbtn dng" onclick="dV()">Delete</button>`}
   else if(sel.type==='opening'){const op=r.openings[sel.idx];h=cBtn.replace('$T',op.type==='door'?'Door':'Window')+`<label>OFFSET (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(op.offset)}" onchange="uO('offset',this.value)"><label>WIDTH (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(op.width)}" onchange="uO('width',this.value)">${op.type==='door'?`<label>SWING DIRECTION</label><select onchange="uO('swing',this.value)"><option value="in"${op.swing==='in'?' selected':''}>In</option><option value="out"${op.swing==='out'?' selected':''}>Out</option></select><label>HINGE SIDE</label><select onchange="uO('hinge',this.value)"><option value="left"${op.hinge==='left'?' selected':''}>Left</option><option value="right"${op.hinge==='right'?' selected':''}>Right</option></select>`:`<label>SILL HEIGHT (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(op.sillHeight||3)}" onchange="uO('sillHeight',this.value)"><label>HEIGHT (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(op.height||4)}" onchange="uO('height',this.value)"><div class="prop-tip">Drag this opening along any wall to reposition it.</div>`}<button class="pbtn dng" onclick="dO()">Delete</button>`}
   else if(sel.type==='structure'){const st=r.structures[sel.idx];if(st.rect)h=cBtn.replace('$T','Closet')+`<div class="pr"><div><label>X (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(st.rect.x)}" onchange="uS('x',this.value)"></div><div><label>Y (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(st.rect.y)}" onchange="uS('y',this.value)"></div></div><div class="pr"><div><label>W (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(st.rect.w)}" onchange="uS('w',this.value)"></div><div><label>D (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(st.rect.h)}" onchange="uS('h',this.value)"></div></div><label>FINISH</label><select onchange="uS('finish',this.value)">${CLOSET_FINISHES.map(f=>`<option value="${f.id}"${st.finish===f.id?' selected':''}>${f.name}</option>`).join('')}</select><div class="prop-tip">Built-in styling now belongs to the selected closet.</div><button class="pbtn dng" onclick="dS()">Delete</button>`;else h=cBtn.replace('$T','Partition')+`<button class="pbtn dng" onclick="dS()">Delete</button>`}
+  else if(sel.type==='annotation'){const note=r.textAnnotations[sel.idx];h=cBtn.replace('$T','Annotation')+`<label>TEXT</label><textarea rows="3" onchange="uA('text',this.value)">${esc(note.text||'')}</textarea><div class="pr"><div><label>X (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(note.x)}" onchange="uA('x',this.value)"></div><div><label>Y (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(note.z)}" onchange="uA('z',this.value)"></div></div><div class="pr"><div><label>TEXT SIZE</label><input type="number" step="1" min="10" max="28" value="${note.fontSize||14}" onchange="uA('fontSize',this.value)"></div><div><label>COLOR</label><input class="color-input" type="color" value="${colorInputValue(note.color,'#8E6E6B')}" onchange="uA('color',this.value)"></div></div><button class="pbtn dng" onclick="dA()">Delete</button>`}
+  else if(sel.type==='dim_annotation'){const note=r.dimensionAnnotations[sel.idx];h=cBtn.replace('$T','Dimension Note')+`<label>LABEL OVERRIDE</label><input value="${esc(note.label||'')}" placeholder="Auto length" onchange="uDA('label',this.value)"><div class="pr"><div><label>X1 (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(note.x1)}" onchange="uDA('x1',this.value)"></div><div><label>Y1 (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(note.z1)}" onchange="uDA('z1',this.value)"></div></div><div class="pr"><div><label>X2 (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(note.x2)}" onchange="uDA('x2',this.value)"></div><div><label>Y2 (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(note.z2)}" onchange="uDA('z2',this.value)"></div></div><div class="pr"><div><label>OFFSET</label><input type="number" step="0.1" min="0.3" max="2.5" value="${note.offset||.8}" onchange="uDA('offset',this.value)"></div><div><label>TEXT SIZE</label><input type="number" step="1" min="10" max="28" value="${note.fontSize||13}" onchange="uDA('fontSize',this.value)"></div></div><label>COLOR</label><input class="color-input" type="color" value="${colorInputValue(note.color,'#8E6E6B')}" onchange="uDA('color',this.value)"><button class="pbtn dng" onclick="dDA()">Delete</button>`}
   else if(sel.type==='furniture'){
     const records=selectedFurnitureRecords();
     if(records.length>1){
@@ -908,6 +938,27 @@ function uO(k,v){const o=curRoom.openings[sel.idx];if(k==='swing'||k==='hinge')o
 function dO(){curRoom.openings.splice(sel.idx,1);sel={type:null,idx:-1};panelHidden=false;pushU();draw();showP();scheduleRebuild3D()}
 function uS(k,v){const st=curRoom.structures[sel.idx];if(st.rect){if(k==='finish')st.finish=v;else st.rect[k]=parseDistanceInput(v,st.rect[k]||0)}pushU();draw();showP();scheduleRebuild3D()}
 function dS(){curRoom.structures.splice(sel.idx,1);sel={type:null,idx:-1};panelHidden=false;pushU();draw();showP();scheduleRebuild3D()}
+function uA(k,v){
+  const note=curRoom?.textAnnotations?.[sel.idx];
+  if(!note)return;
+  if(k==='text')note.text=String(v||'').trim()||'Note';
+  else if(k==='color')note.color=v||'#8E6E6B';
+  else if(k==='fontSize')note.fontSize=Math.max(10,Math.min(28,parseFloat(v)||14));
+  else note[k]=parseDistanceInput(v,note[k]||0);
+  pushU();draw();showP();
+}
+function dA(){curRoom.textAnnotations.splice(sel.idx,1);sel={type:null,idx:-1};panelHidden=false;pushU();draw();showP()}
+function uDA(k,v){
+  const note=curRoom?.dimensionAnnotations?.[sel.idx];
+  if(!note)return;
+  if(k==='label')note.label=String(v||'').trim();
+  else if(k==='color')note.color=v||'#8E6E6B';
+  else if(k==='fontSize')note.fontSize=Math.max(10,Math.min(28,parseFloat(v)||13));
+  else if(k==='offset')note.offset=Math.max(.3,Math.min(2.5,parseFloat(v)||.8));
+  else note[k]=parseDistanceInput(v,note[k]||0);
+  pushU();draw();showP();
+}
+function dDA(){curRoom.dimensionAnnotations.splice(sel.idx,1);sel={type:null,idx:-1};panelHidden=false;pushU();draw();showP()}
 function uF(k,v){
   const records=selectedFurnitureRecords();
   if(!records.length)return;
