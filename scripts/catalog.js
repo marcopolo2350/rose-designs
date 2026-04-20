@@ -555,7 +555,8 @@ function placeFurn(itemIdx){
     return;
   }
   const reg=item.assetKey?MODEL_REGISTRY[item.assetKey]:null;
-  const pos=snapFurniturePoint(pendFurnPos.x,pendFurnPos.y);
+  const pos=state?.snapped||snapFurniturePoint(pendFurnPos.x,pendFurnPos.y);
+  const wallAngle=state?.wallSnap?.angle;
   curRoom.furniture.push(normalizeFurnitureRecord({
     id:uid(),
     label:item.label,
@@ -564,7 +565,7 @@ function placeFurn(itemIdx){
     z:pos.z,
     w:item.w,
     d:item.d,
-    rotation:0,
+    rotation:Number.isFinite(wallAngle)?Math.round((-wallAngle*180/Math.PI)*10)/10:0,
     mountType:item.mountType||reg?.mountType||'floor',
     elevation:Number.isFinite(item.elevation)?item.elevation:defaultElevation(item.mountType||reg?.mountType||'floor',item.assetKey,resolveLabel(item.label)),
     assetKey:item.assetKey,
@@ -580,7 +581,6 @@ function placeFurn(itemIdx){
   if(isTouchUi()&&window.innerWidth<=760)panelHidden=true;
   rememberCatalogRecent(item.assetKey);
   pushU();closeFurnPick();draw();showP();
-  toast(item.label+' placed');
 }
 
 // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ PROPS ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬

@@ -31,7 +31,6 @@ async function chooseProfile(profileId,{skipReload=false}={}){
   await loadEggs();
   await loadDS();
   renderHome();
-  if(!getLocal(profileSeenKey()))setTimeout(()=>startTut(true),450);
 }
 let tutS=-1;
 const TUTS=[
@@ -165,8 +164,15 @@ function renderHome(){
     if(!p.previewThumb&&p.polygon?.length)updateRoomPreviewThumb(p);
     const optionChip=(p.optionName&&p.optionName!=='Main')?`<span class="chip">${esc(p.optionName)}</span>`:'';
     const optionCount=optionSiblings(p).length>1?`<span class="chip">${optionSiblings(p).length} options</span>`:'';
-    const thumb=p.previewThumb?`<div style="width:52px;height:52px;border-radius:var(--r);overflow:hidden;flex-shrink:0;box-shadow:var(--sh)"><img src="${p.previewThumb}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>`:'';
-    return `<div class="pc" onclick="openPrj('${p.projectId||p.id}')">${thumb}<div class="pci">${p.favorite?'\u2728':'\u{1F3E0}'}</div><div class="pcf"><h3>${esc(p.projectName||p.name)}</h3><p>${roomCount} room${roomCount===1?'':'s'} &middot; ${floorCount} floor${floorCount===1?'':'s'} &middot; ${edited}</p><div class="pcmeta"><span class="chip">${esc(primaryChip)}</span><span class="chip">${esc(type)}</span>${optionChip}${optionCount}</div></div><div class="pca"><button class="pab" onpointerdown="favPrjClick(event,'${p.projectId||p.id}')" title="Favorite"><svg viewBox="0 0 24 24"><path d="M12 17.3 5.8 21l1.7-7-5.5-4.8 7.2-.6L12 2l2.8 6.6 7.2.6-5.5 4.8 1.7 7z"/></svg></button><button class="pab" onpointerdown="dupPrjClick(event,'${p.projectId||p.id}')" title="Duplicate"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="pab" onpointerdown="delPrjClick(event,'${p.projectId||p.id}')" title="Delete"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`}).join('')}
+    const wall=p.materials?.wall||'#F3EFE7';
+    const floor=p.materials?.floor||'#d0b18d';
+    const trim=p.materials?.trim||'rgba(0,0,0,.08)';
+    const previewEl=p.previewThumb
+      ?`<div class="pci" style="padding:0;background:transparent;box-shadow:var(--sh)"><img src="${p.previewThumb}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--rl)"></div>`
+      :(p.polygon?.length
+        ?`<div class="pci" style="background:linear-gradient(145deg,${wall} 0%,${wall} 44%,${floor} 44%,${floor} 100%);border:2px solid ${typeof trim==='string'?trim:'rgba(0,0,0,.08)'};box-shadow:var(--sh)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>`
+        :`<div class="pci">${p.favorite?'\u2728':'\u{1F3E0}'}</div>`);
+    return `<div class="pc" onclick="openPrj('${p.projectId||p.id}')">${previewEl}<div class="pcf"><h3>${esc(p.projectName||p.name)}</h3><p>${roomCount} room${roomCount===1?'':'s'} &middot; ${floorCount} floor${floorCount===1?'':'s'} &middot; ${edited}</p><div class="pcmeta"><span class="chip">${esc(primaryChip)}</span><span class="chip">${esc(type)}</span>${optionChip}${optionCount}</div></div><div class="pca"><button class="pab" onpointerdown="favPrjClick(event,'${p.projectId||p.id}')" title="Favorite"><svg viewBox="0 0 24 24"><path d="M12 17.3 5.8 21l1.7-7-5.5-4.8 7.2-.6L12 2l2.8 6.6 7.2.6-5.5 4.8 1.7 7z"/></svg></button><button class="pab" onpointerdown="dupPrjClick(event,'${p.projectId||p.id}')" title="Duplicate"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="pab" onpointerdown="delPrjClick(event,'${p.projectId||p.id}')" title="Delete"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`}).join('')}
 function openPrj(id){const p=projectPrimaryRoom(id)||projects.find(r=>r.id===id);if(p)openEd(p)}
 function dupPrj(id){
   const sourceRooms=projectRooms(id);
@@ -350,7 +356,7 @@ function closeRoom(){
   drawMode=false;drawPts=[];drawCur=null;
   document.getElementById('dBar').classList.remove('on');document.getElementById('mTbar').style.display='';
   saveAll();autoFit();pushU();draw();toast('Room created!');
-  if(projects.length<=1)setTimeout(startTut,500)}
+}
 
 function clearFurnitureSelection(){
   multiSelFurnitureIds=[];

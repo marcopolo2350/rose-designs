@@ -218,14 +218,19 @@ function overviewRoomPose(room=curRoom){
 function intimateRoomPose(room=curRoom){
   const focus=getRoomFocus(room);
   const centroid=roomCentroidPose(room);
-  return {yaw:Math.PI*.56,pitch:.24,dist:Math.max(8.2,Math.min(16,Math.max(focus.width,focus.height)*.88)),target:{x:centroid.x,y:room.height*.34,z:centroid.z}};
+  return {
+    yaw:Math.PI*.3,
+    pitch:.42,
+    dist:Math.max(15,Math.min(28,Math.max(focus.width,focus.height,room.height)*1.15)),
+    target:{x:(focus.x*.72)+(centroid.x*.28),y:room.height*.38,z:(-focus.y*.72)+(centroid.z*.28)}
+  };
 }
 function heroRoomPose(room=curRoom){
   const favorite=favoriteCornerPose(room);
   return {
     yaw:favorite.yaw,
-    pitch:Math.max(.22,favorite.pitch||.24),
-    dist:Math.max(8.6,Math.min(15.5,favorite.dist*.86)),
+    pitch:Math.max(.34,favorite.pitch||.36),
+    dist:Math.max(14,Math.min(26,favorite.dist*1.08)),
     target:{...favorite.target}
   };
 }
@@ -297,7 +302,7 @@ function setViewPreset(mode){
     return;
   }else if(mode==='eye'){
     const pose=intimateRoomPose(curRoom);
-    cYaw=pose.yaw;cPitch=Math.max(.18,pose.pitch-.02);cDist=Math.max(9.5,Math.min(20,pose.dist*1.05));orbitTarget={x:focus.x,y:curRoom.height*.34,z:-focus.y};
+    cYaw=pose.yaw;cPitch=pose.pitch;cDist=pose.dist;orbitTarget={...pose.target};
     showViewChip(`3D View · ${viewPresetLabel(mode)}`);
     return;
   }
@@ -757,36 +762,16 @@ function build3D(){
     const floorMap=buildFloorTexture(r.materials.floor,r.materials.floorType||'light_oak');
     const floorAccentMap=buildFloorAccentTexture(r.materials.floorType||'light_oak');
     const floorGeo=applyPlanarUVs(new THREE.ShapeGeometry(floorShape),r.polygon);
-    const floorMat=new THREE.MeshStandardMaterial({color:safeThreeColor(r.materials.floor,floorPreset.color),roughness:floorPreset.roughness,metalness:floorPreset.family==='concrete'?.08:.03,map:floorMap});
+    const floorMat=new THREE.MeshStandardMaterial({color:safeThreeColor(r.materials.floor,floorPreset.color),roughness:Math.max(.8,Number.isFinite(floorPreset.roughness)?floorPreset.roughness:.88),metalness:0,map:floorMap});
     if(floorMat.map){floorMat.map.needsUpdate=true;try{floorMat.map.anisotropy=Math.min(16,ren.capabilities.getMaxAnisotropy())}catch(_){}}
     const floorMesh=new THREE.Mesh(floorGeo,floorMat);floorMesh.rotation.x=-Math.PI/2;floorMesh.receiveShadow=true;scene.add(floorMesh);
     scene.userData.styleTargets.floorMats.push(floorMat);
     scene.userData.styleTargets.floorMesh=floorMesh;
-    // Phase ✨ — Subtle floor reflection for polished surfaces (tile, checker, concrete, marble).
-    // Users can also force it on per room via room.materials.floorReflective=true.
-    try{
-      const reflectiveFamilies=['tile','checker','concrete'];
-      const forceReflect=!!r.materials.floorReflective;
-      const family=floorPreset.family||'';
-      const wantReflect=forceReflect||reflectiveFamilies.includes(family)||/tile|marble|polished/.test(r.materials.floorType||'');
-      if(wantReflect&&THREE.Reflector&&!photoMode){
-        const reflectGeo=applyPlanarUVs(new THREE.ShapeGeometry(floorShape),r.polygon);
-        const reflector=new THREE.Reflector(reflectGeo,{textureWidth:Math.min(1024,Math.floor(w*0.75)),textureHeight:Math.min(1024,Math.floor(h*0.75)),color:0x222222,clipBias:0.003});
-        reflector.rotation.x=-Math.PI/2;reflector.position.y=0.005;
-        reflector.material.transparent=true;
-        // Tone down the reflection — architectural floors aren't mirrors.
-        if(reflector.material.uniforms&&reflector.material.uniforms.color)
-          reflector.material.uniforms.color.value=new THREE.Color(0x1a1a1e);
-        reflector.renderOrder=-1;
-        scene.add(reflector);
-        floorMat.transparent=true;floorMat.opacity=0.82;
-        scene.userData.styleTargets.floorReflector=reflector;
-      }
-    }catch(e){console.warn('Floor reflection skipped:',e.message)}
-    const accentTone=safeThreeColor(r.materials.floor,floorPreset.color).lerp(safeThreeColor('#ffffff','#ffffff'),.46);
-    const accentOpacity=floorPreset.family==='checker'?.36:floorPreset.family==='tile'?.42:floorPreset.family==='concrete'?.24:.34;
-    const accentMat=new THREE.MeshStandardMaterial({color:accentTone,roughness:1,metalness:0,map:floorAccentMap,transparent:true,opacity:accentOpacity,depthWrite:false});
-    const accentMesh=new THREE.Mesh(applyPlanarUVs(new THREE.ShapeGeometry(floorShape),r.polygon),accentMat);accentMesh.rotation.x=-Math.PI/2;accentMesh.position.y=.012;scene.add(accentMesh);
+    // Subtle gloss on polished families via metalness — no Reflector (avoids z-clipping artifacts)
+    scene.userData.styleTargets.floorReflector=null;
+    // Accent detail texture baked into the floor mesh — rendered below furniture (renderOrder -1)
+    const accentMat=new THREE.MeshStandardMaterial({color:safeThreeColor(r.materials.floor,floorPreset.color),roughness:1,metalness:0,map:floorAccentMap,transparent:true,opacity:.14,depthWrite:true});
+    const accentMesh=new THREE.Mesh(applyPlanarUVs(new THREE.ShapeGeometry(floorShape),r.polygon),accentMat);accentMesh.rotation.x=-Math.PI/2;accentMesh.position.y=.003;accentMesh.renderOrder=-1;scene.add(accentMesh);
     scene.userData.styleTargets.floorAccent=accentMesh;
     const ceilColor=safeThreeColor(r.materials.ceiling,'#FAF7F2').multiplyScalar(Math.max(.86,Math.min(1.18,r.materials.ceilingBrightness||1)));
     const ceilMesh=new THREE.Mesh(new THREE.ShapeGeometry(floorShape),new THREE.MeshStandardMaterial({color:ceilColor,roughness:.92,side:THREE.BackSide}));ceilMesh.name='roomCeiling';ceilMesh.visible=camMode==='walk';ceilMesh.rotation.x=-Math.PI/2;ceilMesh.position.y=rH-.01;scene.add(ceilMesh);
@@ -858,6 +843,7 @@ function build3D(){
     const ceilLight=new THREE.PointLight(0xFFF8E8,.28*(r.materials.ceilingBrightness||1),maxD*3.2);ceilLight.position.set(cx,rH-.4,-cz);scene.add(ceilLight);
     scene.userData.styleTargets.ceilingLight=ceilLight;
     const wallMat=new THREE.MeshStandardMaterial({color:wc,roughness:.68-wallFinish.sheen*.12,metalness:.005,side:THREE.DoubleSide,emissive:wc.clone().multiplyScalar(r.materials.wallColorCustom?.06:.03)});
+    scene.userData.styleTargets.primaryWallMat=wallMat;
     scene.userData.styleTargets.wallMats.push(wallMat);
     r.walls.forEach(wall=>{const a=wS(r,wall),b=wE(r,wall),wl=wL(r,wall),an=wA(r,wall);if(wl<.01)return;const ops=r.openings.filter(o=>o.wallId===wall.id).sort((oa,ob)=>oa.offset-ob.offset);if(!ops.length)addWSeg(a,an,0,wl,0,rH,wallMat);else{let pos=0;ops.forEach(op=>{const os=op.offset-op.width/2,oe=op.offset+op.width/2;if(os>pos)addWSeg(a,an,pos,os,0,rH,wallMat);if(op.type==='door'){addWSeg(a,an,os,oe,op.height,rH,wallMat);const frameMat=new THREE.MeshStandardMaterial({color:tc,roughness:.44,metalness:.04,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});scene.userData.styleTargets.trimMats.push(frameMat);addWSeg(a,an,os,os+.06,0,op.height,frameMat);addWSeg(a,an,oe-.06,oe,0,op.height,frameMat);addWSeg(a,an,os,oe,op.height-.06,op.height,frameMat);addDoorLeaf3D(a,an,os,oe,op,tc)}else{addWSeg(a,an,os,oe,0,op.sillHeight,wallMat);addWSeg(a,an,os,oe,op.sillHeight+op.height,rH,wallMat);const glassMat=new THREE.MeshStandardMaterial({color:0xBFD9EA,transparent:true,opacity:.42,roughness:.08,metalness:.18});addWSeg(a,an,os,oe,op.sillHeight,op.sillHeight+op.height,glassMat);const frameMat=new THREE.MeshStandardMaterial({color:tc,roughness:.48,metalness:.04,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});scene.userData.styleTargets.trimMats.push(frameMat);const ft=.08,mid=(os+oe)/2;addWSeg(a,an,os,os+ft,op.sillHeight,op.sillHeight+op.height,frameMat);addWSeg(a,an,oe-ft,oe,op.sillHeight,op.sillHeight+op.height,frameMat);addWSeg(a,an,os,oe,op.sillHeight,op.sillHeight+ft,frameMat);addWSeg(a,an,os,oe,op.sillHeight+op.height-ft,op.sillHeight+op.height,frameMat);addWSeg(a,an,mid-ft/2,mid+ft/2,op.sillHeight,op.sillHeight+op.height,frameMat);addWindowAssembly3D(a,an,os,oe,op,tc)}pos=oe});if(pos<wl)addWSeg(a,an,pos,wl,0,rH,wallMat)}const bbMat=new THREE.MeshStandardMaterial({color:tc,roughness:.28,metalness:.08,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});scene.userData.styleTargets.trimMats.push(bbMat);const bbN=getInteriorWallNormal(r,wall);const bbOff=0.1;const bb=new THREE.Mesh(new THREE.PlaneGeometry(wl,.48),bbMat);bb.position.set((a.x+b.x)/2+bbN.x*bbOff,.24,-(a.y+b.y)/2+bbN.z*bbOff);bb.rotation.y=-an;scene.add(bb)});
     r.structures.forEach(st=>{if(st.type==='closet'&&st.rect)scene.add(buildCloset3D(st,r));else if(st.type==='partition'&&st.line){const pa=st.line.a,pb=st.line.b,pl=Math.sqrt((pb.x-pa.x)**2+(pb.y-pa.y)**2),pAn=Math.atan2(pb.y-pa.y,pb.x-pa.x);const pm=new THREE.Mesh(new THREE.PlaneGeometry(pl,rH),new THREE.MeshStandardMaterial({color:wc,roughness:.65,side:THREE.DoubleSide}));pm.position.set((pa.x+pb.x)/2,rH/2,-(pa.y+pb.y)/2);pm.rotation.y=-pAn;scene.add(pm)}});
@@ -885,6 +871,7 @@ function build3D(){
       // Walk mode lerps faster so response doesn't feel sluggish; orbit gets more glide.
       const lerp=camMode==='walk'?0.35:0.18;
       _smoothCam.pos.lerp(tgtPos,lerp);_smoothCam.look.lerp(tgtLook,lerp);
+      updateOrbitWallCutaway(_smoothCam.pos);
       cam.position.copy(_smoothCam.pos);cam.lookAt(_smoothCam.look);
       // Update Bokeh focus distance dynamically (keeps mid-room in focus as user orbits).
       if(composer&&composer._bokeh){try{composer._bokeh.uniforms&&composer._bokeh.uniforms.focus&&(composer._bokeh.uniforms.focus.value=Math.max(6,cam.position.distanceTo(_smoothCam.look)*0.85))}catch(_){}}
@@ -931,7 +918,27 @@ function addWSeg(ws,an,s,e,botY,topY,mat){
   m.castShadow=!isGlass;m.receiveShadow=!isGlass;
   const mid=(s+e)/2;
   m.position.set(ws.x+Math.cos(an)*mid,(botY+topY)/2,-(ws.y+Math.sin(an)*mid));
-  m.rotation.y=-an;scene.add(m)}
+  m.rotation.y=-an;
+  if(!isGlass&&scene?.userData?.styleTargets?.primaryWallMat===mat){
+    m.userData.roomWallSegment=true;
+    m.userData.wallCenter2D={x:m.position.x,y:-m.position.z};
+  }
+  scene.add(m)}
+function updateOrbitWallCutaway(cameraPos){
+  if(!scene||!curRoom)return;
+  const walls=scene.children.filter(obj=>obj.userData?.roomWallSegment);
+  if(!walls.length)return;
+  walls.forEach(obj=>obj.visible=true);
+  if(camMode!=='orbit')return;
+  const cam2D={x:cameraPos.x,y:-cameraPos.z};
+  const outside=typeof pointInsideRoom2D==='function'?!pointInsideRoom2D(cam2D,curRoom):true;
+  if(!outside)return;
+  walls
+    .map(obj=>({obj,d:Math.hypot((obj.userData.wallCenter2D?.x||0)-cam2D.x,(obj.userData.wallCenter2D?.y||0)-cam2D.y)}))
+    .sort((a,b)=>a.d-b.d)
+    .slice(0,Math.min(2,walls.length))
+    .forEach(entry=>{entry.obj.visible=false;});
+}
 function addDoorLeaf3D(ws,an,os,oe,op,trimColor){
   const width=Math.max(.55,oe-os),doorW=Math.max(.45,width-.12),doorH=Math.max(2.1,(op.height||7)-.08);
   const hingeRight=op.hinge==='right',swingIn=op.swing!=='out';
@@ -1423,18 +1430,35 @@ function findNearestSurfaceFurniture(pt,r){
   });
   return best;
 }
-function getWallFacingAdjustment(reg,placement){
-  if(!reg||reg.wallFacingMode==='free'||!placement?.wallNormal)return 0;
+function effectiveWallFacingMode(f,reg){
+  if(!(reg?.mountType==='wall'||f?.mountType==='wall'))return 'free';
+  if(reg?.wallFacingMode)return reg.wallFacingMode;
+  const key=String(f?.assetKey||'').toLowerCase();
+  if(/lamp_wall/.test(key))return 'face_interior';
+  if(/curtain|blind/.test(key))return 'follow_wall';
+  return 'follow_wall';
+}
+function wallMountedDepthOffset(f,reg){
+  const wallHalf=0.095;
+  const key=String(f?.assetKey||'').toLowerCase();
+  if(reg?.snapToOpening)return wallHalf+0.03;
+  if(/wall_art|mirror|towel|panel|doorway|shelf|fireplace/.test(key))return wallHalf+0.045;
+  if(/curtain|blind/.test(key))return wallHalf+0.025;
+  return wallHalf+Math.min(.16,Math.max(.05,(f.d||.35)*.28));
+}
+function getWallFacingAdjustment(reg,placement,f){
+  const mode=effectiveWallFacingMode(f,reg);
+  if(mode==='free'||!placement?.wallNormal)return 0;
   const inwardYaw=Math.atan2(placement.wallNormal.x,placement.wallNormal.z);
-  if(reg.wallFacingMode==='face_interior')return inwardYaw;
-  if(reg.wallFacingMode==='face_exterior')return inwardYaw+Math.PI;
-  if(reg.wallFacingMode==='follow_wall')return placement.wallAngleYaw||0;
+  if(mode==='face_interior')return inwardYaw;
+  if(mode==='face_exterior')return inwardYaw+Math.PI;
+  if(mode==='follow_wall')return placement.wallAngleYaw||0;
   return inwardYaw;
 }
 function computeFurnitureYaw(f,reg,placement){
   const appRotation=-(Number.isFinite(f.rotation)?f.rotation:0)*Math.PI/180;
   const yawOffset=(reg?.yawOffset||0)+axisYawOffset(reg?.forwardAxis);
-  const wallAdjust=getWallFacingAdjustment(reg,placement);
+  const wallAdjust=getWallFacingAdjustment(reg,placement,f);
   return appRotation+yawOffset+wallAdjust;
 }
 function getFurniturePlacement(f,r){
@@ -1462,8 +1486,7 @@ function getFurniturePlacement(f,r){
     const base=new THREE.Vector3(a.x+Math.cos(an)*along,mountY,-(a.y+Math.sin(an)*along));
     // Walls are thick BoxGeometry (0.18 total, ~0.09 half-thickness). Push wall-mounted
     // items past the inner wall face so they sit flush on the surface, not inside it.
-    const wallHalf=0.095;
-    const depth=(reg&&reg.snapToOpening)?wallHalf+0.02:wallHalf+Math.max(.02,(f.d||.4)/2);
+    const depth=wallMountedDepthOffset(f,reg);
     base.x+=n.x*depth;base.z+=n.z*depth;
     const placement={position:base,windowTarget,wallNormal:n,wallAngleYaw:-an};
     placement.rotationY=computeFurnitureYaw(f,reg,placement);
@@ -2029,8 +2052,17 @@ favoriteCornerPose=function(room){
     if(!best||score>best.score)best={corner,score,dist,dx,dz};
   });
   const yaw=Math.atan2(best.dx,-best.dz);
-  const dist=Math.max(8.8,Math.min(16,Math.max(focus.width,focus.height)*.82));
-  return {yaw,pitch:.24,dist,target:{x:centroid.x,y:room.height*.34,z:centroid.z}};
+  const dist=Math.max(14,Math.min(28,Math.max(focus.width,focus.height,room.height)*1.16));
+  return {
+    yaw,
+    pitch:.38,
+    dist,
+    target:{
+      x:focus.x*.76+centroid.x*.24,
+      y:room.height*.38,
+      z:(-focus.y)*.76+centroid.z*.24
+    }
+  };
 }
 function setPresentationShot(mode){
   if(!is3D||!curRoom)return;
