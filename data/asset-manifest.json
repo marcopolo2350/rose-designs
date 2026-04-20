@@ -10,9 +10,7 @@
     "tags": [
       "soft-romantic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "bedroom"
     ],
@@ -75,9 +73,7 @@
     "tags": [
       "soft-romantic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "bedroom"
     ],
@@ -140,9 +136,7 @@
     "tags": [
       "soft-romantic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "bedroom"
     ],
@@ -205,9 +199,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "dining_room",
       "living_room"
@@ -423,9 +415,7 @@
     "tags": [
       "soft-romantic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "bedroom"
     ],
@@ -879,9 +869,7 @@
     "tags": [
       "soft-romantic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -1049,9 +1037,7 @@
     "tags": [
       "soft-romantic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "bedroom"
     ],
@@ -1114,9 +1100,7 @@
     "tags": [
       "soft-romantic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "bedroom"
     ],
@@ -1398,9 +1382,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -1599,9 +1581,7 @@
     "tags": [
       "soft-romantic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -1883,9 +1863,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -1903,9 +1881,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -1923,9 +1899,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -1943,9 +1917,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -1963,9 +1935,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -1983,9 +1953,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -2003,9 +1971,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -2071,10 +2037,7 @@
       "cozy",
       "soft-romantic"
     ],
-    "collections": [
-      "Cozy Rose",
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -2139,9 +2102,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -2336,9 +2297,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -2401,9 +2360,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -2466,9 +2423,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -2531,9 +2486,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -2596,9 +2549,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -2661,9 +2612,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -2728,7 +2677,6 @@
       "warm-modern"
     ],
     "collections": [
-      "Cozy Rose",
       "Warm Modern"
     ],
     "recommendedRoomTypes": [
@@ -2793,9 +2741,7 @@
     "tags": [
       "cozy"
     ],
-    "collections": [
-      "Cozy Rose"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -3731,7 +3677,6 @@
     "name": "Double Bed",
     "subcategory": "bed",
     "collections": [
-      "Soft Romantic",
       "Everyday Staples"
     ]
   },
@@ -3796,7 +3741,6 @@
       "classic"
     ],
     "collections": [
-      "Soft Romantic",
       "Warm Modern"
     ],
     "recommendedRoomTypes": [
@@ -4132,9 +4076,7 @@
       "accent",
       "cozy"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom"
@@ -4334,7 +4276,6 @@
       "accent"
     ],
     "collections": [
-      "Soft Romantic",
       "Everyday Staples"
     ],
     "recommendedRoomTypes": [
@@ -4457,9 +4398,7 @@
       "cozy",
       "classic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -4589,9 +4528,7 @@
       "cozy",
       "large"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room"
     ],
@@ -4986,7 +4923,6 @@
       "round"
     ],
     "collections": [
-      "Soft Romantic",
       "Warm Modern"
     ],
     "recommendedRoomTypes": [
@@ -5385,9 +5321,7 @@
       "dining",
       "cozy"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "dining_room"
     ],
@@ -6190,9 +6124,7 @@
       "bedroom",
       "classic"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "bedroom"
     ],
@@ -6257,7 +6189,6 @@
       "storage"
     ],
     "collections": [
-      "Soft Romantic",
       "Everyday Staples"
     ],
     "recommendedRoomTypes": [
@@ -6549,7 +6480,6 @@
       "warm"
     ],
     "collections": [
-      "Soft Romantic",
       "Warm Modern"
     ],
     "recommendedRoomTypes": [
@@ -6833,7 +6763,6 @@
       "romantic"
     ],
     "collections": [
-      "Soft Romantic",
       "Quiet Luxury"
     ],
     "recommendedRoomTypes": [
@@ -6900,7 +6829,6 @@
       "natural"
     ],
     "collections": [
-      "Soft Romantic",
       "Warm Modern"
     ],
     "recommendedRoomTypes": [
@@ -6962,7 +6890,6 @@
       "ceramic"
     ],
     "collections": [
-      "Soft Romantic",
       "Warm Modern"
     ],
     "recommendedRoomTypes": [
@@ -7006,9 +6933,7 @@
       "ceramic",
       "accent"
     ],
-    "collections": [
-      "Soft Romantic"
-    ],
+    "collections": [],
     "recommendedRoomTypes": [
       "living_room",
       "bedroom",
@@ -7028,7 +6953,6 @@
       "statement"
     ],
     "collections": [
-      "Soft Romantic",
       "Quiet Luxury"
     ],
     "recommendedRoomTypes": [

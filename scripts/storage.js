@@ -129,13 +129,12 @@ const ROOM_TYPES=[
 const DESIGN_PRESETS=[
   {id:'warm_modern',name:'Warm Modern',roomType:'living_room',wallFinish:'soft_beige',floorType:'medium_oak',trim:'#D8CBB8',lightingPreset:'warm_evening',ceilingBrightness:1.05,mood:'elegant',note:'Soft oak, beige walls, and cozy evening light.'},
   {id:'quiet_luxury',name:'Quiet Luxury',roomType:'bedroom',wallFinish:'greige',floorType:'dark_walnut',trim:'#F8F5F0',lightingPreset:'soft_lamp_glow',ceilingBrightness:1.02,mood:'keep forever',note:'Deeper wood, clean trim, and tailored calm.'},
-  {id:'soft_romantic',name:'Soft Romantic',roomType:'bedroom',wallFinish:'dusty_rose',floorType:'light_oak',trim:'#F8F5F0',lightingPreset:'warm_evening',ceilingBrightness:1.08,mood:'romantic',note:'Blush walls, light oak, and warm evening glow.'},
   {id:'tailored_masculine',name:'Tailored Masculine',roomType:'office',wallFinish:'charcoal_accent',floorType:'dark_walnut',trim:'#B79E84',lightingPreset:'moody',ceilingBrightness:.94,mood:'moody',note:'Richer contrast with darker, more grounded materials.'},
   {id:'airy_minimal',name:'Airy Minimal',roomType:'living_room',wallFinish:'warm_white',floorType:'light_oak',trim:'#F8F5F0',lightingPreset:'daylight',ceilingBrightness:1.14,mood:'bright',note:'Clean light finishes and soft open daylight.'},
 ];
 const ROOM_STARTERS=[
   {id:'living_room',name:'Living Room',shape:'rect',width:16,depth:13,height:9,roomType:'living_room',designPreset:'warm_modern',tag:'Gather',hint:'A balanced layout with soft seating and a place to land.'},
-  {id:'bedroom',name:'Bedroom',shape:'rect',width:14,depth:14,height:9,roomType:'bedroom',designPreset:'soft_romantic',tag:'Rest',hint:'Warm light, layered textiles, and a gentle bedroom rhythm.'},
+  {id:'bedroom',name:'Bedroom',shape:'rect',width:14,depth:14,height:9,roomType:'bedroom',designPreset:'quiet_luxury',tag:'Rest',hint:'Warm light, layered textiles, and a gentle bedroom rhythm.'},
   {id:'dining_room',name:'Dining Room',shape:'rect',width:15,depth:12,height:9,roomType:'dining_room',designPreset:'quiet_luxury',tag:'Host',hint:'A room that feels ready for dinner and slow conversation.'},
   {id:'office',name:'Office',shape:'rect',width:13,depth:11,height:9,roomType:'office',designPreset:'tailored_masculine',tag:'Focus',hint:'Grounded materials and a calmer work-focused setup.'},
   {id:'nursery',name:'Nursery',shape:'rect',width:12,depth:12,height:9,roomType:'nursery',designPreset:'airy_minimal',tag:'Tender',hint:'Soft light, clear flow, and room to breathe.'},
