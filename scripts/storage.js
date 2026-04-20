@@ -17,7 +17,8 @@ async function migrateLegacyProjectsIntoProfile(){
 function loadActiveProfile(){
   try{
     const raw=localStorage.getItem(PROFILE_LOCAL_KEY);
-    if(raw&&PROFILE_LABELS[raw])activeProfile=raw;
+    activeProfile=(raw&&PROFILE_LABELS[raw])?raw:'rose';
+    localStorage.setItem(PROFILE_LOCAL_KEY,activeProfile);
   }catch(e){}
   updateProfileChip();
 }

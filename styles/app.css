@@ -256,14 +256,16 @@ input,select{font-family:var(--fb)}
 .pbtn.soft{background:var(--bg2);color:var(--text);border:1px solid var(--border)}
 .pbtn.dng{background:#C55;margin-top:4px}
 .quick-rotate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 4px}
-.quick-rotate-row .pbtn{margin-top:0}
+.quick-rotate-row .pbtn{margin-top:0;min-height:44px;line-height:1.2;white-space:normal}
 .paint-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
 .swatch{height:36px;border-radius:var(--r);border:2px solid var(--border);box-shadow:var(--sh);cursor:pointer}
 .swatch.sel{outline:2px solid var(--accent);outline-offset:2px}
 .mat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
-.mat-btn{padding:12px 10px;border-radius:var(--r);background:var(--bg2);box-shadow:var(--sh);font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.mat-btn{padding:12px 10px;border-radius:var(--r);background:var(--bg2);box-shadow:var(--sh);font-size:11px;font-weight:700;color:var(--muted);line-height:1.2;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:44px;white-space:normal;overflow-wrap:anywhere;word-break:break-word;text-transform:none;letter-spacing:0}
 .mat-btn.sel{background:var(--text);color:#fff}
 .mat-grid.tall{grid-template-columns:1fr}
+.mat-btn-title{display:block;width:100%}
+.mat-btn-meta{display:block;width:100%;font-size:10px;font-weight:600;opacity:.78}
 .asset-color-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
 .asset-color-chip{height:34px;border-radius:var(--r);border:2px solid var(--border);box-shadow:var(--sh)}
 .asset-color-chip.sel{outline:2px solid var(--accent);outline-offset:2px}
@@ -275,12 +277,13 @@ input,select{font-family:var(--fb)}
 .prop-state.custom{background:rgba(139,115,85,.08);color:var(--accent-d);border:1px solid rgba(139,115,85,.15)}
 .prop-link-btn{margin-left:6px;padding:0;background:none;border:none;color:var(--accent-d);font-size:11px;font-weight:700;text-decoration:underline;cursor:pointer}
 .room-card-stack{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-.room-card-mini{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-radius:var(--rl);background:var(--surface);border:1px solid var(--border)}
+.room-card-mini{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:12px 14px;border-radius:var(--rl);background:var(--surface);border:1px solid var(--border)}
 .room-card-mini.active{background:var(--surface2);border-color:var(--accent-l);box-shadow:var(--sh)}
 .room-card-main{flex:1;min-width:0;cursor:pointer}
 .room-card-title{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .room-card-meta{margin-top:3px;font-size:10px;color:var(--muted);line-height:1.35}
-.room-card-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.room-card-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;flex:0 0 auto}
+.room-card-actions .mini-chip{line-height:1.15}
 .asset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .asset-btn{background:var(--surface);border-radius:var(--r);padding:10px 4px;text-align:center;box-shadow:var(--sh);cursor:pointer;border:1px solid var(--border)}
 .asset-btn:active{transform:scale(.96)}
@@ -416,7 +419,9 @@ input,select{font-family:var(--fb)}
 .tut-card{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:var(--surface);border-radius:var(--rl);padding:20px 24px;box-shadow:var(--shxl);max-width:300px;text-align:center;pointer-events:auto;animation:slideUp var(--duration-slow) var(--ease);border:1px solid var(--border)}
 .tut-card h4{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
 .tut-card p{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px}
-.tut-card button{padding:10px 28px;border-radius:var(--r);background:var(--text);color:#fff;font-size:12px;font-weight:600}
+.tut-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.tut-card button{padding:10px 18px;border-radius:var(--r);background:var(--text);color:#fff;font-size:12px;font-weight:600}
+.tut-card .tut-skip{background:var(--bg2);color:var(--text);border:1px solid var(--border)}
 .tut-card button:active{transform:scale(.97)}
 .tut-dots{display:flex;gap:4px;justify-content:center;margin-top:10px}
 .tut-d{width:6px;height:6px;border-radius:50%;background:var(--bg3)}

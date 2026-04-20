@@ -4,8 +4,8 @@ async function checkWelcome(){
   if(!w)return;
   const greet=document.querySelector('.w-greeting');
   const personal=document.querySelector('.w-personal');
-  if(greet)greet.textContent=activeProfile==='rose'?'Hi Rose':'Welcome back';
-  if(personal)personal.textContent=activeProfile==='rose'?'I made this for you':'Your own design space';
+  if(greet)greet.textContent='Hi Rose';
+  if(personal)personal.textContent='I made this for you';
   w.classList.remove('fade','gone');
 }
 function dismissWelcome(){
@@ -42,16 +42,14 @@ const TUTS=[
   {t:'Use Existing Room mode for redesigns',d:'Mark real pieces as Existing, then tag them Keep, Move, Replace, or Remove so the redesign stays organized.'},
   {t:'Walk in 3D with the touch controls',d:'Switch to Walk, use the new move and turn controls, and drag to look around. Landscape is the easiest way to explore.'},
   {t:'Save options instead of overwriting',d:'Use room Options to make Option A, B, and C. Each one keeps its own notes, compare views, and exports.'},
-  {t:'This profile keeps its own rooms',d:'This device remembers who is using it. Rose and Marco each get their own rooms, notes, and welcome flow.'},
+  {t:'This device remembers your work',d:'Rose Designs keeps your rooms, notes, and tutorial progress on this device so you can jump back in fast.'},
 ];
 function startTut(force=false){if(!force&&getLocal(profileSeenKey()))return;tutS=0;showTut()}
 function showTut(){
   if(tutS<0||tutS>=TUTS.length){endTut();return}
   const s=TUTS[tutS];
   document.getElementById('tutOv').classList.add('on');
-  document.getElementById('tutCard').innerHTML=`<h4>${s.t}</h4><p>${s.d}</p><button onclick="${tutS>=TUTS.length-1?'endTut()':'nextTut()'}">
-    ${tutS>=TUTS.length-1?'Let\u2019s go!':'Next'}</button>
-    <div class="tut-dots">${TUTS.map((_,i)=>`<div class="tut-d${i===tutS?' on':''}"></div>`).join('')}</div>`;
+  document.getElementById('tutCard').innerHTML=`<h4>${s.t}</h4><p>${s.d}</p><div class="tut-actions"><button onclick="${tutS>=TUTS.length-1?'endTut()':'nextTut()'}">${tutS>=TUTS.length-1?"Let's go!":'Next'}</button><button class="tut-skip" onclick="endTut()">Skip tutorial</button></div><div class="tut-dots">${TUTS.map((_,i)=>`<div class="tut-d${i===tutS?' on':''}"></div>`).join('')}</div>`;
 }
 function nextTut(){tutS++;showTut()}
 function endTut(){tutS=-1;document.getElementById('tutOv').classList.remove('on');setLocal(profileSeenKey(),'1')}

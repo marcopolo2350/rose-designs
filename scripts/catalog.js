@@ -418,7 +418,7 @@ function pendingFurniturePreviewItemRecord(){
 }
 function pendingFurnitureBarMarkup(item,state){
   if(!item)return '<div class="catalog-placement-bar empty">Pick a piece to see where it will land.</div>';
-  const location=state?.snapped?`${formatDistance(state.snapped.x,'compact')} Ãƒâ€šÃ‚Â· ${formatDistance(state.snapped.z,'compact')}`:'Choose a spot in the room';
+  const location=state?.snapped?`${formatDistance(state.snapped.x,'compact')} | ${formatDistance(state.snapped.z,'compact')}`:'Choose a spot in the room';
   const statusText=state?.valid?'Ready to place':(state?.reason||'Move the target inside the room');
   const statusClass=state?.valid?'valid':'invalid';
   const selectedVariant=getSelectedCatalogVariant(item);
@@ -426,9 +426,9 @@ function pendingFurnitureBarMarkup(item,state){
     ? `<button class="mini-chip${state?.valid?'':' secondary'}" type="button" ${state?.valid?'onclick="confirmPendingFurniturePlacement()"':'disabled'}>${state?.valid?'Place Here':'Adjust Target'}</button>`
     : `<div class="catalog-placement-inline">${state?.valid?'Click the card again to place it.':'Move the target in the room, then click again.'}</div>`;
   const variantUi=itemSupportsVariants(item)
-    ? `<div class="catalog-placement-variants"><div class="catalog-placement-copy">Style Variant Ãƒâ€šÃ‚Â· ${esc(selectedVariant?.label||'')}</div>${buildVariantSelector(item,selectedVariant?.id||'', 'setCatalogVariant','catalog')}</div>`
+    ? `<div class="catalog-placement-variants"><div class="catalog-placement-copy">Style Variant | ${esc(selectedVariant?.label||'')}</div>${buildVariantSelector(item,selectedVariant?.id||'', 'setCatalogVariant','catalog')}</div>`
     : '';
-  return `<div class="catalog-placement-bar ${statusClass}"><div class="catalog-placement-meta"><div class="catalog-placement-title">${esc(item.label)}</div><div class="catalog-placement-copy">${esc(statusText)} Ãƒâ€šÃ‚Â· ${esc(location)}</div>${variantUi}</div>${mobileCta}</div>`;
+  return `<div class="catalog-placement-bar ${statusClass}"><div class="catalog-placement-meta"><div class="catalog-placement-title">${esc(item.label)}</div><div class="catalog-placement-copy">${esc(statusText)} | ${esc(location)}</div>${variantUi}</div>${mobileCta}</div>`;
 }
 function updateCatalogPendingUi(){
   const item=pendingFurniturePreviewItemRecord();
@@ -833,6 +833,21 @@ function referenceCalibrationStatus(ref){
     ? 'Reference is locked, so tracing clicks stay on the room instead of moving the overlay.'
     : 'Reference is unlocked. Drag it into place, then lock it again before tracing walls.';
 }
+function restyleRoomPanelText(panel){
+  if(!panel)return;
+  const floorButtons=[...panel.querySelectorAll('.mat-grid.tall .mat-btn[onclick*="setActiveFloor"]')];
+  floorButtons.forEach(btn=>{
+    const raw=(btn.textContent||'').replace(/\s+/g,' ').trim();
+    const match=raw.match(/^(.*?)(\d+)\s*$/);
+    if(!match)return;
+    const label=match[1].replace(/[|·ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â]+/g,' ').replace(/\s+/g,' ').trim()||'Floor';
+    const count=Number(match[2]);
+    btn.innerHTML=`<span class="mat-btn-title">${esc(label)}</span><span class="mat-btn-meta">${count} room${count===1?'':'s'}</span>`;
+  });
+  panel.querySelectorAll('.room-card-meta,.prop-tip,.prop-state').forEach(node=>{
+    node.textContent=(node.textContent||'').replace(/[ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â]+/g,' ').replace(/\s*[·|]\s*/g,' | ').replace(/\s+/g,' ').trim();
+  });
+}
 function renderRoomPanelNoSelection(r,{cBtn,activeLightingPreset,ref,refLoaded,refScale,refWidth,floors,currentFloorId,roomCards}){
   const homePlanSection=propSection('Home Plan',`<label>PROJECT NAME</label><input value="${esc(currentProjectName())}" onchange="renameCurrentProject(this.value)"><label style="margin-top:8px">CURRENT ROOM</label><input value="${esc(r.name||'Room')}" onchange="renameCurrentRoom(this.value)"><div class="prop-state">Project has <strong>${projectMainRooms(r).length} rooms</strong> across <strong>${floors.length} floor${floors.length===1?'':'s'}</strong>. Exports still focus on the current room and option so every sheet stays intentional.</div><label style="margin-top:8px">FLOORS</label><div class="mat-grid tall">${floors.map(floor=>`<button class="mat-btn${currentFloorId===floor.id?' sel':''}" onclick="setActiveFloor('${floor.id}')">${esc(floor.label)} Ãƒâ€šÃ‚Â· ${floor.rooms.length}</button>`).join('')}</div><div class="quick-rotate-row"><button class="pbtn soft" onclick="createNextFloor()">Add Floor</button>${floors.length>1?`<button class="pbtn soft" onclick="moveCurrentRoomToFloor('${floors.find(floor=>floor.id!==currentFloorId)?.id||currentFloorId}')">Move to Floor</button>`:''}<button class="pbtn soft" onclick="duplicateCurrentRoom()">Duplicate Room</button></div><div class="quick-rotate-row"><button class="pbtn soft" onclick="moveCurrentRoomOrder(-1)">Move Up</button><button class="pbtn soft" onclick="moveCurrentRoomOrder(1)">Move Down</button><button class="pbtn soft" onclick="deleteCurrentRoom()">Delete Room</button></div><div class="room-card-stack">${roomCards||'<div class="prop-tip">No rooms on this floor yet.</div>'}</div><div class="prop-tip">Use this organizer to move around the home quickly. Connected rooms stay grouped here instead of hiding inside one stretched floor plan.</div>`);
   const surfacesSection=propSection('Surfaces',`<label>WALL STYLE</label><div class="mat-grid">${WALL_PALETTES.map(c=>`<button class="mat-btn${(r.materials.wallFinish||'warm_white')===c.id?' sel':''}" onclick="setWallFinish('${c.id}')" style="background:${c.color};color:${c.id==='charcoal_accent'?'#fff':'#332922'}">${c.name}</button>`).join('')}</div><div class="prop-state${wallColorIsCustom(r)?' custom':''}">${wallColorIsCustom(r)?`Custom wall color active <button class="prop-link-btn" onclick="resetWallColorToStyle()">Reset to style</button>`:'Wall color follows the selected wall style.'}</div><label style="margin-top:8px">CUSTOM WALL COLOR</label><div class="color-input-row"><input class="color-input" type="color" value="${colorInputValue(r.materials.wall,WALL_PALETTES[0].color)}" onchange="setWallPaint(this.value)"><span class="color-input-copy">Use any wall color, or tap a quick swatch below.</span></div><div class="paint-row">${WALL_PALETTES.map(c=>`<button class="swatch${r.materials.wall===c.color?' sel':''}" style="background:${c.color}" onclick="setWallPaint('${c.color}')" title="Use ${c.name} as a custom wall color"></button>`).join('')}</div><div class="prop-tip">Choose a style first, then use custom color only when you want a deliberate override.</div><label style="margin-top:8px">FLOOR STYLE</label><div class="mat-grid">${FLOOR_TYPES.map(ft=>`<button class="mat-btn${(r.materials.floorType||'light_oak')===ft.id?' sel':''}" onclick="setFloorType('${ft.id}')">${ft.name}</button>`).join('')}</div><div class="prop-state${floorColorIsCustom(r)?' custom':''}">${floorColorIsCustom(r)?`Custom floor color active <button class="prop-link-btn" onclick="resetFloorColorToStyle()">Reset to style</button>`:'Floor color follows the selected floor style.'}</div><label style="margin-top:8px">CUSTOM FLOOR COLOR</label><div class="color-input-row"><input class="color-input" type="color" value="${colorInputValue(r.materials.floor,FLOOR_TYPES[0].color)}" onchange="setFloorPaint(this.value)"><span class="color-input-copy">Keep the floor pattern, but tune the color more freely.</span></div><div class="paint-row">${FLOOR_TYPES.map(ft=>`<button class="swatch${r.materials.floor===ft.color?' sel':''}" style="background:${ft.color}" onclick="setFloorPaint('${ft.color}')" title="Use ${ft.name} as a custom floor color"></button>`).join('')}</div><div class="prop-tip">Floor style controls both the material family and the default finish tone.</div><label style="margin-top:8px">TRIM COLOR</label><div class="color-input-row"><input class="color-input" type="color" value="${colorInputValue(r.materials.trim,TRIM_COLORS[0])}" onchange="setTrimColor(this.value)"><span class="color-input-copy">Fine-tune trim while keeping quick trim swatches.</span></div><div class="paint-row">${TRIM_COLORS.map(c=>`<button class="swatch${r.materials.trim===c?' sel':''}" style="background:${c}" onclick="setTrimColor('${c}')"></button>`).join('')}</div>`);
@@ -885,6 +900,7 @@ function showP(){
       return `<div class="room-card-mini${active?' active':''}"><div class="room-card-main" onclick="openProjectRoom('${baseId}')"><div class="room-card-title">${esc(room.name)}</div><div class="room-card-meta">${esc(room.floorLabel||'Floor 1')}${optionCount>1?` Ãƒâ€šÃ‚Â· ${optionCount} options`:''}${connections.length?` Ãƒâ€šÃ‚Â· ${connections.length} connection${connections.length===1?'':'s'}`:''}</div></div><div class="room-card-actions"><button class="mini-chip secondary" type="button" onclick="openProjectRoom('${baseId}')">Open</button>${active?`<button class="mini-chip secondary" type="button" onclick="duplicateCurrentRoom()">Duplicate</button><button class="mini-chip secondary" type="button" onclick="deleteCurrentRoom()">Delete</button>`:''}</div></div>`;
     }).join('');
     p.innerHTML=renderRoomPanelNoSelection(r,{cBtn,activeLightingPreset,ref,refLoaded,refScale,refWidth,floors,currentFloorId,roomCards});
+    restyleRoomPanelText(p);
     p.classList.add('on');
     return;
   }
