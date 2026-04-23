@@ -5,7 +5,7 @@ async function checkWelcome(){
   const greet=document.querySelector('.w-greeting');
   const personal=document.querySelector('.w-personal');
   if(greet)greet.textContent='Hi Rose';
-  if(personal)personal.textContent='I made this for you';
+  if(personal)personal.textContent='Ready when you are';
   w.classList.remove('fade','gone');
 }
 function dismissWelcome(){
@@ -41,7 +41,7 @@ const TUTS=[
   {t:'Use Existing Room mode for redesigns',d:'Mark real pieces as Existing, then tag them Keep, Move, Replace, or Remove so the redesign stays organized.'},
   {t:'Walk in 3D with the touch controls',d:'Switch to Walk, use the new move and turn controls, and drag to look around. Landscape is the easiest way to explore.'},
   {t:'Save options instead of overwriting',d:'Use room Options to make Option A, B, and C. Each one keeps its own notes, compare views, and exports.'},
-  {t:'This device remembers your work',d:'Rose Designs keeps your rooms, notes, and tutorial progress on this device so you can jump back in fast.'},
+  {t:'This device remembers your work',d:'Rose Designs keeps your rooms, notes, and saved preferences on this device so you can jump back in fast.'},
 ];
 function startTut(force=false){if(!force&&getLocal(profileSeenKey()))return;tutS=0;showTut()}
 function showTut(){
@@ -87,6 +87,17 @@ function currentProjectId(){return curRoom?.projectId||null}
 function currentProjectName(){return curRoom?.projectName||curRoom?.name||'Home Project'}
 function currentFloorRooms(projectOrRoom=curRoom,floorId=activeProjectFloorId||curRoom?.floorId){
   return projectMainRooms(projectOrRoom).filter(room=>(room.floorId||'floor_1')===floorId);
+}
+function normalizeProjectRoomOrders(projectOrRoom=curRoom){
+  const projectId=typeof projectOrRoom==='string'?projectOrRoom:(projectOrRoom?.projectId||projectOrRoom?.id);
+  if(!projectId)return;
+  projectFloors(projectId).forEach(floor=>{
+    currentFloorRooms(projectId,floor.id)
+      .sort((a,b)=>(a.roomOrder-b.roomOrder)||String(a.name||'').localeCompare(String(b.name||'')))
+      .forEach((room,index)=>{
+        optionSiblings(room).forEach(option=>{ option.roomOrder=index; });
+      });
+  });
 }
 function nextProjectFloorMeta(projectOrRoom=curRoom){
   const floors=projectFloors(projectOrRoom);
@@ -330,7 +341,7 @@ function createFromPreset(){
     roomType:starter.roomType||'living_room',designPreset:starter.designPreset||'',materials:{wall:WALL_PALETTES[0].color,wallFinish:'warm_white',floor:FLOOR_TYPES[0].color,floorType:FLOOR_TYPES[0].id,ceiling:'#FAF7F2',trim:TRIM_COLORS[0],ceilingBrightness:1,lightingPreset:'daylight'},createdAt:Date.now(),updatedAt:Date.now(),favorite:false});
   room.furniture=createRoomLayoutMode==='starter'?buildStarterFurniture(starter,w,l):[];
   if(starter.designPreset)applyDesignPresetToRoom(room,starter.designPreset);
-  projects.push(room);saveAll();closeCr();openEd(room);
+  projects.push(room);normalizeProjectRoomOrders(room);saveAll();closeCr();openEd(room);
 }
 
 function startFreeDraw(){
@@ -344,7 +355,7 @@ function startFreeDraw(){
   const room=normalizeRoom({id:uid(),name:nm,height:h,wallThickness:.5,polygon:[],walls:[],openings:[],structures:[],furniture:[],
     projectId,projectName,floorId,floorLabel,floorOrder,roomOrder:projectMainRooms(projectId).length,
     roomType:'living_room',designPreset:'',materials:{wall:WALL_PALETTES[0].color,wallFinish:'warm_white',floor:FLOOR_TYPES[0].color,floorType:FLOOR_TYPES[0].id,ceiling:'#FAF7F2',trim:TRIM_COLORS[0],ceilingBrightness:1,lightingPreset:'daylight'},createdAt:Date.now(),updatedAt:Date.now()});
-  projects.push(room);saveAll();curRoom=room;drawMode=true;drawPts=[];drawCur=null;
+  projects.push(room);normalizeProjectRoomOrders(room);saveAll();curRoom=room;drawMode=true;drawPts=[];drawCur=null;
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById('scrEd').classList.add('on');
   document.getElementById('edT').textContent=room.name;document.getElementById('dBar').classList.add('on');document.getElementById('mTbar').style.display='none';
   initCan();vScale=20;vOff.x=canvas.width/2;vOff.y=canvas.height/2;draw()}
@@ -462,6 +473,7 @@ function duplicateCurrentRoom(){
   clone.updatedAt=Date.now();
   clone.furniture=(clone.furniture||[]).map(item=>({...item,id:uid(),linkedExistingId:'',replacementId:''}));
   projects.push(normalizeRoom(clone));
+  normalizeProjectRoomOrders(clone);
   saveAll();
   renderHome();
   openEd(projects.find(room=>room.id===clone.id));
@@ -482,6 +494,7 @@ function deleteCurrentRoom(){
       room.connections=(room.connections||[]).filter(link=>link.roomId!==curRoom.id&&link.roomId!==removeBase);
     }
   });
+  normalizeProjectRoomOrders(curRoom);
   saveAll();
   renderHome();
   if(nextRoom)openEd(nextRoom); else exitEd();
@@ -501,6 +514,7 @@ function moveCurrentRoomOrder(direction){
     if((room.baseRoomId||room.id)===currentBase)room.roomOrder=targetOrder;
     else if((room.baseRoomId||room.id)===(target.baseRoomId||target.id))room.roomOrder=currentOrder;
   });
+  normalizeProjectRoomOrders(curRoom);
   saveAll();
   renderHome();
   showP();
@@ -517,6 +531,7 @@ function moveCurrentRoomToFloor(floorId){
     room.roomOrder=currentFloorRooms(curRoom,floor.id).length;
   });
   activeProjectFloorId=floor.id;
+  normalizeProjectRoomOrders(curRoom);
   saveAll();
   renderHome();
   showP();

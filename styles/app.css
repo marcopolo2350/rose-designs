@@ -363,22 +363,29 @@ input,select{font-family:var(--fb)}
   .pci{width:48px;height:48px}
   .pab{width:38px;height:38px}
   .ed-hdr{padding:calc(8px + env(safe-area-inset-top,0)) 10px 8px;min-height:52px}
-  .edt{max-width:120px;font-size:14px}
+  .edt{max-width:108px;font-size:13px}
   .eb{width:38px;height:38px}
   .eb svg{width:16px;height:16px}
   .tbar{padding:6px 8px calc(6px + env(safe-area-inset-bottom,0))}
   .tb{min-width:52px;min-height:48px;padding:7px 10px}
   .tb svg{width:20px;height:20px}
   .tb span{font-size:9px}
-  .props{top:auto;bottom:calc(74px + env(safe-area-inset-bottom,0));left:8px;right:8px;width:auto;max-height:35vh;border-radius:var(--rxl);font-size:13px}
-  .props.peek{max-height:23vh}
-  .props-tab{top:auto;bottom:calc(88px + env(safe-area-inset-bottom,0));right:10px;padding:12px 16px}
-  .cam-btns{right:12px;bottom:calc(70px + env(safe-area-inset-bottom,0))}
-  .cmb{width:auto;min-width:92px;height:42px;padding:0 10px}
+  .props{top:auto;bottom:calc(74px + env(safe-area-inset-bottom,0));left:8px;right:8px;width:auto;max-height:31vh;border-radius:var(--rxl);font-size:13px}
+  .props.peek{max-height:20vh}
+  .props-tab{top:auto;bottom:calc(88px + env(safe-area-inset-bottom,0));right:10px;padding:11px 14px}
+  .cam-btns{right:10px;bottom:calc(74px + env(safe-area-inset-bottom,0));gap:4px}
+  .cmb{width:auto;min-width:88px;min-height:38px;padding:8px 10px}
   .present-pill{right:12px;top:calc(12px + env(safe-area-inset-top,0));padding:10px 16px}
-  .view-chip{left:12px;top:calc(12px + env(safe-area-inset-top,0));max-width:min(86vw,320px)}
+  .view-chip{left:10px;top:calc(62px + env(safe-area-inset-top,0));max-width:min(52vw,190px);padding:8px 12px;font-size:10px}
+  .vlbl{display:none}
   .walk-hint{bottom:calc(118px + env(safe-area-inset-bottom,0));width:min(88vw,320px);padding:10px 18px}
   .runtime-actions{max-width:calc(100vw - 18px)}
+  .tod-dock{top:calc(60px + env(safe-area-inset-top,0));right:10px;min-width:164px;max-width:172px;padding:8px 10px;gap:6px}
+  .tod-value{min-width:46px;font-size:12px}
+  .tod-row{gap:6px;font-size:10px}
+  .tod-row:last-child{gap:4px}
+  .tod-row:last-child .cmb{min-width:0;min-height:28px;padding:5px 3px}
+  .tod-row:last-child .cmb-label{font-size:9px}
 }
 @media (max-width:760px) and (orientation:landscape){
   .props{top:62px;bottom:auto;right:10px;left:auto;width:min(330px,42vw);max-height:calc(100vh - 148px)}

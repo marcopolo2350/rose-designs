@@ -528,7 +528,7 @@ function editorPrefs(){
   };
 }
 const PROFILE_LOCAL_KEY='rose_active_profile';
-const PROFILE_LABELS={rose:"Rose's Space"};
+const PROFILE_LABELS={rose:"Studio"};
 let activeProfile='rose';
 function storageKey(key,{global=false}={}){
   return global?`rose_global::${key}`:`rose_profile::${activeProfile}::${key}`;

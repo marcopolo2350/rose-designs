@@ -5,7 +5,7 @@ function scopedDbKey(k){return storageKey(`db::${k}`)}
 async function dg(k,{legacy=false}={}){try{const d=await odb();return new Promise(r=>{const q=d.transaction(DBST,'readonly').objectStore(DBST).get(legacy?k:scopedDbKey(k));q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)})}catch(e){return null}}
 async function ds(k,v){try{const d=await odb();return new Promise(r=>{const t=d.transaction(DBST,'readwrite');t.objectStore(DBST).put(v,scopedDbKey(k));t.oncomplete=()=>r();t.onerror=()=>r()})}catch(e){}}
 function profileSeenKey(){return `profile_seen_${activeProfile}`}
-function updateProfileChip(){const chip=document.getElementById('profileChip');if(chip)chip.textContent=PROFILE_LABELS[activeProfile]||"Rose's Space"}
+function updateProfileChip(){const chip=document.getElementById('profileChip');if(chip)chip.textContent=PROFILE_LABELS[activeProfile]||"Studio"}
 function openProfileSwitcher(){document.getElementById('profileMod')?.classList.add('on')}
 function closeProfileSwitcher(){document.getElementById('profileMod')?.classList.remove('on')}
 async function migrateLegacyProjectsIntoProfile(){
