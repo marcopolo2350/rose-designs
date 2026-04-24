@@ -183,7 +183,6 @@ async function runSelfTest() {
       standIns: []
     };
     window.__lastSelfTest = summary;
-    console.log(JSON.stringify(summary, null, 2));
     return summary;
   })();
   try { return await selfTestPromise; } finally { selfTestPromise = null; }

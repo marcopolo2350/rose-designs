@@ -1169,7 +1169,6 @@ function loadModelAsset(assetKey){
   if(!assetCache.has(assetKey)){
     assetCache.set(assetKey,resolveAndLoadModelAsset(assetKey).then(result=>{
       if(result.scene){
-        console.log(`[MODEL LOAD OK] ${assetKey} -> ${result.url}`);
         MODEL_ERROR_DETAILS.delete(assetKey);
         trackModelStatus('ok',assetKey,result.url);
         return {scene:result.scene,url:result.url};
@@ -1579,7 +1578,6 @@ function placeFurnitureInScene(f,r){
     }
     addPremiumHeroEnhancement(anchor,f,targetW,targetD,targetH);
     addRoomPracticalLight(f.assetKey,anchor,getLightingPreset(r),r);
-    console.log(`[ROOM MODEL LOAD OK] ${f.assetKey} -> ${model.userData.__sourceUrl||reg.file}`);
     trackRoomModelStatus('ok',f.assetKey);
     if(diagEntry){
       diagEntry.status='ok';
