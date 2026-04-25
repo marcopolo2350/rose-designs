@@ -717,6 +717,7 @@ function drawPendingFurniturePlacement(room){
   }
   ctx.save();
   ctx.translate(screen.x,screen.y);
+  if(state.wallMounted&&Number.isFinite(state.wallSnap?.angle))ctx.rotate(-state.wallSnap.angle);
   ctx.beginPath();
   ctx.roundRect(-width/2,-depth/2,width,depth,Math.max(12,Math.min(width,depth)*.16));
   ctx.fillStyle=fill;
@@ -1242,16 +1243,19 @@ function onM(e){const p=gP(e),wp=tW(p.x,p.y);
       const primaryId=curRoom.furniture[sel.idx]?.id||dOrig[0]?.id;
       const primary=dOrig.find(item=>item.id===primaryId)||dOrig[0];
       let moveX=dx,moveZ=dy;
+      let wallRotation=null;
       if(primary){
         const snapped=snapFurnitureForItem(primary,primary.x+dx,primary.z+dy,curRoom);
         moveX=snapped.x-primary.x;
         moveZ=snapped.z-primary.z;
+        if(primary.mountType==='wall'&&Number.isFinite(snapped?.wallSnap?.angle))wallRotation=Math.round((-snapped.wallSnap.angle*180/Math.PI)*10)/10;
       }
       dOrig.forEach(origin=>{
         const item=curRoom.furniture.find(f=>f.id===origin.id);
         if(!item||origin.locked||item.locked)return;
         item.x=Math.round((origin.x+moveX)*2)/2;
         item.z=Math.round((origin.z+moveZ)*2)/2;
+        if(item.mountType==='wall'&&Number.isFinite(wallRotation))item.rotation=wallRotation;
       });
     }else{
       const f=curRoom.furniture[sel.idx];
@@ -1259,6 +1263,7 @@ function onM(e){const p=gP(e),wp=tW(p.x,p.y);
         const snapped=snapFurnitureForItem(f,dOrig.x+dx,dOrig.z+dy,curRoom);
         f.x=Math.round(snapped.x*2)/2;
         f.z=Math.round(snapped.z*2)/2;
+        if(f.mountType==='wall'&&Number.isFinite(snapped?.wallSnap?.angle))f.rotation=Math.round((-snapped.wallSnap.angle*180/Math.PI)*10)/10;
       }
     }
     draw()

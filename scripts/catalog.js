@@ -899,7 +899,7 @@ function projectFloorBoardMarkup(floor,projectRoot,floors,currentFloorId){
 }
 function renderRoomPanelNoSelection(r,{cBtn,activeLightingPreset,ref,refLoaded,refScale,refWidth,floors,currentFloorId,roomCards}){
   const currentFloor=floors.find(floor=>floor.id===currentFloorId)||floors[0];
-  const floorSwitcher=`<div class="mat-grid tall">${floors.map(floor=>`<button class="mat-btn${currentFloorId===floor.id?' sel':''}" onclick="setActiveFloor('${floor.id}')">${esc(floor.label)} | ${floor.rooms.length}</button>`).join('')}</div>`;
+  const floorSwitcher=`<div class="mat-grid tall">${floors.map(floor=>`<button class="mat-btn${currentFloorId===floor.id?' sel':''}" onclick="setActiveFloor('${floor.id}')"><span class="mat-btn-title">${esc(floor.label)}</span><span class="mat-btn-meta">${floor.rooms.length} room${floor.rooms.length===1?'':'s'}</span></button>`).join('')}</div>`;
   const currentRoomTargets=floors.filter(floor=>floor.id!==(r.floorId||currentFloorId));
   const currentRoomMoveRow=currentRoomTargets.length
     ? `<label style="margin-top:8px">MOVE CURRENT ROOM TO</label><div class="room-floor-targets">${currentRoomTargets.map(floor=>`<button class="mini-chip secondary" type="button" onclick="moveCurrentRoomToFloor('${floor.id}')">${esc(floor.label)}</button>`).join('')}</div>`
