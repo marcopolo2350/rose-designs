@@ -1,0 +1,8 @@
+assets/
+node_modules/
+output/
+temp_furniture_pack/
+temp_house_interior/
+tmpshots/
+tmp_playwright/
+tmp_playwright_quick/

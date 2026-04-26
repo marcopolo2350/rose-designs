@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  syntax-and-smoke:
+  verify:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -36,13 +36,17 @@ jobs:
       - name: Run syntax checks
         run: npm run check
 
-      - name: Start static server
-        run: |
-          python3 -m http.server 8123 >/tmp/rose-designs-server.log 2>&1 &
-          echo $! > /tmp/rose-designs-server.pid
+      - name: Run lint
+        run: npm run lint
+
+      - name: Validate asset manifest
+        run: npm run validate:manifest
+
+      - name: Run built-in self-test
+        run: npm run test:self
 
       - name: Run Playwright smoke
-        run: npm run smoke:playwright
+        run: npm run test:smoke
 
       - name: Upload smoke artifacts
         if: always()

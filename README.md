@@ -66,8 +66,14 @@ http://127.0.0.1:8124/
 npm run dev
 npm run dev:alt
 npm run check
+npm run lint
+npm run format
+npm run validate:manifest
+npm run test:self
+npm run test:smoke
+npm test
 npm run thumbs
-npm run smoke:playwright
+npm run clean
 ```
 
 What they do:
@@ -75,8 +81,14 @@ What they do:
 - `dev` - starts a simple static server on `8123`
 - `dev:alt` - starts a simple static server on `8124`
 - `check` - runs `node --check` across the main runtime files
+- `lint` - lints the new hardening boundary files
+- `format` - checks formatting for docs and the new hardening files
+- `validate:manifest` - verifies asset manifest entries, models, and thumbnails
+- `test:self` - runs the built-in `#selftest` flow through Playwright
+- `test:smoke` - starts a temporary local server and runs the Playwright smoke helper against the app
+- `test` - runs the hardening validation chain
 - `thumbs` - regenerates catalog thumbnails
-- `smoke:playwright` - runs the local Playwright smoke helper against the app
+- `clean` - clears smoke-test and temporary output folders
 
 ## Entrypoints
 
@@ -87,7 +99,11 @@ What they do:
 
 - [index.html](./index.html) - primary app shell
 - [styles/app.css](./styles/app.css) - visual system and layout styling
-- [scripts/app.js](./scripts/app.js) - bootstrap loader for the current ordered runtime
+- [scripts/main.js](./scripts/main.js) - canonical runtime bootstrap entry
+- [scripts/app.js](./scripts/app.js) - compatibility wrapper that forwards to `scripts/main.js`
+- [scripts/core/app-config.js](./scripts/core/app-config.js) - canonical app identity and version metadata
+- [scripts/core/project-schema.js](./scripts/core/project-schema.js) - JSON import/export schema helpers
+- [scripts/core/error-reporting.js](./scripts/core/error-reporting.js) - fatal load and runtime error helpers
 - [scripts/state.js](./scripts/state.js) - shared state helpers, geometry, snapping, walk logic
 - [scripts/storage.js](./scripts/storage.js) - persistence, IndexedDB, normalization
 - [scripts/ui.js](./scripts/ui.js) - home/editor shell behavior
@@ -95,11 +111,21 @@ What they do:
 - [scripts/planner3d.js](./scripts/planner3d.js) - 3D scene, camera, lighting, walkthrough logic
 - [scripts/catalog.js](./scripts/catalog.js) - catalog UI, variants, placement controls
 - [scripts/export.js](./scripts/export.js) - PNG, SVG, PDF, and presentation export logic
+- [scripts/cloud/supabase.js](./scripts/cloud/supabase.js) - experimental cloud sync boundary
+- [scripts/devtools/validate-manifest.mjs](./scripts/devtools/validate-manifest.mjs) - manifest validator
+- [scripts/devtools/run-selftest.mjs](./scripts/devtools/run-selftest.mjs) - reproducible self-test runner
 - [scripts/thumbgen.html](./scripts/thumbgen.html) - thumbnail rendering stage
 - [scripts/generate-thumbnails.mjs](./scripts/generate-thumbnails.mjs) - bulk thumbnail generator
 - [data/asset-manifest.json](./data/asset-manifest.json) - asset metadata
 - [progress.md](./progress.md) - running implementation and verification log
 - [docs/REFACTOR_ROADMAP.md](./docs/REFACTOR_ROADMAP.md) - structural cleanup plan
+- [CHANGELOG.md](./CHANGELOG.md) - versioned hardening changes
+- [ROADMAP.md](./ROADMAP.md) - hardening roadmap
+- [KNOWN_LIMITATIONS.md](./KNOWN_LIMITATIONS.md) - active limitations and honest boundaries
+- [docs/architecture.md](./docs/architecture.md) - current runtime architecture
+- [docs/data-model.md](./docs/data-model.md) - current room/project model
+- [docs/testing.md](./docs/testing.md) - test and verification commands
+- [docs/deployment.md](./docs/deployment.md) - deployment notes
 
 ## QA
 
@@ -111,7 +137,8 @@ http://127.0.0.1:8123/index.html#selftest
 
 Notes:
 
-- the repo includes a local Playwright helper, but it is not yet a full formal test suite
+- the repo now includes reproducible `test:self`, `test:smoke`, and manifest-validation commands
+- the repo still does not have a full Playwright spec suite
 - `progress.md` is still the best source for recent verification history
 
 ## Thumbnail Pipeline
@@ -132,7 +159,7 @@ The thumbnail tool renders from [scripts/thumbgen.html](./scripts/thumbgen.html)
 
 ## Architecture Reality Check
 
-The runtime is split across files, but it is not yet a clean ES-module architecture. Today it still works as an ordered browser-global system loaded by [scripts/app.js](./scripts/app.js). That is one of the next major refactor targets.
+The runtime is split across files, but it is not yet a clean ES-module architecture. Today it boots through [scripts/main.js](./scripts/main.js), which is an explicit ES-module entrypoint that still uses a documented compatibility bridge to load the existing browser-global runtime. That bridge is temporary and intentional.
 
 If you are trying to contribute or extend this app, treat it like a capable but still consolidating codebase:
 

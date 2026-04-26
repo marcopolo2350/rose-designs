@@ -1,11 +1,11 @@
 // ── DB ──
-const DB='RoseForRose',DBST='rooms';
-function odb(){return new Promise((r,j)=>{const q=indexedDB.open(DB,1);q.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains(DBST))e.target.result.createObjectStore(DBST)};q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)})}
+const DB=window.APP_CONFIG?.database?.name||'rose_indoor_designs',DBST=window.APP_CONFIG?.database?.store||'projects';
+function odb(){return new Promise((r,j)=>{const q=indexedDB.open(DB,window.APP_CONFIG?.database?.version||2);q.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains(DBST))e.target.result.createObjectStore(DBST)};q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)})}
 function scopedDbKey(k){return storageKey(`db::${k}`)}
 async function dg(k,{legacy=false}={}){try{const d=await odb();return new Promise(r=>{const q=d.transaction(DBST,'readonly').objectStore(DBST).get(legacy?k:scopedDbKey(k));q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)})}catch(e){return null}}
 async function ds(k,v){try{const d=await odb();return new Promise(r=>{const t=d.transaction(DBST,'readwrite');t.objectStore(DBST).put(v,scopedDbKey(k));t.oncomplete=()=>r();t.onerror=()=>r()})}catch(e){}}
 function profileSeenKey(){return `profile_seen_${activeProfile}`}
-function updateProfileChip(){const chip=document.getElementById('profileChip');if(chip)chip.textContent=PROFILE_LABELS[activeProfile]||"Studio"}
+function updateProfileChip(){const chip=document.getElementById('profileChip');if(chip)chip.textContent=PROFILE_LABELS[activeProfile]||window.APP_CONFIG?.branding?.studioLabel||"Studio"}
 function openProfileSwitcher(){document.getElementById('profileMod')?.classList.add('on')}
 function closeProfileSwitcher(){document.getElementById('profileMod')?.classList.remove('on')}
 async function migrateLegacyProjectsIntoProfile(){
@@ -334,19 +334,20 @@ async function loadAll(){
     }
   }
   projects=d&&Array.isArray(d)?d.map(normalizeRoom):[];
-  // Phase 7A — merge with cloud if enabled (non-blocking; UI renders with local data first).
   if(window.cloudSync&&typeof window.cloudSync.onLoad==='function'){
-    window.cloudSync.onLoad().then(merged=>{
-      if(merged&&typeof draw==='function')draw();
-      if(merged&&typeof refreshLibrary==='function')refreshLibrary();
-    }).catch(()=>{});
+    try{
+      const merged=await window.cloudSync.onLoad(projects);
+      if(Array.isArray(merged)&&merged.length){
+        projects=merged.map(normalizeRoom);
+        await ds('projects',JSON.parse(JSON.stringify(projects)));
+      }
+    }catch(err){window.reportRoseError?.('loadAll-cloud-merge',err)}
   }
 }
 async function saveAll(){
   await ds('projects',JSON.parse(JSON.stringify(projects)));
-  // Phase 7A — fire-and-forget cloud push if enabled.
   if(window.cloudSync&&typeof window.cloudSync.afterSave==='function'){
-    window.cloudSync.afterSave().catch(()=>{});
+    window.cloudSync.afterSave().catch(err=>window.reportRoseError?.('saveAll-cloud-push',err));
   }
 }
 let toastHideTimer=null;
@@ -630,6 +631,10 @@ async function resolveAndLoadModelAsset(assetKey){
 }
 function normalizeRoom(room){
   if(!room)return room;
+  room.schemaVersion=Number.isFinite(room.schemaVersion)?room.schemaVersion:(window.RoseProjectSchema?.APP_SCHEMA_VERSION||2);
+  room.appVersion=room.appVersion||window.APP_VERSION||'0.0.0';
+  room.createdAt=Number.isFinite(room.createdAt)?room.createdAt:Date.now();
+  room.updatedAt=Number.isFinite(room.updatedAt)?room.updatedAt:Date.now();
   room.openings=Array.isArray(room.openings)?room.openings:[];
   room.structures=Array.isArray(room.structures)?room.structures:[];
   room.furniture=Array.isArray(room.furniture)?room.furniture:[];
@@ -691,6 +696,7 @@ function normalizeRoom(room){
   room.walls=genWalls(room);
   room.openings=room.openings.map(op=>({
     ...op,
+    id:op?.id||uid(),
     swing:op.swing||'in',
     hinge:op.hinge||'left'
   }));

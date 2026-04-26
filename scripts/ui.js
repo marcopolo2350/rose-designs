@@ -4,8 +4,8 @@ async function checkWelcome(){
   if(!w)return;
   const greet=document.querySelector('.w-greeting');
   const personal=document.querySelector('.w-personal');
-  if(greet)greet.textContent='Hi Rose';
-  if(personal)personal.textContent='Ready when you are';
+  if(greet)greet.textContent=`Hi ${window.APP_CONFIG?.branding?.welcomeName||'Rose'}`;
+  if(personal)personal.textContent=window.APP_CONFIG?.branding?.welcomeLine||'Ready when you are';
   w.classList.remove('fade','gone');
 }
 function dismissWelcome(){

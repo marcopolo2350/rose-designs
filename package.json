@@ -1,16 +1,42 @@
 {
   "name": "roses-indoor-designs",
   "private": true,
+  "version": "0.5.0-hardening.2",
+  "description": "Local-first 2D and 3D interior planning studio for Rose's Indoor Designs.",
+  "license": "UNLICENSED",
+  "homepage": "https://marcopolo2350.github.io/roses-indoor-designs/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcopolo2350/roses-indoor-designs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marcopolo2350/roses-indoor-designs/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "type": "module",
   "scripts": {
     "dev": "python -m http.server 8123",
     "dev:alt": "python -m http.server 8124",
+    "test": "cmd /c npm run check && cmd /c npm run validate:manifest && cmd /c npm run test:self",
+    "test:smoke": "node ./scripts/devtools/run-smoke.mjs",
+    "test:self": "node ./scripts/devtools/run-selftest.mjs",
     "thumbs": "node ./scripts/generate-thumbnails.mjs",
-    "smoke:playwright": "node ./web_game_playwright_client.js --url http://127.0.0.1:8123/index.html --click-selector .w-btn --click 24,24 --iterations 1 --pause-ms 300 --screenshot-dir output/web-game-smoke",
-    "check": "node --check ./scripts/app.js && node --check ./scripts/state.js && node --check ./scripts/storage.js && node --check ./scripts/ui.js && node --check ./scripts/planner2d.js && node --check ./scripts/catalog.js && node --check ./scripts/export.js && node --check ./scripts/planner3d.js && node --check ./scripts/walkthrough.js"
+    "smoke:playwright": "npm run test:smoke",
+    "lint": "eslint scripts/main.js scripts/core/**/*.js scripts/cloud/**/*.js scripts/devtools/**/*.mjs",
+    "format": "prettier --check README.md CHANGELOG.md ROADMAP.md KNOWN_LIMITATIONS.md docs/**/*.md .github/**/*.md scripts/main.js scripts/core/**/*.js scripts/cloud/**/*.js scripts/devtools/**/*.mjs package.json",
+    "validate:manifest": "node ./scripts/devtools/validate-manifest.mjs",
+    "clean": "node ./scripts/devtools/clean.mjs",
+    "check": "node --check ./scripts/app.js && node --check ./scripts/main.js && node --check ./scripts/state.js && node --check ./scripts/storage.js && node --check ./scripts/ui.js && node --check ./scripts/planner2d.js && node --check ./scripts/catalog.js && node --check ./scripts/export.js && node --check ./scripts/planner3d.js && node --check ./scripts/walkthrough.js && node --check ./scripts/core/app-config.js && node --check ./scripts/core/error-reporting.js && node --check ./scripts/core/project-schema.js && node --check ./scripts/cloud/supabase.js"
   },
   "dependencies": {
-    "dxf-writer": "^1.18.4",
-    "playwright": "^1.58.2"
+    "dxf-writer": "^1.18.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.1",
+    "eslint": "^9.25.1",
+    "playwright": "^1.58.2",
+    "prettier": "^3.5.3"
   }
 }

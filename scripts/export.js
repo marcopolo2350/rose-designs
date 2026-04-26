@@ -321,12 +321,14 @@ function exportSVG(){
 }
 function exportProjectJSON(){
   if(!projects?.length){toast('No projects to export');return}
-  const payload={
-    schemaVersion:1,
-    exportedAt:new Date().toISOString(),
-    activeProfile,
-    projects:JSON.parse(JSON.stringify(projects))
-  };
+  const payload=window.RoseProjectSchema
+    ? window.RoseProjectSchema.buildExportDocument(projects,activeProfile)
+    : {
+      schemaVersion:1,
+      exportedAt:new Date().toISOString(),
+      activeProfile,
+      projects:JSON.parse(JSON.stringify(projects))
+    };
   downloadTextFile(`${exportBaseName(curRoom||projects[0],'project')}.json`,JSON.stringify(payload,null,2),'application/json;charset=utf-8');
   toast('Project JSON exported');
 }
@@ -342,7 +344,10 @@ async function handleProjectJSONSelected(event){
   try{
     const text=await file.text();
     const parsed=JSON.parse(text);
-    const incoming=Array.isArray(parsed)?parsed:Array.isArray(parsed.projects)?parsed.projects:null;
+    const validated=window.RoseProjectSchema
+      ? window.RoseProjectSchema.validateImportedProjectDocument(parsed)
+      : {rooms:Array.isArray(parsed)?parsed:Array.isArray(parsed.projects)?parsed.projects:null};
+    const incoming=validated.rooms;
     if(!incoming?.length){toast('No projects found in JSON');return}
     const imported=incoming.map(room=>{
       const clone=JSON.parse(JSON.stringify(room));
