@@ -1,15 +1,351 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rose's Indoor Designs</title>
-  <meta http-equiv="refresh" content="0; url=./roses-indoor-designs.html">
-  <script>
-    window.location.replace('./roses-indoor-designs.html');
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rose's Indoor Designs</title>
+<meta name="description" content="A professional interior design studio for planning spaces in 2D and 3D, styling rooms, comparing options, and exporting client-ready presentations.">
+<meta name="theme-color" content="#2C2824">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Rose's Indoor Designs">
+<meta property="og:title" content="Rose's Indoor Designs">
+<meta property="og:description" content="Plan, redesign, compare, and present beautiful rooms in 2D and 3D.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://marcopolo2350.github.io/roses-indoor-designs/">
+<meta property="og:image" content="https://marcopolo2350.github.io/roses-indoor-designs/share-preview.svg">
+<meta property="og:image:alt" content="Rose's Indoor Designs preview showing a room planner with 2D and 3D redesign views.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rose's Indoor Designs">
+<meta name="twitter:description" content="Plan, redesign, compare, and present beautiful rooms in 2D and 3D.">
+<meta name="twitter:image" content="https://marcopolo2350.github.io/roses-indoor-designs/share-preview.svg">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./favicon.svg">
+<link rel="manifest" href="./site.webmanifest">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Three.js r147 (last version with examples/js script-tag loaders; ~20 versions of improvements over r128) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/RGBELoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/CopyShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/FXAAShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/SSAOShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/EffectComposer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/RenderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/ShaderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/SSAOPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/BokehShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/BokehPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/objects/Reflector.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Phase 7A cloud sync (opt-in). supabase-js is loaded lazily on first use. -->
+  <script src="./scripts/cloud-sync.js"></script>
+  <!-- Phase ✨ — Runtime material audit (auto-upgrades PBR props on loaded GLBs) -->
+  <script src="./scripts/material-audit.js"></script>
+  <link rel="stylesheet" href="./styles/app.css?v=2">
 </head>
 <body>
-  <p>Opening <a href="./roses-indoor-designs.html">Rose's Indoor Designs</a>...</p>
+
+<!-- WELCOME — personal for Rose -->
+<div class="welcome" id="welcome">
+<div class="w-rose">&#127801;</div>
+<h2 class="w-greeting">Hi Rose</h2>
+<div class="w-personal">Ready when you are</div>
+<p class="w-desc">Design your dream spaces. Shape rooms, place furniture, and walk through them in 3D.</p>
+<button class="w-btn" onclick="dismissWelcome()">Start Designing</button>
+</div>
+
+<!-- Tutorial -->
+<div class="tut" id="tutOv"><div class="tut-card" id="tutCard"></div></div>
+<div class="modal-bg" id="profileMod">
+  <div class="msh" style="max-width:460px">
+    <div class="mhn"></div>
+    <div class="mt">Welcome to Rose Designs</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:16px">This device keeps your rooms, saved work, and preferences ready to pick back up.</div>
+    <div class="mat-grid tall">
+      <button class="mat-btn" onclick="chooseProfile('rose')">Enter Studio</button>
+    </div>
+    <div class="profile-note">Everything stays saved on this device.</div>
+  </div>
+</div>
+
+<div id="app">
+<!-- HOME — Premium Dashboard -->
+<div class="scr on" id="scrHome">
+<div class="home-hdr">
+  <div class="home-brand">
+    <h1>Rose's Indoor Designs</h1>
+    <div class="brand-sub">Interior Design Studio</div>
+  </div>
+  <div class="home-actions">
+    <button class="hdr-btn" id="profileChip" onclick="openProfileSwitcher()">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+    <button class="hdr-btn" onclick="startTut(true)">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/></svg>
+    </button>
+  </div>
+</div>
+<div class="home-scroll">
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+  <button class="action-card primary" onclick="openCrModal()">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <span>New Project</span>
+  </button>
+  <button class="action-card" id="continueBtn" onclick="openLastProject()" style="display:none">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    <span>Continue</span>
+  </button>
+</div>
+
+<!-- Room Type Shortcuts -->
+<div class="section-title">Start from Room Type</div>
+<div class="room-type-grid" id="roomTypeGrid">
+  <button class="room-type-card" onclick="openCrModal('living_room')">
+    <div class="rtc-icon" style="background:#EDE5D8;color:#8B6E50"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="8" width="20" height="10" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg></div>
+    <span>Living Room</span>
+  </button>
+  <button class="room-type-card" onclick="openCrModal('bedroom')">
+    <div class="rtc-icon" style="background:#E2DDE8;color:#7A6A90"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 12V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5"/><path d="M2 20h20"/></svg></div>
+    <span>Bedroom</span>
+  </button>
+  <button class="room-type-card" onclick="openCrModal('kitchen')">
+    <div class="rtc-icon" style="background:#D8E6D8;color:#5A7A5A"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="1"/><line x1="4" y1="10" x2="20" y2="10"/><circle cx="12" cy="6" r="2"/></svg></div>
+    <span>Kitchen</span>
+  </button>
+  <button class="room-type-card" onclick="openCrModal('bathroom')">
+    <div class="rtc-icon" style="background:#D8E4EC;color:#4E7A96"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3z"/><path d="M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg></div>
+    <span>Bathroom</span>
+  </button>
+  <button class="room-type-card" onclick="openCrModal('dining_room')">
+    <div class="rtc-icon" style="background:#EDE0D4;color:#9A6A48"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></div>
+    <span>Dining</span>
+  </button>
+  <button class="room-type-card" onclick="openCrModal('office')">
+    <div class="rtc-icon" style="background:#E0DDD8;color:#6A6058"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+    <span>Office</span>
+  </button>
+  <button class="room-type-card" onclick="openCrModal('nursery')">
+    <div class="rtc-icon" style="background:#ECE0DC;color:#A06060"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l9 4.5v9L12 21l-9-4.5v-9L12 3z"/></svg></div>
+    <span>Nursery</span>
+  </button>
+  <button class="room-type-card" onclick="openCrModal('studio')">
+    <div class="rtc-icon" style="background:#E4E8E0;color:#68806A"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/></svg></div>
+    <span>Studio</span>
+  </button>
+</div>
+
+<!-- Design Briefs -->
+<div class="section-title">Start from a Brief</div>
+<div class="brief-grid" id="briefGrid">
+  <button class="brief-card" onclick="openCrModalWithBrief('living_room','warm_modern')">
+    <div class="brief-swatch" style="background:linear-gradient(135deg,#C8B89A 0%,#E8D8C4 50%,#A0907A 100%)"></div>
+    <div class="brief-body">
+      <div class="brief-title">Warm Modern Living</div>
+      <div class="brief-sub">Linen, walnut, soft light</div>
+    </div>
+  </button>
+  <button class="brief-card" onclick="openCrModalWithBrief('bedroom','quiet_luxury')">
+    <div class="brief-swatch" style="background:linear-gradient(135deg,#D4C5B0 0%,#EAE0D4 50%,#9E8E7C 100%)"></div>
+    <div class="brief-body">
+      <div class="brief-title">Quiet Luxury Bedroom</div>
+      <div class="brief-sub">Stone, cream, muted slate</div>
+    </div>
+  </button>
+  <button class="brief-card" onclick="openCrModalWithBrief('kitchen','compact_kitchen')">
+    <div class="brief-swatch" style="background:linear-gradient(135deg,#BFC5C0 0%,#E2E6E2 50%,#8A9A8A 100%)"></div>
+    <div class="brief-body">
+      <div class="brief-title">Compact Kitchen</div>
+      <div class="brief-sub">Sage, white oak, matte</div>
+    </div>
+  </button>
+  <button class="brief-card" onclick="openCrModalWithBrief('bathroom','soft_bathroom')">
+    <div class="brief-swatch" style="background:linear-gradient(135deg,#C8C0C8 0%,#EAE4EA 50%,#9890A0 100%)"></div>
+    <div class="brief-body">
+      <div class="brief-title">Soft Bathroom</div>
+      <div class="brief-sub">Plaster, terrazzo, brass</div>
+    </div>
+  </button>
+</div>
+
+<!-- Your Projects -->
+<div class="section-header">
+  <div class="section-title">Your Projects</div>
+</div>
+<div id="prjList"></div>
+
+</div>
+</div>
+
+<!-- EDITOR -->
+<div class="scr" id="scrEd">
+<div class="ed-hdr">
+<div class="ehg">
+  <button class="eb" onclick="exitEd()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <span class="edt" id="edT">Room</span>
+</div>
+<div class="ehg">
+<button class="eb" onclick="doUndo()" title="Undo"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
+<button class="eb" onclick="doRedo()" title="Redo"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10"/></svg></button>
+<button class="eb eb-text" id="b3d" onclick="toggle3D()" title="Toggle 3D View">3D</button>
+<button class="eb" onclick="savePrj()" title="Save"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+<button class="eb more-btn" onclick="toggleEditorMore()" title="More" id="edMoreBtn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
+</div>
+</div>
+
+<!-- Editor More Menu (hidden by default) -->
+<div class="editor-more-menu" id="edMoreMenu">
+  <button class="more-item" onclick="exportPNG();closeEditorMore()"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Export PNG</button>
+  <button class="more-item" onclick="exportPDF();closeEditorMore()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Export PDF</button>
+  <button class="more-item" onclick="exportSVG();closeEditorMore()"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 16l4-8 4 8"/><path d="M9.5 13h5"/></svg>Export SVG</button>
+  <button class="more-item" onclick="printFloorPlan();closeEditorMore()"><svg viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+  <button class="more-item" onclick="exportProjectJSON();closeEditorMore()"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 8l7-5 7 5"/><path d="M5 16l7 5 7-5"/></svg>Export Project JSON</button>
+  <button class="more-item" onclick="importProjectJSON();closeEditorMore()"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Import Project JSON</button>
+  <button class="more-item" onclick="autoSquareCurrentRoom();closeEditorMore()"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 9h16"/><path d="M9 4v16"/></svg>Auto-Square Room</button>
+  <button class="more-item" onclick="splitRoomByInteriorWalls();closeEditorMore()"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><line x1="12" y1="3" x2="12" y2="21"/></svg>Split Room by Interior Walls</button>
+  <button class="more-item" onclick="openCloudSyncSettings();closeEditorMore()"><svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 0-9h-1.26A8 8 0 1 0 4 15.25"/><polyline points="13 13 10 16 13 19"/><line x1="10" y1="16" x2="19" y2="16"/></svg>Cloud Sync</button>
+  <button class="more-item dev-only" onclick="openAssetVerification();closeEditorMore()"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Asset Verification</button>
+  <button class="more-item dev-only" onclick="togglePreflightPanel();closeEditorMore()"><svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>Model Status</button>
+</div>
+<input type="file" id="projectJsonInput" accept=".json,application/json" style="display:none" onchange="handleProjectJSONSelected(event)">
+
+<div class="dbar" id="dBar"><span>Free Draw &mdash; tap to place walls</span><button class="ds on" id="snapB" onclick="togSnap()">Snap 90&deg;</button><button class="dc" onclick="closeRoom()">Close Room</button></div>
+<div class="cw" id="cWrap">
+<canvas id="edCan"></canvas>
+<!-- Phase ✨ — Empty state when no polygon is drawn -->
+<div class="empty-state" id="emptyState">
+  <svg viewBox="0 0 160 160" fill="none" stroke="#B8918E" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="22" y="38" width="116" height="88" rx="2" opacity=".35"/>
+    <path d="M22 38 L80 12 L138 38" opacity=".45"/>
+    <rect x="48" y="80" width="28" height="46" opacity=".5"/>
+    <rect x="90" y="80" width="28" height="28" opacity=".5"/>
+    <circle cx="104" cy="120" r="4" opacity=".4"/>
+    <path d="M30 100 H52 M110 56 H130 M34 60 H54" opacity=".3"/>
+  </svg>
+  <div class="empty-state-title">Start designing</div>
+  <div class="empty-state-hint">Draw a room outline with the Wall tool (W), or pick a room template from the menu. Press ? anytime for keyboard shortcuts.</div>
+</div>
+<div id="threeC"></div>
+<!-- Phase ✨ — Time-of-day slider: drag to sweep from dawn → noon → golden → dusk → night -->
+<div class="tod-dock" id="todDock">
+  <div class="tod-label">Time of day</div>
+  <div class="tod-row">
+    <input type="range" id="todSlider" min="0" max="100" value="50" step="1" oninput="onTimeOfDayChange(this.value)">
+    <span class="tod-value" id="todLabel">Noon</span>
+  </div>
+  <div class="tod-row" style="gap:4px;flex-wrap:wrap">
+    <button class="cmb" style="padding:3px 8px;font-size:10px" onclick="setTimeOfDay(14)">Dawn</button>
+    <button class="cmb" style="padding:3px 8px;font-size:10px" onclick="setTimeOfDay(50)">Noon</button>
+    <button class="cmb" style="padding:3px 8px;font-size:10px" onclick="setTimeOfDay(72)">Golden</button>
+    <button class="cmb" style="padding:3px 8px;font-size:10px" onclick="setTimeOfDay(86)">Dusk</button>
+    <button class="cmb" style="padding:3px 8px;font-size:10px" onclick="setTimeOfDay(96)">Night</button>
+  </div>
+</div>
+<div class="vlbl" id="vLbl">2D Plan</div>
+<div class="runtime-actions dev-only" id="roomRuntimeActions">
+<button class="runtime-btn" onclick="runRoomModelAudit()">Room Model Audit</button>
+<button class="runtime-btn" onclick="focusSelectedAsset()">Focus Selected Asset</button>
+<button class="runtime-btn" onclick="toggleRoomRuntimeDiag()">Diagnostics</button>
+</div>
+<div class="runtime-diag dev-only" id="roomRuntimeDiag"></div>
+<div class="room-debug-badge dev-only" id="roomDebugBadge"></div>
+<div class="cam-btns" id="camBtns">
+<!-- Primary camera modes -->
+<button class="cmb act" id="cmOrbit" onclick="setCamMode('orbit')" title="Orbit"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/></svg><span class="cmb-label">Orbit</span></button>
+<button class="cmb" id="cmWalk" onclick="setCamMode('walk')" title="Walk"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="cmb-label">Walk</span></button>
+<div class="cmb-divider"></div>
+<!-- View presets — contextually useful -->
+<button class="cmb soft" id="cmOverview" onclick="setViewPreset('overview')" title="Overview"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M9 9h6M9 13h6"/></svg><span class="cmb-label">Overview</span></button>
+<button class="cmb soft" id="cmEye" onclick="setViewPreset('eye')" title="Room"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="3"/></svg><span class="cmb-label">Room</span></button>
+<button class="cmb soft" id="cmCorner" onclick="setViewPreset('corner')" title="Corner"><svg viewBox="0 0 24 24"><path d="M5 19V5h14"/><path d="M10 14l4-4 5 5"/></svg><span class="cmb-label">Corner</span></button>
+<div class="cmb-divider"></div>
+<!-- Walkthrough / creative modes -->
+<button class="cmb soft" id="cmTour" onclick="toggleWalkthroughTray()" title="Walkthrough Presets"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="cmb-label">Tour</span></button>
+<button class="cmb soft" id="cmPresent" onclick="togglePresentationMode()" title="Reveal Mode"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><span class="cmb-label">Reveal</span></button>
+<button class="cmb soft" id="cmPhoto" onclick="togglePhotoMode()" title="Photo Mode"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span class="cmb-label">Photo</span></button>
+<!-- Compare hidden by default — accessible from compare button in header -->
+<button class="cmb soft" id="cmCompare" onclick="toggle3DCompareMode()" title="Compare" style="display:none"><span class="cmb-label">Compare</span></button>
+</div>
+<div class="view-chip" id="viewChip" aria-live="polite"></div>
+<div class="present-pill" id="presentPill">Present Mode</div>
+<div class="present-pill photo" id="photoPill">Photo Mode</div>
+<div class="walk-hint" id="walkHint">Drag to look around &middot; Use move and turn controls</div>
+<div id="printHeader" style="display:none;padding:16px 20px;font-family:var(--fd)"><h2 style="font-size:20px;font-weight:700;margin:0"></h2><p style="font-size:11px;color:var(--muted);margin:4px 0 0"></p></div>
+<button class="props-tab" id="propsTab" onclick="openP()">Open Panel</button>
+<div class="props" id="propsP"></div>
+</div>
+<div class="tbar" id="mTbar">
+<button class="tb on" data-t="select" onclick="setTool('select')"><svg viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg><span>Select</span></button>
+<button class="tb" data-t="draw" onclick="setTool('draw')"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg><span>Draw</span></button>
+<button class="tb" data-t="vertex" onclick="setTool('vertex')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/></svg><span>Vertex</span></button>
+<button class="tb" data-t="door" onclick="setTool('door')"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="1"/><rect x="7" y="6" width="10" height="14" rx="1" fill="rgba(0,0,0,.08)"/></svg><span>Door</span></button>
+<button class="tb" data-t="window" onclick="setTool('window')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="3" y1="12" x2="21" y2="12"/></svg><span>Window</span></button>
+<button class="tb" data-t="furniture" onclick="setTool('furniture')"><svg viewBox="0 0 24 24"><rect x="2" y="8" width="20" height="10" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg><span>Furnish</span></button>
+<button class="tb" data-t="annotation" onclick="setTool('annotation')"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H8l-4 4V5z"/><path d="M8 9h8M8 12h5"/></svg><span>Annotate</span></button>
+<button class="tb" data-t="dim" onclick="setTool('dim')"><svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M7 9l-3 3 3 3M17 9l3 3-3 3"/><path d="M7 5v14M17 5v14"/></svg><span>Dim</span></button>
+<button class="tb on" data-t="measure" onclick="toggleMeasurements()"><svg viewBox="0 0 24 24"><path d="M2 2h4v20H2zM18 2h4v20h-4z"/><path d="M6 12h12"/><path d="M9 9l-3 3 3 3M15 9l3 3-3 3"/></svg><span>Measure</span></button>
+</div>
+</div>
+</div>
+
+<!-- CREATE MODAL -->
+<div class="modal-bg" id="crMod"><div class="msh"><div class="mhn"></div>
+<div class="mt">Create a Room</div>
+<div class="mf"><label>ROOM NAME</label><input id="crN" value="Living Room" placeholder="Room name"></div>
+<div class="mf"><label>ROOM SHAPE</label><div class="pg" id="preG"></div></div>
+<div class="mf"><label>ROOM SETUP</label><div class="room-setup-toggle"><button class="setup-chip sel" id="crLayoutEmpty" type="button" onclick="setCreateRoomLayoutMode('empty')">Start Empty</button><button class="setup-chip" id="crLayoutStarter" type="button" onclick="setCreateRoomLayoutMode('starter')">Suggested Layout</button></div><div class="setup-copy" id="crLayoutHint">The room will open blank so you can place everything intentionally.</div></div>
+<div class="mf"><label>DIMENSIONS</label><div class="mr"><div><label>WIDTH</label><input type="number" id="crW" value="14" min="4" max="60"></div><div><label>LENGTH</label><input type="number" id="crL" value="12" min="4" max="60"></div><div><label>HEIGHT</label><input type="number" id="crH" value="9" min="7" max="20"></div></div></div>
+<button class="mb" onclick="createFromPreset()">Create Room</button>
+<button class="ms" onclick="startFreeDraw()">Free-Draw Instead</button>
+</div></div>
+
+<div class="modal-bg" id="refCalMod">
+  <div class="msh ref-cal-sheet">
+    <div class="mhn"></div>
+    <div class="mt">Calibrate Reference</div>
+    <div class="ref-cal-copy">Enter the real-world distance between the two points you just marked.</div>
+    <div class="mf">
+      <label>MEASURED DISTANCE</label>
+      <input id="refCalInput" type="text" inputmode="decimal" placeholder="12 ft or 3.6 m">
+    </div>
+    <div class="prop-state ref-cal-state" id="refCalState"></div>
+    <div class="quick-rotate-row ref-cal-actions">
+      <button class="pbtn soft" type="button" onclick="cancelReferenceCalibrationModal()">Cancel</button>
+      <button class="pbtn" type="button" onclick="submitReferenceCalibration()">Apply Scale</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="debug-badge dev-only" id="debugBadge"></div>
+<button class="diag-toggle dev-only" id="assetDiagToggle" onclick="togglePreflightPanel()">Model Status</button>
+<div class="asset-preflight dev-only" id="assetPreflightPanel"></div>
+<div id="selfTestResults" style="display:none"></div>
+<div class="verify-overlay dev-only" id="verifyOv">
+  <div class="verify-head">
+    <h3>Asset Verification</h3>
+    <div class="verify-actions">
+      <button class="verify-btn" onclick="cycleVerificationAssets()">Cycle All Assets</button>
+      <button class="verify-btn" onclick="refreshAssetVerification()">Refresh</button>
+      <button class="verify-btn" onclick="closeAssetVerification()">Close</button>
+    </div>
+  </div>
+  <div class="verify-body">
+    <div class="verify-stage">
+      <div class="verify-canvas" id="verifyCanvas"></div>
+    </div>
+    <div class="verify-side">
+      <div class="verify-grid" id="verifyGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./scripts/app.js?v=20260410"></script>
 </body>
 </html>

@@ -1,0 +1,53 @@
+name: Verify
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  syntax-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run syntax checks
+        run: npm run check
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 8123 >/tmp/rose-designs-server.log 2>&1 &
+          echo $! > /tmp/rose-designs-server.pid
+
+      - name: Run Playwright smoke
+        run: npm run smoke:playwright
+
+      - name: Upload smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-game-smoke
+          path: output/web-game-smoke
+          if-no-files-found: ignore
