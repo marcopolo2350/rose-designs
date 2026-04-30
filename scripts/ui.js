@@ -71,11 +71,13 @@ function handleUiAction(action,target,event){
   if(action==='catalog-select-category')return setCatalogCategory(target?.dataset?.category||'all');
   if(action==='catalog-choose-or-place')return chooseOrPlaceFurn(Number(target?.dataset?.itemIndex));
   if(action==='catalog-toggle-favorite'){
+    event?.preventDefault();
     event?.stopPropagation();
     return toggleFavoriteCatalogItem(target?.dataset?.assetKey||'');
   }
   if(action==='catalog-place-pending')return confirmPendingFurniturePlacement();
   if(action==='catalog-variant'){
+    event?.preventDefault();
     if(target?.dataset?.stopPropagation==='true')event?.stopPropagation();
     const assetKey=target?.dataset?.assetKey||'';
     const variantId=target?.dataset?.variantId||'';
@@ -97,6 +99,7 @@ function handleUiAction(action,target,event){
   if(action==='duplicate-current-room')return duplicateCurrentRoom();
   if(action==='move-current-room-order')return moveCurrentRoomOrder(Number(target?.dataset?.direction||0));
   if(action==='delete-current-room')return deleteCurrentRoom();
+  if(action==='attach-adjacent-room')return attachAdjacentRoom(target?.dataset?.side||'east');
   if(action==='tutorial-next')return nextTut();
   if(action==='tutorial-end')return endTut();
   if(action==='close-shortcut-sheet')return closeShortcutSheet();
@@ -110,11 +113,20 @@ function bindStaticUiActions(){
     if(!target)return;
     handleUiAction(target.dataset.action,target,event);
   });
+  document.addEventListener('keydown',event=>{
+    if(event.key!=='Enter'&&event.key!==' ')return;
+    const target=event.target.closest('[role="button"][data-action]');
+    if(!target)return;
+    event.preventDefault();
+    handleUiAction(target.dataset.action,target,event);
+  });
   document.addEventListener('change',event=>{
     const target=event.target;
     if(target?.dataset?.action==='handle-project-json-selected')handleProjectJSONSelected(event);
     if(target?.dataset?.action==='rename-current-project')renameCurrentProject(target.value);
     if(target?.dataset?.action==='rename-current-room')renameCurrentRoom(target.value);
+    if(target?.dataset?.action==='set-adj-room-width')setAdjRoomWidth(target.value);
+    if(target?.dataset?.action==='set-adj-room-depth')setAdjRoomDepth(target.value);
   });
   document.addEventListener('input',event=>{
     const target=event.target;

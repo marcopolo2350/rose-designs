@@ -51,6 +51,10 @@ test("canonical shell boots and delegated actions work", async ({ page }) => {
   await expect(page.locator('[data-action="room-panel-group"][data-group="build"]')).toHaveClass(
     /sel/,
   );
+  await page.locator('[data-action="set-adj-room-width"]').fill("8");
+  await page.locator('[data-action="set-adj-room-depth"]').click();
+  await page.locator('[data-action="attach-adjacent-room"][data-side="east"]').click();
+  await expect(page.locator("#propsP")).toContainText("Building 2 rooms");
   await page.locator('[data-action="prop-close"]').click();
   await expect(page.locator("#propsP")).not.toHaveClass(/on/);
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.11 - 2026-04-30
+
+- moved Add Room width/depth inputs and Up/Right/Down/Left buttons to delegated `data-action` handlers
+- extended Playwright coverage to add an adjacent room through the delegated Home Plan controls and confirm both rooms remain in the project
+
 ## 0.5.0-hardening.10 - 2026-04-30
 
 - moved Home Plan room/floor panel controls to delegated `data-action` handlers
