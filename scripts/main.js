@@ -5,6 +5,7 @@ const RUNTIME_MODULES = [
   "./scripts/state.js",
   "./scripts/storage.js",
   "./scripts/core/app-state.js",
+  "./scripts/ui/shortcuts.js",
   "./scripts/ui.js",
   "./scripts/planner2d.js",
   "./scripts/catalog.js",

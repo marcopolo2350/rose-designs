@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.4 - 2026-04-29
+
+- extracted keyboard shortcut binding and shortcut-sheet rendering into `scripts/ui/shortcuts.js`
+- removed the shortcut-sheet inline close handler in favor of the delegated `data-action` layer
+- updated lint, format, and syntax-check coverage so the new `scripts/ui/**/*.js` runtime slice is verified explicitly
+
 ## 0.5.0-hardening.3 - 2026-04-26
 
 - replaced a large shell/editor slice of inline `onclick` and `oninput` handlers with delegated `data-action` bindings

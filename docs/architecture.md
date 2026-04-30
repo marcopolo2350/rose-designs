@@ -12,6 +12,7 @@ The app boots through [scripts/main.js](../scripts/main.js), which is an ES modu
 - `scripts/state.js` - geometry helpers, storage keys, and app preferences
 - `scripts/storage.js` - IndexedDB access, normalization, runtime persistence glue
 - `scripts/ui.js` - home/editor shell behavior
+- `scripts/ui/shortcuts.js` - keyboard bindings and shortcut-sheet rendering
 - `scripts/planner2d.js` - 2D room editing and drawing
 - `scripts/planner3d.js` - 3D scene and camera behavior
 - `scripts/catalog.js` - catalog UI and furniture controls

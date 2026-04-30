@@ -1,7 +1,7 @@
 {
   "name": "roses-indoor-designs",
   "private": true,
-  "version": "0.5.0-hardening.3",
+  "version": "0.5.0-hardening.4",
   "description": "Local-first 2D and 3D interior planning studio for Rose's Indoor Designs.",
   "license": "UNLICENSED",
   "homepage": "https://marcopolo2350.github.io/roses-indoor-designs/",
@@ -24,11 +24,11 @@
     "test:self": "node ./scripts/devtools/run-selftest.mjs",
     "thumbs": "node ./scripts/generate-thumbnails.mjs",
     "smoke:playwright": "npm run test:smoke",
-    "lint": "eslint scripts/main.js scripts/core/**/*.js scripts/cloud/**/*.js scripts/devtools/**/*.mjs",
-    "format": "prettier --check README.md CHANGELOG.md ROADMAP.md KNOWN_LIMITATIONS.md docs/**/*.md .github/**/*.md scripts/main.js scripts/core/**/*.js scripts/cloud/**/*.js scripts/devtools/**/*.mjs package.json",
+    "lint": "eslint scripts/main.js scripts/core/**/*.js scripts/ui/**/*.js scripts/cloud/**/*.js scripts/devtools/**/*.mjs",
+    "format": "prettier --check README.md CHANGELOG.md ROADMAP.md KNOWN_LIMITATIONS.md docs/**/*.md .github/**/*.md scripts/main.js scripts/core/**/*.js scripts/ui/**/*.js scripts/cloud/**/*.js scripts/devtools/**/*.mjs package.json",
     "validate:manifest": "node ./scripts/devtools/validate-manifest.mjs",
     "clean": "node ./scripts/devtools/clean.mjs",
-    "check": "node --check ./scripts/app.js && node --check ./scripts/main.js && node --check ./scripts/state.js && node --check ./scripts/storage.js && node --check ./scripts/ui.js && node --check ./scripts/planner2d.js && node --check ./scripts/catalog.js && node --check ./scripts/export.js && node --check ./scripts/planner3d.js && node --check ./scripts/walkthrough.js && node --check ./scripts/core/app-config.js && node --check ./scripts/core/error-reporting.js && node --check ./scripts/core/project-schema.js && node --check ./scripts/core/app-state.js && node --check ./scripts/core/history.js && node --check ./scripts/cloud/supabase.js"
+    "check": "node --check ./scripts/app.js && node --check ./scripts/main.js && node --check ./scripts/state.js && node --check ./scripts/storage.js && node --check ./scripts/ui.js && node --check ./scripts/ui/shortcuts.js && node --check ./scripts/planner2d.js && node --check ./scripts/catalog.js && node --check ./scripts/export.js && node --check ./scripts/planner3d.js && node --check ./scripts/walkthrough.js && node --check ./scripts/core/app-config.js && node --check ./scripts/core/error-reporting.js && node --check ./scripts/core/project-schema.js && node --check ./scripts/core/app-state.js && node --check ./scripts/core/history.js && node --check ./scripts/cloud/supabase.js"
   },
   "dependencies": {
     "dxf-writer": "^1.18.4"

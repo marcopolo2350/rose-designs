@@ -64,6 +64,7 @@ function handleUiAction(action,target){
   if(action==='close-asset-verification')return closeAssetVerification();
   if(action==='tutorial-next')return nextTut();
   if(action==='tutorial-end')return endTut();
+  if(action==='close-shortcut-sheet')return closeShortcutSheet();
 }
 
 function bindStaticUiActions(){
@@ -1098,48 +1099,6 @@ function toggleUnitSystem(){
   draw();
   showP();
 }
-// Phase ✨ — Keyboard shortcut cheat sheet (press ? to toggle).
-const SHORTCUT_GROUPS=[
-  {label:'Tools',items:[
-    ['V','Select'],['W','Wall draw'],['D','Door'],['T','Text / annotation'],['Shift+D','Dimension note'],
-  ]},
-  {label:'View',items:[
-    ['Tab','Toggle 2D / 3D'],['+ / -','Zoom in / out'],['Esc','Deselect / close'],
-  ]},
-  {label:'Edit',items:[
-    ['Ctrl+Z','Undo'],['Ctrl+Y / Ctrl+Shift+Z','Redo'],['Ctrl+C / Ctrl+V','Copy / paste furniture'],['Del','Delete selected'],['R','Rotate selected'],
-  ]},
-  {label:'Export',items:[
-    ['Ctrl+S','Save'],['Ctrl+P','Export PDF'],['Ctrl+Shift+S','Export SVG'],
-  ]},
-  {label:'Rooms',items:[
-    ['Ctrl+Shift+Q','Auto-square room'],['?','This cheat sheet'],
-  ]},
-];
-function toggleShortcutSheet(){
-  let sheet=document.getElementById('shortcutSheet');
-  if(!sheet){
-    sheet=document.createElement('div');
-    sheet.id='shortcutSheet';
-    sheet.className='shortcut-sheet';
-    const isMac=/Mac|iPhone|iPad/i.test(navigator.platform||'');
-    const mod=isMac?'⌘':'Ctrl';
-    sheet.innerHTML=`<div class="shortcut-card">
-      <div class="shortcut-head"><div class="shortcut-title">Keyboard Shortcuts</div><button class="shortcut-x" onclick="document.getElementById('shortcutSheet').classList.remove('on')" aria-label="Close">×</button></div>
-      <div class="shortcut-grid">${SHORTCUT_GROUPS.map(g=>`
-        <div class="shortcut-group">
-          <div class="shortcut-group-label">${g.label}</div>
-          ${g.items.map(([k,l])=>`<div class="shortcut-row"><kbd>${k.replace(/Ctrl/g,mod)}</kbd><span>${l}</span></div>`).join('')}
-        </div>`).join('')}</div>
-      <div class="shortcut-hint">Press <kbd>?</kbd> anytime to open this sheet</div>
-    </div>`;
-    sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.classList.remove('on')});
-    document.body.appendChild(sheet);
-  }
-  sheet.classList.toggle('on');
-}
-if(typeof window!=='undefined')window.toggleShortcutSheet=toggleShortcutSheet;
-
 // Phase ✨ — Time-of-day slider wiring (live preview; persists per-room)
 function _todLabelForValue(v){
   const t=v/100;
