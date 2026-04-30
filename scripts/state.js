@@ -459,19 +459,8 @@ function editorPrefs(){
     unitSystem
   };
 }
-const PROFILE_LOCAL_KEY=`${window.APP_CONFIG?.storagePrefix||'rose_indoor_designs'}_active_profile`;
 const PROFILE_LABELS={rose:window.APP_CONFIG?.branding?.studioLabel||"Studio"};
 let activeProfile='rose';
-function storageKey(key,{global=false}={}){
-  const prefix=window.APP_CONFIG?.storagePrefix||'rose_indoor_designs';
-  return global?`${prefix}_global::${key}`:`${prefix}_profile::${activeProfile}::${key}`;
-}
-function getLocal(key,{global=false}={}){
-  try{return localStorage.getItem(storageKey(key,{global}));}catch(e){return null}
-}
-function setLocal(key,val,{global=false}={}){
-  try{localStorage.setItem(storageKey(key,{global}),val)}catch(e){}
-}
 function saveEditorPrefs(){
   try{setLocal('editor_prefs',JSON.stringify(editorPrefs()))}catch(e){}
 }

@@ -1,10 +1,8 @@
 // ── DB ──
 const DB=window.APP_CONFIG?.database?.name||'rose_indoor_designs',DBST=window.APP_CONFIG?.database?.store||'projects';
 function odb(){return new Promise((r,j)=>{const q=indexedDB.open(DB,window.APP_CONFIG?.database?.version||2);q.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains(DBST))e.target.result.createObjectStore(DBST)};q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)})}
-function scopedDbKey(k){return storageKey(`db::${k}`)}
 async function dg(k,{legacy=false}={}){try{const d=await odb();return new Promise(r=>{const q=d.transaction(DBST,'readonly').objectStore(DBST).get(legacy?k:scopedDbKey(k));q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)})}catch(e){return null}}
 async function ds(k,v){try{const d=await odb();return new Promise(r=>{const t=d.transaction(DBST,'readwrite');t.objectStore(DBST).put(v,scopedDbKey(k));t.oncomplete=()=>r();t.onerror=()=>r()})}catch(e){}}
-function profileSeenKey(){return `profile_seen_${activeProfile}`}
 function updateProfileChip(){const chip=document.getElementById('profileChip');if(chip)chip.textContent=PROFILE_LABELS[activeProfile]||window.APP_CONFIG?.branding?.studioLabel||"Studio"}
 function openProfileSwitcher(){document.getElementById('profileMod')?.classList.add('on')}
 function closeProfileSwitcher(){document.getElementById('profileMod')?.classList.remove('on')}

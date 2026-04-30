@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.5 - 2026-04-30
+
+- added `scripts/core/storage-keys.js` as the localStorage and IndexedDB key registry
+- moved profile/local storage key helpers out of `scripts/state.js` and `scripts/storage.js`
+- aligned app version metadata across `package.json`, `index.html`, and `scripts/core/app-config.js`
+
 ## 0.5.0-hardening.4 - 2026-04-29
 
 - extracted keyboard shortcut binding and shortcut-sheet rendering into `scripts/ui/shortcuts.js`
