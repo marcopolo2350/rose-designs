@@ -67,6 +67,15 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
   await page.locator('[data-action="set-wall-finish"]').nth(1).click();
   await page.locator('[data-action="set-floor-type"]').nth(1).click();
   await page.locator('[data-action="set-trim-color"]').first().click();
+  await page.locator('[data-action="set-lighting-preset"]').nth(1).click();
+  await page.locator('[data-action="set-light-character-input"]').evaluate((node) => {
+    node.value = "0.7";
+    node.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await page.locator('[data-action="set-ceiling-brightness-input"]').evaluate((node) => {
+    node.value = "1.1";
+    node.dispatchEvent(new Event("input", { bubbles: true }));
+  });
   await page.locator('[data-action="room-panel-group"][data-group="build"]').click();
   await expect(page.locator('[data-action="room-panel-group"][data-group="build"]')).toHaveClass(
     /sel/,

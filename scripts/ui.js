@@ -107,6 +107,7 @@ function handleUiAction(action,target,event){
   if(action==='reset-floor-color-to-style')return resetFloorColorToStyle();
   if(action==='set-floor-paint')return setFloorPaint(target?.dataset?.color||'');
   if(action==='set-trim-color')return setTrimColor(target?.dataset?.color||'');
+  if(action==='set-lighting-preset')return setLightingPreset(target?.dataset?.presetId||'daylight');
   if(action==='tutorial-next')return nextTut();
   if(action==='tutorial-end')return endTut();
   if(action==='close-shortcut-sheet')return closeShortcutSheet();
@@ -137,6 +138,8 @@ function bindStaticUiActions(){
     if(target?.dataset?.action==='set-wall-paint-input')setWallPaint(target.value);
     if(target?.dataset?.action==='set-floor-paint-input')setFloorPaint(target.value);
     if(target?.dataset?.action==='set-trim-color-input')setTrimColor(target.value);
+    if(target?.dataset?.action==='set-light-character-input')setLightCharacter(target.value);
+    if(target?.dataset?.action==='set-ceiling-brightness-input')setCeilingBrightness(target.value);
   });
   document.addEventListener('input',event=>{
     const target=event.target;
