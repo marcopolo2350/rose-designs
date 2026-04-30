@@ -5,6 +5,7 @@
 ```bash
 npm run check
 npm run validate:manifest
+npm run test:playwright
 npm run test:self
 npm run test:smoke
 npm test
@@ -14,6 +15,7 @@ npm test
 
 - `check` - syntax checks the main runtime files
 - `validate:manifest` - verifies asset manifest entries, model files, and thumbnails
+- `test:playwright` - runs the standard Playwright spec suite
 - `test:self` - launches the app locally and waits for the built-in `#selftest` flow
 - `test:smoke` - runs the Playwright smoke helper against `index.html`
 - `test` - runs the reproducible hardening check chain

@@ -45,6 +45,9 @@ jobs:
       - name: Run built-in self-test
         run: npm run test:self
 
+      - name: Run Playwright spec suite
+        run: npm run test:playwright
+
       - name: Run Playwright smoke
         run: npm run test:smoke
 
@@ -54,4 +57,12 @@ jobs:
         with:
           name: web-game-smoke
           path: output/web-game-smoke
+          if-no-files-found: ignore
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: output/playwright
           if-no-files-found: ignore
