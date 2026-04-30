@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.6 - 2026-04-30
+
+- replaced silent persistence catches in IndexedDB, profile selection, editor preferences, and preview thumbnail generation with explicit error reports
+- kept existing graceful fallback behavior while making storage and preference failures visible in diagnostics
+
 ## 0.5.0-hardening.5 - 2026-04-30
 
 - added `scripts/core/storage-keys.js` as the localStorage and IndexedDB key registry

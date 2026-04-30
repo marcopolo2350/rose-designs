@@ -462,7 +462,11 @@ function editorPrefs(){
 const PROFILE_LABELS={rose:window.APP_CONFIG?.branding?.studioLabel||"Studio"};
 let activeProfile='rose';
 function saveEditorPrefs(){
-  try{setLocal('editor_prefs',JSON.stringify(editorPrefs()))}catch(e){}
+  try{
+    setLocal('editor_prefs',JSON.stringify(editorPrefs()));
+  }catch(e){
+    window.reportRoseError?.('editor-prefs-save',e);
+  }
 }
 function loadEditorPrefs(){
   try{
@@ -472,7 +476,9 @@ function loadEditorPrefs(){
     furnitureSnap=prefs?.furnitureSnap!==false;
     multiSelectMode=!!prefs?.multiSelectMode;
     unitSystem=prefs?.unitSystem==='metric'?'metric':'imperial';
-  }catch(e){}
+  }catch(e){
+    window.reportRoseError?.('editor-prefs-load',e);
+  }
 }
 function collectRoomPlanStats(room){
   const stats={existing:0,newItems:0,keep:0,move:0,replace:0,remove:0,paired:0};
@@ -489,7 +495,9 @@ function updateRoomPreviewThumb(room=curRoom){
   if(!room||!room.polygon?.length)return;
   try{
     room.previewThumb=renderRoomModeToDataURL(room,'combined',280,180,{legend:false,measurements:false})||room.previewThumb||'';
-  }catch(_){}
+  }catch(error){
+    window.reportRoseError?.('room-preview-thumb',error,{roomId:room?.id});
+  }
 }
 function isEditableTarget(target){
   if(!target)return false;

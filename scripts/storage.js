@@ -1,8 +1,35 @@
 // ── DB ──
 const DB=window.APP_CONFIG?.database?.name||'rose_indoor_designs',DBST=window.APP_CONFIG?.database?.store||'projects';
 function odb(){return new Promise((r,j)=>{const q=indexedDB.open(DB,window.APP_CONFIG?.database?.version||2);q.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains(DBST))e.target.result.createObjectStore(DBST)};q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)})}
-async function dg(k,{legacy=false}={}){try{const d=await odb();return new Promise(r=>{const q=d.transaction(DBST,'readonly').objectStore(DBST).get(legacy?k:scopedDbKey(k));q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)})}catch(e){return null}}
-async function ds(k,v){try{const d=await odb();return new Promise(r=>{const t=d.transaction(DBST,'readwrite');t.objectStore(DBST).put(v,scopedDbKey(k));t.oncomplete=()=>r();t.onerror=()=>r()})}catch(e){}}
+async function dg(k,{legacy=false}={}){
+  try{
+    const d=await odb();
+    return new Promise(r=>{
+      const key=legacy?k:scopedDbKey(k);
+      const q=d.transaction(DBST,'readonly').objectStore(DBST).get(key);
+      q.onsuccess=()=>r(q.result);
+      q.onerror=()=>{window.reportRoseError?.('indexeddb-read',q.error,{key});r(null)};
+    });
+  }catch(e){
+    window.reportRoseError?.('indexeddb-open-read',e,{key:k,legacy});
+    return null;
+  }
+}
+async function ds(k,v){
+  try{
+    const d=await odb();
+    return new Promise(r=>{
+      const key=scopedDbKey(k);
+      const t=d.transaction(DBST,'readwrite');
+      t.objectStore(DBST).put(v,key);
+      t.oncomplete=()=>r(true);
+      t.onerror=()=>{window.reportRoseError?.('indexeddb-write',t.error,{key});r(false)};
+    });
+  }catch(e){
+    window.reportRoseError?.('indexeddb-open-write',e,{key:k});
+    return false;
+  }
+}
 function updateProfileChip(){const chip=document.getElementById('profileChip');if(chip)chip.textContent=PROFILE_LABELS[activeProfile]||window.APP_CONFIG?.branding?.studioLabel||"Studio"}
 function openProfileSwitcher(){document.getElementById('profileMod')?.classList.add('on')}
 function closeProfileSwitcher(){document.getElementById('profileMod')?.classList.remove('on')}
@@ -17,7 +44,9 @@ function loadActiveProfile(){
     const raw=localStorage.getItem(PROFILE_LOCAL_KEY);
     activeProfile=(raw&&PROFILE_LABELS[raw])?raw:'rose';
     localStorage.setItem(PROFILE_LOCAL_KEY,activeProfile);
-  }catch(e){}
+  }catch(e){
+    window.reportRoseError?.('profile-load',e);
+  }
   updateProfileChip();
 }
 
