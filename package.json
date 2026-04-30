@@ -34,7 +34,7 @@
     "dxf-writer": "^1.18.4"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
+    "@eslint/js": "^10.0.1",
     "eslint": "^9.25.1",
     "playwright": "^1.58.2",
     "prettier": "^3.5.3"
