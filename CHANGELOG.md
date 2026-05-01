@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.75 - 2026-05-01
+
+- rebuilt room-panel floor button restyling with DOM nodes and `textContent`
+- extended HTML safety validation to keep floor button label cleanup out of `innerHTML`
+
 ## 0.5.0-hardening.74 - 2026-05-01
 
 - rebuilt the catalog placement status bar with DOM nodes and `textContent`

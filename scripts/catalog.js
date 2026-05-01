@@ -916,7 +916,14 @@ function restyleRoomPanelText(panel){
     if(!match)return;
     const label=match[1].replace(/[|·ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â]+/g,' ').replace(/\s+/g,' ').trim()||'Floor';
     const count=Number(match[2]);
-    btn.innerHTML=`<span class="mat-btn-title">${esc(label)}</span><span class="mat-btn-meta">${count} room${count===1?'':'s'}</span>`;
+    window.RoseHTML.clear(btn);
+    const title=document.createElement('span');
+    title.className='mat-btn-title';
+    title.textContent=label;
+    const meta=document.createElement('span');
+    meta.className='mat-btn-meta';
+    meta.textContent=`${count} room${count===1?'':'s'}`;
+    btn.append(title,meta);
   });
   panel.querySelectorAll('.room-card-meta,.prop-tip,.prop-state').forEach(node=>{
     node.textContent=(node.textContent||'').replace(/[ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â]+/g,' ').replace(/\s*[·|]\s*/g,' | ').replace(/\s+/g,' ').trim();

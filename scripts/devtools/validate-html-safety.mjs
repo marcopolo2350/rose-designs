@@ -206,6 +206,21 @@ if (!pendingFurnitureBar) {
   }
 }
 
+const roomPanelRestyle = catalog.match(
+  /function\s+restyleRoomPanelText[\s\S]*?function\s+projectRoomMetaLine/,
+);
+if (!roomPanelRestyle) {
+  errors.push("restyleRoomPanelText() was not found for room-panel label validation.");
+} else {
+  const body = roomPanelRestyle[0];
+  if (/innerHTML\s*=|insertAdjacentHTML/.test(body)) {
+    errors.push("Room panel restyling must rebuild labels with DOM nodes, not innerHTML.");
+  }
+  if (!/title\.textContent\s*=\s*label/.test(body) || !/meta\.textContent\s*=/.test(body)) {
+    errors.push("Room panel restyling must render floor button labels with textContent.");
+  }
+}
+
 const deleteConfirmKeys = ui.match(
   /function\s+handleDeleteConfirmKeydown[\s\S]*?function\s+showDeleteConfirm/,
 );
