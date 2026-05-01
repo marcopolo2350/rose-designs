@@ -1,7 +1,7 @@
 {
   "name": "roses-indoor-designs",
   "private": true,
-  "version": "0.5.0-hardening.26",
+  "version": "0.5.0-hardening.27",
   "description": "Local-first 2D and 3D interior planning studio for Rose's Indoor Designs.",
   "license": "UNLICENSED",
   "homepage": "https://marcopolo2350.github.io/roses-indoor-designs/",
@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "python -m http.server 8123",
     "dev:alt": "python -m http.server 8124",
-    "test": "cmd /c npm run check && cmd /c npm run validate:manifest && cmd /c npm run validate:inline-handlers && cmd /c npm run validate:error-handling && cmd /c npm run test:self",
+    "test": "cmd /c npm run check && cmd /c npm run validate:manifest && cmd /c npm run validate:inline-handlers && cmd /c npm run validate:error-handling && cmd /c npm run validate:runtime-modules && cmd /c npm run test:self",
     "test:playwright": "playwright test",
     "test:smoke": "node ./scripts/devtools/run-smoke.mjs",
     "test:self": "node ./scripts/devtools/run-selftest.mjs",
@@ -30,8 +30,9 @@
     "validate:manifest": "node ./scripts/devtools/validate-manifest.mjs",
     "validate:inline-handlers": "node ./scripts/devtools/validate-inline-handlers.mjs",
     "validate:error-handling": "node ./scripts/devtools/validate-error-handling.mjs",
+    "validate:runtime-modules": "node ./scripts/devtools/validate-runtime-modules.mjs",
     "clean": "node ./scripts/devtools/clean.mjs",
-    "check": "node --check ./scripts/app.js && node --check ./scripts/main.js && node --check ./scripts/state.js && node --check ./scripts/storage.js && node --check ./scripts/ui.js && node --check ./scripts/ui/shortcuts.js && node --check ./scripts/planner2d.js && node --check ./scripts/catalog.js && node --check ./scripts/export.js && node --check ./scripts/planner3d.js && node --check ./scripts/walkthrough.js && node --check ./scripts/core/app-config.js && node --check ./scripts/core/error-reporting.js && node --check ./scripts/core/storage-keys.js && node --check ./scripts/core/project-schema.js && node --check ./scripts/core/app-state.js && node --check ./scripts/core/history.js && node --check ./scripts/cloud/supabase.js && node --check ./scripts/devtools/validate-inline-handlers.mjs && node --check ./scripts/devtools/validate-error-handling.mjs && node --check ./tests/app-smoke.spec.mjs && node --check ./playwright.config.mjs"
+    "check": "node --check ./scripts/app.js && node --check ./scripts/main.js && node --check ./scripts/state.js && node --check ./scripts/storage.js && node --check ./scripts/ui.js && node --check ./scripts/ui/shortcuts.js && node --check ./scripts/planner2d.js && node --check ./scripts/catalog.js && node --check ./scripts/export.js && node --check ./scripts/planner3d.js && node --check ./scripts/walkthrough.js && node --check ./scripts/core/app-config.js && node --check ./scripts/core/error-reporting.js && node --check ./scripts/core/storage-keys.js && node --check ./scripts/core/project-schema.js && node --check ./scripts/core/app-state.js && node --check ./scripts/core/history.js && node --check ./scripts/cloud/supabase.js && node --check ./scripts/devtools/validate-inline-handlers.mjs && node --check ./scripts/devtools/validate-error-handling.mjs && node --check ./scripts/devtools/validate-runtime-modules.mjs && node --check ./tests/app-smoke.spec.mjs && node --check ./playwright.config.mjs"
   },
   "dependencies": {
     "dxf-writer": "^1.18.4"

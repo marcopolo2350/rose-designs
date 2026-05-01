@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.27 - 2026-04-30
+
+- added a runtime-module bridge validator to catch missing, duplicate, or incorrectly ordered classic runtime modules before browser boot
+
 ## 0.5.0-hardening.26 - 2026-04-30
 
 - introduced readable storage-service bridge names (`openDatabase`, `getRecord`, `setRecord`) while preserving legacy `odb`/`dg`/`ds` compatibility

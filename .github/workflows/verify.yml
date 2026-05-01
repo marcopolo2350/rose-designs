@@ -51,6 +51,9 @@ jobs:
       - name: Validate intentional error handling
         run: npm run validate:error-handling
 
+      - name: Validate runtime module bridge
+        run: npm run validate:runtime-modules
+
       - name: Run built-in self-test
         run: npm run test:self
 
