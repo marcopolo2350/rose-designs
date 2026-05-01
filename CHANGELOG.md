@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.70 - 2026-05-01
+
+- rebuilt create-room starter cards and their SVG previews with DOM nodes instead of `innerHTML`
+- added Playwright coverage that starter cards have no inline markup or handlers
+- extended HTML safety validation to block starter-card string rendering from returning
+
 ## 0.5.0-hardening.69 - 2026-05-01
 
 - rebuilt the home project list and project cards with DOM nodes instead of `innerHTML`

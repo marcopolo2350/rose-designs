@@ -78,6 +78,10 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
     .locator("#crMod [onclick], #crMod [oninput], #crMod [onchange]")
     .count();
   expect(createModalInlineHandlers).toBe(0);
+  const presetInlineMarkup = await page
+    .locator("#preG [onclick], #preG [oninput], #preG [onchange], #preG [style]")
+    .count();
+  expect(presetInlineMarkup).toBe(0);
   await page.locator('[data-action="select-create-room-preset"]').first().click();
   await page.locator('[data-action="create-room-from-preset"]').click();
   await expect(page.locator("#scrEd")).toHaveClass(/on/);

@@ -703,13 +703,42 @@ function closeDeleteConfirm(){
 function confirmDelete(){if(pendingDeleteId){delPrj(pendingDeleteId)}closeDeleteConfirm()}
 
 // ── CREATE ──
-const PRESET_SVGS={
-  rect:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40"><rect x="4" y="4" width="52" height="32" fill="none" stroke="#8B7E74" stroke-width="1.5" rx="1"/></svg>',
-  lshape:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40"><path d="M4 4h32v16h20v16H4z" fill="none" stroke="#8B7E74" stroke-width="1.5"/></svg>',
-  ushape:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40"><path d="M4 4h52v32H40V18H20v18H4z" fill="none" stroke="#8B7E74" stroke-width="1.5"/></svg>',
-  free:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40"><path d="M8 30L15 8L35 4L52 15L48 34L25 36Z" fill="none" stroke="#B8918E" stroke-width="1.5" stroke-dasharray="3 2"/></svg>'
-};
-function popPresets(){document.getElementById('preG').innerHTML=ROOM_STARTERS.map(p=>`<div class="pi${p.id===selPreset?' sel':''}" role="button" tabindex="0" data-action="select-create-room-preset" data-preset-id="${p.id}"><span class="starter-tag">${p.tag}</span>${PRESET_SVGS[p.shape]||PRESET_SVGS.rect}<span>${p.name}</span><small>${p.hint}</small></div>`).join('')}
+function createPresetShapeSvg(shape='rect'){
+  const svg=createProjectSvg({viewBox:'0 0 60 40'});
+  if(shape==='lshape'){
+    appendProjectSvgShape(svg,'path',{d:'M4 4h32v16h20v16H4z',fill:'none',stroke:'#8B7E74','stroke-width':'1.5'});
+  }else if(shape==='ushape'){
+    appendProjectSvgShape(svg,'path',{d:'M4 4h52v32H40V18H20v18H4z',fill:'none',stroke:'#8B7E74','stroke-width':'1.5'});
+  }else if(shape==='free'){
+    appendProjectSvgShape(svg,'path',{d:'M8 30L15 8L35 4L52 15L48 34L25 36Z',fill:'none',stroke:'#B8918E','stroke-width':'1.5','stroke-dasharray':'3 2'});
+  }else{
+    appendProjectSvgShape(svg,'rect',{x:'4',y:'4',width:'52',height:'32',fill:'none',stroke:'#8B7E74','stroke-width':'1.5',rx:'1'});
+  }
+  return svg;
+}
+function createPresetCard(preset){
+  const card=document.createElement('div');
+  card.className=`pi${preset.id===selPreset?' sel':''}`;
+  card.setAttribute('role','button');
+  card.tabIndex=0;
+  card.dataset.action='select-create-room-preset';
+  card.dataset.presetId=preset.id;
+  const tag=document.createElement('span');
+  tag.className='starter-tag';
+  tag.textContent=preset.tag;
+  const name=document.createElement('span');
+  name.textContent=preset.name;
+  const hint=document.createElement('small');
+  hint.textContent=preset.hint;
+  card.append(tag,createPresetShapeSvg(preset.shape),name,hint);
+  return card;
+}
+function popPresets(){
+  const grid=document.getElementById('preG');
+  if(!grid)return;
+  window.RoseHTML.clear(grid);
+  ROOM_STARTERS.forEach(preset=>grid.appendChild(createPresetCard(preset)));
+}
 function defaultPersonalRoomName(){return activeProfile==='rose'?"Living Room":"Living Room"}
 function selPre(id,el){
   selPreset=id;

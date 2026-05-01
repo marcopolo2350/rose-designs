@@ -116,6 +116,32 @@ if (!projectCard) {
   }
 }
 
+const presetGrid = ui.match(/function\s+popPresets[\s\S]*?function\s+defaultPersonalRoomName/);
+if (!presetGrid) {
+  errors.push("popPresets() was not found for create-room preset validation.");
+} else {
+  const body = presetGrid[0];
+  if (/insertAdjacentHTML|innerHTML\s*=/.test(body)) {
+    errors.push("popPresets() must render starter cards with DOM nodes, not HTML strings.");
+  }
+}
+
+const presetCard = ui.match(/function\s+createPresetCard[\s\S]*?function\s+popPresets/);
+if (!presetCard) {
+  errors.push("createPresetCard() was not found for starter-card safety validation.");
+} else {
+  const body = presetCard[0];
+  if (/insertAdjacentHTML|innerHTML\s*=/.test(body)) {
+    errors.push("createPresetCard() must render with DOM nodes, not HTML strings.");
+  }
+  if (
+    !/tag\.textContent\s*=\s*preset\.tag/.test(body) ||
+    !/name\.textContent\s*=\s*preset\.name/.test(body)
+  ) {
+    errors.push("createPresetCard() must render starter copy with textContent.");
+  }
+}
+
 const deleteConfirmKeys = ui.match(
   /function\s+handleDeleteConfirmKeydown[\s\S]*?function\s+showDeleteConfirm/,
 );

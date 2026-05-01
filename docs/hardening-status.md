@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-01
 
-Current app version: `0.5.0-hardening.69`
+Current app version: `0.5.0-hardening.70`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -51,6 +51,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - The keyboard shortcut sheet now renders with DOM nodes instead of `innerHTML`, guarded by `npm run validate:html-safety`.
 - The first-run tutorial card now renders with DOM nodes and `textContent`, covered by Playwright and guarded by `npm run validate:html-safety`.
 - The home project list now renders cards with DOM nodes and `textContent`, with Playwright coverage for unsafe project names and `npm run validate:html-safety` regression guards.
+- The create-room starter grid now renders cards and SVG previews with DOM nodes, with Playwright inline-markup coverage and `npm run validate:html-safety` regression guards.
 - Project JSON import validation now checks room text fields, polygon geometry, array fields, and furniture geometry through `npm run validate:project-schema`.
 - Project JSON import validation now rejects dangerous prototype-pollution keys and oversized JSON files before merging rooms into local state.
 - Experimental cloud sync validates room payloads before push/pull and reports config storage failures instead of silently swallowing them.
