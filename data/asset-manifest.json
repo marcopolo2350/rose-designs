@@ -62,7 +62,8 @@
     ],
     "defaultVariantId": "linen_sand",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "bed_king",
@@ -127,7 +128,8 @@
     ],
     "defaultVariantId": "linen_sand",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "bed_twin",
@@ -192,7 +194,8 @@
     ],
     "defaultVariantId": "linen_sand",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "bench",
@@ -258,7 +261,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "blinds",
@@ -350,7 +354,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "bookshelf",
@@ -418,7 +423,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "bunk_bed",
@@ -483,7 +489,8 @@
     ],
     "defaultVariantId": "linen_sand",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "cabinet",
@@ -550,7 +557,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "chair",
@@ -617,7 +625,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "chair_office",
@@ -685,7 +694,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "closet_short",
@@ -752,7 +762,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "closet_tall",
@@ -819,7 +830,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "console_low",
@@ -886,7 +898,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "curtains",
@@ -976,7 +989,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "dining_table",
@@ -1044,7 +1058,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "door_single",
@@ -1064,7 +1079,8 @@
       "living_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "wall"
   },
   {
     "id": "dresser",
@@ -1129,7 +1145,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "dresser_tall",
@@ -1194,7 +1211,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "fireplace",
@@ -1214,7 +1232,8 @@
       "living_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "lamp_ceiling",
@@ -1283,7 +1302,8 @@
     ],
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "lamp_chandelier",
@@ -1352,7 +1372,8 @@
     ],
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "lamp_cube",
@@ -1421,7 +1442,8 @@
     ],
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "lamp_floor",
@@ -1488,7 +1510,8 @@
     ],
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "lamp_pendant",
@@ -1557,7 +1580,8 @@
     ],
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "lamp_stand",
@@ -1626,7 +1650,8 @@
     ],
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "lamp_table",
@@ -1693,7 +1718,8 @@
     ],
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "lamp_wall",
@@ -1762,7 +1788,8 @@
     ],
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "wall"
   },
   {
     "id": "mirror",
@@ -1852,7 +1879,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "nightstand_alt",
@@ -1919,7 +1947,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "plant_cactus",
@@ -1939,7 +1968,8 @@
       "dining_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "plant_floor",
@@ -1959,7 +1989,8 @@
       "dining_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "plant_leafy",
@@ -1979,7 +2010,8 @@
       "dining_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "plant_palm",
@@ -1999,7 +2031,8 @@
       "dining_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "plant_round",
@@ -2019,7 +2052,8 @@
       "dining_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "plant_small",
@@ -2039,7 +2073,8 @@
       "dining_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "rug",
@@ -2106,7 +2141,8 @@
     ],
     "defaultVariantId": "ivory_loop",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "rug_round",
@@ -2174,7 +2210,8 @@
     ],
     "defaultVariantId": "ivory_loop",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "runner_rug",
@@ -2241,7 +2278,8 @@
     ],
     "defaultVariantId": "ivory_loop",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "shelf_small",
@@ -2376,7 +2414,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "sofa",
@@ -2441,7 +2480,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "sofa_compact",
@@ -2506,7 +2546,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "sofa_grand",
@@ -2571,7 +2612,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "sofa_l",
@@ -2636,7 +2678,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "sofa_large",
@@ -2701,7 +2744,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "sofa_medium",
@@ -2766,7 +2810,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "sofa_modern",
@@ -2834,7 +2879,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "sofa_small",
@@ -2899,7 +2945,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "stool",
@@ -2967,7 +3014,8 @@
     ],
     "defaultVariantId": "boucle_ivory",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "table_coffee",
@@ -3034,7 +3082,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "table_round_large",
@@ -3101,7 +3150,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "table_round_small",
@@ -3168,7 +3218,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "tv_console",
@@ -3235,7 +3286,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "wall_art_01",
@@ -3324,7 +3376,8 @@
       "living_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "wall"
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_cabinet_base.png",
@@ -3349,7 +3402,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_cabinet_upper.png",
@@ -3374,7 +3428,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_island.png",
@@ -3399,7 +3454,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_fridge.png",
@@ -3424,7 +3480,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_stove.png",
@@ -3449,7 +3506,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_hood.png",
@@ -3474,7 +3532,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_sink.png",
@@ -3499,7 +3558,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_dishwasher.png",
@@ -3524,7 +3584,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/bathroom_vanity_single.png",
@@ -3549,7 +3610,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/bathroom_vanity_double.png",
@@ -3574,7 +3636,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/bathroom_toilet.png",
@@ -3599,7 +3662,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/bathroom_tub.png",
@@ -3624,7 +3688,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/bathroom_shower.png",
@@ -3649,7 +3714,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/bathroom_mirror.png",
@@ -3725,7 +3791,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/column_round.png",
@@ -3750,7 +3817,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/trashcan_small.png",
@@ -3776,7 +3844,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/trashcan_large.png",
@@ -3801,7 +3870,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/square_plate.png",
@@ -3827,7 +3897,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/bed_double.png",
@@ -3851,7 +3922,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/closet_full.png",
@@ -3877,7 +3949,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "thumbnailPath": "./assets/thumbnails/table_rect.png",
@@ -3903,7 +3976,8 @@
       "Everyday Staples"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_armchair_01",
@@ -3972,7 +4046,8 @@
     ],
     "defaultVariantId": "linen_sand",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_armchair_modern",
@@ -4042,7 +4117,8 @@
     ],
     "defaultVariantId": "boucle_cream",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_bar_chair",
@@ -4111,7 +4187,8 @@
     ],
     "defaultVariantId": "linen_sand",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_chair_chinese",
@@ -4180,7 +4257,8 @@
     ],
     "defaultVariantId": "dark_walnut",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_chair_gallinera",
@@ -4249,7 +4327,8 @@
     ],
     "defaultVariantId": "linen_sand",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_chair_green",
@@ -4316,7 +4395,8 @@
     ],
     "defaultVariantId": "velvet_blush",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_chair_midcentury",
@@ -4385,7 +4465,8 @@
     ],
     "defaultVariantId": "tailored_charcoal",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_chair_painted",
@@ -4454,7 +4535,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_ottoman_01",
@@ -4523,7 +4605,8 @@
     ],
     "defaultVariantId": "boucle_cream",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_stool_metal",
@@ -4581,7 +4664,8 @@
     ],
     "defaultVariantId": "matte_black",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_sofa_01",
@@ -4647,7 +4731,8 @@
     ],
     "defaultVariantId": "linen_sand",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_sofa_02",
@@ -4715,7 +4800,8 @@
     ],
     "defaultVariantId": "boucle_cream",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_sofa_03",
@@ -4781,7 +4867,8 @@
     ],
     "defaultVariantId": "velvet_blush",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_sofa_painted",
@@ -4849,7 +4936,8 @@
     ],
     "defaultVariantId": "velvet_blush",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_coffee_gothic",
@@ -4917,7 +5005,8 @@
     ],
     "defaultVariantId": "dark_walnut",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_coffee_industrial",
@@ -4985,7 +5074,8 @@
     ],
     "defaultVariantId": "medium_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_coffee_modern",
@@ -5053,7 +5143,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_coffee_modern_2",
@@ -5121,7 +5212,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_coffee_round",
@@ -5189,7 +5281,8 @@
     ],
     "defaultVariantId": "medium_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_coffee_table_01",
@@ -5257,7 +5350,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_side_table",
@@ -5326,7 +5420,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_side_table_tall",
@@ -5395,7 +5490,8 @@
     ],
     "defaultVariantId": "medium_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_table_gallinera",
@@ -5463,7 +5559,8 @@
     ],
     "defaultVariantId": "medium_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_table_painted",
@@ -5532,7 +5629,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_table_round",
@@ -5598,7 +5696,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_table_wooden",
@@ -5666,7 +5765,8 @@
     ],
     "defaultVariantId": "medium_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_table_wooden_2",
@@ -5734,7 +5834,8 @@
     ],
     "defaultVariantId": "dark_walnut",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_bookshelf",
@@ -5805,7 +5906,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_cabinet_chinese",
@@ -5874,7 +5976,8 @@
     ],
     "defaultVariantId": "dark_walnut",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_cabinet_drawer",
@@ -5943,7 +6046,8 @@
     ],
     "defaultVariantId": "white_painted",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_cabinet_modern",
@@ -6012,7 +6116,8 @@
     ],
     "defaultVariantId": "white_painted",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_cabinet_painted",
@@ -6082,7 +6187,8 @@
     ],
     "defaultVariantId": "white_painted",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_cabinet_vintage",
@@ -6151,7 +6257,8 @@
     ],
     "defaultVariantId": "dark_walnut",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_console_01",
@@ -6220,7 +6327,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_console_chinese",
@@ -6289,7 +6397,8 @@
     ],
     "defaultVariantId": "dark_walnut",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_shelf_01",
@@ -6426,7 +6535,8 @@
     ],
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_nightstand_classic",
@@ -6494,7 +6604,8 @@
     ],
     "defaultVariantId": "medium_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_chandelier_01",
@@ -6553,7 +6664,8 @@
     ],
     "defaultVariantId": "brass_warm",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "ph_chandelier_02",
@@ -6611,7 +6723,8 @@
     ],
     "defaultVariantId": "brass_warm",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "ph_chandelier_03",
@@ -6669,7 +6782,8 @@
     ],
     "defaultVariantId": "matte_black",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "ph_chandelier_chinese",
@@ -6727,7 +6841,8 @@
     ],
     "defaultVariantId": "brass_warm",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "ph_chandelier_lantern",
@@ -6786,7 +6901,8 @@
     ],
     "defaultVariantId": "brass_warm",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "ph_lamp_ceiling",
@@ -6845,7 +6961,8 @@
     ],
     "defaultVariantId": "brushed_nickel",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "ceiling"
   },
   {
     "id": "ph_lamp_desk",
@@ -6903,7 +7020,8 @@
     ],
     "defaultVariantId": "matte_black",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_lamp_industrial",
@@ -6961,7 +7079,8 @@
     ],
     "defaultVariantId": "matte_black",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_lamp_pipe",
@@ -7020,7 +7139,8 @@
     ],
     "defaultVariantId": "matte_black",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "wall"
   },
   {
     "id": "ph_bed_gothic",
@@ -7088,7 +7208,8 @@
     ],
     "defaultVariantId": "velvet_blush",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_plant_potted_01",
@@ -7111,7 +7232,8 @@
       "bathroom"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_plant_potted_02",
@@ -7133,7 +7255,8 @@
       "bedroom"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_plant_potted_04",
@@ -7155,7 +7278,8 @@
       "office"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_planter_clay",
@@ -7178,7 +7302,8 @@
       "kitchen"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_vase_brass_01",
@@ -7202,7 +7327,8 @@
       "dining_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_vase_ceramic_01",
@@ -7224,7 +7350,8 @@
       "dining_room"
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "mountType": "floor"
   },
   {
     "id": "ph_mirror_ornate",

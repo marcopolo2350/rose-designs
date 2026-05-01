@@ -66,8 +66,10 @@ for (const item of items) {
     if (!fs.existsSync(absoluteThumbPath))
       errors.push(`Missing thumbnail for ${id}: ${thumbnailPath}`);
   }
-  if (item.mountType && !["floor", "wall", "surface", "ceiling"].includes(item.mountType)) {
-    errors.push(`Invalid mountType for ${item.assetKey}: ${item.mountType}`);
+  if (!item.mountType) {
+    errors.push(`Asset ${id || "<missing id>"} is missing mountType.`);
+  } else if (!["floor", "wall", "surface", "ceiling"].includes(item.mountType)) {
+    errors.push(`Invalid mountType for ${id || "<missing id>"}: ${item.mountType}`);
   }
 }
 

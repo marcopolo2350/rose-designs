@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.41 - 2026-04-30
+
+- stamped every catalog asset with explicit `mountType` metadata so placement rules no longer depend on runtime guessing
+- tightened manifest validation so future catalog entries must declare a valid mount type
+
 ## 0.5.0-hardening.40 - 2026-04-30
 
 - hardened project JSON imports against prototype-pollution keys and oversized import files
