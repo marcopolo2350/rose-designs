@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-01
 
-Current app version: `0.5.0-hardening.54`
+Current app version: `0.5.0-hardening.55`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -43,6 +43,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - The fatal-load screen renders dynamic error text with `textContent` instead of `innerHTML`.
 - Shared HTML escaping now lives in `scripts/core/html.js`, and high-risk diagnostic/self-test rendering paths are guarded by `npm run validate:html-safety`.
 - The project delete confirmation now renders with DOM nodes and `textContent`, and `npm run validate:html-safety` blocks it from regressing to string-built HTML.
+- The project delete confirmation supports Escape close and Tab focus containment, covered by Playwright and guarded by `npm run validate:html-safety`.
 - Project JSON import validation now checks room text fields, polygon geometry, array fields, and furniture geometry through `npm run validate:project-schema`.
 - Project JSON import validation now rejects dangerous prototype-pollution keys and oversized JSON files before merging rooms into local state.
 - Experimental cloud sync validates room payloads before push/pull and reports config storage failures instead of silently swallowing them.

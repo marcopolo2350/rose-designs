@@ -470,6 +470,31 @@ function toggleFavoriteProject(id){
 // Custom delete confirmation modal (replaces browser confirm)
 let pendingDeleteId=null;
 let deleteConfirmRestoreFocus=null;
+function handleDeleteConfirmKeydown(event){
+  const overlay=document.getElementById('delConfirm');
+  if(!overlay)return;
+  if(event.key==='Escape'){
+    event.preventDefault();
+    event.stopPropagation();
+    closeDeleteConfirm();
+    return;
+  }
+  if(event.key!=='Tab')return;
+  const focusable=[...overlay.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')]
+    .filter(node=>!node.disabled&&node.offsetParent!==null);
+  if(!focusable.length){
+    event.preventDefault();
+    return;
+  }
+  const first=focusable[0],last=focusable[focusable.length-1];
+  if(event.shiftKey&&document.activeElement===first){
+    event.preventDefault();
+    last.focus();
+  }else if(!event.shiftKey&&document.activeElement===last){
+    event.preventDefault();
+    first.focus();
+  }
+}
 function showDeleteConfirm(id){
   if(document.getElementById('delConfirm'))return;
   pendingDeleteId=id;
@@ -485,6 +510,7 @@ function showDeleteConfirm(id){
   overlay.addEventListener('click',event=>{
     if(event.target===overlay)closeDeleteConfirm();
   });
+  overlay.addEventListener('keydown',handleDeleteConfirmKeydown);
   const card=document.createElement('div');
   card.className='confirm-card';
   const title=document.createElement('div');

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.55 - 2026-05-01
+
+- added Escape-to-close and Tab focus containment for the project delete confirmation dialog
+- expanded Playwright smoke coverage for delete-dialog focus behavior and Escape close
+- extended `npm run validate:html-safety` to guard delete-dialog keyboard handling
+
 ## 0.5.0-hardening.54 - 2026-05-01
 
 - added `scripts/export/downloads.js` as the shared download helper for exported data URLs, blobs, and text files

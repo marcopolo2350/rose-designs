@@ -61,6 +61,24 @@ if (!deleteConfirm) {
   if (!/copy\.textContent\s*=\s*name/.test(body)) {
     errors.push("showDeleteConfirm() must render the project name with textContent.");
   }
+  if (!/overlay\.addEventListener\(["']keydown["'],\s*handleDeleteConfirmKeydown\)/.test(body)) {
+    errors.push("showDeleteConfirm() must bind modal keyboard handling.");
+  }
+}
+
+const deleteConfirmKeys = ui.match(
+  /function\s+handleDeleteConfirmKeydown[\s\S]*?function\s+showDeleteConfirm/,
+);
+if (!deleteConfirmKeys) {
+  errors.push("handleDeleteConfirmKeydown() was not found for modal keyboard validation.");
+} else {
+  const body = deleteConfirmKeys[0];
+  if (!/event\.key\s*===\s*["']Escape["']/.test(body)) {
+    errors.push("Delete confirmation must close on Escape.");
+  }
+  if (!/event\.key\s*!==\s*["']Tab["']/.test(body)) {
+    errors.push("Delete confirmation must trap Tab focus.");
+  }
 }
 
 if (!read("scripts/core/error-reporting.js").includes("RoseHTML.clear")) {
