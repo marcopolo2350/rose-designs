@@ -116,7 +116,7 @@ What they do:
 - `test:playwright` - runs the standard Playwright spec suite
 - `test:self` - runs the built-in `#selftest` flow through Playwright
 - `test:smoke` - starts a temporary local server and runs the Playwright smoke helper against the app
-- `test` - runs the hardening validation chain
+- `test` - runs syntax, lint, format, validation commands, and the built-in self-test
 - `thumbs` - regenerates catalog thumbnails
 - `clean` - clears ignored smoke-test, self-test, and temporary debug output artifacts
 

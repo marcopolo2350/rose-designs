@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.44 - 2026-04-30
+
+- made `npm test` run lint and format checks before the validation chain so local verification matches CI discipline more closely
+
 ## 0.5.0-hardening.43 - 2026-04-30
 
 - expanded PR and issue templates with current hardening verification, evidence, and scope-discipline prompts

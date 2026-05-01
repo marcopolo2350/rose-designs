@@ -1,7 +1,7 @@
 {
   "name": "roses-indoor-designs",
   "private": true,
-  "version": "0.5.0-hardening.43",
+  "version": "0.5.0-hardening.44",
   "description": "Local-first 2D and 3D interior planning studio for Rose's Indoor Designs.",
   "license": "UNLICENSED",
   "homepage": "https://marcopolo2350.github.io/roses-indoor-designs/",
@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "python -m http.server 8123",
     "dev:alt": "python -m http.server 8124",
-    "test": "cmd /c npm run check && cmd /c npm run validate:manifest && cmd /c npm run validate:asset-sizes && cmd /c npm run validate:asset-sources && cmd /c npm run validate:static-a11y && cmd /c npm run validate:dev-mode && cmd /c npm run validate:github-templates && cmd /c npm run validate:inline-handlers && cmd /c npm run validate:error-handling && cmd /c npm run validate:runtime-modules && cmd /c npm run validate:dependencies && cmd /c npm run validate:project-schema && cmd /c npm run validate:app-state && cmd /c npm run validate:geometry && cmd /c npm run validate:3d-lifecycle && cmd /c npm run validate:export-filenames && cmd /c npm run test:self",
+    "test": "cmd /c npm run check && cmd /c npm run lint && cmd /c npm run format && cmd /c npm run validate:manifest && cmd /c npm run validate:asset-sizes && cmd /c npm run validate:asset-sources && cmd /c npm run validate:static-a11y && cmd /c npm run validate:dev-mode && cmd /c npm run validate:github-templates && cmd /c npm run validate:inline-handlers && cmd /c npm run validate:error-handling && cmd /c npm run validate:runtime-modules && cmd /c npm run validate:dependencies && cmd /c npm run validate:project-schema && cmd /c npm run validate:app-state && cmd /c npm run validate:geometry && cmd /c npm run validate:3d-lifecycle && cmd /c npm run validate:export-filenames && cmd /c npm run test:self",
     "test:playwright": "playwright test",
     "test:smoke": "node ./scripts/devtools/run-smoke.mjs",
     "test:self": "node ./scripts/devtools/run-selftest.mjs",

@@ -46,7 +46,7 @@ npm test
 - `test:playwright` - runs the standard Playwright spec suite
 - `test:self` - launches the app locally and waits for the built-in `#selftest` flow
 - `test:smoke` - runs the Playwright smoke helper against `index.html`
-- `test` - runs the reproducible hardening check chain
+- `test` - runs syntax, lint, format, validation commands, and the built-in self-test
 
 ## Devtools runner note
 

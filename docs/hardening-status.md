@@ -13,6 +13,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - The transitional runtime bridge is validated by `npm run validate:runtime-modules` so missing or duplicate classic modules fail before browser boot.
 - Remaining CDN dependencies are documented in `docs/dependencies.md` and guarded by `npm run validate:dependencies`.
 - Package scripts exist for dev, syntax checks, lint, format, manifest validation, self-test, smoke, Playwright specs, thumbnails, and cleanup.
+- `npm test` now includes syntax, lint, format, validators, and the built-in self-test so local verification mirrors CI discipline more closely.
 - `npm run clean` removes ignored smoke, self-test, and debug artifacts with root-bound safety checks.
 - CI runs install, syntax checks, lint, format checks, manifest validation, delegated UI handler validation, silent-catch validation, built-in self-test, Playwright spec, and smoke checks.
 - `scripts/core/app-state.js` owns the first central runtime metadata surface.
