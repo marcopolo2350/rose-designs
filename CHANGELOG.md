@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.33 - 2026-04-30
+
+- added an `appState.dispatch()` bridge for high-risk runtime actions and a reproducible validator for the dispatcher behavior
+
 ## 0.5.0-hardening.32 - 2026-04-30
 
 - made cloud sync report local config storage failures, validate payloads before push/pull, and escape modal status/config values more defensively

@@ -76,8 +76,39 @@
     }
   }
 
+  function dispatch(action) {
+    if (!action || typeof action !== "object") {
+      throw new Error("appState.dispatch requires an action object");
+    }
+    switch (action.type) {
+      case "room:set-current":
+        return setCurrentRoom(action.room || null);
+      case "selection:clear":
+        clearSelection();
+        return getSelection();
+      case "editor:set-tool":
+        return setToolState(action.tool || "select");
+      case "render:request":
+        requestRender();
+        return runtime.lastRenderedAt;
+      case "save:schedule":
+        scheduleSave(action.delay);
+        return true;
+      case "3d:schedule-rebuild":
+        schedule3DRebuild();
+        return true;
+      case "dirty:set":
+        return markDirty(action.value);
+      case "saved:mark":
+        return markSaved(action.timestamp);
+      default:
+        throw new Error(`Unknown appState action: ${action.type}`);
+    }
+  }
+
   window.appState = {
     runtime,
+    dispatch,
     markDirty,
     markRendered,
     markSaved,

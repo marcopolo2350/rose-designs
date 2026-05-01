@@ -74,6 +74,7 @@ npm run validate:error-handling
 npm run validate:runtime-modules
 npm run validate:dependencies
 npm run validate:project-schema
+npm run validate:app-state
 npm run test:playwright
 npm run test:self
 npm run test:smoke
@@ -95,6 +96,7 @@ What they do:
 - `validate:runtime-modules` - verifies the transitional runtime module bridge
 - `validate:dependencies` - verifies pinned CDN dependency versions
 - `validate:project-schema` - checks project JSON import/export schema validation
+- `validate:app-state` - checks the central app state dispatcher bridge
 - `test:playwright` - runs the standard Playwright spec suite
 - `test:self` - runs the built-in `#selftest` flow through Playwright
 - `test:smoke` - starts a temporary local server and runs the Playwright smoke helper against the app

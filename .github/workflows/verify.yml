@@ -60,6 +60,9 @@ jobs:
       - name: Validate project schema
         run: npm run validate:project-schema
 
+      - name: Validate app state dispatcher
+        run: npm run validate:app-state
+
       - name: Run built-in self-test
         run: npm run test:self
 

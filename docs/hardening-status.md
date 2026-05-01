@@ -16,6 +16,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - `npm run clean` removes ignored smoke, self-test, and debug artifacts with root-bound safety checks.
 - CI runs install, syntax checks, lint, format checks, manifest validation, delegated UI handler validation, silent-catch validation, built-in self-test, Playwright spec, and smoke checks.
 - `scripts/core/app-state.js` owns the first central runtime metadata surface.
+- `appState.dispatch()` now covers high-risk bridge actions for room selection, selection clearing, tool changes, render requests, save scheduling, 3D rebuild scheduling, and dirty/saved markers.
 - `scripts/core/history.js` owns shared room history and undo/redo behavior.
 - `scripts/core/storage-keys.js` owns localStorage and IndexedDB key naming.
 - IndexedDB access now exposes readable storage-service bridge names (`openDatabase`, `getRecord`, `setRecord`) while legacy callers migrate.
@@ -80,6 +81,7 @@ npm run validate:error-handling
 npm run validate:runtime-modules
 npm run validate:dependencies
 npm run validate:project-schema
+npm run validate:app-state
 npm run test:playwright
 npm test
 npm run test:smoke
