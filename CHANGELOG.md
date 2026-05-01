@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.50 - 2026-05-01
+
+- added `scripts/core/html.js` as the shared HTML escaping/clearing boundary for legacy browser-global rendering paths
+- hardened asset/runtime diagnostic output and self-test output so dynamic values render through escaping or text nodes
+- added `npm run validate:html-safety` and wired it into local tests and CI
+
 ## 0.5.0-hardening.49 - 2026-05-01
 
 - upgraded the Verify workflow to current official action majors: `actions/checkout@v6`, `actions/setup-node@v6`, `actions/setup-python@v6`, and `actions/upload-artifact@v7`

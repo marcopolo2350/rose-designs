@@ -1,5 +1,6 @@
 const RUNTIME_MODULES = [
   "./scripts/core/app-config.js",
+  "./scripts/core/html.js",
   "./scripts/core/error-reporting.js",
   "./scripts/core/storage-keys.js",
   "./scripts/core/project-schema.js",

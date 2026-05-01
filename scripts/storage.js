@@ -407,7 +407,7 @@ function toast(m){
   if(toastHideTimer)clearTimeout(toastHideTimer);
   toastHideTimer=setTimeout(()=>t.classList.remove('show'),1800);
 }
-function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function esc(s){return window.RoseHTML.escape(s)}
 function updateDebugBadge(){
   const el=document.getElementById('debugBadge');
   if(!el)return;
@@ -485,8 +485,8 @@ async function ensureHttpRuntime(){
     const el=document.getElementById('assetPreflightPanel');
     if(el){
       el.classList.add('show');
-      el.innerHTML=`<h4>HTTP Required</h4><div class="ap-meta">page: ${window.location.href}
-asset base: ${getAssetBase()}
+      el.innerHTML=`<h4>HTTP Required</h4><div class="ap-meta">page: ${esc(window.location.href)}
+asset base: ${esc(getAssetBase())}
 Model loading is blocked in file mode.
 
 Open the app at:
@@ -538,10 +538,10 @@ function updateAssetPreflightPanel(entries){
   const sofa=rows.find(r=>r.key==='sofa');
   const hasFail=rows.some(r=>r.status!=='pending'&&!r.ok);
   el.classList.toggle('show',preflightPanelOpen||hasFail);
-  el.innerHTML=`<h4>Asset Preflight</h4><div class="ap-meta">page: ${window.location.href}
-asset base: ${getAssetBase()}
-sofa url: ${sofa?sofa.url:modelUrl('sofa.glb')}</div><div class="ap-list">${rows.map(row=>`<div class="ap-row ${row.ok?'ok':'fail'}">${row.key} -> ${row.status}${row.error?` (${row.error})`:''}
-${row.url}</div>`).join('')}</div>`;
+  el.innerHTML=`<h4>Asset Preflight</h4><div class="ap-meta">page: ${esc(window.location.href)}
+asset base: ${esc(getAssetBase())}
+sofa url: ${esc(sofa?sofa.url:modelUrl('sofa.glb'))}</div><div class="ap-list">${rows.map(row=>`<div class="ap-row ${row.ok?'ok':'fail'}">${esc(row.key)} -> ${esc(row.status)}${row.error?` (${esc(row.error)})`:''}
+${esc(row.url)}</div>`).join('')}</div>`;
 }
 function togglePreflightPanel(){preflightPanelOpen=!preflightPanelOpen;updateAssetPreflightPanel()}
 function ensureRoomDiagEntry(f,reg){
@@ -576,12 +576,16 @@ function updateRoomRuntimeDiag(){
   const summary=ROOM_RUNTIME_DIAG.summary;
   const hasAlert=items.some(item=>item.status==='fail'||item.status==='blocked'||item.issues.length);
   el.classList.toggle('on',runtimeDiagOpen||hasAlert);
-  el.innerHTML=`<div class="runtime-diag-head"><div><h4>Room Runtime Diagnostics</h4><div class="runtime-diag-note">${summary?`ok ${summary.ok} · fail ${summary.fail} · invisible/offscreen ${summary.invisible} · blocked ${summary.blocked}`:'live asset placement diagnostics'}</div></div><button class="runtime-btn" type="button" data-action="hide-room-runtime-diagnostics">Hide</button></div><div class="runtime-diag-list">${items.map(item=>`<div class="runtime-diag-card ${item.status}"><div class="rd-title"><span>${item.key}</span><span>${item.status}</span></div><div class="rd-meta">path: ${item.file}
-mount: ${item.mountType}
-world: ${formatVec3(item.worldPosition)}
-bbox: ${formatSize3(item.bboxSize)}
-scale: ${item.scale?formatVec3(item.scale):'n/a'}
-fallback attempted: ${item.fallbackAttempted?'yes':'no'}${item.error?`\nerror: ${item.error}`:''}${item.issues.length?`\nissues: ${item.issues.join(', ')}`:''}</div></div>`).join('')}</div>`;
+  const summaryText=summary?`ok ${summary.ok} / fail ${summary.fail} / invisible/offscreen ${summary.invisible} / blocked ${summary.blocked}`:'live asset placement diagnostics';
+  el.innerHTML=`<div class="runtime-diag-head"><div><h4>Room Runtime Diagnostics</h4><div class="runtime-diag-note">${esc(summaryText)}</div></div><button class="runtime-btn" type="button" data-action="hide-room-runtime-diagnostics">Hide</button></div><div class="runtime-diag-list">${items.map(item=>{
+    const status=['ok','fail','blocked','loading'].includes(item.status)?item.status:'fail';
+    return `<div class="runtime-diag-card ${status}"><div class="rd-title"><span>${esc(item.key)}</span><span>${esc(item.status)}</span></div><div class="rd-meta">path: ${esc(item.file)}
+mount: ${esc(item.mountType)}
+world: ${esc(formatVec3(item.worldPosition))}
+bbox: ${esc(formatSize3(item.bboxSize))}
+scale: ${esc(item.scale?formatVec3(item.scale):'n/a')}
+fallback attempted: ${item.fallbackAttempted?'yes':'no'}${item.error?`\nerror: ${esc(item.error)}`:''}${item.issues.length?`\nissues: ${item.issues.map(issue=>esc(issue)).join(', ')}`:''}</div></div>`;
+  }).join('')}</div>`;
 }
 function toggleRoomRuntimeDiag(){runtimeDiagOpen=!runtimeDiagOpen;updateRoomRuntimeDiag()}
 function boxInCameraFrustum(box){

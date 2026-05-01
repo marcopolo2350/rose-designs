@@ -83,6 +83,7 @@ npm run validate:static-a11y
 npm run validate:dev-mode
 npm run validate:github-templates
 npm run validate:docs
+npm run validate:html-safety
 npm run validate:storage-keys
 npm run validate:inline-handlers
 npm run validate:error-handling
@@ -115,6 +116,7 @@ What they do:
 - `validate:dev-mode` - checks debug/model/diagnostic surfaces stay behind `.dev-only`
 - `validate:github-templates` - checks issue/PR templates keep hardening scope and verification prompts current
 - `validate:docs` - checks README, testing docs, hardening status, and PR verification commands for drift
+- `validate:html-safety` - checks shared HTML escaping and high-risk diagnostic/self-test rendering paths
 - `validate:storage-keys` - checks app storage calls use the storage-key registry instead of raw key literals
 - `validate:inline-handlers` - blocks inline and direct handler regressions
 - `validate:error-handling` - blocks empty catch blocks

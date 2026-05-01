@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-01
 
-Current app version: `0.5.0-hardening.49`
+Current app version: `0.5.0-hardening.50`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -41,6 +41,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Runtime diagnostics, cloud sync modal buttons, canvas pointer events, and reference file input use delegated actions or `addEventListener` instead of handler properties.
 - Empty catch blocks have been replaced with explicit recoverable error reporting and are guarded by `npm run validate:error-handling`.
 - The fatal-load screen renders dynamic error text with `textContent` instead of `innerHTML`.
+- Shared HTML escaping now lives in `scripts/core/html.js`, and high-risk diagnostic/self-test rendering paths are guarded by `npm run validate:html-safety`.
 - Project JSON import validation now checks room text fields, polygon geometry, array fields, and furniture geometry through `npm run validate:project-schema`.
 - Project JSON import validation now rejects dangerous prototype-pollution keys and oversized JSON files before merging rooms into local state.
 - Experimental cloud sync validates room payloads before push/pull and reports config storage failures instead of silently swallowing them.
@@ -100,6 +101,7 @@ npm run validate:static-a11y
 npm run validate:dev-mode
 npm run validate:github-templates
 npm run validate:docs
+npm run validate:html-safety
 npm run validate:storage-keys
 npm run validate:error-handling
 npm run validate:runtime-modules

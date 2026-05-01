@@ -170,7 +170,10 @@ async function runSelfTest() {
       note('self test runtime', false, err.message || String(err));
       console.error('SELF TEST ERROR', err);
     }
-    out.innerHTML = `<pre>${results.join('\n')}</pre>`;
+    out.textContent = '';
+    const pre = document.createElement('pre');
+    pre.textContent = results.join('\n');
+    out.appendChild(pre);
     document.body.setAttribute('data-selftest', results.join('|'));
     const summary = {
       passed: results.filter(x => x.startsWith('PASS')),

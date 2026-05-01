@@ -59,7 +59,8 @@
       card.appendChild(pre);
     }
     root.appendChild(card);
-    document.body.innerHTML = "";
+    if (window.RoseHTML?.clear) window.RoseHTML.clear(document.body);
+    else document.body.textContent = "";
     document.body.appendChild(root);
   }
 
