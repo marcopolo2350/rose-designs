@@ -45,6 +45,9 @@ jobs:
       - name: Validate asset manifest
         run: npm run validate:manifest
 
+      - name: Validate asset sizes
+        run: npm run validate:asset-sizes
+
       - name: Validate delegated UI handlers
         run: npm run validate:inline-handlers
 

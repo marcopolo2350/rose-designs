@@ -69,6 +69,7 @@ npm run check
 npm run lint
 npm run format
 npm run validate:manifest
+npm run validate:asset-sizes
 npm run validate:inline-handlers
 npm run validate:error-handling
 npm run validate:runtime-modules
@@ -94,6 +95,7 @@ What they do:
 - `lint` - lints the new hardening boundary files
 - `format` - checks formatting for docs and the new hardening files
 - `validate:manifest` - verifies asset manifest entries, models, and thumbnails
+- `validate:asset-sizes` - verifies GLB files stay below the per-model size ceiling
 - `validate:inline-handlers` - blocks inline and direct handler regressions
 - `validate:error-handling` - blocks empty catch blocks
 - `validate:runtime-modules` - verifies the transitional runtime module bridge

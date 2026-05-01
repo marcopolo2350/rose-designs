@@ -5,6 +5,7 @@
 ```bash
 npm run check
 npm run validate:manifest
+npm run validate:asset-sizes
 npm run validate:inline-handlers
 npm run validate:error-handling
 npm run validate:runtime-modules
@@ -24,6 +25,7 @@ npm test
 
 - `check` - syntax checks the main runtime files
 - `validate:manifest` - verifies asset manifest entries, model files, and thumbnails
+- `validate:asset-sizes` - verifies GLB files stay below the per-model size ceiling
 - `validate:inline-handlers` - blocks inline and direct handler regressions
 - `validate:error-handling` - blocks empty catch blocks
 - `validate:runtime-modules` - validates the transitional runtime bridge and canonical entrypoint

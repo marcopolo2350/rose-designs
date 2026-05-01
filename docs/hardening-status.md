@@ -43,6 +43,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - 3D material, scene, renderer, listener, and composer disposal helpers are isolated in `scripts/planner3d/lifecycle.js` and covered by `npm run validate:3d-lifecycle`.
 - Export filenames are sanitized through `scripts/export/filenames.js` and covered by `npm run validate:export-filenames`.
 - `data/asset-validation-overrides.json` documents intentional shared GLB aliases.
+- GLB asset file sizes are guarded by `npm run validate:asset-sizes` with a 10 MB per-model ceiling.
 - Standard Playwright config and a shell smoke spec exist for desktop and mobile Chromium viewports.
 - README, changelog, roadmap, architecture, data model, testing, deployment, and limitations docs exist.
 
@@ -80,6 +81,7 @@ npm run check
 npm run lint
 npm run format
 npm run validate:manifest
+npm run validate:asset-sizes
 npm run validate:error-handling
 npm run validate:runtime-modules
 npm run validate:dependencies

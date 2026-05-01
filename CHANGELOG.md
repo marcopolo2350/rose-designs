@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.37 - 2026-04-30
+
+- added a GLB size validation command and CI gate so oversized catalog assets are caught before they bloat the app
+
 ## 0.5.0-hardening.36 - 2026-04-30
 
 - extracted export filename sanitizing into `scripts/export/filenames.js` and wired PNG/SVG/PDF/JSON downloads through the shared helper
