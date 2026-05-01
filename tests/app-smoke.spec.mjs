@@ -92,6 +92,31 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
   await expect(page.locator("body")).toContainText("Living Room East");
   await ensureRoomPanelOpen(page);
   await expect(page.locator("#propsP")).toContainText("Building 2 rooms");
+  const buildPanelInlineHandlers = await page
+    .locator("#propsP [onclick], #propsP [oninput], #propsP [onchange]")
+    .count();
+  expect(buildPanelInlineHandlers).toBe(0);
+  await page.locator('[data-action="toggle-room-layer"]').first().click();
+  await page.locator('[data-action="toggle-room-layer"]').first().click();
+  await page.locator('[data-action="room-panel-group"][data-group="furnish"]').click();
+  await page.locator('[data-action="toggle-existing-room-mode"]').click();
+  await page.locator('[data-action="toggle-ghost-existing"]').click();
+  await page.locator('[data-action="toggle-hide-removed-existing"]').click();
+  await page.locator('[data-action="toggle-plan-legend"]').click();
+  await page.locator('[data-action="set-plan-view-mode"][data-mode="existing"]').click();
+  await page.locator('[data-action="set-plan-view-mode"][data-mode="combined"]').click();
+  await page.locator('[data-action="set-selected-furniture-source"][data-source="new"]').click();
+  await page.locator('[data-action="room-panel-group"][data-group="present"]').click();
+  await page.locator('[data-action="rename-current-option"]').fill("Smoke Main");
+  await page.locator('[data-action="rename-current-option"]').dispatchEvent("change");
+  await page.locator('[data-action="set-current-option-notes"]').fill("Smoke notes");
+  await page.locator('[data-action="set-current-option-notes"]').dispatchEvent("change");
+  await page.locator('[data-action="switch-to-option"]').first().click();
+  const presentPanelInlineHandlers = await page
+    .locator("#propsP [onclick], #propsP [oninput], #propsP [onchange]")
+    .count();
+  expect(presentPanelInlineHandlers).toBe(0);
+  await ensureRoomPanelOpen(page);
   await page.locator('[data-action="prop-close"]').click();
   await expect(page.locator("#propsP")).not.toHaveClass(/on/);
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.16 - 2026-04-30
+
+- moved Tracing Reference, Redesign Planning, Plan Layers, Design Options, and Presentation room-panel controls to delegated `data-action` handlers
+- extended desktop/mobile Playwright smoke coverage for layer toggles, redesign toggles, plan view mode, and option metadata edits
+
 ## 0.5.0-hardening.15 - 2026-04-30
 
 - moved Ceiling Geometry and Design Direction controls to delegated `data-action` handlers

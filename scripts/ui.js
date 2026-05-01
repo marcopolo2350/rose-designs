@@ -45,8 +45,12 @@ function handleUiAction(action,target,event){
   if(action==='set-view-preset')return setViewPreset(target?.dataset?.viewPreset||'overview');
   if(action==='toggle-walkthrough-tray')return toggleWalkthroughTray();
   if(action==='toggle-presentation-mode')return togglePresentationMode();
-  if(action==='toggle-photo-mode')return togglePhotoMode();
+  if(action==='toggle-photo-mode'){
+    const forced=target?.dataset?.photoForce;
+    return forced===undefined?togglePhotoMode():togglePhotoMode(forced==='true');
+  }
   if(action==='toggle-3d-compare-mode')return toggle3DCompareMode();
+  if(action==='export-png')return exportPNG();
   if(action==='room-runtime-action'){
     const fn=window[target?.dataset?.fn];
     if(typeof fn==='function')return fn();
@@ -112,6 +116,26 @@ function handleUiAction(action,target,event){
   if(action==='toggle-design-preset-panel')return toggleDesignPresetPanel();
   if(action==='select-pending-design-preset')return selectPendingDesignPreset(target?.dataset?.presetId||'');
   if(action==='apply-pending-design-preset')return applyPendingDesignPreset();
+  if(action==='import-reference-asset')return importReferenceAsset();
+  if(action==='toggle-reference-visibility')return toggleReferenceVisibility();
+  if(action==='toggle-reference-lock')return toggleReferenceLock();
+  if(action==='set-reference-pdf-page')return setReferencePdfPage(Number(target?.dataset?.page||1));
+  if(action==='start-reference-calibration')return startReferenceCalibration();
+  if(action==='cancel-reference-overlay-calibration')return cancelReferenceCalibration();
+  if(action==='clear-reference-overlay')return clearReferenceOverlay();
+  if(action==='toggle-existing-room-mode')return toggleExistingRoomMode();
+  if(action==='toggle-ghost-existing')return toggleGhostExisting();
+  if(action==='toggle-hide-removed-existing')return toggleHideRemovedExisting();
+  if(action==='toggle-plan-legend')return togglePlanLegend();
+  if(action==='set-plan-view-mode')return setPlanViewMode(target?.dataset?.mode||'combined');
+  if(action==='set-selected-furniture-source')return setSelectedFurnitureSource(target?.dataset?.source||'new');
+  if(action==='duplicate-for-redesign')return duplicateForRedesign();
+  if(action==='export-comparison-sheet')return exportComparisonSheet();
+  if(action==='toggle-room-layer')return toggleRoomLayer(target?.dataset?.layer||'furniture');
+  if(action==='create-room-option-from-current')return createRoomOptionFromCurrent();
+  if(action==='export-design-summary')return exportDesignSummary();
+  if(action==='export-presentation-pdf')return exportPresentationPDF();
+  if(action==='switch-to-option')return switchToOption(target?.dataset?.optionId||'');
   if(action==='tutorial-next')return nextTut();
   if(action==='tutorial-end')return endTut();
   if(action==='close-shortcut-sheet')return closeShortcutSheet();
@@ -145,11 +169,16 @@ function bindStaticUiActions(){
     if(target?.dataset?.action==='set-light-character-input')setLightCharacter(target.value);
     if(target?.dataset?.action==='set-ceiling-brightness-input')setCeilingBrightness(target.value);
     if(target?.dataset?.action==='set-room-height-input')uRoomHeight(target.value);
+    if(target?.dataset?.action==='set-reference-center-axis')setReferenceCenterAxis(target.dataset.axis,target.value);
+    if(target?.dataset?.action==='rename-current-option')renameCurrentOption(target.value);
+    if(target?.dataset?.action==='set-current-option-notes')setCurrentOptionNotes(target.value);
   });
   document.addEventListener('input',event=>{
     const target=event.target;
     if(target?.dataset?.action==='time-of-day-input')onTimeOfDayChange(target.value);
     if(target?.dataset?.action==='catalog-search')filterFurnPicker(target.value);
+    if(target?.dataset?.action==='set-reference-opacity')setReferenceOpacity(target.value);
+    if(target?.dataset?.action==='set-reference-scale')setReferenceScale(target.value);
   });
   document.addEventListener('pointerover',event=>{
     const target=event.target.closest('[data-preview-index]');
