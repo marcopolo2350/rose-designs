@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.49 - 2026-05-01
+
+- upgraded the Verify workflow to current official action majors: `actions/checkout@v6`, `actions/setup-node@v6`, `actions/setup-python@v6`, and `actions/upload-artifact@v7`
+- extended GitHub template validation to guard the Node 24 workflow opt-in and action-version pins
+
 ## 0.5.0-hardening.48 - 2026-05-01
 
 - opted the Verify workflow into Node 24 JavaScript actions early with `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` to clear GitHub's Node 20 deprecation warning before the June 2026 default switch

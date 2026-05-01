@@ -9,6 +9,7 @@ const prTemplate = read(".github/pull_request_template.md");
 const bugTemplate = read(".github/ISSUE_TEMPLATE/bug_report.md");
 const featureTemplate = read(".github/ISSUE_TEMPLATE/feature_request.md");
 const dependabot = read(".github/dependabot.yml");
+const verifyWorkflow = read(".github/workflows/verify.yml");
 
 const requiredPrCommands = [
   "npm run check",
@@ -69,6 +70,23 @@ for (const phrase of [
 
 if (!/package-ecosystem:\s*"npm"/.test(dependabot) || !/interval:\s*"weekly"/.test(dependabot)) {
   errors.push("Dependabot must be configured for weekly npm dependency checks.");
+}
+
+const requiredActions = [
+  "actions/checkout@v6",
+  "actions/setup-node@v6",
+  "actions/setup-python@v6",
+  "actions/upload-artifact@v7",
+];
+
+for (const action of requiredActions) {
+  if (!verifyWorkflow.includes(action)) {
+    errors.push(`Verify workflow is missing current action pin: ${action}`);
+  }
+}
+
+if (!verifyWorkflow.includes("FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true")) {
+  errors.push("Verify workflow must keep Node 24 JavaScript action opt-in enabled.");
 }
 
 if (errors.length) {
