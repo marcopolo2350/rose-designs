@@ -3,6 +3,7 @@ const RUNTIME_MODULES = [
   "./scripts/core/error-reporting.js",
   "./scripts/core/storage-keys.js",
   "./scripts/core/project-schema.js",
+  "./scripts/planner2d/geometry.js",
   "./scripts/state.js",
   "./scripts/storage.js",
   "./scripts/core/app-state.js",

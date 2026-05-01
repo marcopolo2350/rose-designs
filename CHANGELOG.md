@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.34 - 2026-04-30
+
+- extracted pure 2D geometry helpers into `scripts/planner2d/geometry.js` with a reproducible validator while keeping compatibility wrappers in `state.js`
+
 ## 0.5.0-hardening.33 - 2026-04-30
 
 - added an `appState.dispatch()` bridge for high-risk runtime actions and a reproducible validator for the dispatcher behavior

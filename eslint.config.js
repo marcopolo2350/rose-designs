@@ -3,7 +3,14 @@ import js from "@eslint/js";
 export default [
   js.configs.recommended,
   {
-    files: ["scripts/main.js", "scripts/core/**/*.js", "scripts/ui/**/*.js", "scripts/cloud/**/*.js", "scripts/devtools/**/*.mjs"],
+    files: [
+      "scripts/main.js",
+      "scripts/core/**/*.js",
+      "scripts/ui/**/*.js",
+      "scripts/planner2d/**/*.js",
+      "scripts/cloud/**/*.js",
+      "scripts/devtools/**/*.mjs",
+    ],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",

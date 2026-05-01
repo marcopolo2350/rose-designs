@@ -129,17 +129,7 @@ function hashCode(str){
 // ── WALK COLLISION SYSTEM ──
 // Tests if a point is inside the room polygon (2D, using ray casting)
 function pointInPolygon(px, pz, polygon) {
-  // px = world x, pz = world z (negated y in 3D coords)
-  const py = -pz; // convert back to 2D y
-  let inside = false;
-  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-    const xi = polygon[i].x, yi = polygon[i].y;
-    const xj = polygon[j].x, yj = polygon[j].y;
-    if (((yi > py) !== (yj > py)) && (px < (xj - xi) * (py - yi) / (yj - yi) + xi)) {
-      inside = !inside;
-    }
-  }
-  return inside;
+  return window.Planner2DGeometry.pointInPolygonWorldXZ(px,pz,polygon);
 }
 
 // Check if position collides with any closet
@@ -279,9 +269,7 @@ function bindWalkKeys(){
 let showMeasurements=true;
 function toggleMeasurements(){showMeasurements=!showMeasurements;document.querySelectorAll('.tb').forEach(b=>b.classList.toggle('on',b.dataset.t==='measure'&&showMeasurements));draw()}
 function polygonArea(polygon){
-  let area=0;
-  for(let i=0,j=polygon.length-1;i<polygon.length;j=i++)area+=(polygon[j].x+polygon[i].x)*(polygon[j].y-polygon[i].y);
-  return Math.abs(area/2);
+  return window.Planner2DGeometry.polygonArea(polygon);
 }
 function fmtFt(v){const ft=Math.floor(v),inch=Math.round((v-ft)*12);return inch>=12?`${ft+1}'`:(inch>0?`${ft}' ${inch}"`:`${ft}'`)}
 function distanceLabel(){return unitSystem==='metric'?'m':'ft'}
@@ -319,22 +307,12 @@ function parseDistanceInput(value,fallback=0){
 function snapFurnitureValue(value){return Math.round(value/FURNITURE_GRID)*FURNITURE_GRID}
 let lastPlanSnapState=null;
 let lastFurnitureSnapState=null;
-function distancePoint(a,b){return Math.hypot((a.x||0)-(b.x||0),(a.y||0)-(b.y||0))}
+function distancePoint(a,b){return window.Planner2DGeometry.distancePoint(a,b)}
 function closestPointOnSegment(point,a,b){
-  const dx=b.x-a.x,dy=b.y-a.y,len=dx*dx+dy*dy;
-  if(!len)return{x:a.x,y:a.y,t:0,distance:distancePoint(point,a)};
-  const t=Math.max(0,Math.min(1,((point.x-a.x)*dx+(point.y-a.y)*dy)/len));
-  const x=a.x+dx*t,y=a.y+dy*t;
-  return {x,y,t,distance:Math.hypot(point.x-x,point.y-y)};
+  return window.Planner2DGeometry.closestPointOnSegment(point,a,b);
 }
 function lineIntersection(a1,a2,b1,b2){
-  const dax=a2.x-a1.x,day=a2.y-a1.y,dbx=b2.x-b1.x,dby=b2.y-b1.y;
-  const den=dax*dby-day*dbx;
-  if(Math.abs(den)<1e-6)return null;
-  const u=((b1.x-a1.x)*day-(b1.y-a1.y)*dax)/den;
-  const t=((b1.x-a1.x)*dby-(b1.y-a1.y)*dbx)/den;
-  if(t<0||t>1||u<0||u>1)return null;
-  return {x:a1.x+t*dax,y:a1.y+t*day};
+  return window.Planner2DGeometry.lineIntersection(a1,a2,b1,b2);
 }
 function collectPlanSnapTargets(room=curRoom){
   if(!room)return {points:[],lines:[]};
