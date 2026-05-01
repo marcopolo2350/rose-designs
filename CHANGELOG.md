@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.80 - 2026-05-01
+
+- rebuilt the 3D Reveal Mode presentation tray with DOM nodes and `textContent`
+- extended HTML safety validation to block presentation tray string rendering from returning
+
 ## 0.5.0-hardening.79 - 2026-05-01
 
 - removed phase-history comments from runtime modules so source comments describe current behavior

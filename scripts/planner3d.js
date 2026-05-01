@@ -288,6 +288,76 @@ function refreshPresentationPill(){
   pill.textContent=text;
   pill.classList.toggle('on',presentationMode||compare3DMode);
 }
+function replaceOrAppend3DTray(existing,node){
+  if(existing)existing.replaceWith(node);
+  else document.getElementById('cWrap')?.appendChild(node);
+}
+function createMiniActionButton(label,action,{secondary=false,dataset={}}={}){
+  const button=document.createElement('button');
+  button.className=`mini-chip${secondary?' secondary':''}`;
+  button.type='button';
+  button.dataset.action=action;
+  Object.entries(dataset).forEach(([key,value])=>{button.dataset[key]=String(value)});
+  button.textContent=label;
+  return button;
+}
+function createPresentationTrayNode(stats,shots){
+  const root=document.createElement('div');
+  root.className='present-tray';
+  root.id='presentTray';
+  const panel=document.createElement('div');
+  panel.className='present-panel';
+  const head=document.createElement('div');
+  head.className='present-head';
+  const headCopy=document.createElement('div');
+  const title=document.createElement('div');
+  title.className='present-title';
+  title.textContent='Reveal Mode';
+  const copy=document.createElement('div');
+  copy.className='present-copy';
+  copy.textContent=roomStoryLine(curRoom);
+  headCopy.append(title,copy);
+  head.append(headCopy,createMiniActionButton('Exit','toggle-presentation-mode',{secondary:true}));
+
+  const story=document.createElement('div');
+  story.className='present-story';
+  const storyLabel=document.createElement('span');
+  storyLabel.className='present-story-label';
+  storyLabel.textContent=curRoom.optionName||curRoom.name||'Room Story';
+  const storyMeta=document.createElement('span');
+  storyMeta.className='present-story-meta';
+  storyMeta.textContent=`Keep ${stats.keep} | Move ${stats.move} | Replace ${stats.replace} | Remove ${stats.remove}`;
+  story.append(storyLabel,storyMeta);
+
+  const grid=document.createElement('div');
+  grid.className='present-grid';
+  shots.forEach(([id,label,shotCopy])=>{
+    const button=document.createElement('button');
+    button.className=`present-shot${presentationShot===id?' active':''}`;
+    button.type='button';
+    button.dataset.action='set-presentation-shot';
+    button.dataset.shot=id;
+    const shotTitle=document.createElement('span');
+    shotTitle.className='present-shot-title';
+    shotTitle.textContent=label;
+    const shotCopyEl=document.createElement('span');
+    shotCopyEl.className='present-shot-copy';
+    shotCopyEl.textContent=shotCopy;
+    button.append(shotTitle,shotCopyEl);
+    grid.appendChild(button);
+  });
+
+  const actions=document.createElement('div');
+  actions.className='present-actions';
+  actions.append(
+    createMiniActionButton('Capture Cover','capture-presentation-still'),
+    createMiniActionButton('Cycle Compare View','toggle-3d-compare-mode',{secondary:true}),
+    createMiniActionButton('Open Photo Mode','toggle-photo-mode',{secondary:true,dataset:{photoForce:'true'}})
+  );
+  panel.append(head,story,grid,actions);
+  root.appendChild(panel);
+  return root;
+}
 function updatePresentationTray(){
   const existing=document.getElementById('presentTray');
   if(!is3D||!presentationMode||photoMode){if(existing)existing.remove();return;}
@@ -299,8 +369,7 @@ function updatePresentationTray(){
     ['intimate','Intimate View','Moves closer for warmer, more editorial storytelling.'],
     ['before_after','Before / After','Stages the existing, redesign, and combined story in sequence.'],
   ];
-  const markup=`<div class="present-tray" id="presentTray"><div class="present-panel"><div class="present-head"><div><div class="present-title">Reveal Mode</div><div class="present-copy">${roomStoryLine(curRoom)}</div></div><button class="mini-chip secondary" type="button" data-action="toggle-presentation-mode">Exit</button></div><div class="present-story"><span class="present-story-label">${curRoom.optionName||curRoom.name||'Room Story'}</span><span class="present-story-meta">Keep ${stats.keep} | Move ${stats.move} | Replace ${stats.replace} | Remove ${stats.remove}</span></div><div class="present-grid">${shots.map(([id,label,copy])=>`<button class="present-shot${presentationShot===id?' active':''}" type="button" data-action="set-presentation-shot" data-shot="${id}"><span class="present-shot-title">${label}</span><span class="present-shot-copy">${copy}</span></button>`).join('')}</div><div class="present-actions"><button class="mini-chip" type="button" data-action="capture-presentation-still">Capture Cover</button><button class="mini-chip secondary" type="button" data-action="toggle-3d-compare-mode">Cycle Compare View</button><button class="mini-chip secondary" type="button" data-action="toggle-photo-mode" data-photo-force="true">Open Photo Mode</button></div></div></div>`;
-  if(existing)existing.outerHTML=markup; else document.getElementById('cWrap').insertAdjacentHTML('beforeend',markup);
+  replaceOrAppend3DTray(existing,createPresentationTrayNode(stats,shots));
   refreshPresentationPill();
 }
 

@@ -255,6 +255,24 @@ if (!walkControlDock) {
   }
 }
 
+const presentationTray = planner3d.match(
+  /function\s+createPresentationTrayNode[\s\S]*?function\s+togglePresentationMode/,
+);
+if (!presentationTray) {
+  errors.push("Presentation tray renderer was not found for HTML safety validation.");
+} else {
+  const body = presentationTray[0];
+  if (/innerHTML\s*=|insertAdjacentHTML|outerHTML\s*=/.test(body)) {
+    errors.push("Presentation tray must render with DOM nodes, not HTML strings.");
+  }
+  if (
+    !/copy\.textContent\s*=\s*roomStoryLine\(curRoom\)/.test(body) ||
+    !/storyLabel\.textContent\s*=/.test(body)
+  ) {
+    errors.push("Presentation tray must render dynamic room story copy with textContent.");
+  }
+}
+
 const deleteConfirmKeys = ui.match(
   /function\s+handleDeleteConfirmKeydown[\s\S]*?function\s+showDeleteConfirm/,
 );
