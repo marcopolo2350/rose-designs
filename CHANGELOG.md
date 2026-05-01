@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.21 - 2026-04-30
+
+- moved generated 3D reveal, walkthrough, photo, and mobile walk-control tray actions to delegated `data-action` and hold handlers
+- kept 3D tray behavior compatible with existing `npm test` self-test coverage for 3D entry and walk/orbit mode toggles
+
 ## 0.5.0-hardening.20 - 2026-04-30
 
 - moved home project cards, create-room starter cards, delete confirmation buttons, and undo timeline nodes to delegated `data-action` handlers

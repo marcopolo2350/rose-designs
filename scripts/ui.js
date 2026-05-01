@@ -52,11 +52,17 @@ function handleUiAction(action,target,event){
   if(action==='set-cam-mode')return setCamMode(target?.dataset?.camMode||'orbit');
   if(action==='set-view-preset')return setViewPreset(target?.dataset?.viewPreset||'overview');
   if(action==='toggle-walkthrough-tray')return toggleWalkthroughTray();
+  if(action==='start-walkthrough-preset')return startWalkthroughPreset(target?.dataset?.presetId||'favorite_corner');
   if(action==='toggle-presentation-mode')return togglePresentationMode();
+  if(action==='set-presentation-shot')return setPresentationShot(target?.dataset?.shot||'hero');
+  if(action==='capture-presentation-still')return capturePresentationStill();
   if(action==='toggle-photo-mode'){
     const forced=target?.dataset?.photoForce;
     return forced===undefined?togglePhotoMode():togglePhotoMode(forced==='true');
   }
+  if(action==='set-photo-preset')return setPhotoPreset(target?.dataset?.photoPreset||'hero');
+  if(action==='capture-photo-mode')return capturePhotoMode();
+  if(action==='toggle-walk-control-layout')return toggleWalkControlLayout();
   if(action==='toggle-3d-compare-mode')return toggle3DCompareMode();
   if(action==='export-png')return exportPNG();
   if(action==='room-runtime-action'){
@@ -188,6 +194,21 @@ function bindStaticUiActions(){
     event.preventDefault();
     handleUiAction(target.dataset.action,target,event);
   });
+  document.addEventListener('pointerdown',event=>{
+    const target=event.target.closest('[data-hold-action]');
+    if(!target)return;
+    const dir=Number(target.dataset.direction||0);
+    if(target.dataset.holdAction==='walk-turn')startWalkTurn(dir);
+    if(target.dataset.holdAction==='walk-move')startWalkMove(dir);
+  });
+  for(const type of ['pointerup','pointerleave','pointercancel']){
+    document.addEventListener(type,event=>{
+      const target=event.target.closest('[data-hold-action]');
+      if(!target)return;
+      if(target.dataset.holdAction==='walk-turn')stopWalkTurn();
+      if(target.dataset.holdAction==='walk-move')stopWalkMove();
+    });
+  }
   document.addEventListener('change',event=>{
     const target=event.target;
     if(target?.dataset?.action==='handle-project-json-selected')handleProjectJSONSelected(event);
