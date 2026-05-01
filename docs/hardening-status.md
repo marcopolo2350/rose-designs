@@ -10,7 +10,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - App identity is centralized in `scripts/core/app-config.js`.
 - Runtime boot has an explicit documented bridge in `scripts/main.js`.
 - Package scripts exist for dev, syntax checks, lint, format, manifest validation, self-test, smoke, Playwright specs, thumbnails, and cleanup.
-- CI runs install, syntax checks, lint, manifest validation, built-in self-test, Playwright spec, and smoke checks.
+- CI runs install, syntax checks, lint, format checks, manifest validation, delegated UI handler validation, built-in self-test, Playwright spec, and smoke checks.
 - `scripts/core/app-state.js` owns the first central runtime metadata surface.
 - `scripts/core/history.js` owns shared room history and undo/redo behavior.
 - `scripts/core/storage-keys.js` owns localStorage and IndexedDB key naming.

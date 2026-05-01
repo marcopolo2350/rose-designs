@@ -39,8 +39,14 @@ jobs:
       - name: Run lint
         run: npm run lint
 
+      - name: Check formatting
+        run: npm run format
+
       - name: Validate asset manifest
         run: npm run validate:manifest
+
+      - name: Validate delegated UI handlers
+        run: npm run validate:inline-handlers
 
       - name: Run built-in self-test
         run: npm run test:self

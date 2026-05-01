@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.23 - 2026-04-30
+
+- made CI enforce formatting and delegated UI handler validation alongside syntax, lint, manifest, self-test, Playwright, and smoke checks
+
 ## 0.5.0-hardening.22 - 2026-04-30
 
 - replaced remaining runtime diagnostics, cloud modal, canvas, and reference-file direct handler assignments with delegated actions or `addEventListener`
