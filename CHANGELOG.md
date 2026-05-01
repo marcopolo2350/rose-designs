@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.29 - 2026-04-30
+
+- removed the redirect-only `roses-indoor-designs.html` legacy entrypoint and made runtime validation block redirect shell drift
+
 ## 0.5.0-hardening.28 - 2026-04-30
 
 - documented the remaining runtime CDN dependencies and added validation for pinned CDN versions and consistent Three.js loader versions

@@ -5,7 +5,7 @@
 The app remains GitHub Pages compatible.
 
 - canonical entrypoint: `index.html`
-- compatibility redirect: `roses-indoor-designs.html`
+- no redirect-only HTML entrypoints are kept in the repo
 
 ## Local preview
 

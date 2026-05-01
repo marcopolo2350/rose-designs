@@ -103,7 +103,7 @@ What they do:
 ## Entrypoints
 
 - [index.html](./index.html) is now the canonical app shell
-- [roses-indoor-designs.html](./roses-indoor-designs.html) is kept as a compatibility redirect for older links
+- redirect-only legacy HTML entrypoints are intentionally not kept in the repo
 
 ## Repo Layout
 

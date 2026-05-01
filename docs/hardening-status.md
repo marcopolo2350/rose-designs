@@ -7,6 +7,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 ## Completed In Repo
 
 - Canonical app shell is `index.html`.
+- Redirect-only legacy HTML entrypoints have been removed and are blocked by runtime validation.
 - App identity is centralized in `scripts/core/app-config.js`.
 - Runtime boot has an explicit documented bridge in `scripts/main.js`.
 - The transitional runtime bridge is validated by `npm run validate:runtime-modules` so missing or duplicate classic modules fail before browser boot.
