@@ -44,6 +44,8 @@ async function bootRuntime() {
     throw new Error("Runtime boot function was not registered");
   }
   await window.boot();
+  document.body?.setAttribute("data-runtime-ready", "1");
+  window.dispatchEvent(new window.CustomEvent("rose:runtime-ready"));
   if (location.hash.includes("dev") || location.search.includes("dev=1")) {
     console.info(
       `[rose-runtime] booted ${RUNTIME_MODULES.length} modules in ${Math.round(performance.now() - startedAt)}ms`,

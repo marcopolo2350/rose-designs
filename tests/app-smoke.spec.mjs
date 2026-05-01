@@ -41,6 +41,7 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
   page.on("pageerror", (error) => runtimeErrors.push(`page: ${error.message}`));
 
   await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
   await expect(page).toHaveTitle("Rose's Indoor Designs");
   await expect(page.locator("#scrHome")).toHaveClass(/on/);
 

@@ -68,6 +68,9 @@ jobs:
       - name: Validate source structure
         run: npm run validate:structure
 
+      - name: Validate CSS guardrails
+        run: npm run validate:css
+
       - name: Validate HTML safety
         run: npm run validate:html-safety
 

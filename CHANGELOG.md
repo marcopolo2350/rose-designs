@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0-hardening.52 - 2026-05-01
+
+- added global `:focus-visible` styling and z-index tokens to the app stylesheet
+- removed the remaining negative letter-spacing value from the brand header
+- added `npm run validate:css` to guard focus styling, z-index tokens, reduced motion, safe-area handling, and blocked CSS patterns
+- added a `data-runtime-ready` boot marker so browser smoke tests wait for real event bindings
+
 ## 0.5.0-hardening.51 - 2026-05-01
 
 - extracted catalog manifest loading and normalization into `scripts/catalog/manifest.js` so the catalog source boundary is real code, not just a checklist folder

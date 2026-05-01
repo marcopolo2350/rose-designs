@@ -24,6 +24,7 @@ const requiredPrCommands = [
   "npm run validate:inline-handlers",
   "npm run validate:docs",
   "npm run validate:structure",
+  "npm run validate:css",
   "npm run validate:html-safety",
   "npm run validate:storage-keys",
   "npm run validate:error-handling",

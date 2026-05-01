@@ -23,6 +23,7 @@
 - [ ] `npm run validate:github-templates`
 - [ ] `npm run validate:docs`
 - [ ] `npm run validate:structure`
+- [ ] `npm run validate:css`
 - [ ] `npm run validate:html-safety`
 - [ ] `npm run validate:storage-keys`
 - [ ] `npm run validate:inline-handlers`
