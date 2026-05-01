@@ -1,7 +1,7 @@
 // Catalog
 const CATALOG_CATEGORY_ORDER=['Seating','Beds','Tables','Storage','Kitchen','Bathroom','Laundry','Lighting','Decor','Rugs','Wall Decor','Openings'];
-// Category glyphs (small illustrated icons). Returned as inline SVG markup
-// so they render consistently across devices without icon-font dependencies.
+// Category glyphs (small illustrated icons). The catalog overlay renders these
+// trusted static SVG snippets through DOMParser instead of injecting HTML.
 const CATALOG_GLYPHS={
   Seating:'<svg viewBox="0 0 24 24"><path d="M4 13v4M20 13v4M4 17h16M5 13h14a2 2 0 0 0-2-2h-10a2 2 0 0 0-2 2z"/></svg>',
   Beds:'<svg viewBox="0 0 24 24"><path d="M3 18V8M21 18v-6M3 12h18M3 18h18M7 11h4v1H7z"/></svg>',
@@ -16,9 +16,15 @@ const CATALOG_GLYPHS={
   'Wall Decor':'<svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="14"/><path d="M5 10l3 4 3-3 4 5h4"/><path d="M11 21h2"/></svg>',
   Openings:'<svg viewBox="0 0 24 24"><path d="M4 21V4h9l7 5v12"/><path d="M13 4v17M7 14h3"/></svg>',
 };
-function categoryGlyphMarkup(cat){
+function createCategoryGlyphElement(cat){
   const svg=CATALOG_GLYPHS[cat]||'';
-  return svg?`<span class="cat-glyph">${svg}</span>`:'';
+  if(!svg)return null;
+  const span=document.createElement('span');
+  span.className='cat-glyph';
+  span.setAttribute('aria-hidden','true');
+  const parsed=new DOMParser().parseFromString(svg,'image/svg+xml').documentElement;
+  if(parsed&&parsed.nodeName.toLowerCase()==='svg')span.appendChild(document.importNode(parsed,true));
+  return span;
 }
 const CATEGORY_ALIAS_MAP={'Window Decor':'Openings'};
 const COLLECTION_THEMES={
@@ -258,12 +264,24 @@ function variantSwatchMarkup(variant){
   const accent=variant.accentColor||base;
   return `linear-gradient(135deg,${base},${accent})`;
 }
-function catalogVariantDots(item,limit=4){
+function createCatalogVariantDotsElement(item,limit=4){
   const variants=getItemVariants(item);
-  if(!variants.length)return '';
-  const dots=variants.slice(0,limit).map(variant=>`<span class="catalog-variant-dot" style="background:${variantSwatchMarkup(variant)}"></span>`).join('');
-  const extra=variants.length>limit?`<span class="catalog-variant-count">+${variants.length-limit}</span>`:'';
-  return `<span class="catalog-variant-dots">${dots}${extra}</span>`;
+  if(!variants.length)return null;
+  const wrap=document.createElement('span');
+  wrap.className='catalog-variant-dots';
+  variants.slice(0,limit).forEach(variant=>{
+    const dot=document.createElement('span');
+    dot.className='catalog-variant-dot';
+    dot.style.background=variantSwatchMarkup(variant);
+    wrap.appendChild(dot);
+  });
+  if(variants.length>limit){
+    const extra=document.createElement('span');
+    extra.className='catalog-variant-count';
+    extra.textContent=`+${variants.length-limit}`;
+    wrap.appendChild(extra);
+  }
+  return wrap;
 }
 function buildVariantSelector(item,selectedId,handlerName,scope='catalog'){
   const variants=getItemVariants(item);
@@ -361,16 +379,75 @@ function catalogCardTone(item){
   const collection=(item.collections||[])[0]||'Everyday Staples';
   return COLLECTION_THEMES[collection]||'linear-gradient(135deg,#f8f4ee,#e9e0d5)';
 }
-function catalogPlaceholderMarkup(item){
-  if(item.thumbnailPath)return `<div class="catalog-thumb-media" style="background-image:url('${esc(item.thumbnailPath)}')"></div>`;
-  return `<div class="catalog-thumb-mark">${esc(item.symbol||item.label.charAt(0).toUpperCase())}</div>`;
+function createCatalogThumbnailElement(item){
+  const thumb=document.createElement('span');
+  thumb.className='catalog-thumb';
+  thumb.style.background=catalogCardTone(item);
+  if(item.thumbnailPath){
+    const media=document.createElement('div');
+    media.className='catalog-thumb-media';
+    media.style.backgroundImage=`url("${String(item.thumbnailPath).replace(/["\\\n\r]/g,'')}")`;
+    thumb.appendChild(media);
+  }else{
+    const mark=document.createElement('div');
+    mark.className='catalog-thumb-mark';
+    mark.textContent=item.symbol||item.label.charAt(0).toUpperCase();
+    thumb.appendChild(mark);
+  }
+  return thumb;
 }
-function buildCatalogOptionCard(item,index,compact=false){
+function createCatalogOptionCard(item,index,compact=false){
   const collection=(item.collections||[])[0]||'Everyday Staples';
   const favClass=isFavoriteCatalogItem(item.assetKey)?' active':'';
   const selectedVariant=getSelectedCatalogVariant(item);
-  const variantMeta=itemSupportsVariants(item)?`<span class="catalog-subline">${catalogVariantDots(item)}<span>${esc(selectedVariant?.label||`${getItemVariants(item).length} finishes`)}</span></span>`:'';
-  return `<div class="catalog-card furn-option${compact?' compact':''}" role="button" tabindex="0" data-action="catalog-choose-or-place" data-item-index="${index}" data-preview-index="${index}" data-asset-key="${esc(item.assetKey||'')}" data-group="${esc(item.group)}" data-category="${esc(normalizeCatalogGroup(item.group))}" data-collection="${esc((item.collections||[]).join('|'))}" data-label="${esc(catalogSearchText(item))}"><span class="catalog-fav${favClass}" role="button" tabindex="0" data-action="catalog-toggle-favorite" data-asset-key="${esc(item.assetKey||'')}" aria-label="Toggle favorite">&#9733;</span><span class="catalog-selected-badge">Selected</span><span class="catalog-thumb" style="background:${catalogCardTone(item)}">${catalogPlaceholderMarkup(item)}</span><span class="catalog-meta"><span class="catalog-title">${esc(item.label)}</span><span class="catalog-sub">${esc(collection)}</span>${variantMeta}</span></div>`;
+  const card=document.createElement('div');
+  card.className=`catalog-card furn-option${compact?' compact':''}`;
+  card.setAttribute('role','button');
+  card.tabIndex=0;
+  card.dataset.action='catalog-choose-or-place';
+  card.dataset.itemIndex=String(index);
+  card.dataset.previewIndex=String(index);
+  card.dataset.assetKey=item.assetKey||'';
+  card.dataset.group=item.group||'';
+  card.dataset.category=normalizeCatalogGroup(item.group);
+  card.dataset.collection=(item.collections||[]).join('|');
+  card.dataset.label=catalogSearchText(item);
+
+  const favorite=document.createElement('span');
+  favorite.className=`catalog-fav${favClass}`;
+  favorite.setAttribute('role','button');
+  favorite.tabIndex=0;
+  favorite.dataset.action='catalog-toggle-favorite';
+  favorite.dataset.assetKey=item.assetKey||'';
+  favorite.setAttribute('aria-label','Toggle favorite');
+  favorite.textContent='★';
+
+  const badge=document.createElement('span');
+  badge.className='catalog-selected-badge';
+  badge.textContent='Selected';
+
+  const meta=document.createElement('span');
+  meta.className='catalog-meta';
+  const title=document.createElement('span');
+  title.className='catalog-title';
+  title.textContent=item.label;
+  const sub=document.createElement('span');
+  sub.className='catalog-sub';
+  sub.textContent=collection;
+  meta.append(title,sub);
+  if(itemSupportsVariants(item)){
+    const subline=document.createElement('span');
+    subline.className='catalog-subline';
+    const dots=createCatalogVariantDotsElement(item);
+    if(dots)subline.appendChild(dots);
+    const label=document.createElement('span');
+    label.textContent=selectedVariant?.label||`${getItemVariants(item).length} finishes`;
+    subline.appendChild(label);
+    meta.appendChild(subline);
+  }
+
+  card.append(favorite,badge,createCatalogThumbnailElement(item),meta);
+  return card;
 }
 function catalogItemsForKeys(keys){return keys.map(key=>FURN_ITEM_BY_KEY.get(key)).filter(Boolean)}
 async function loadAssetManifest(){
@@ -529,7 +606,113 @@ function updatePendingFurnitureTarget(wp){
   updateCatalogPendingUi();
   if(typeof draw==='function')draw();
 }
+function createCatalogFilterButton(label,action,dataKey,dataValue,active){
+  const button=document.createElement('button');
+  button.className=`mini-chip catalog-filter-chip${active?'':' secondary'}`;
+  button.type='button';
+  button.dataset.action=action;
+  button.dataset[dataKey]=dataValue;
+  button.textContent=label;
+  return button;
+}
+function createCatalogSection(title,key,items,compact=false){
+  if(!items.length)return null;
+  const group=document.createElement('div');
+  group.className='furn-group';
+  group.dataset.group=key;
+  const heading=document.createElement('div');
+  heading.className='catalog-section-title';
+  const glyph=createCategoryGlyphElement(title);
+  if(glyph)heading.appendChild(glyph);
+  heading.appendChild(document.createTextNode(title));
+  const grid=document.createElement('div');
+  grid.className=`catalog-grid${compact?' compact':''}`;
+  items.forEach(item=>grid.appendChild(createCatalogOptionCard(item,FURN_ITEMS.indexOf(item),compact)));
+  group.append(heading,grid);
+  return group;
+}
+function createCatalogOverlayNode({suggested,favoriteItems,recentItems,roomLabel}){
+  const overlay=document.createElement('div');
+  overlay.className='catalog-overlay';
+  overlay.id='furnPickOv';
+  overlay.dataset.action='catalog-overlay-close';
+  const sheet=document.createElement('div');
+  sheet.className='catalog-sheet';
+  const grabber=document.createElement('div');
+  grabber.className='catalog-grabber';
+  const head=document.createElement('div');
+  head.className='catalog-head';
+  const headCopy=document.createElement('div');
+  const heading=document.createElement('div');
+  heading.className='catalog-heading';
+  heading.textContent='Bring Something Beautiful In';
+  const copy=document.createElement('div');
+  copy.className='catalog-copy';
+  copy.textContent='Search the curated catalog, save favorites, and drop pieces in with confidence.';
+  headCopy.append(heading,copy);
+  const close=document.createElement('button');
+  close.className='mini-chip secondary';
+  close.type='button';
+  close.dataset.action='catalog-close';
+  close.textContent='Close';
+  head.append(headCopy,close);
+
+  const search=document.createElement('input');
+  search.id='furnSearch';
+  search.type='search';
+  search.placeholder='Search sofa, bed, lamp, console, romantic...';
+  search.dataset.action='catalog-search';
+  search.className='catalog-search';
+
+  const note=document.createElement('div');
+  note.className='catalog-placement-note';
+  note.textContent='The canvas keeps showing the drop target while you browse. Tap or drag in the room to move it. On phone, use Place Here when the target looks right.';
+
+  const placement=document.createElement('div');
+  placement.id='catalogPlacementBar';
+
+  const collectionRow=document.createElement('div');
+  collectionRow.className='catalog-chip-row';
+  catalogCollections().forEach(name=>{
+    collectionRow.appendChild(createCatalogFilterButton(
+      name==='all'?'All Collections':name,
+      'catalog-select-collection',
+      'collection',
+      name,
+      name===activeCatalogCollection
+    ));
+  });
+
+  const categoryRow=document.createElement('div');
+  categoryRow.className='catalog-chip-row catalog-chip-row-alt';
+  catalogCategoryList().forEach(name=>{
+    categoryRow.appendChild(createCatalogFilterButton(
+      name==='all'?'All Categories':name,
+      'catalog-select-category',
+      'category',
+      name,
+      name===activeCatalogCategory
+    ));
+  });
+
+  sheet.append(grabber,head,search,note,placement,collectionRow,categoryRow);
+  [
+    createCatalogSection('Favorites','favorites',favoriteItems,true),
+    createCatalogSection('Recent','recent',recentItems,true),
+    createCatalogSection(`Quick Picks For ${roomLabel}`,'quick',suggested,true),
+    ...CATALOG_CATEGORY_ORDER.map(group=>createCatalogSection(group,group,FURN_ITEMS.filter(f=>normalizeCatalogGroup(f.group)===group),false))
+  ].filter(Boolean).forEach(section=>sheet.appendChild(section));
+
+  const empty=document.createElement('div');
+  empty.id='furnEmpty';
+  empty.className='catalog-empty';
+  empty.textContent='No matches yet. Try a broader word like sofa, bed, rug, mirror, or storage.';
+  sheet.appendChild(empty);
+  overlay.appendChild(sheet);
+  return overlay;
+}
 function showFurnPicker(wp){
+  document.getElementById('furnPickOv')?.remove();
   pendFurnPos=wp;
   furnQuery='';
   activeCatalogCollection='all';
@@ -537,12 +720,8 @@ function showFurnPicker(wp){
   const suggested=getSuggestedItems(curRoom);
   const favoriteItems=catalogItemsForKeys(catalogFavorites);
   const recentItems=catalogItemsForKeys(catalogRecent);
-  const collectionButtons=catalogCollections().map(name=>`<button class="mini-chip${name===activeCatalogCollection?'':' secondary'}" type="button" data-action="catalog-select-collection" data-collection="${esc(name)}" style="padding:8px 11px;font-size:9px">${esc(name==='all'?'All Collections':name)}</button>`).join('');
-  const categoryButtons=catalogCategoryList().map(name=>`<button class="mini-chip${name===activeCatalogCategory?'':' secondary'}" type="button" data-action="catalog-select-category" data-category="${esc(name)}" style="padding:8px 11px;font-size:9px">${esc(name==='all'?'All Categories':name)}</button>`).join('');
-  const section=(title,key,items,compact=false)=>items.length?'<div class="furn-group" data-group="'+esc(key)+'"><div class="catalog-section-title">'+categoryGlyphMarkup(title)+esc(title)+'</div><div class="catalog-grid'+(compact?' compact':'')+'">'+items.map(item=>buildCatalogOptionCard(item,FURN_ITEMS.indexOf(item),compact)).join('')+'</div></div>':'';
   const roomLabel=(ROOM_TYPES.find(t=>t.id===(curRoom?.roomType||'living_room'))||ROOM_TYPES[0]).name;
-  const html='<div class="catalog-overlay" id="furnPickOv" data-action="catalog-overlay-close"><div class="catalog-sheet"><div class="catalog-grabber"></div><div class="catalog-head"><div><div class="catalog-heading">Bring Something Beautiful In</div><div class="catalog-copy">Search the curated catalog, save favorites, and drop pieces in with confidence.</div></div><button class="mini-chip secondary" type="button" data-action="catalog-close">Close</button></div><input id="furnSearch" type="search" placeholder="Search sofa, bed, lamp, console, romantic..." data-action="catalog-search" class="catalog-search"><div class="catalog-placement-note">The canvas keeps showing the drop target while you browse. Tap or drag in the room to move it. On phone, use Place Here when the target looks right.</div><div id="catalogPlacementBar"></div><div class="catalog-chip-row">'+collectionButtons+'</div><div class="catalog-chip-row catalog-chip-row-alt">'+categoryButtons+'</div>'+section('Favorites','favorites',favoriteItems,true)+section('Recent','recent',recentItems,true)+section('Quick Picks For '+roomLabel,'quick',suggested,true)+CATALOG_CATEGORY_ORDER.map(group=>section(group,group,FURN_ITEMS.filter(f=>normalizeCatalogGroup(f.group)===group),false)).join('')+'<div id="furnEmpty" class="catalog-empty">No matches yet. Try a broader word like sofa, bed, rug, mirror, or storage.</div></div></div>';
-  document.body.insertAdjacentHTML('beforeend',html);
+  document.body.appendChild(createCatalogOverlayNode({suggested,favoriteItems,recentItems,roomLabel}));
   setPendingFurniturePreview(suggested[0]||favoriteItems[0]||recentItems[0]||FURN_ITEMS[0]||null);
   filterFurnPicker('');
 }

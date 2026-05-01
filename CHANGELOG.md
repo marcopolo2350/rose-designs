@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.82 - 2026-05-01
+
+- rebuilt the furniture catalog picker overlay with DOM nodes, `textContent`, and dataset-bound actions
+- moved catalog filter chip sizing into CSS and added HTML safety validation for the picker overlay
+
 ## 0.5.0-hardening.81 - 2026-05-01
 
 - rebuilt the 3D Walkthrough and Photo Mode trays with DOM nodes and `textContent`

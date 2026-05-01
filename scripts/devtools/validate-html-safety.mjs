@@ -207,6 +207,44 @@ if (!pendingFurnitureBar) {
   }
 }
 
+const catalogOverlay = catalog.match(
+  /function\s+createCatalogOverlayNode[\s\S]*?function\s+showFurnPicker/,
+);
+if (!catalogOverlay) {
+  errors.push("createCatalogOverlayNode() was not found for catalog picker validation.");
+} else {
+  const body = catalogOverlay[0];
+  if (/innerHTML\s*=|insertAdjacentHTML|outerHTML\s*=/.test(body)) {
+    errors.push("Catalog picker overlay must render with DOM nodes, not HTML strings.");
+  }
+  if (
+    !/heading\.textContent\s*=/.test(body) ||
+    !/copy\.textContent\s*=/.test(body) ||
+    !/createCatalogSection/.test(body)
+  ) {
+    errors.push(
+      "Catalog picker overlay must render dynamic catalog copy and cards with DOM nodes.",
+    );
+  }
+}
+
+const catalogCardBuilder = catalog.match(
+  /function\s+createCatalogOptionCard[\s\S]*?function\s+catalogItemsForKeys/,
+);
+if (!catalogCardBuilder) {
+  errors.push("createCatalogOptionCard() was not found for catalog card validation.");
+} else {
+  const body = catalogCardBuilder[0];
+  if (/innerHTML\s*=|insertAdjacentHTML|outerHTML\s*=/.test(body)) {
+    errors.push("Catalog item cards must render with DOM nodes, not HTML strings.");
+  }
+  if (!/title\.textContent\s*=\s*item\.label/.test(body) || !/card\.dataset\.assetKey/.test(body)) {
+    errors.push(
+      "Catalog item cards must render item labels and action metadata with textContent/datasets.",
+    );
+  }
+}
+
 const roomPanelRestyle = catalog.match(
   /function\s+restyleRoomPanelText[\s\S]*?function\s+projectRoomMetaLine/,
 );

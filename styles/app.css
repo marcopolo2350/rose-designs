@@ -555,6 +555,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
 .catalog-chip-row{display:flex;gap:8px;overflow:auto;padding:10px 0 2px;scrollbar-width:none}
 .catalog-chip-row::-webkit-scrollbar{display:none}
 .catalog-chip-row-alt{padding-top:8px}
+.catalog-filter-chip{padding:8px 11px;font-size:9px}
 .catalog-section-title{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin:16px 0 10px}
 .catalog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .catalog-grid.compact{grid-template-columns:repeat(2,minmax(0,1fr))}
