@@ -80,6 +80,19 @@ if (!deleteConfirm) {
   }
 }
 
+const tutorialRenderer = ui.match(/function\s+showTut[\s\S]*?function\s+nextTut/);
+if (!tutorialRenderer) {
+  errors.push("showTut() was not found for HTML safety validation.");
+} else {
+  const body = tutorialRenderer[0];
+  if (/insertAdjacentHTML|innerHTML\s*=/.test(body)) {
+    errors.push("showTut() must render with DOM nodes, not HTML strings.");
+  }
+  if (!/title\.textContent\s*=\s*s\.t/.test(body) || !/copy\.textContent\s*=\s*s\.d/.test(body)) {
+    errors.push("showTut() must render tutorial copy with textContent.");
+  }
+}
+
 const deleteConfirmKeys = ui.match(
   /function\s+handleDeleteConfirmKeydown[\s\S]*?function\s+showDeleteConfirm/,
 );

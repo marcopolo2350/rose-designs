@@ -62,6 +62,16 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
     await expect(page.locator("#shortcutSheet")).not.toHaveClass(/on/);
   }
 
+  await page.evaluate(() => startTut(true));
+  await expect(page.locator("#tutOv")).toHaveClass(/on/);
+  await expect(page.locator("#tutCard")).toContainText("Start with one room");
+  const tutorialInlineMarkup = await page
+    .locator("#tutCard [onclick], #tutCard [oninput], #tutCard [onchange], #tutCard [style]")
+    .count();
+  expect(tutorialInlineMarkup).toBe(0);
+  await page.locator('#tutCard [data-action="tutorial-end"]').click();
+  await expect(page.locator("#tutOv")).not.toHaveClass(/on/);
+
   await page.locator('[data-action="open-create-room"]').first().click();
   await expect(page.locator("#crMod")).toHaveClass(/on/);
   const createModalInlineHandlers = await page

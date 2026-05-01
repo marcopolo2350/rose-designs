@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.68 - 2026-05-01
+
+- rebuilt the first-run tutorial card with DOM nodes and `textContent` instead of `innerHTML`
+- added Playwright coverage for the tutorial card inline-markup guardrail
+- extended HTML safety validation to block tutorial string rendering from returning
+
 ## 0.5.0-hardening.67 - 2026-05-01
 
 - moved fatal-load screen styling from JavaScript `style.cssText` mutations into CSS classes

@@ -294,8 +294,43 @@ function startTut(force=false){if(!force&&getLocal(profileSeenKey()))return;tutS
 function showTut(){
   if(tutS<0||tutS>=TUTS.length){endTut();return}
   const s=TUTS[tutS];
-  document.getElementById('tutOv').classList.add('on');
-  document.getElementById('tutCard').innerHTML=`<h4>${s.t}</h4><p>${s.d}</p><div class="tut-actions"><button type="button" data-action="${tutS>=TUTS.length-1?'tutorial-end':'tutorial-next'}">${tutS>=TUTS.length-1?"Let's go!":'Next'}</button><button type="button" class="tut-skip" data-action="tutorial-end">Skip tutorial</button></div><div class="tut-dots">${TUTS.map((_,i)=>`<div class="tut-d${i===tutS?' on':''}"></div>`).join('')}</div>`;
+  const overlay=document.getElementById('tutOv');
+  const card=document.getElementById('tutCard');
+  if(!overlay||!card)return;
+  overlay.classList.add('on');
+  window.RoseHTML.clear(card);
+
+  const title=document.createElement('h4');
+  title.textContent=s.t;
+  card.appendChild(title);
+
+  const copy=document.createElement('p');
+  copy.textContent=s.d;
+  card.appendChild(copy);
+
+  const actions=document.createElement('div');
+  actions.className='tut-actions';
+  const next=document.createElement('button');
+  next.type='button';
+  next.dataset.action=tutS>=TUTS.length-1?'tutorial-end':'tutorial-next';
+  next.textContent=tutS>=TUTS.length-1?"Let's go!":'Next';
+  actions.appendChild(next);
+  const skip=document.createElement('button');
+  skip.type='button';
+  skip.className='tut-skip';
+  skip.dataset.action='tutorial-end';
+  skip.textContent='Skip tutorial';
+  actions.appendChild(skip);
+  card.appendChild(actions);
+
+  const dots=document.createElement('div');
+  dots.className='tut-dots';
+  TUTS.forEach((_,i)=>{
+    const dot=document.createElement('div');
+    dot.className=`tut-d${i===tutS?' on':''}`;
+    dots.appendChild(dot);
+  });
+  card.appendChild(dots);
 }
 function nextTut(){tutS++;showTut()}
 function endTut(){tutS=-1;document.getElementById('tutOv').classList.remove('on');setLocal(profileSeenKey(),'1')}
