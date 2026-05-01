@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-01
 
-Current app version: `0.5.0-hardening.60`
+Current app version: `0.5.0-hardening.61`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -67,6 +67,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Dev/debug surfaces are guarded by `npm run validate:dev-mode` so model audits, diagnostics, and asset verification stay behind dev mode.
 - GitHub PR and issue templates are guarded by `npm run validate:github-templates` so future work keeps hardening scope and verification prompts.
 - README, testing docs, deployment notes, hardening status, and PR verification commands are guarded by `npm run validate:docs`.
+- `npm run validate:docs` now also guards the hardening-status verification command list.
 - The Verify workflow uses current Node 24-compatible official action majors and keeps `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` guarded by repository validation.
 - Standard Playwright config and a shell smoke spec exist for desktop and mobile Chromium viewports.
 - Playwright smoke coverage includes Project JSON import through the real hidden file input.
@@ -105,6 +106,7 @@ Run:
 npm run check
 npm run lint
 npm run format
+npm run validate:version
 npm run validate:manifest
 npm run validate:asset-sizes
 npm run validate:asset-sources
@@ -116,6 +118,7 @@ npm run validate:structure
 npm run validate:css
 npm run validate:html-safety
 npm run validate:storage-keys
+npm run validate:inline-handlers
 npm run validate:error-handling
 npm run validate:runtime-modules
 npm run validate:dependencies
@@ -125,6 +128,7 @@ npm run validate:geometry
 npm run validate:3d-lifecycle
 npm run validate:export-filenames
 npm run test:playwright
+npm run test:self
 npm test
 npm run test:smoke
 ```

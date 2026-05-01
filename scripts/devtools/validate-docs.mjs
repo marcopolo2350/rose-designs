@@ -58,6 +58,9 @@ for (const name of verifyScripts) {
   if (!testing.includes(normalized)) {
     errors.push(`docs/testing.md is missing package command: ${normalized}`);
   }
+  if (!hardeningStatus.includes(normalized)) {
+    errors.push(`docs/hardening-status.md is missing package command: ${normalized}`);
+  }
   if (!prTemplate.includes(`\`${normalized}\``)) {
     errors.push(`PR template is missing package command: ${normalized}`);
   }

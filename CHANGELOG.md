@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.61 - 2026-05-01
+
+- extended documentation validation so `docs/hardening-status.md` must list every reproducible verification command
+- updated the hardening-status verification list with the missing version, inline-handler, and self-test commands
+
 ## 0.5.0-hardening.60 - 2026-05-01
 
 - added Playwright smoke coverage for Project JSON import through the real file input
