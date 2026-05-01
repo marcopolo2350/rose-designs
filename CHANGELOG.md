@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.48 - 2026-05-01
+
+- opted the Verify workflow into Node 24 JavaScript actions early with `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` to clear GitHub's Node 20 deprecation warning before the June 2026 default switch
+
 ## 0.5.0-hardening.47 - 2026-05-01
 
 - added `npm run validate:docs` to keep README, testing docs, deployment notes, hardening status, and PR verification commands aligned with the actual package scripts

@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-01
 
-Current app version: `0.5.0-hardening.47`
+Current app version: `0.5.0-hardening.48`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -56,6 +56,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Dev/debug surfaces are guarded by `npm run validate:dev-mode` so model audits, diagnostics, and asset verification stay behind dev mode.
 - GitHub PR and issue templates are guarded by `npm run validate:github-templates` so future work keeps hardening scope and verification prompts.
 - README, testing docs, deployment notes, hardening status, and PR verification commands are guarded by `npm run validate:docs`.
+- The Verify workflow opts JavaScript actions into Node 24 early with `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`.
 - Standard Playwright config and a shell smoke spec exist for desktop and mobile Chromium viewports.
 - README, changelog, roadmap, architecture, data model, testing, deployment, and limitations docs exist.
 
