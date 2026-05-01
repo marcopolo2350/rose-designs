@@ -92,6 +92,23 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
   await page.keyboard.press("Escape");
   await expect(page.locator("#delConfirm")).toHaveCount(0);
 
+  await page.evaluate(() => openCloudSyncSettings());
+  await expect(page.locator("#cloudSyncModal [role='dialog']")).toHaveAttribute(
+    "aria-modal",
+    "true",
+  );
+  await expect(page.locator("#cloudUrl")).toBeFocused();
+  const cloudInlineMarkup = await page
+    .locator("#cloudSyncModal [onclick], #cloudSyncModal [oninput], #cloudSyncModal [style]")
+    .count();
+  expect(cloudInlineMarkup).toBe(0);
+  await page.keyboard.press("Shift+Tab");
+  await expect(page.locator("#cloudSaveBtn")).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(page.locator("#cloudUrl")).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#cloudSyncModal")).toHaveCount(0);
+
   const buildTab = await ensureRoomPanelOpen(page);
   await page.locator('[data-action="room-panel-group"][data-group="style"]').click();
   await expect(page.locator('[data-action="room-panel-group"][data-group="style"]')).toHaveClass(

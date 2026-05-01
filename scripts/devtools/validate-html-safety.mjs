@@ -9,6 +9,7 @@ const main = read("scripts/main.js");
 const storage = read("scripts/storage.js");
 const ui = read("scripts/ui.js");
 const shortcuts = read("scripts/ui/shortcuts.js");
+const cloud = read("scripts/cloud/supabase.js");
 const walkthrough = read("scripts/walkthrough.js");
 const htmlPath = path.join(root, "scripts/core/html.js");
 
@@ -53,6 +54,13 @@ if (/out\.innerHTML\s*=/.test(walkthrough)) {
 
 if (/shortcutSheetMarkup|sheet\.innerHTML\s*=/.test(shortcuts)) {
   errors.push("Shortcut sheet must render with DOM nodes, not HTML strings.");
+}
+
+if (/wrap\.innerHTML\s*=|style\.cssText|result\.style\.color/.test(cloud)) {
+  errors.push("Cloud sync settings must render with DOM nodes and CSS classes.");
+}
+if (!/aria-modal/.test(cloud) || !/event\.key\s*===\s*["']Escape["']/.test(cloud)) {
+  errors.push("Cloud sync settings must keep dialog metadata and Escape close handling.");
 }
 
 const deleteConfirm = ui.match(/function\s+showDeleteConfirm[\s\S]*?function\s+closeDeleteConfirm/);

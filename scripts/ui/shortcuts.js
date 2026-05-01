@@ -114,6 +114,7 @@ function toggleShortcutSheet() {
 function bindEditorKeys() {
   if (window.__roseEditorKeysBound) return;
   window.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented) return;
     if (isEditableTarget(event.target)) return;
     const key = (event.key || "").toLowerCase();
     const mod = event.metaKey || event.ctrlKey;

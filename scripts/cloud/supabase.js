@@ -52,14 +52,6 @@ function cloudGetLocal(key) {
   return localStorage.getItem(LEGACY_CLOUD_KEYS[key]);
 }
 
-function cloudEscapeAttribute(value) {
-  return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
 function cloudValidateProjectPayload(payload) {
   if (!window.RoseProjectSchema) return payload;
   return window.RoseProjectSchema.validateImportedProjectDocument({ projects: [payload] }).rooms[0];
@@ -212,67 +204,157 @@ async function cloudTestConnection() {
   }
 }
 
+function cloudModalNode(tagName, className, text) {
+  const node = document.createElement(tagName);
+  if (className) node.className = className;
+  if (text != null) node.textContent = text;
+  return node;
+}
+
+function cloudField(labelText, input) {
+  const group = cloudModalNode("div", "cloud-field");
+  const label = cloudModalNode("label", "cloud-label", labelText);
+  label.htmlFor = input.id;
+  group.append(label, input);
+  return group;
+}
+
+function cloudButton(id, label, variant = "") {
+  const button = cloudModalNode("button", `cloud-btn${variant ? ` ${variant}` : ""}`, label);
+  button.id = id;
+  button.type = "button";
+  return button;
+}
+
 function openCloudSyncSettings() {
   const existing = document.getElementById("cloudSyncModal");
   if (existing) existing.remove();
   const cfg = cloudGetConfig();
-  const wrap = document.createElement("div");
+  const wrap = cloudModalNode("div", "cloud-sync-overlay");
   wrap.id = "cloudSyncModal";
-  wrap.style.cssText =
-    "position:fixed;inset:0;background:rgba(20,16,12,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;";
-  wrap.innerHTML = `
-    <div style="background:#FDFAF5;border:1px solid #E6D8CC;border-radius:18px;max-width:560px;width:100%;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.22);font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#332922;" role="dialog" aria-modal="true" aria-labelledby="cloudSyncTitle">
-      <h3 id="cloudSyncTitle" style="margin:0 0 6px;font-family:Georgia,serif;font-size:22px;">Cloud Sync</h3>
-      <p style="margin:0 0 16px;color:#7B6B5E;font-size:13px;line-height:1.5;">Experimental. Syncs rooms to Supabase across devices. Local editing remains the primary source of truth.</p>
-      <div style="font-size:12px;background:#F5EEE3;padding:10px 12px;border-radius:8px;margin-bottom:16px;color:#5A4C40;">Status: <strong>${cloudEscapeAttribute(cloudStatusText())}</strong></div>
-      <div style="font-size:12px;background:#FFF4E8;padding:10px 12px;border-radius:8px;margin-bottom:16px;color:#7A5531;">Conflict policy today: timestamp-based merge with validation. This is still experimental and should not be treated as robust collaborative sync.</div>
-      <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Supabase project URL</label>
-      <input id="cloudUrl" type="text" placeholder="https://xxxxx.supabase.co" value="${cloudEscapeAttribute(cfg.url)}" style="width:100%;padding:10px 12px;border:1px solid #D9CBBF;border-radius:8px;font-family:inherit;font-size:13px;margin-bottom:14px;box-sizing:border-box;">
-      <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Anon public key</label>
-      <input id="cloudKey" type="password" placeholder="eyJhbGciOi..." value="${cloudEscapeAttribute(cfg.key)}" style="width:100%;padding:10px 12px;border:1px solid #D9CBBF;border-radius:8px;font-family:inherit;font-size:13px;margin-bottom:14px;box-sizing:border-box;">
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:20px;">
-        <input id="cloudEnabled" type="checkbox" ${cfg.enabled ? "checked" : ""}>
-        <span>Enable cloud sync on save and load</span>
-      </label>
-      <div id="cloudTestResult" style="font-size:12px;margin-bottom:14px;min-height:16px;"></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
-        <button id="cloudTestBtn" type="button" style="padding:10px 16px;border-radius:8px;border:1px solid #D9CBBF;background:#FFF;cursor:pointer;font-family:inherit;font-size:13px;">Test connection</button>
-        <button id="cloudDisableBtn" type="button" style="padding:10px 16px;border-radius:8px;border:1px solid #D9CBBF;background:#FFF;cursor:pointer;font-family:inherit;font-size:13px;">Disable</button>
-        <button id="cloudCancelBtn" type="button" style="padding:10px 16px;border-radius:8px;border:1px solid #D9CBBF;background:#FFF;cursor:pointer;font-family:inherit;font-size:13px;">Cancel</button>
-        <button id="cloudSaveBtn" type="button" style="padding:10px 16px;border-radius:8px;border:none;background:#C48C86;color:#FFF;cursor:pointer;font-family:inherit;font-size:13px;">Save</button>
-      </div>
-    </div>`;
+  const card = cloudModalNode("div", "cloud-sync-card");
+  card.setAttribute("role", "dialog");
+  card.setAttribute("aria-modal", "true");
+  card.setAttribute("aria-labelledby", "cloudSyncTitle");
+
+  const title = cloudModalNode("h3", "cloud-title", "Cloud Sync");
+  title.id = "cloudSyncTitle";
+  const copy = cloudModalNode(
+    "p",
+    "cloud-copy",
+    "Experimental. Syncs rooms to Supabase across devices. Local editing remains the primary source of truth.",
+  );
+
+  const status = cloudModalNode("div", "cloud-callout cloud-status");
+  status.append("Status: ");
+  status.appendChild(cloudModalNode("strong", "", cloudStatusText()));
+  const conflict = cloudModalNode(
+    "div",
+    "cloud-callout cloud-warning",
+    "Conflict policy today: timestamp-based merge with validation. This is still experimental and should not be treated as robust collaborative sync.",
+  );
+
+  const urlInput = cloudModalNode("input", "cloud-input");
+  urlInput.id = "cloudUrl";
+  urlInput.type = "text";
+  urlInput.placeholder = "https://xxxxx.supabase.co";
+  urlInput.value = cfg.url;
+
+  const keyInput = cloudModalNode("input", "cloud-input");
+  keyInput.id = "cloudKey";
+  keyInput.type = "password";
+  keyInput.placeholder = "eyJhbGciOi...";
+  keyInput.value = cfg.key;
+
+  const enabledInput = cloudModalNode("input", "");
+  enabledInput.id = "cloudEnabled";
+  enabledInput.type = "checkbox";
+  enabledInput.checked = cfg.enabled;
+  const enabledLabel = cloudModalNode("label", "cloud-checkbox");
+  enabledLabel.append(
+    enabledInput,
+    cloudModalNode("span", "", "Enable cloud sync on save and load"),
+  );
+
+  const result = cloudModalNode("div", "cloud-test-result");
+  result.id = "cloudTestResult";
+
+  const actions = cloudModalNode("div", "cloud-actions");
+  const testBtn = cloudButton("cloudTestBtn", "Test connection");
+  const disableBtn = cloudButton("cloudDisableBtn", "Disable");
+  const cancelBtn = cloudButton("cloudCancelBtn", "Cancel");
+  const saveBtn = cloudButton("cloudSaveBtn", "Save", "primary");
+  actions.append(testBtn, disableBtn, cancelBtn, saveBtn);
+
+  card.append(
+    title,
+    copy,
+    status,
+    conflict,
+    cloudField("Supabase project URL", urlInput),
+    cloudField("Anon public key", keyInput),
+    enabledLabel,
+    result,
+    actions,
+  );
+  wrap.appendChild(card);
   document.body.appendChild(wrap);
 
   const close = () => wrap.remove();
+  const setResult = (message, ok) => {
+    result.textContent = message;
+    result.className = `cloud-test-result ${ok == null ? "" : ok ? "ok" : "fail"}`.trim();
+  };
   wrap.addEventListener("click", (event) => {
     if (event.target === wrap) close();
   });
-  document.getElementById("cloudCancelBtn")?.addEventListener("click", close);
-  document.getElementById("cloudDisableBtn")?.addEventListener("click", () => {
+  wrap.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      close();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const focusable = [...card.querySelectorAll("button,input")].filter(
+      (node) => !node.disabled && node.offsetParent !== null,
+    );
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      event.stopPropagation();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      event.stopPropagation();
+      first.focus();
+    }
+  });
+  cancelBtn.addEventListener("click", close);
+  disableBtn.addEventListener("click", () => {
     cloudSetConfig("", "", false);
     if (typeof toast === "function") toast("Cloud sync disabled");
     close();
   });
-  document.getElementById("cloudTestBtn")?.addEventListener("click", async () => {
-    const url = document.getElementById("cloudUrl").value.trim();
-    const key = document.getElementById("cloudKey").value.trim();
+  testBtn.addEventListener("click", async () => {
+    const url = urlInput.value.trim();
+    const key = keyInput.value.trim();
     cloudSetConfig(url, key, true);
-    const result = document.getElementById("cloudTestResult");
-    result.textContent = "Testing...";
-    result.style.color = "#7B6B5E";
+    setResult("Testing...", null);
     const test = await cloudTestConnection();
-    result.textContent = test.msg;
-    result.style.color = test.ok ? "#3A7A3A" : "#B14A3A";
+    setResult(test.msg, test.ok);
   });
-  document.getElementById("cloudSaveBtn")?.addEventListener("click", () => {
-    const url = document.getElementById("cloudUrl").value.trim();
-    const key = document.getElementById("cloudKey").value.trim();
-    const enabled = document.getElementById("cloudEnabled").checked;
+  saveBtn.addEventListener("click", () => {
+    const url = urlInput.value.trim();
+    const key = keyInput.value.trim();
+    const enabled = enabledInput.checked;
     cloudSetConfig(url, key, enabled);
     if (typeof toast === "function") toast(enabled ? "Cloud sync enabled" : "Cloud sync disabled");
     close();
   });
+  urlInput.focus();
 }
 
 window.openCloudSyncSettings = openCloudSyncSettings;

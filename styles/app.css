@@ -442,6 +442,24 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
 .confirm-actions{display:flex;gap:8px}
 .confirm-btn{flex:1;padding:10px;border-radius:var(--r);background:var(--bg2);font-size:12px;font-weight:600}
 .confirm-btn.danger{background:#B94D4D;color:#fff}
+.cloud-sync-overlay{position:fixed;inset:0;z-index:var(--z-welcome);display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(20,16,12,.55)}
+.cloud-sync-card{width:100%;max-width:560px;padding:28px;border-radius:var(--rxl);border:1px solid #E6D8CC;background:#FDFAF5;box-shadow:0 24px 60px rgba(0,0,0,.22);color:#332922}
+.cloud-title{margin:0 0 6px;font-family:Georgia,serif;font-size:22px;font-weight:700}
+.cloud-copy{margin:0 0 16px;color:#7B6B5E;font-size:13px;line-height:1.5}
+.cloud-callout{padding:10px 12px;border-radius:var(--r);margin-bottom:16px;font-size:12px;line-height:1.45}
+.cloud-status{background:#F5EEE3;color:#5A4C40}
+.cloud-warning{background:#FFF4E8;color:#7A5531}
+.cloud-field{margin-bottom:14px}
+.cloud-label{display:block;margin-bottom:4px;font-size:12px;font-weight:600}
+.cloud-input{width:100%;padding:10px 12px;border:1px solid #D9CBBF;border-radius:var(--r);background:#fff;font-family:inherit;font-size:13px;box-sizing:border-box}
+.cloud-checkbox{display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:13px}
+.cloud-test-result{min-height:16px;margin-bottom:14px;font-size:12px;color:#7B6B5E}
+.cloud-test-result.ok{color:#3A7A3A}
+.cloud-test-result.fail{color:#B14A3A}
+.cloud-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.cloud-btn{padding:10px 16px;border:1px solid #D9CBBF;border-radius:var(--r);background:#fff;font-family:inherit;font-size:13px;color:#332922}
+.cloud-btn.primary{border-color:transparent;background:#C48C86;color:#fff}
+.cloud-btn:active{transform:scale(.97)}
 .mhn{width:32px;height:3px;background:var(--subtle);opacity:.3;border-radius:2px;margin:6px auto 16px}
 .mt{font-family:var(--fd);font-size:18px;font-weight:600;margin-bottom:12px}
 .mf{margin-bottom:12px}
@@ -490,7 +508,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
 /* Print */
 @media print{
   body{background:#fff!important;overflow:visible!important}
-  .welcome,.tut,.toast,.debug-badge,.asset-preflight,.diag-toggle,.modal-bg,.verify-overlay,#threeC,.cam-btns,.present-pill,.view-chip,.walk-hint,.runtime-actions,.runtime-diag,.room-debug-badge,.tbar,.dbar,.props,.props-tab,#selfTestResults,.quick-actions,.room-type-grid,.home-hdr,.home-scroll,.brand-sub,.editor-more-menu{display:none!important}
+  .welcome,.tut,.toast,.debug-badge,.asset-preflight,.diag-toggle,.modal-bg,.cloud-sync-overlay,.verify-overlay,#threeC,.cam-btns,.present-pill,.view-chip,.walk-hint,.runtime-actions,.runtime-diag,.room-debug-badge,.tbar,.dbar,.props,.props-tab,#selfTestResults,.quick-actions,.room-type-grid,.home-hdr,.home-scroll,.brand-sub,.editor-more-menu{display:none!important}
   .ed-hdr{border:none!important;backdrop-filter:none!important;background:transparent!important;padding:8px 20px!important}
   .ed-hdr .eb{display:none!important}
   .ed-hdr .edt{font-size:18px!important;max-width:none!important}

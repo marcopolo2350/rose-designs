@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0-hardening.66 - 2026-05-01
+
+- rebuilt the experimental cloud sync settings dialog with DOM nodes and CSS classes instead of inline HTML/styles
+- added Escape close and Tab focus containment to the cloud sync settings dialog
+- extended HTML safety validation to block cloud modal string rendering and inline style regressions
+- added Playwright coverage for the cloud sync settings dialog accessibility and inline-markup guardrails
+- fixed modal keyboard ownership so trapped Tab/Escape events cannot leak into global editor shortcuts
+
 ## 0.5.0-hardening.65 - 2026-05-01
 
 - rebuilt the keyboard shortcut sheet with DOM nodes instead of `innerHTML` string templates
