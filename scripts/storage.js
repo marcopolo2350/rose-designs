@@ -603,20 +603,56 @@ function updateRoomRuntimeDiag(){
   if(actions)actions.classList.toggle('on',!!is3D);
   if(!el)return;
   const items=[...ROOM_RUNTIME_DIAG.items.values()];
-  if(!is3D||!items.length){el.classList.remove('on');el.innerHTML='';return}
+  if(!is3D||!items.length){el.classList.remove('on');window.RoseHTML.clear(el);return}
   const summary=ROOM_RUNTIME_DIAG.summary;
   const hasAlert=items.some(item=>item.status==='fail'||item.status==='blocked'||item.issues.length);
   el.classList.toggle('on',runtimeDiagOpen||hasAlert);
   const summaryText=summary?`ok ${summary.ok} / fail ${summary.fail} / invisible/offscreen ${summary.invisible} / blocked ${summary.blocked}`:'live asset placement diagnostics';
-  el.innerHTML=`<div class="runtime-diag-head"><div><h4>Room Runtime Diagnostics</h4><div class="runtime-diag-note">${esc(summaryText)}</div></div><button class="runtime-btn" type="button" data-action="hide-room-runtime-diagnostics">Hide</button></div><div class="runtime-diag-list">${items.map(item=>{
+  renderRoomRuntimeDiagPanel(el,summaryText,items);
+}
+function renderRoomRuntimeDiagPanel(el,summaryText,items){
+  window.RoseHTML.clear(el);
+  const head=document.createElement('div');
+  head.className='runtime-diag-head';
+  const headCopy=document.createElement('div');
+  const title=document.createElement('h4');
+  title.textContent='Room Runtime Diagnostics';
+  const note=document.createElement('div');
+  note.className='runtime-diag-note';
+  note.textContent=summaryText;
+  headCopy.append(title,note);
+  const hide=document.createElement('button');
+  hide.className='runtime-btn';
+  hide.type='button';
+  hide.dataset.action='hide-room-runtime-diagnostics';
+  hide.textContent='Hide';
+  head.append(headCopy,hide);
+  el.appendChild(head);
+  const list=document.createElement('div');
+  list.className='runtime-diag-list';
+  items.forEach(item=>{
     const status=['ok','fail','blocked','loading'].includes(item.status)?item.status:'fail';
-    return `<div class="runtime-diag-card ${status}"><div class="rd-title"><span>${esc(item.key)}</span><span>${esc(item.status)}</span></div><div class="rd-meta">path: ${esc(item.file)}
-mount: ${esc(item.mountType)}
-world: ${esc(formatVec3(item.worldPosition))}
-bbox: ${esc(formatSize3(item.bboxSize))}
-scale: ${esc(item.scale?formatVec3(item.scale):'n/a')}
-fallback attempted: ${item.fallbackAttempted?'yes':'no'}${item.error?`\nerror: ${esc(item.error)}`:''}${item.issues.length?`\nissues: ${item.issues.map(issue=>esc(issue)).join(', ')}`:''}</div></div>`;
-  }).join('')}</div>`;
+    const card=document.createElement('div');
+    card.className=`runtime-diag-card ${status}`;
+    const row=document.createElement('div');
+    row.className='rd-title';
+    const key=document.createElement('span');
+    key.textContent=item.key;
+    const state=document.createElement('span');
+    state.textContent=item.status;
+    row.append(key,state);
+    const meta=document.createElement('div');
+    meta.className='rd-meta';
+    meta.textContent=`path: ${item.file}
+mount: ${item.mountType}
+world: ${formatVec3(item.worldPosition)}
+bbox: ${formatSize3(item.bboxSize)}
+scale: ${item.scale?formatVec3(item.scale):'n/a'}
+fallback attempted: ${item.fallbackAttempted?'yes':'no'}${item.error?`\nerror: ${item.error}`:''}${item.issues.length?`\nissues: ${item.issues.join(', ')}`:''}`;
+    card.append(row,meta);
+    list.appendChild(card);
+  });
+  el.appendChild(list);
 }
 function toggleRoomRuntimeDiag(){runtimeDiagOpen=!runtimeDiagOpen;updateRoomRuntimeDiag()}
 function boxInCameraFrustum(box){

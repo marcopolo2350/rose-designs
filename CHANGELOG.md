@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.73 - 2026-05-01
+
+- rebuilt the room runtime diagnostics panel with DOM nodes and `textContent`
+- extended HTML safety validation to block runtime diagnostic string rendering from returning
+
 ## 0.5.0-hardening.72 - 2026-05-01
 
 - rebuilt the asset preflight diagnostics panel with DOM nodes and `textContent`

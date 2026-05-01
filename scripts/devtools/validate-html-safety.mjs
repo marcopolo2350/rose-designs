@@ -67,6 +67,23 @@ if (!assetPreflightRenderer) {
   }
 }
 
+const roomRuntimeRenderer = storage.match(
+  /function\s+renderRoomRuntimeDiagPanel[\s\S]*?function\s+toggleRoomRuntimeDiag/,
+);
+if (!roomRuntimeRenderer) {
+  errors.push(
+    "renderRoomRuntimeDiagPanel() was not found for runtime diagnostic safety validation.",
+  );
+} else {
+  const body = roomRuntimeRenderer[0];
+  if (/insertAdjacentHTML|innerHTML\s*=/.test(body)) {
+    errors.push("Room runtime diagnostics must render with DOM nodes, not HTML strings.");
+  }
+  if (!/key\.textContent\s*=\s*item\.key/.test(body) || !/meta\.textContent\s*=/.test(body)) {
+    errors.push("Room runtime diagnostics must render dynamic data with textContent.");
+  }
+}
+
 if (/out\.innerHTML\s*=/.test(walkthrough)) {
   errors.push("walkthrough.js must render self-test output with textContent/DOM nodes.");
 }
