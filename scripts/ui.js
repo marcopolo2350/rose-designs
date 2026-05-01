@@ -469,23 +469,56 @@ function toggleFavoriteProject(id){
 }
 // Custom delete confirmation modal (replaces browser confirm)
 let pendingDeleteId=null;
+let deleteConfirmRestoreFocus=null;
 function showDeleteConfirm(id){
   if(document.getElementById('delConfirm'))return;
   pendingDeleteId=id;
+  deleteConfirmRestoreFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
   const room=projectPrimaryRoom(id)||projects.find(r=>r.id===id);
   const name=room?(room.projectName||room.name):'this project';
-  document.body.insertAdjacentHTML('beforeend',
-    `<div id="delConfirm" style="position:fixed;inset:0;z-index:4000;display:flex;align-items:center;justify-content:center;background:rgba(51,41,34,.3);backdrop-filter:blur(3px)">
-      <div style="background:var(--bg);border-radius:var(--rl);padding:20px 24px;max-width:280px;text-align:center;box-shadow:var(--shl);animation:su .2s ease">
-        <div style="font-family:var(--fd);font-size:16px;font-weight:700;margin-bottom:6px">Delete project?</div>
-        <div style="font-size:12px;color:var(--taupe);margin-bottom:16px">${esc(name)}</div>
-        <div style="display:flex;gap:8px">
-          <button type="button" style="flex:1;padding:10px;border-radius:50px;background:var(--bg2);font-size:12px;font-weight:600" data-action="close-delete-confirm">Cancel</button>
-          <button type="button" style="flex:1;padding:10px;border-radius:50px;background:#C55;color:#fff;font-size:12px;font-weight:600" data-action="confirm-delete">Delete</button>
-        </div>
-      </div>
-    </div>`)}
-function closeDeleteConfirm(){const el=document.getElementById('delConfirm');if(el)el.remove();pendingDeleteId=null}
+  const overlay=document.createElement('div');
+  overlay.id='delConfirm';
+  overlay.className='confirm-overlay';
+  overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
+  overlay.setAttribute('aria-labelledby','delConfirmTitle');
+  overlay.addEventListener('click',event=>{
+    if(event.target===overlay)closeDeleteConfirm();
+  });
+  const card=document.createElement('div');
+  card.className='confirm-card';
+  const title=document.createElement('div');
+  title.id='delConfirmTitle';
+  title.className='confirm-title';
+  title.textContent='Delete project?';
+  const copy=document.createElement('div');
+  copy.className='confirm-copy';
+  copy.textContent=name;
+  const actions=document.createElement('div');
+  actions.className='confirm-actions';
+  const cancel=document.createElement('button');
+  cancel.type='button';
+  cancel.className='confirm-btn';
+  cancel.dataset.action='close-delete-confirm';
+  cancel.textContent='Cancel';
+  const remove=document.createElement('button');
+  remove.type='button';
+  remove.className='confirm-btn danger';
+  remove.dataset.action='confirm-delete';
+  remove.textContent='Delete';
+  actions.append(cancel,remove);
+  card.append(title,copy,actions);
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
+  cancel.focus();
+}
+function closeDeleteConfirm(){
+  const el=document.getElementById('delConfirm');
+  if(el)el.remove();
+  pendingDeleteId=null;
+  if(deleteConfirmRestoreFocus&&document.body.contains(deleteConfirmRestoreFocus))deleteConfirmRestoreFocus.focus();
+  deleteConfirmRestoreFocus=null;
+}
 function confirmDelete(){if(pendingDeleteId){delPrj(pendingDeleteId)}closeDeleteConfirm()}
 
 // ── CREATE ──

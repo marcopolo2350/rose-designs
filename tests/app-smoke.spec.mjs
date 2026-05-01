@@ -75,6 +75,17 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
     .locator("#prjList [onclick], #prjList [onpointerdown]")
     .count();
   expect(homeCardInlineHandlers).toBe(0);
+  await page.evaluate(() => showDeleteConfirm(curRoom.projectId || curRoom.id));
+  await expect(page.locator("#delConfirm")).toHaveAttribute("role", "dialog");
+  await expect(page.locator("#delConfirm")).toHaveAttribute("aria-modal", "true");
+  const deleteConfirmInlineMarkup = await page
+    .locator(
+      "#delConfirm [onclick], #delConfirm [oninput], #delConfirm [onchange], #delConfirm [style]",
+    )
+    .count();
+  expect(deleteConfirmInlineMarkup).toBe(0);
+  await page.locator('[data-action="close-delete-confirm"]').click();
+  await expect(page.locator("#delConfirm")).toHaveCount(0);
 
   const buildTab = await ensureRoomPanelOpen(page);
   await page.locator('[data-action="room-panel-group"][data-group="style"]').click();

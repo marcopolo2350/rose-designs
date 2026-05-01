@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.53 - 2026-05-01
+
+- rebuilt the project delete confirmation modal with DOM nodes and `textContent` instead of `insertAdjacentHTML`
+- added dialog metadata, outside-click close, focus restoration, and stylesheet classes for the delete confirmation
+- extended `npm run validate:html-safety` to keep the delete confirmation out of string-built HTML
+
 ## 0.5.0-hardening.52 - 2026-05-01
 
 - added global `:focus-visible` styling and z-index tokens to the app stylesheet
