@@ -3,12 +3,17 @@ import path from "node:path";
 
 const root = process.cwd();
 const indexSource = readFileSync(path.join(root, "index.html"), "utf8");
+const packageJson = JSON.parse(readFileSync(path.join(root, "package.json"), "utf8"));
 const scriptSources = [...indexSource.matchAll(/<script[^>]+src=["']([^"']+)["'][^>]*>/g)].map(
   (match) => match[1],
 );
 const cdnSources = scriptSources.filter((src) => /^https?:\/\//.test(src));
 const errors = [];
 const threeVersions = new Set();
+const npmDependencies = {
+  ...(packageJson.dependencies || {}),
+  ...(packageJson.devDependencies || {}),
+};
 
 for (const src of cdnSources) {
   const npmMatch = src.match(/\/npm\/([^/@]+)@([^/]+)\//);
@@ -33,6 +38,10 @@ for (const required of ["jspdf", "pdf.js"]) {
   if (!cdnSources.some((src) => src.includes(`/ajax/libs/${required}/`))) {
     errors.push(`Missing documented CDN dependency: ${required}`);
   }
+}
+
+if (npmDependencies["dxf-writer"]) {
+  errors.push("dxf-writer must stay removed while CAD/DXF export is not part of the app.");
 }
 
 if (errors.length) {

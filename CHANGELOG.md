@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.57 - 2026-05-01
+
+- removed the unused `dxf-writer` runtime dependency and lockfile entry after CAD/DXF export removal
+- documented the current npm dependency posture in `docs/dependencies.md`
+- extended dependency validation to block accidental reintroduction of `dxf-writer`
+
 ## 0.5.0-hardening.56 - 2026-05-01
 
 - removed the obsolete `scripts/app.js` compatibility wrapper so `scripts/main.js` is the only app bootstrap path

@@ -127,7 +127,7 @@ What they do:
 - `validate:inline-handlers` - blocks inline and direct handler regressions
 - `validate:error-handling` - blocks empty catch blocks
 - `validate:runtime-modules` - verifies the transitional runtime module bridge
-- `validate:dependencies` - verifies pinned CDN dependency versions
+- `validate:dependencies` - verifies pinned CDN dependency versions and blocks removed CAD/DXF packages
 - `validate:project-schema` - checks project JSON import/export schema validation
 - `validate:app-state` - checks the central app state dispatcher bridge
 - `validate:geometry` - checks pure 2D geometry helpers
