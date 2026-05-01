@@ -47,6 +47,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Export filenames are sanitized through `scripts/export/filenames.js` and covered by `npm run validate:export-filenames`.
 - `data/asset-validation-overrides.json` documents intentional shared GLB aliases.
 - Every catalog entry now declares a valid `mountType`, and manifest validation blocks new entries that omit placement metadata.
+- Kenney catalog entries now point to tracked `assets/models/kn_*.glb` files instead of ignored local source-pack paths, so CI and GitHub Pages validate the same assets as the local app.
 - GLB asset file sizes are guarded by `npm run validate:asset-sizes` with a 10 MB per-model ceiling.
 - Every manifest entry now carries a `sourceId`, and `npm run validate:asset-sources` checks it against `data/asset-sources.json`.
 - Static app-shell accessibility basics are guarded by `npm run validate:static-a11y` for button types, icon labels, dialog metadata, and decorative SVG hiding.

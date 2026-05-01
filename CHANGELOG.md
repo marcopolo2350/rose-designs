@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.46 - 2026-05-01
+
+- rewired 24 Kenney manifest entries from ignored local source-pack paths into tracked `assets/models/kn_*.glb` files so Linux CI and GitHub Pages see the same assets as local Windows
+- fixed the manifest-validation failure caught by GitHub Actions on the canonical repo
+
 ## 0.5.0-hardening.45 - 2026-04-30
 
 - moved the 3D hint flag and cloud sync config onto the storage-key registry while keeping legacy cloud-key fallbacks
