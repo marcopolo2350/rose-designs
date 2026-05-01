@@ -333,7 +333,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
 .asset-emoji{font-size:22px;display:block;margin-bottom:4px}
 .asset-name{font-size:9px;font-weight:600;color:var(--muted)}
 
-/* Phase ✨ — Toasts slide in from bottom-right corner instead of blocking the center */
+/* Toasts */
 .toast{position:fixed;bottom:24px;right:24px;left:auto;transform:translateX(120%);background:var(--text);color:#fff;padding:11px 20px;border-radius:var(--r);font-size:12.5px;font-weight:500;z-index:5000;opacity:0;transition:transform .38s cubic-bezier(.22,.94,.36,1),opacity .28s ease;pointer-events:none;white-space:nowrap;box-shadow:var(--shxl);max-width:calc(100vw - 48px)}
 .toast.show{opacity:1;transform:translateX(0)}
 @media (max-width:520px){.toast{bottom:18px;right:12px;left:12px;text-align:center;transform:translateY(80px)}.toast.show{transform:translateY(0)}}
@@ -607,7 +607,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
   .quick-actions{grid-template-columns:1fr 1fr}
 }
 
-/* Phase ✨ — Keyboard shortcut cheat sheet */
+/* Keyboard shortcut cheat sheet */
 .shortcut-sheet{position:fixed;inset:0;background:rgba(18,18,22,.58);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .24s ease;padding:24px}
 .shortcut-sheet.on{opacity:1;pointer-events:auto}
 .shortcut-card{background:var(--surface);border-radius:var(--rxl);box-shadow:var(--shxl);max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:28px 32px;transform:translateY(16px) scale(.98);transition:transform .3s cubic-bezier(.22,.94,.36,1)}
@@ -625,7 +625,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
 .shortcut-hint{margin-top:22px;text-align:center;font-size:12px;color:var(--muted)}
 .shortcut-hint kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;padding:2px 6px;background:var(--bg2);border:1px solid var(--border);border-radius:4px}
 
-/* Phase ✨ — Time-of-day slider UI */
+/* Time-of-day slider */
 .tod-dock{position:absolute;top:12px;right:12px;z-index:64;display:none;flex-direction:column;gap:8px;background:rgba(30,27,24,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#f8f5ef;padding:10px 12px;border-radius:var(--rl);box-shadow:var(--shxl);min-width:184px;max-width:220px;pointer-events:auto}
 .mode-3d .tod-dock{display:flex}
 .tod-row{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0}
@@ -637,20 +637,20 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
 .tod-preset svg{display:none}
 .tod-preset .cmb-label{font-size:10px;text-align:center}
 
-/* Phase ✨ — Undo timeline strip */
+/* Undo timeline strip */
 .undo-strip{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(14px);display:none;gap:4px;padding:6px 10px;background:rgba(255,255,255,.96);border:1px solid var(--border);border-radius:var(--rxl);box-shadow:var(--shxl);z-index:70;opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:auto}
 .undo-strip.on{display:flex;opacity:1;transform:translateX(-50%) translateY(0)}
 .undo-node{width:22px;height:22px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);transition:transform .18s ease,background .18s ease}
 .undo-node:hover{transform:scale(1.22);background:var(--accent-l);color:#fff}
 .undo-node.current{background:var(--accent);color:#fff;border-color:var(--accent-d);transform:scale(1.15)}
 
-/* Phase ✨ — Empty state illustration on the editor canvas */
+/* Editor empty state */
 .empty-state{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;pointer-events:none;opacity:0;transition:opacity .4s ease}
 .empty-state.on{opacity:1}
 .empty-state svg{width:160px;height:160px;opacity:.7}
 .empty-state-title{font-family:var(--fd);font-size:22px;color:var(--muted);letter-spacing:.02em}
 .empty-state-hint{font-size:12px;color:var(--subtle);max-width:320px;text-align:center;line-height:1.5}
 
-/* Phase ✨ — Category glyphs in sidebar */
+/* Category glyphs */
 .cat-glyph{display:inline-flex;width:18px;height:18px;margin-right:8px;vertical-align:middle;align-items:center;justify-content:center;color:var(--accent)}
 .cat-glyph svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.5}

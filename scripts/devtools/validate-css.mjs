@@ -39,6 +39,7 @@ const blockedPatterns = [
   { pattern: /letter-spacing\s*:\s*-[^;]+/i, label: "negative letter-spacing" },
   { pattern: /outline\s*:\s*none/i, label: "outline removal" },
   { pattern: /font-size\s*:\s*calc\([^;]*vw/i, label: "viewport-scaled font size" },
+  { pattern: /\/\*[^*]*phase/i, label: "phase archaeology comment" },
 ];
 
 for (const { pattern, label } of blockedPatterns) {

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.64 - 2026-05-01
+
+- removed phase-history comments from the stylesheet so source comments describe current UI areas
+- extended CSS validation to block phase-archaeology comments from returning
+
 ## 0.5.0-hardening.63 - 2026-05-01
 
 - removed the remaining static inline style attributes from `index.html`
