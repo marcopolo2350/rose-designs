@@ -76,7 +76,13 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
     node.value = "1.1";
     node.dispatchEvent(new Event("input", { bubbles: true }));
   });
+  await page.locator('[data-action="set-room-type"]').nth(1).click();
+  await page.locator('[data-action="toggle-design-preset-panel"]').click();
+  await page.locator('[data-action="select-pending-design-preset"]').first().click();
+  await page.locator('[data-action="apply-pending-design-preset"]').click();
   await page.locator('[data-action="room-panel-group"][data-group="build"]').click();
+  await page.locator('[data-action="set-room-height-input"]').fill("9.5");
+  await page.locator('[data-action="set-adj-room-width"]').click();
   await expect(page.locator('[data-action="room-panel-group"][data-group="build"]')).toHaveClass(
     /sel/,
   );

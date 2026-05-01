@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.15 - 2026-04-30
+
+- moved Ceiling Geometry and Design Direction controls to delegated `data-action` handlers
+- extended the desktop/mobile Playwright smoke path to exercise room height, room type, and style preset controls
+
 ## 0.5.0-hardening.14 - 2026-04-30
 
 - moved Lighting Mood preset and range controls to delegated `data-action` handlers
