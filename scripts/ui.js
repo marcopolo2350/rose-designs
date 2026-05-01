@@ -434,6 +434,144 @@ function openLastProject(){
 }
 
 // ── HOME ──
+const PROJECT_CARD_SVG_NS='http://www.w3.org/2000/svg';
+function createProjectSvg(attrs={}){
+  const svg=document.createElementNS(PROJECT_CARD_SVG_NS,'svg');
+  Object.entries(attrs).forEach(([key,value])=>svg.setAttribute(key,String(value)));
+  svg.setAttribute('aria-hidden','true');
+  svg.setAttribute('focusable','false');
+  return svg;
+}
+function appendProjectSvgShape(svg,tag,attrs={}){
+  const shape=document.createElementNS(PROJECT_CARD_SVG_NS,tag);
+  Object.entries(attrs).forEach(([key,value])=>shape.setAttribute(key,String(value)));
+  svg.appendChild(shape);
+  return shape;
+}
+function createProjectIcon(type){
+  const svg=createProjectSvg({viewBox:'0 0 24 24'});
+  if(type==='favorite'){
+    appendProjectSvgShape(svg,'path',{d:'M12 17.3 5.8 21l1.7-7-5.5-4.8 7.2-.6L12 2l2.8 6.6 7.2.6-5.5 4.8 1.7 7z'});
+  }else if(type==='duplicate'){
+    appendProjectSvgShape(svg,'rect',{x:'9',y:'9',width:'13',height:'13',rx:'2'});
+    appendProjectSvgShape(svg,'path',{d:'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'});
+  }else if(type==='delete'){
+    appendProjectSvgShape(svg,'polyline',{points:'3 6 5 6 21 6'});
+    appendProjectSvgShape(svg,'path',{d:'M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'});
+  }else{
+    svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','rgba(0,0,0,.22)');
+    svg.setAttribute('stroke-width','1.5');
+    appendProjectSvgShape(svg,'path',{d:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'});
+  }
+  return svg;
+}
+function createProjectActionButton(action,projectId,title,iconType){
+  const button=document.createElement('button');
+  button.className='pab';
+  button.type='button';
+  button.dataset.action=action;
+  button.dataset.projectId=projectId;
+  button.dataset.stopPropagation='true';
+  button.dataset.preventDefault='true';
+  button.title=title;
+  button.setAttribute('aria-label',title);
+  button.appendChild(createProjectIcon(iconType));
+  return button;
+}
+function appendProjectChip(container,label){
+  if(!label)return;
+  const chip=document.createElement('span');
+  chip.className='chip';
+  chip.textContent=label;
+  container.appendChild(chip);
+}
+function renderProjectEmptyState(list){
+  window.RoseHTML.clear(list);
+  const empty=document.createElement('div');
+  empty.className='emp';
+  const icon=document.createElement('div');
+  icon.className='ei';
+  icon.textContent='+';
+  empty.appendChild(icon);
+  const title=document.createElement('h3');
+  title.textContent='No projects yet';
+  empty.appendChild(title);
+  const copy=document.createElement('p');
+  copy.textContent='Create your first room to start designing.';
+  empty.appendChild(copy);
+  list.appendChild(empty);
+}
+function createProjectPreview(project,wall,floor,trim){
+  const preview=document.createElement('div');
+  preview.className='pci';
+  if(project.previewThumb){
+    preview.classList.add('pci-thumb');
+    const img=document.createElement('img');
+    img.className='pci-thumb-img';
+    img.alt='';
+    img.src=project.previewThumb;
+    preview.appendChild(img);
+    return preview;
+  }
+  if(project.polygon?.length){
+    preview.classList.add('pci-material');
+    preview.style.background=`linear-gradient(145deg,${wall} 0%,${wall} 44%,${floor} 44%,${floor} 100%)`;
+    preview.style.border=`2px solid ${typeof trim==='string'?trim:'rgba(0,0,0,.08)'}`;
+    preview.appendChild(createProjectIcon('home'));
+    return preview;
+  }
+  preview.textContent=project.favorite?'\u2728':'\u{1F3E0}';
+  return preview;
+}
+function createProjectCard(project){
+  const projectId=project.projectId||project.id;
+  const type=(ROOM_TYPES.find(t=>t.id===(project.roomType||'living_room'))||ROOM_TYPES[0]).name;
+  const moodLabel=project.mood&&MOOD_CONFIG[project.mood]?(project.mood.charAt(0).toUpperCase()+project.mood.slice(1)):null;
+  const presetLabel=project.designPreset?(DESIGN_PRESETS.find(d=>d.id===project.designPreset)?.name||'Styled'):null;
+  const primaryChip=moodLabel||presetLabel||'In Progress';
+  const edited=new Date(project.updatedAt||project.createdAt||Date.now()).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+  const roomCount=projectMainRooms(project).length;
+  const floorCount=projectFloors(project).length;
+  if(!project.previewThumb&&project.polygon?.length)updateRoomPreviewThumb(project);
+  const wall=project.materials?.wall||'#F3EFE7';
+  const floor=project.materials?.floor||'#d0b18d';
+  const trim=project.materials?.trim||'rgba(0,0,0,.08)';
+
+  const card=document.createElement('div');
+  card.className='pc';
+  card.setAttribute('role','button');
+  card.tabIndex=0;
+  card.dataset.action='open-project';
+  card.dataset.projectId=projectId;
+  card.appendChild(createProjectPreview(project,wall,floor,trim));
+
+  const body=document.createElement('div');
+  body.className='pcf';
+  const title=document.createElement('h3');
+  title.textContent=project.projectName||project.name||'Untitled Project';
+  body.appendChild(title);
+  const meta=document.createElement('p');
+  meta.textContent=`${roomCount} room${roomCount===1?'':'s'} \u00b7 ${floorCount} floor${floorCount===1?'':'s'} \u00b7 ${edited}`;
+  body.appendChild(meta);
+  const chips=document.createElement('div');
+  chips.className='pcmeta';
+  appendProjectChip(chips,primaryChip);
+  appendProjectChip(chips,type);
+  if(project.optionName&&project.optionName!=='Main')appendProjectChip(chips,project.optionName);
+  const siblings=optionSiblings(project);
+  if(siblings.length>1)appendProjectChip(chips,`${siblings.length} options`);
+  body.appendChild(chips);
+  card.appendChild(body);
+
+  const actions=document.createElement('div');
+  actions.className='pca';
+  actions.appendChild(createProjectActionButton('favorite-project',projectId,'Favorite','favorite'));
+  actions.appendChild(createProjectActionButton('duplicate-project-card',projectId,'Duplicate','duplicate'));
+  actions.appendChild(createProjectActionButton('delete-project-card',projectId,'Delete','delete'));
+  card.appendChild(actions);
+  return card;
+}
 function renderHome(){
   updateProfileChip();
   // Show/hide continue button
@@ -442,29 +580,12 @@ function renderHome(){
     continueBtn.classList.toggle('is-hidden',!projects.length);
   }
   const l=document.getElementById('prjList');
-  if(!projects.length){l.innerHTML='<div class="emp"><div class="ei">+</div><h3>No projects yet</h3><p>Create your first room to start designing.</p></div>';return}
+  if(!l)return;
+  window.RoseHTML.clear(l);
+  if(!projects.length){renderProjectEmptyState(l);return}
   const grouped=[...new Map(projects.map(room=>[(room.projectId||room.id),projectPrimaryRoom(room)])).values()].filter(Boolean).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
-  l.innerHTML=grouped.map(p=>{
-    const n=p.polygon?p.polygon.length:0;
-    const type=(ROOM_TYPES.find(t=>t.id===(p.roomType||'living_room'))||ROOM_TYPES[0]).name;
-    const moodLabel=p.mood&&MOOD_CONFIG[p.mood]?(p.mood.charAt(0).toUpperCase()+p.mood.slice(1)):null;
-    const presetLabel=p.designPreset?(DESIGN_PRESETS.find(d=>d.id===p.designPreset)?.name||'Styled'):null;
-    const primaryChip=moodLabel||presetLabel||'In Progress';
-    const edited=new Date(p.updatedAt||p.createdAt||Date.now()).toLocaleDateString(undefined,{month:'short',day:'numeric'});
-    const roomCount=projectMainRooms(p).length;
-    const floorCount=projectFloors(p).length;
-    if(!p.previewThumb&&p.polygon?.length)updateRoomPreviewThumb(p);
-    const optionChip=(p.optionName&&p.optionName!=='Main')?`<span class="chip">${esc(p.optionName)}</span>`:'';
-    const optionCount=optionSiblings(p).length>1?`<span class="chip">${optionSiblings(p).length} options</span>`:'';
-    const wall=p.materials?.wall||'#F3EFE7';
-    const floor=p.materials?.floor||'#d0b18d';
-    const trim=p.materials?.trim||'rgba(0,0,0,.08)';
-    const previewEl=p.previewThumb
-      ?`<div class="pci" style="padding:0;background:transparent;box-shadow:var(--sh)"><img src="${p.previewThumb}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--rl)"></div>`
-      :(p.polygon?.length
-        ?`<div class="pci" style="background:linear-gradient(145deg,${wall} 0%,${wall} 44%,${floor} 44%,${floor} 100%);border:2px solid ${typeof trim==='string'?trim:'rgba(0,0,0,.08)'};box-shadow:var(--sh)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>`
-        :`<div class="pci">${p.favorite?'\u2728':'\u{1F3E0}'}</div>`);
-    return `<div class="pc" role="button" tabindex="0" data-action="open-project" data-project-id="${p.projectId||p.id}">${previewEl}<div class="pcf"><h3>${esc(p.projectName||p.name)}</h3><p>${roomCount} room${roomCount===1?'':'s'} &middot; ${floorCount} floor${floorCount===1?'':'s'} &middot; ${edited}</p><div class="pcmeta"><span class="chip">${esc(primaryChip)}</span><span class="chip">${esc(type)}</span>${optionChip}${optionCount}</div></div><div class="pca"><button class="pab" type="button" data-action="favorite-project" data-project-id="${p.projectId||p.id}" data-stop-propagation="true" data-prevent-default="true" title="Favorite"><svg viewBox="0 0 24 24"><path d="M12 17.3 5.8 21l1.7-7-5.5-4.8 7.2-.6L12 2l2.8 6.6 7.2.6-5.5 4.8 1.7 7z"/></svg></button><button class="pab" type="button" data-action="duplicate-project-card" data-project-id="${p.projectId||p.id}" data-stop-propagation="true" data-prevent-default="true" title="Duplicate"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="pab" type="button" data-action="delete-project-card" data-project-id="${p.projectId||p.id}" data-stop-propagation="true" data-prevent-default="true" title="Delete"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`}).join('')}
+  grouped.forEach(project=>l.appendChild(createProjectCard(project)));
+}
 function openPrj(id){const p=projectPrimaryRoom(id)||projects.find(r=>r.id===id);if(p)openEd(p)}
 function dupPrj(id){
   const sourceRooms=projectRooms(id);

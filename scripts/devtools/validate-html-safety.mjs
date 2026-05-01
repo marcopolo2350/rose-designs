@@ -93,6 +93,29 @@ if (!tutorialRenderer) {
   }
 }
 
+const renderHome = ui.match(/function\s+renderHome[\s\S]*?function\s+openPrj/);
+if (!renderHome) {
+  errors.push("renderHome() was not found for HTML safety validation.");
+} else {
+  const body = renderHome[0];
+  if (/insertAdjacentHTML|innerHTML\s*=/.test(body)) {
+    errors.push("renderHome() must render project cards with DOM nodes, not HTML strings.");
+  }
+}
+
+const projectCard = ui.match(/function\s+createProjectCard[\s\S]*?function\s+renderHome/);
+if (!projectCard) {
+  errors.push("createProjectCard() was not found for project-card safety validation.");
+} else {
+  const body = projectCard[0];
+  if (/insertAdjacentHTML|innerHTML\s*=/.test(body)) {
+    errors.push("createProjectCard() must render with DOM nodes, not HTML strings.");
+  }
+  if (!/title\.textContent\s*=\s*project\.projectName/.test(body)) {
+    errors.push("createProjectCard() must render project names with textContent.");
+  }
+}
+
 const deleteConfirmKeys = ui.match(
   /function\s+handleDeleteConfirmKeydown[\s\S]*?function\s+showDeleteConfirm/,
 );

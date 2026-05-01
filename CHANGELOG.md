@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0-hardening.69 - 2026-05-01
+
+- rebuilt the home project list and project cards with DOM nodes instead of `innerHTML`
+- moved project thumbnail preview styling into CSS classes
+- added Playwright coverage that project names render as text instead of executable markup
+- extended HTML safety validation to block home-card string rendering from returning
+
 ## 0.5.0-hardening.68 - 2026-05-01
 
 - rebuilt the first-run tutorial card with DOM nodes and `textContent` instead of `innerHTML`

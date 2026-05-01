@@ -85,6 +85,19 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
     .locator("#prjList [onclick], #prjList [onpointerdown]")
     .count();
   expect(homeCardInlineHandlers).toBe(0);
+  const unsafeProjectName = '<img src=x onerror="window.__roseXss=1"> Smoke';
+  const originalProjectName = await page.evaluate(() => curRoom.projectName);
+  await page.evaluate((name) => {
+    curRoom.projectName = name;
+    renderHome();
+  }, unsafeProjectName);
+  await expect(page.locator("#prjList .pc h3").first()).toHaveText(unsafeProjectName);
+  expect(await page.locator("#prjList .pc h3 img").count()).toBe(0);
+  expect(await page.evaluate(() => Boolean(window.__roseXss))).toBe(false);
+  await page.evaluate((name) => {
+    curRoom.projectName = name;
+    renderHome();
+  }, originalProjectName);
   await page.evaluate(() => showDeleteConfirm(curRoom.projectId || curRoom.id));
   await expect(page.locator("#delConfirm")).toHaveAttribute("role", "dialog");
   await expect(page.locator("#delConfirm")).toHaveAttribute("aria-modal", "true");

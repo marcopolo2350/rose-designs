@@ -678,3 +678,9 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:fo
 /* Category glyphs */
 .cat-glyph{display:inline-flex;width:18px;height:18px;margin-right:8px;vertical-align:middle;align-items:center;justify-content:center;color:var(--accent)}
 .cat-glyph svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.5}
+
+/* Home project cards */
+.pci-thumb{padding:0;background:transparent;box-shadow:var(--sh)}
+.pci-thumb-img{width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--rl)}
+.pci-material{box-shadow:var(--sh)}
+.pci-material svg{width:18px;height:18px;stroke:rgba(0,0,0,.22)}
