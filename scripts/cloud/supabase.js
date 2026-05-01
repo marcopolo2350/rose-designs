@@ -21,7 +21,8 @@ function cloudGetConfig() {
       key: localStorage.getItem(CLOUD_KEYS.key) || "",
       enabled: localStorage.getItem(CLOUD_KEYS.enabled) === "1",
     };
-  } catch {
+  } catch (error) {
+    window.reportRoseRecoverableError?.("cloud-config-read", error);
     return { url: "", key: "", enabled: false };
   }
 }
@@ -31,10 +32,24 @@ function cloudSetConfig(url, key, enabled) {
     localStorage.setItem(CLOUD_KEYS.url, url || "");
     localStorage.setItem(CLOUD_KEYS.key, key || "");
     localStorage.setItem(CLOUD_KEYS.enabled, enabled ? "1" : "0");
-  } catch {
+  } catch (error) {
+    window.reportRoseRecoverableError?.("cloud-config-write", error);
     return;
   }
   cloudClient = null;
+}
+
+function cloudEscapeAttribute(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function cloudValidateProjectPayload(payload) {
+  if (!window.RoseProjectSchema) return payload;
+  return window.RoseProjectSchema.validateImportedProjectDocument({ projects: [payload] }).rooms[0];
 }
 
 async function cloudEnsureClient() {
@@ -85,10 +100,9 @@ async function cloudPullProjects() {
     return rows
       .map((payload) => {
         try {
-          return window.RoseProjectSchema.validateImportedProjectDocument({ projects: [payload] })
-            .rooms[0];
+          return cloudValidateProjectPayload(payload);
         } catch (error) {
-          console.warn("[cloud] skipped invalid payload", error);
+          window.reportRoseRecoverableError?.("cloud-pull-invalid-payload", error);
           return null;
         }
       })
@@ -104,13 +118,16 @@ async function cloudPushProjects(localProjects) {
   if (!client) return false;
   await cloudSignInAnonymous();
   const profile = typeof activeProfile !== "undefined" ? activeProfile : "default";
-  const rows = (localProjects || []).map((project) => ({
-    id: project.id,
-    profile,
-    payload: project,
-    updated_at: new Date(project.updatedAt || Date.now()).toISOString(),
-    deleted: false,
-  }));
+  const rows = (localProjects || []).map((project) => {
+    const payload = cloudValidateProjectPayload(project);
+    return {
+      id: payload.id,
+      profile,
+      payload,
+      updated_at: new Date(payload.updatedAt || Date.now()).toISOString(),
+      deleted: false,
+    };
+  });
   if (!rows.length) return true;
   cloudBusy = true;
   try {
@@ -194,12 +211,12 @@ function openCloudSyncSettings() {
     <div style="background:#FDFAF5;border:1px solid #E6D8CC;border-radius:18px;max-width:560px;width:100%;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.22);font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#332922;" role="dialog" aria-modal="true" aria-labelledby="cloudSyncTitle">
       <h3 id="cloudSyncTitle" style="margin:0 0 6px;font-family:Georgia,serif;font-size:22px;">Cloud Sync</h3>
       <p style="margin:0 0 16px;color:#7B6B5E;font-size:13px;line-height:1.5;">Experimental. Syncs rooms to Supabase across devices. Local editing remains the primary source of truth.</p>
-      <div style="font-size:12px;background:#F5EEE3;padding:10px 12px;border-radius:8px;margin-bottom:16px;color:#5A4C40;">Status: <strong>${cloudStatusText()}</strong></div>
+      <div style="font-size:12px;background:#F5EEE3;padding:10px 12px;border-radius:8px;margin-bottom:16px;color:#5A4C40;">Status: <strong>${cloudEscapeAttribute(cloudStatusText())}</strong></div>
       <div style="font-size:12px;background:#FFF4E8;padding:10px 12px;border-radius:8px;margin-bottom:16px;color:#7A5531;">Conflict policy today: timestamp-based merge with validation. This is still experimental and should not be treated as robust collaborative sync.</div>
       <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Supabase project URL</label>
-      <input id="cloudUrl" type="text" placeholder="https://xxxxx.supabase.co" value="${(cfg.url || "").replace(/"/g, "&quot;")}" style="width:100%;padding:10px 12px;border:1px solid #D9CBBF;border-radius:8px;font-family:inherit;font-size:13px;margin-bottom:14px;box-sizing:border-box;">
+      <input id="cloudUrl" type="text" placeholder="https://xxxxx.supabase.co" value="${cloudEscapeAttribute(cfg.url)}" style="width:100%;padding:10px 12px;border:1px solid #D9CBBF;border-radius:8px;font-family:inherit;font-size:13px;margin-bottom:14px;box-sizing:border-box;">
       <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Anon public key</label>
-      <input id="cloudKey" type="password" placeholder="eyJhbGciOi..." value="${(cfg.key || "").replace(/"/g, "&quot;")}" style="width:100%;padding:10px 12px;border:1px solid #D9CBBF;border-radius:8px;font-family:inherit;font-size:13px;margin-bottom:14px;box-sizing:border-box;">
+      <input id="cloudKey" type="password" placeholder="eyJhbGciOi..." value="${cloudEscapeAttribute(cfg.key)}" style="width:100%;padding:10px 12px;border:1px solid #D9CBBF;border-radius:8px;font-family:inherit;font-size:13px;margin-bottom:14px;box-sizing:border-box;">
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:20px;">
         <input id="cloudEnabled" type="checkbox" ${cfg.enabled ? "checked" : ""}>
         <span>Enable cloud sync on save and load</span>
@@ -256,4 +273,5 @@ window.cloudSync = {
   setConfig: cloudSetConfig,
   statusText: cloudStatusText,
   testConnection: cloudTestConnection,
+  validatePayload: cloudValidateProjectPayload,
 };

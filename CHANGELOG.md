@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-hardening.32 - 2026-04-30
+
+- made cloud sync report local config storage failures, validate payloads before push/pull, and escape modal status/config values more defensively
+
 ## 0.5.0-hardening.31 - 2026-04-30
 
 - tightened project JSON import validation for room text, polygon points, arrays, and furniture geometry

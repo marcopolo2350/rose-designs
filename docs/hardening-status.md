@@ -37,6 +37,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Empty catch blocks have been replaced with explicit recoverable error reporting and are guarded by `npm run validate:error-handling`.
 - The fatal-load screen renders dynamic error text with `textContent` instead of `innerHTML`.
 - Project JSON import validation now checks room text fields, polygon geometry, array fields, and furniture geometry through `npm run validate:project-schema`.
+- Experimental cloud sync validates room payloads before push/pull and reports config storage failures instead of silently swallowing them.
 - `data/asset-validation-overrides.json` documents intentional shared GLB aliases.
 - Standard Playwright config and a shell smoke spec exist for desktop and mobile Chromium viewports.
 - README, changelog, roadmap, architecture, data model, testing, deployment, and limitations docs exist.
