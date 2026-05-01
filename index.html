@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <title>Rose's Indoor Designs</title>
-<meta name="application-version" content="0.5.0-hardening.61" />
+<meta name="application-version" content="0.5.0-hardening.62" />
     <meta
       name="description"
       content="A professional interior design studio for planning spaces in 2D and 3D, styling rooms, comparing options, and exporting client-ready presentations."
@@ -171,11 +171,10 @@
               <span>New Project</span>
             </button>
             <button
-              class="action-card"
+              class="action-card is-hidden"
               id="continueBtn"
               type="button"
               data-action="open-last-project"
-              style="display: none"
             >
               <svg
                 aria-hidden="true"
@@ -638,10 +637,10 @@
           </button>
         </div>
         <input
+          class="hidden-file-input"
           type="file"
           id="projectJsonInput"
           accept=".json,application/json"
-          style="display: none"
           data-action="handle-project-json-selected"
         />
 
@@ -879,12 +878,11 @@
             </button>
             <!-- Compare hidden by default — accessible from compare button in header -->
             <button
-              class="cmb soft"
+              class="cmb soft is-hidden"
               id="cmCompare"
               type="button"
               data-action="toggle-3d-compare-mode"
               title="Compare"
-              style="display: none"
             >
               <span class="cmb-label">Compare</span>
             </button>
@@ -895,9 +893,9 @@
           <div class="walk-hint" id="walkHint">
             Drag to look around &middot; Use move and turn controls
           </div>
-          <div id="printHeader" style="display: none; padding: 16px 20px; font-family: var(--fd)">
-            <h2 style="font-size: 20px; font-weight: 700; margin: 0"></h2>
-            <p style="font-size: 11px; color: var(--muted); margin: 4px 0 0"></p>
+          <div class="print-header" id="printHeader">
+            <h2></h2>
+            <p></p>
           </div>
           <button class="props-tab" id="propsTab" type="button" data-action="open-panel">
             Open Panel
@@ -1091,7 +1089,7 @@
       Model Status
     </button>
     <div class="asset-preflight dev-only" id="assetPreflightPanel"></div>
-    <div id="selfTestResults" style="display: none"></div>
+    <div class="self-test-results" id="selfTestResults"></div>
     <div
       class="verify-overlay dev-only"
       id="verifyOv"

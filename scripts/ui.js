@@ -404,8 +404,7 @@ function renderHome(){
   // Show/hide continue button
   const continueBtn=document.getElementById('continueBtn');
   if(continueBtn){
-    if(projects.length){continueBtn.style.display='flex'}
-    else{continueBtn.style.display='none'}
+    continueBtn.classList.toggle('is-hidden',!projects.length);
   }
   const l=document.getElementById('prjList');
   if(!projects.length){l.innerHTML='<div class="emp"><div class="ei">+</div><h3>No projects yet</h3><p>Create your first room to start designing.</p></div>';return}

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0-hardening.62 - 2026-05-01
+
+- replaced static inline `display:none` usage with CSS classes for hidden app-shell elements
+- moved print header sizing/typography out of inline markup and into `styles/app.css`
+- updated the continue-project button to toggle a hidden class instead of mutating inline display styles
+- extended static accessibility validation to block inline `display:none` regressions
+
 ## 0.5.0-hardening.61 - 2026-05-01
 
 - extended documentation validation so `docs/hardening-status.md` must list every reproducible verification command

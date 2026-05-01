@@ -70,6 +70,12 @@ if (/<(?:button|input|select|textarea)\b[^>]*\sautofocus\b/i.test(html)) {
   errors.push("Static app shell should not autofocus controls before modal focus handling runs.");
 }
 
+if (/style=["'][^"']*display\s*:\s*none/i.test(html)) {
+  errors.push(
+    "Static display:none styles must use CSS classes instead of inline style attributes.",
+  );
+}
+
 if (/<svg\b/i.test(html) && !hasAttr(html, "aria-hidden")) {
   errors.push("Static SVG audit did not find aria-hidden attributes.");
 }
