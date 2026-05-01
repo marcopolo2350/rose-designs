@@ -1,5 +1,6 @@
 (function initProjectSchema() {
   const APP_SCHEMA_VERSION = 2;
+  const DANGEROUS_IMPORT_KEYS = new Set(["__proto__", "constructor", "prototype"]);
 
   function cloneJson(value) {
     return JSON.parse(JSON.stringify(value));
@@ -10,6 +11,7 @@
   }
 
   function ensureRoomRecordShape(room) {
+    assertNoDangerousImportKeys(room, "room");
     if (!room || typeof room !== "object" || Array.isArray(room)) {
       throw new Error("Each imported room must be an object");
     }
@@ -65,6 +67,20 @@
     }
   }
 
+  function assertNoDangerousImportKeys(value, path) {
+    if (!value || typeof value !== "object") return;
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => assertNoDangerousImportKeys(item, `${path}[${index}]`));
+      return;
+    }
+    for (const key of Object.keys(value)) {
+      if (DANGEROUS_IMPORT_KEYS.has(key)) {
+        throw new Error(`Imported JSON contains unsafe key ${path}.${key}`);
+      }
+      assertNoDangerousImportKeys(value[key], `${path}.${key}`);
+    }
+  }
+
   function hasUnsupportedControlCharacters(value) {
     for (let index = 0; index < value.length; index += 1) {
       const code = value.charCodeAt(index);
@@ -93,6 +109,7 @@
   }
 
   function ensureProjectDocumentShape(parsed) {
+    assertNoDangerousImportKeys(parsed, "project");
     if (Array.isArray(parsed)) {
       return {
         schemaVersion: APP_SCHEMA_VERSION,
@@ -121,6 +138,7 @@
   }
 
   function validateImportedProjectDocument(parsed) {
+    assertNoDangerousImportKeys(parsed, "project");
     const doc = stampProjectDocument(ensureProjectDocumentShape(parsed));
     const rooms = doc.projects.map((room, index) => {
       try {

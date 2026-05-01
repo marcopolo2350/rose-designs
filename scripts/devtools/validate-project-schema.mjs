@@ -84,4 +84,26 @@ expectFail(
   "must be finite",
 );
 
+expectFail(
+  "unsafe prototype key",
+  () =>
+    schema.validateImportedProjectDocument(
+      JSON.parse(
+        '{"projects":[{"id":"room-1","name":"Room","polygon":[{"x":0,"y":0},{"x":1,"y":0},{"x":1,"y":1}],"furniture":[{"id":"furn-1","label":"Sofa","__proto__":{"polluted":true}}]}]}',
+      ),
+    ),
+  "unsafe key",
+);
+
+expectFail(
+  "unsafe constructor key",
+  () =>
+    schema.validateImportedProjectDocument(
+      JSON.parse(
+        '{"projects":[{"id":"room-1","name":"Room","polygon":[{"x":0,"y":0},{"x":1,"y":0},{"x":1,"y":1}],"constructor":{"prototype":{"polluted":true}}}]}',
+      ),
+    ),
+  "unsafe key",
+);
+
 console.log("Project schema validation passed.");

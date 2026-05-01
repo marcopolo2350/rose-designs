@@ -342,6 +342,10 @@ async function handleProjectJSONSelected(event){
   const file=event?.target?.files?.[0];
   if(!file)return;
   try{
+    if(file.size>10*1024*1024){
+      toast('Project JSON is too large to import safely');
+      return;
+    }
     const text=await file.text();
     const parsed=JSON.parse(text);
     const validated=window.RoseProjectSchema

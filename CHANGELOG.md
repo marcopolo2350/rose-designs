@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.40 - 2026-04-30
+
+- hardened project JSON imports against prototype-pollution keys and oversized import files
+- expanded project-schema validation to cover unsafe imported keys
+
 ## 0.5.0-hardening.39 - 2026-04-30
 
 - added static app-shell accessibility validation for button types, icon names, dialog metadata, and decorative SVG hiding
