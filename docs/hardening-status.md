@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.117`
+Current app version: `0.5.0-hardening.118`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -79,6 +79,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Experimental cloud sync settings now render with DOM nodes and CSS classes, with Escape close and Tab focus containment guarded by `npm run validate:html-safety`.
 - Experimental cloud sync warnings, RLS docs, compatibility globals, validation hooks, and no-direct-global-mutation rules are guarded by `npm run validate:cloud-boundary`.
 - Pure 2D geometry helpers are isolated in `scripts/planner2d/geometry.js` and covered by `npm run validate:geometry`.
+- 2D furniture tint, stroke, and label-ink helpers are isolated in `scripts/planner2d/furniture-style.js` and covered by `npm run validate:furniture-style`.
 - 2D reference overlay geometry and labels are isolated in `scripts/planner2d/reference-overlay.js` and covered by `npm run validate:reference-overlay`.
 - Wall-mounted furniture snapping helpers are isolated in `scripts/planner2d/snapping.js` and covered by `npm run validate:snapping`.
 - Catalog default placement and elevation rules are isolated in `scripts/catalog/placement-rules.js` and covered by `npm run validate:placement-rules`, so wall/ceiling defaults do not return to label-specific state logic.
@@ -189,6 +190,7 @@ npm run validate:clean-ignore
 npm run validate:project-schema
 npm run validate:app-state
 npm run validate:geometry
+npm run validate:furniture-style
 npm run validate:reference-overlay
 npm run validate:snapping
 npm run validate:placement-rules

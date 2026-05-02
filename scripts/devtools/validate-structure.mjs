@@ -41,6 +41,7 @@ const requiredFiles = [
   "scripts/ui/shortcuts.js",
   "scripts/catalog/placement-rules.js",
   "scripts/planner2d/geometry.js",
+  "scripts/planner2d/furniture-style.js",
   "scripts/planner2d/reference-overlay.js",
   "scripts/planner2d/snapping.js",
   "scripts/planner3d/lifecycle.js",
@@ -106,6 +107,7 @@ assertModuleBefore("./scripts/core/html.js", "./scripts/core/error-reporting.js"
 assertModuleBefore("./scripts/core/storage-keys.js", "./scripts/core/storage-service.js");
 assertModuleBefore("./scripts/core/storage-service.js", "./scripts/storage.js");
 assertModuleBefore("./scripts/catalog/placement-rules.js", "./scripts/state.js");
+assertModuleBefore("./scripts/planner2d/furniture-style.js", "./scripts/planner2d.js");
 assertModuleBefore("./scripts/planner2d/reference-overlay.js", "./scripts/planner2d.js");
 assertModuleBefore("./scripts/planner2d/snapping.js", "./scripts/planner2d.js");
 assertModuleBefore("./scripts/catalog/manifest.js", "./scripts/catalog.js");
@@ -158,6 +160,16 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   ) {
     errors.push(
       `${modulePath} defines furniture snapping helpers outside scripts/planner2d/snapping.js.`,
+    );
+  }
+  if (
+    modulePath === "scripts/planner2d.js" &&
+    /\b(?:const\s+FURN_GROUP_TINTS|function\s+(?:threeColorToRgba|furniture2DStroke|furniture2DLabelInk|furniture2DTint)\s*\()/.test(
+      source,
+    )
+  ) {
+    errors.push(
+      `${modulePath} defines furniture 2D style helpers outside scripts/planner2d/furniture-style.js.`,
     );
   }
   if (

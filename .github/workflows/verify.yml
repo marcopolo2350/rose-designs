@@ -120,6 +120,9 @@ jobs:
       - name: Validate planner geometry
         run: npm run validate:geometry
 
+      - name: Validate furniture style
+        run: npm run validate:furniture-style
+
       - name: Validate reference overlay
         run: npm run validate:reference-overlay
 

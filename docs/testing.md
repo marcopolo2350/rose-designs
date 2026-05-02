@@ -31,6 +31,7 @@ npm run validate:clean-ignore
 npm run validate:project-schema
 npm run validate:app-state
 npm run validate:geometry
+npm run validate:furniture-style
 npm run validate:reference-overlay
 npm run validate:snapping
 npm run validate:placement-rules
@@ -74,6 +75,7 @@ npm test
 - `validate:project-schema` - exercises project JSON import/export schema validation
 - `validate:app-state` - exercises the central app state dispatcher bridge
 - `validate:geometry` - exercises pure 2D polygon, segment, and intersection helpers
+- `validate:furniture-style` - exercises 2D furniture tint, stroke, and label-ink helper behavior
 - `validate:reference-overlay` - exercises 2D reference overlay geometry, hit conversion, visibility, and labels
 - `validate:snapping` - exercises wall-mounted furniture snapping, opening snapping, and floor-item fallback
 - `validate:placement-rules` - exercises manifest-backed wall, ceiling, surface, and floor placement defaults

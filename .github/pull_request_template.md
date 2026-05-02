@@ -40,6 +40,7 @@
 - [ ] `npm run validate:project-schema`
 - [ ] `npm run validate:app-state`
 - [ ] `npm run validate:geometry`
+- [ ] `npm run validate:furniture-style`
 - [ ] `npm run validate:reference-overlay`
 - [ ] `npm run validate:snapping`
 - [ ] `npm run validate:placement-rules`

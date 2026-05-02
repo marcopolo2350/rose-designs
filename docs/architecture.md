@@ -19,6 +19,7 @@ The bridge appends the canonical `application-version` meta value to runtime scr
 - `scripts/ui.js` - home/editor shell behavior
 - `scripts/ui/shortcuts.js` - keyboard bindings and shortcut-sheet rendering
 - `scripts/planner2d.js` - 2D room editing and drawing
+- `scripts/planner2d/furniture-style.js` - 2D furniture tint/stroke/label style helpers
 - `scripts/planner2d/reference-overlay.js` - reference overlay geometry and label helpers
 - `scripts/planner2d/snapping.js` - wall-mounted furniture snapping helpers
 - `scripts/planner3d.js` - 3D scene assembly and walkthrough glue

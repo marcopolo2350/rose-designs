@@ -101,6 +101,7 @@ npm run validate:clean-ignore
 npm run validate:project-schema
 npm run validate:app-state
 npm run validate:geometry
+npm run validate:furniture-style
 npm run validate:reference-overlay
 npm run validate:snapping
 npm run validate:placement-rules
@@ -150,6 +151,7 @@ What they do:
 - `validate:project-schema` - checks project JSON import/export schema validation
 - `validate:app-state` - checks the central app state dispatcher bridge
 - `validate:geometry` - checks pure 2D geometry helpers
+- `validate:furniture-style` - checks 2D furniture tint, stroke, and label-ink helpers stay in their boundary
 - `validate:reference-overlay` - checks 2D reference overlay geometry and label helpers stay in their boundary
 - `validate:snapping` - checks wall-mounted furniture snap helpers stay in the planner snapping boundary
 - `validate:placement-rules` - checks catalog-owned default placement/elevation rules against manifest metadata
@@ -185,6 +187,7 @@ What they do:
 - [scripts/core/history.js](./scripts/core/history.js) - shared undo/redo and room-history runtime
 - [scripts/catalog/placement-rules.js](./scripts/catalog/placement-rules.js) - manifest-backed placement/elevation defaults
 - [scripts/planner2d/geometry.js](./scripts/planner2d/geometry.js) - pure 2D geometry helpers shared by planner logic
+- [scripts/planner2d/furniture-style.js](./scripts/planner2d/furniture-style.js) - 2D furniture tint/stroke/label style helpers
 - [scripts/planner2d/reference-overlay.js](./scripts/planner2d/reference-overlay.js) - reference overlay geometry and label helpers
 - [scripts/planner2d/snapping.js](./scripts/planner2d/snapping.js) - wall-mounted furniture snapping helpers
 - [scripts/planner3d/lifecycle.js](./scripts/planner3d/lifecycle.js) - 3D disposal and cleanup helpers

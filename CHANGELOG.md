@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.118 - 2026-05-02
+
+- extracted 2D furniture tint, stroke, and label-ink helpers into `scripts/planner2d/furniture-style.js`
+- registered the furniture style boundary in runtime order and global-bridge validation
+- added `validate:furniture-style` to guard 2D furniture readability styling
+
 ## 0.5.0-hardening.117 - 2026-05-02
 
 - extracted wall-mounted furniture snapping helpers into `scripts/planner2d/snapping.js`

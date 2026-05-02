@@ -510,40 +510,6 @@ document.getElementById('refCalInput')?.addEventListener('keydown',e=>{
   if(e.key==='Escape'){e.preventDefault();cancelReferenceCalibrationModal();}
 });
 
-// ── FURNITURE 2D TINT ──
-const FURN_GROUP_TINTS={
-  'Seating':    '#9B7D8E',
-  'Beds':       '#7A8FA8',
-  'Tables':     '#B08040',
-  'Storage':    '#6E8A66',
-  'Lighting':   '#C9A040',
-  'Decor':      '#5A8A78',
-  'Rugs':       '#B85A45',
-  'Wall Decor': '#8E78A8',
-  'Openings':   '#5A8FAA',
-};
-function threeColorToRgba(color,alpha=1){
-  return `rgba(${Math.round(color.r*255)},${Math.round(color.g*255)},${Math.round(color.b*255)},${alpha})`;
-}
-function furniture2DStroke(f,item){
-  // Always use a clearly visible dark outline regardless of fill lightness
-  const tint=safeThreeColor(furniture2DTint(f,item),'#7B6B5E');
-  const hsl={h:0,s:0,l:0};tint.getHSL(hsl);
-  // If the fill is light (l > .60), use a fixed dark stroke for contrast
-  if(hsl.l>.60)return 'rgba(68,52,40,.82)';
-  return threeColorToRgba(tint.clone().offsetHSL(0,.04,-.22),.96);
-}
-function furniture2DLabelInk(f,item){
-  const tint=safeThreeColor(furniture2DTint(f,item),'#7B6B5E');
-  const hsl={h:0,s:0,l:0};
-  tint.getHSL(hsl);
-  return hsl.l>.55?'rgba(58,44,34,.88)':'rgba(248,244,236,.92)';
-}
-function furniture2DTint(f,item){
-  const variantColor=typeof variantDisplayColor==='function'?variantDisplayColor(f,item):'';
-  if(variantColor)return variantColor;
-  return FURN_GROUP_TINTS[item?.group]||'#8A7868';
-}
 function pendingFurniturePreviewItem(){
   if(!pendFurnPreviewKey)return null;
   return FURN_ITEM_BY_KEY.get(pendFurnPreviewKey)||FURN_ITEMS.find(item=>item.assetKey===pendFurnPreviewKey)||null;
