@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.88`
+Current app version: `0.5.0-hardening.89`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -93,6 +93,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - GitHub PR and issue templates are guarded by `npm run validate:github-templates` so future work keeps hardening scope and verification prompts.
 - README, testing docs, deployment notes, hardening status, and PR verification commands are guarded by `npm run validate:docs`.
 - `npm run validate:docs` now also guards the hardening-status verification command list.
+- `npm run validate:docs` now blocks stale legacy app-shell HTML filenames from returning in canonical docs and the progress log.
 - The Verify workflow uses current Node 24-compatible official action majors and keeps `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` guarded by repository validation.
 - The Verify workflow bounds Playwright Chromium installation with a five-minute step timeout and avoids the previously wedged hosted-runner `--with-deps` install path.
 - Standard Playwright config and a shell smoke spec exist for desktop and mobile Chromium viewports.

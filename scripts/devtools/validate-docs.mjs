@@ -36,6 +36,7 @@ const testing = read("docs/testing.md");
 const hardeningStatus = read("docs/hardening-status.md");
 const deployment = read("docs/deployment.md");
 const prTemplate = read(".github/pull_request_template.md");
+const progress = read("progress.md");
 
 const verifyScripts = Object.keys(scripts)
   .filter(
@@ -88,6 +89,17 @@ if (!hardeningStatus.includes(packageJson.version)) {
 
 if (!/Last updated:\s+2026-05-02/.test(hardeningStatus)) {
   errors.push("docs/hardening-status.md Last updated value is not current.");
+}
+
+for (const [file, source] of [
+  ["README.md", readme],
+  ["docs/deployment.md", deployment],
+  ["docs/testing.md", testing],
+  ["progress.md", progress],
+]) {
+  if (/rose-designs\.html|roses-indoor-designs\.html/.test(source)) {
+    errors.push(`${file} must use the canonical index.html app entrypoint.`);
+  }
 }
 
 if (errors.length) {

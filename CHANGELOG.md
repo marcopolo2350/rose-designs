@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.89 - 2026-05-02
+
+- canonicalized stale app-shell references in `progress.md`
+- extended documentation validation to block old app-shell HTML filenames in canonical docs and progress notes
+
 ## 0.5.0-hardening.88 - 2026-05-02
 
 - expanded `npm run clean` to remove ignored Edge browser-profile artifacts and leftover temporary debug files
