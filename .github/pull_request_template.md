@@ -33,6 +33,7 @@
 - [ ] `npm run validate:error-handling`
 - [ ] `npm run validate:runtime-modules`
 - [ ] `npm run validate:dependencies`
+- [ ] `npm run validate:cloud-boundary`
 - [ ] `npm run validate:clean-ignore`
 - [ ] `npm run validate:project-schema`
 - [ ] `npm run validate:app-state`

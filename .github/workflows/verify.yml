@@ -99,6 +99,9 @@ jobs:
       - name: Validate dependency pins
         run: npm run validate:dependencies
 
+      - name: Validate cloud sync boundary
+        run: npm run validate:cloud-boundary
+
       - name: Validate clean ignore contract
         run: npm run validate:clean-ignore
 

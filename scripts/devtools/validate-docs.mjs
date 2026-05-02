@@ -15,6 +15,7 @@ const requiredDocs = [
   "KNOWN_LIMITATIONS.md",
   "docs/architecture.md",
   "docs/asset-sources.md",
+  "docs/cloud-sync.md",
   "docs/data-model.md",
   "docs/dependencies.md",
   "docs/deployment.md",

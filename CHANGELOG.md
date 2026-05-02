@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.98 - 2026-05-02
+
+- added `npm run validate:cloud-boundary` to guard experimental Supabase sync boundaries
+- documented cloud sync status, RLS setup, conflict policy, and validation expectations
+- cleaned cloud schema comments so phase-history and mojibake text do not return
+
 ## 0.5.0-hardening.97 - 2026-05-02
 
 - added explicit accessible names to static app-shell file, range, room setup, and reference calibration inputs

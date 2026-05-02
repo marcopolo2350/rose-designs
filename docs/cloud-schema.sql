@@ -1,8 +1,8 @@
--- Phase 7A — Supabase schema for Rose's Indoor Designs cloud sync
+-- Experimental Supabase schema for Rose's Indoor Designs cloud sync.
 -- Run this in the Supabase SQL editor after creating your project.
 --
--- Policy: one row per project (room). Scoped by profile ('rose' / 'marco' / ...).
--- Conflict resolution is last-write-wins on updated_at, handled in the client.
+-- Policy: one row per project. Rows are scoped by profile and owner.
+-- Conflict handling in the client is timestamp-based and intentionally simple.
 
 -- === Schema ===
 create table if not exists public.rose_projects (
@@ -35,7 +35,7 @@ create trigger rose_projects_set_owner
 -- === Row Level Security ===
 alter table public.rose_projects enable row level security;
 
--- Users can read/write their own rows. Anonymous auth is supported — each
+-- Users can read/write their own rows. Anonymous auth is supported. Each
 -- anonymous user gets a stable auth.uid() within a session; pair anonymous
 -- auth with "Enable Anonymous Sign-ins" in Auth settings for easy device use.
 drop policy if exists "rose_projects_select_own" on public.rose_projects;
@@ -62,7 +62,7 @@ create policy "rose_projects_delete_own"
 -- === Optional: shared-across-devices mode ===
 -- If Rose + Marco want to sync rooms across each other's devices without creating
 -- real auth, replace the policies above with these permissive ones AND keep the
--- anon key secret. (Not recommended for public deployments.)
+-- anon key secret. Not recommended for public deployments.
 --
 --   create policy "rose_projects_shared_all"
 --     on public.rose_projects for all

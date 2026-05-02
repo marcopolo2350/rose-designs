@@ -24,6 +24,7 @@ npm run validate:inline-handlers
 npm run validate:error-handling
 npm run validate:runtime-modules
 npm run validate:dependencies
+npm run validate:cloud-boundary
 npm run validate:clean-ignore
 npm run validate:project-schema
 npm run validate:app-state
@@ -57,6 +58,7 @@ npm test
 - `validate:error-handling` - blocks empty catch blocks
 - `validate:runtime-modules` - validates the transitional runtime bridge and canonical entrypoint
 - `validate:dependencies` - verifies pinned CDN runtime dependencies
+- `validate:cloud-boundary` - verifies experimental cloud sync stays isolated, documented, validated, and warning-labeled
 - `validate:clean-ignore` - checks generated local artifacts cleaned by `npm run clean` stay ignored
 - `validate:project-schema` - exercises project JSON import/export schema validation
 - `validate:app-state` - exercises the central app state dispatcher bridge

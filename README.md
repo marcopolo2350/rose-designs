@@ -94,6 +94,7 @@ npm run validate:inline-handlers
 npm run validate:error-handling
 npm run validate:runtime-modules
 npm run validate:dependencies
+npm run validate:cloud-boundary
 npm run validate:clean-ignore
 npm run validate:project-schema
 npm run validate:app-state
@@ -133,6 +134,7 @@ What they do:
 - `validate:error-handling` - blocks empty catch blocks
 - `validate:runtime-modules` - verifies the transitional runtime module bridge
 - `validate:dependencies` - verifies pinned CDN dependency versions and blocks removed CAD/DXF packages
+- `validate:cloud-boundary` - verifies experimental cloud sync warnings, Supabase docs, validation hooks, and no direct global project mutation
 - `validate:clean-ignore` - checks generated artifacts cleaned by `npm run clean` stay ignored
 - `validate:project-schema` - checks project JSON import/export schema validation
 - `validate:app-state` - checks the central app state dispatcher bridge
@@ -190,6 +192,8 @@ What they do:
 - [docs/data-model.md](./docs/data-model.md) - current room/project model
 - [docs/testing.md](./docs/testing.md) - test and verification commands
 - [docs/deployment.md](./docs/deployment.md) - deployment notes
+- [docs/cloud-sync.md](./docs/cloud-sync.md) - experimental Supabase sync boundary, schema, and conflict policy
+- [docs/cloud-schema.sql](./docs/cloud-schema.sql) - Supabase table, index, and Row Level Security setup
 - [docs/asset-sources.md](./docs/asset-sources.md) - catalog source and license posture
 - [docs/hardening-status.md](./docs/hardening-status.md) - current checklist status
 
@@ -221,7 +225,8 @@ The thumbnail tool renders from [scripts/thumbgen.html](./scripts/thumbgen.html)
 
 - projects and editor state live in the browser
 - most workflows are designed to work without a backend
-- cloud sync is optional and still a lower-confidence surface than local editing
+- cloud sync is optional, experimental, and still a lower-confidence surface than local editing
+- cloud sync setup and Row Level Security notes live in [docs/cloud-sync.md](./docs/cloud-sync.md)
 
 ## Architecture Reality Check
 
