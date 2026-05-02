@@ -72,7 +72,7 @@ npm test
 - `validate:3d-lifecycle` - exercises 3D disposal helpers for scene, renderer, listeners, and composer cleanup
 - `validate:3d-lighting` - exercises time-of-day HDRI buckets, sky colors, exposure limits, and light intensity curves
 - `validate:3d-camera` - exercises 3D camera labels, favorite-corner framing, overhead, and multi-room overview poses
-- `validate:export-filenames` - exercises export filename sanitizing and centralized download helpers
+- `validate:export-filenames` - exercises export filename sanitizing, centralized download helpers, and extracted SVG/JSON export boundaries
 - `test:playwright` - runs the standard Playwright spec suite
 - `test:self` - launches the app locally and waits for the built-in `#selftest` flow
 - `test:smoke` - runs the Playwright smoke helper against `index.html`

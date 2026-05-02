@@ -5,10 +5,12 @@ globalThis.window = globalThis;
 await import("../export/filenames.js");
 await import("../export/downloads.js");
 await import("../export/project-json.js");
+await import("../export/svg.js");
 
 const names = window.ExportFilenames;
 const downloads = window.ExportDownloads;
 const projectJson = window.RoseProjectJsonExports;
+const svgExports = window.RoseSvgExports;
 
 if (names.sanitizeBaseName(' Bad <Room>: "One" ') !== "Bad_Room_One") {
   throw new Error("sanitizeBaseName did not remove unsafe filename characters");
@@ -37,6 +39,9 @@ if (
 ) {
   throw new Error("Project JSON export/import functions were not registered.");
 }
+if (typeof svgExports.exportSVG !== "function") {
+  throw new Error("SVG export function was not registered.");
+}
 
 const legacyExportSource = readFileSync("scripts/export.js", "utf8");
 if (
@@ -47,6 +52,9 @@ if (
   throw new Error(
     "Project JSON import/export functions must live in scripts/export/project-json.js.",
   );
+}
+if (/function\s+exportSVG\b/.test(legacyExportSource)) {
+  throw new Error("SVG export must live in scripts/export/svg.js.");
 }
 
 for (const file of [

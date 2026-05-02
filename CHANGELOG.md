@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.108 - 2026-05-02
+
+- extracted SVG export behavior into `scripts/export/svg.js` while keeping the existing `exportSVG()` UI hook
+- added source-structure and export validation so SVG export logic does not drift back into `scripts/export.js`
+- wired the SVG export boundary into runtime load order and the global-bridge validator
+
 ## 0.5.0-hardening.107 - 2026-05-02
 
 - added manifest `placement` metadata for wall, ceiling, surface, and elevated catalog assets

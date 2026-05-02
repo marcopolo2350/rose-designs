@@ -23,7 +23,8 @@ The bridge appends the canonical `application-version` meta value to runtime scr
 - `scripts/planner3d/lighting.js` - data-driven time-of-day lighting curves and HDRI buckets
 - `scripts/planner3d/camera.js` - data-driven 3D camera labels and pose math
 - `scripts/catalog.js` - catalog UI and furniture controls
-- `scripts/export.js` - PNG, SVG, PDF, and project JSON export
+- `scripts/export.js` - remaining PNG, PDF, and presentation export bridge
+- `scripts/export/svg.js` - SVG floor-plan export boundary
 - `scripts/cloud/` - cloud sync boundary
 - `scripts/devtools/` - validation and verification scripts
 - `styles/app.css` - ordered stylesheet manifest

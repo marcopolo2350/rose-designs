@@ -21,6 +21,7 @@ const allowedAssignments = new Set(
     ["RoseHTML", "scripts/core/html.js"],
     ["RoseProjectJsonExports", "scripts/export/project-json.js"],
     ["RoseProjectSchema", "scripts/core/project-schema.js"],
+    ["RoseSvgExports", "scripts/export/svg.js"],
     ["RoseStorageService", "scripts/core/storage-service.js"],
     ["__lastSelfTest", "scripts/walkthrough.js"],
     ["__roseEditorKeysBound", "scripts/ui/shortcuts.js"],

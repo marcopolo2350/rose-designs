@@ -148,7 +148,7 @@ What they do:
 - `validate:3d-lifecycle` - checks 3D disposal/lifecycle helpers
 - `validate:3d-lighting` - checks data-driven time-of-day lighting buckets, colors, and exposure bounds
 - `validate:3d-camera` - checks data-driven 3D camera labels and pose math
-- `validate:export-filenames` - checks shared export filename sanitizing and centralized download helpers
+- `validate:export-filenames` - checks shared export filename sanitizing, centralized download helpers, and extracted SVG/JSON export boundaries
 - `test:playwright` - runs the standard Playwright spec suite
 - `test:self` - runs the built-in `#selftest` flow through Playwright
 - `test:smoke` - starts a temporary local server and runs the Playwright smoke helper against the app
@@ -178,6 +178,7 @@ What they do:
 - [scripts/planner3d/lifecycle.js](./scripts/planner3d/lifecycle.js) - 3D disposal and cleanup helpers
 - [scripts/planner3d/camera.js](./scripts/planner3d/camera.js) - data-driven 3D camera labels and pose helpers
 - [scripts/export/filenames.js](./scripts/export/filenames.js) - shared export filename sanitizing
+- [scripts/export/svg.js](./scripts/export/svg.js) - SVG floor-plan export boundary
 - [scripts/export/project-json.js](./scripts/export/project-json.js) - project JSON import/export boundary
 - [scripts/state.js](./scripts/state.js) - shared state helpers, geometry, snapping, walk logic
 - [scripts/storage.js](./scripts/storage.js) - persistence, normalization, and legacy storage wrappers
@@ -185,7 +186,7 @@ What they do:
 - [scripts/planner2d.js](./scripts/planner2d.js) - 2D plan rendering and editor interactions
 - [scripts/planner3d.js](./scripts/planner3d.js) - 3D scene assembly and walkthrough glue
 - [scripts/catalog.js](./scripts/catalog.js) - catalog UI, variants, placement controls
-- [scripts/export.js](./scripts/export.js) - PNG, SVG, PDF, and presentation export logic
+- [scripts/export.js](./scripts/export.js) - remaining PNG, PDF, and presentation export logic
 - [scripts/cloud/supabase.js](./scripts/cloud/supabase.js) - experimental cloud sync boundary
 - [scripts/devtools/validate-manifest.mjs](./scripts/devtools/validate-manifest.mjs) - manifest validator
 - [scripts/devtools/validate-asset-sources.mjs](./scripts/devtools/validate-asset-sources.mjs) - asset provenance validator

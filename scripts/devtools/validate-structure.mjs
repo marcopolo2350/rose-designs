@@ -48,6 +48,7 @@ const requiredFiles = [
   "scripts/export/filenames.js",
   "scripts/export/downloads.js",
   "scripts/export/project-json.js",
+  "scripts/export/svg.js",
   "scripts/cloud/supabase.js",
 ];
 
@@ -106,6 +107,7 @@ assertModuleBefore("./scripts/export/downloads.js", "./scripts/export.js");
 assertModuleBefore("./scripts/export/downloads.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/export/downloads.js", "./scripts/export/project-json.js");
 assertModuleBefore("./scripts/export/project-json.js", "./scripts/export.js");
+assertModuleBefore("./scripts/export/svg.js", "./scripts/export.js");
 assertModuleBefore("./scripts/core/history.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/lifecycle.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/lighting.js", "./scripts/planner3d.js");
@@ -178,6 +180,9 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
     !/registerAssetPlacement\?\.\(assetManifest\)/.test(source)
   ) {
     errors.push(`${modulePath} must register manifest placement metadata with catalog rules.`);
+  }
+  if (modulePath === "scripts/export.js" && /\bfunction\s+exportSVG\s*\(/.test(source)) {
+    errors.push(`${modulePath} must not define SVG export behavior outside scripts/export/svg.js.`);
   }
   const lines = source.split(/\r?\n/);
   lines.forEach((line, index) => {
