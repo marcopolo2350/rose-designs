@@ -33,6 +33,58 @@ async function expectPropsPanelHasNoInlineHandlers(page) {
   expect(inlineHandlers).toBe(0);
 }
 
+async function expectFloorButtonsAreLegible(page) {
+  const floorButtons = page.locator('#propsP .mat-grid.tall [data-action="set-active-floor"]');
+  await expect(floorButtons.first()).toBeVisible();
+  const snapshots = await floorButtons.evaluateAll((buttons) =>
+    buttons.map((button) => {
+      const title = button.querySelector(".mat-btn-title");
+      const meta = button.querySelector(".mat-btn-meta");
+      const bounds = button.getBoundingClientRect();
+      const titleBounds = title?.getBoundingClientRect();
+      const metaBounds = meta?.getBoundingClientRect();
+      const rectInside = (rect) =>
+        Boolean(
+          rect &&
+          rect.left >= bounds.left - 1 &&
+          rect.right <= bounds.right + 1 &&
+          rect.top >= bounds.top - 1 &&
+          rect.bottom <= bounds.bottom + 1,
+        );
+      const rectsOverlap =
+        Boolean(titleBounds && metaBounds) &&
+        !(
+          titleBounds.right <= metaBounds.left ||
+          metaBounds.right <= titleBounds.left ||
+          titleBounds.bottom <= metaBounds.top + 1 ||
+          metaBounds.bottom <= titleBounds.top + 1
+        );
+      return {
+        text: button.textContent.replace(/\s+/g, " ").trim(),
+        title: title?.textContent?.replace(/\s+/g, " ").trim() || "",
+        meta: meta?.textContent?.replace(/\s+/g, " ").trim() || "",
+        hasTitle: Boolean(title),
+        hasMeta: Boolean(meta),
+        titleInside: rectInside(titleBounds),
+        metaInside: rectInside(metaBounds),
+        textOverlaps: rectsOverlap,
+      };
+    }),
+  );
+
+  expect(snapshots.length).toBeGreaterThan(0);
+  for (const snapshot of snapshots) {
+    expect(snapshot.hasTitle).toBe(true);
+    expect(snapshot.hasMeta).toBe(true);
+    expect(snapshot.title).toMatch(/^Floor\s+\d+$/);
+    expect(snapshot.meta).toMatch(/^\d+\s+rooms?$/);
+    expect(snapshot.text).not.toMatch(/[^\x20-\x7e]|[?]{2,}|undefined|null/i);
+    expect(snapshot.titleInside).toBe(true);
+    expect(snapshot.metaInside).toBe(true);
+    expect(snapshot.textOverlaps).toBe(false);
+  }
+}
+
 test("canonical shell boots and delegated actions work", async ({ page }, testInfo) => {
   const runtimeErrors = [];
   page.on("console", (message) => {
@@ -169,6 +221,7 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
   await expect(page.locator("body")).toContainText("Living Room East");
   await ensureRoomPanelOpen(page);
   await expect(page.locator("#propsP")).toContainText("Building 2 rooms");
+  await expectFloorButtonsAreLegible(page);
   const buildPanelInlineHandlers = await page
     .locator("#propsP [onclick], #propsP [oninput], #propsP [onchange]")
     .count();

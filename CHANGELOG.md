@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.100 - 2026-05-02
+
+- added desktop/mobile Playwright regression coverage for room/floor button label cleanliness after adding an adjacent room
+- guarded floor buttons against corrupted text, missing title/count spans, and label overlap regressions
+
 ## 0.5.0-hardening.99 - 2026-05-02
 
 - cleaned mojibake catalog icons, section comments, reference status separators, and thumbnail comments from runtime files

@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.99`
+Current app version: `0.5.0-hardening.100`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -71,6 +71,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - The catalog placement status bar now renders item labels, placement status, and mobile placement actions with DOM nodes and `textContent`, guarded by `npm run validate:html-safety`.
 - The furniture catalog picker overlay now renders filters, sections, asset cards, thumbnails, favorites, and empty-state copy with DOM nodes and `textContent`, guarded by `npm run validate:html-safety`.
 - Room-panel floor button restyling now rebuilds label/count spans with DOM nodes and `textContent`, guarded by `npm run validate:html-safety`.
+- Desktop and mobile Playwright coverage now asserts room/floor buttons keep clean ASCII labels, title/count spans, and non-overlapping text boxes after adding an adjacent room.
 - Project JSON import validation now checks room text fields, polygon geometry, array fields, and furniture geometry through `npm run validate:project-schema`.
 - Project JSON import validation now rejects dangerous prototype-pollution keys and oversized JSON files before merging rooms into local state.
 - Experimental cloud sync validates room payloads before push/pull and reports config storage failures instead of silently swallowing them.
