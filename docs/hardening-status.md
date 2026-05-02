@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.86`
+Current app version: `0.5.0-hardening.87`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -20,6 +20,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Remaining CDN dependencies are documented in `docs/dependencies.md` and guarded by `npm run validate:dependencies`.
 - The unused `dxf-writer` package was removed after CAD/DXF export was intentionally removed, and dependency validation blocks it from returning accidentally.
 - Package scripts exist for dev, syntax checks, lint, format, manifest validation, self-test, smoke, Playwright specs, thumbnails, and cleanup.
+- `npm run check` now scans maintained scripts, tests, and tool-config files instead of relying on a brittle manual `node --check` chain.
 - `npm test` now includes syntax, lint, format, validators, and the built-in self-test so local verification mirrors CI discipline more closely.
 - `npm run clean` removes ignored smoke, self-test, and debug artifacts with root-bound safety checks.
 - CI runs install, syntax checks, lint, format checks, manifest validation, delegated UI handler validation, silent-catch validation, built-in self-test, Playwright spec, and smoke checks.

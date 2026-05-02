@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.87 - 2026-05-02
+
+- replaced the manual syntax-check command chain with a maintained script/test/config syntax scanner
+- expanded `npm run check` coverage to include root utility scripts such as asset absorption and thumbnail generation
+
 ## 0.5.0-hardening.86 - 2026-05-02
 
 - removed remaining phase-history comments from maintained asset and material utility scripts

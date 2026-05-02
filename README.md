@@ -109,7 +109,7 @@ What they do:
 
 - `dev` - starts a simple static server on `8123`
 - `dev:alt` - starts a simple static server on `8124`
-- `check` - runs `node --check` across the main runtime and tool-config files
+- `check` - runs syntax validation across maintained scripts, tests, and tool-config files
 - `lint` - lints the new hardening boundary files
 - `format` - checks formatting for docs and the new hardening files
 - `validate:version` - checks package, lockfile, app shell, runtime config, changelog, and hardening status versions stay aligned

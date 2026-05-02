@@ -1,7 +1,7 @@
 {
   "name": "roses-indoor-designs",
   "private": true,
-  "version": "0.5.0-hardening.86",
+  "version": "0.5.0-hardening.87",
   "description": "Local-first 2D and 3D interior planning studio for Rose's Indoor Designs.",
   "license": "UNLICENSED",
   "homepage": "https://marcopolo2350.github.io/roses-indoor-designs/",
@@ -49,7 +49,7 @@
     "validate:3d-lifecycle": "node ./scripts/devtools/validate-3d-lifecycle.mjs",
     "validate:export-filenames": "node ./scripts/devtools/validate-export-filenames.mjs",
     "clean": "node ./scripts/devtools/clean.mjs",
-    "check": "node --check ./eslint.config.js && node --check ./scripts/main.js && node --check ./scripts/state.js && node --check ./scripts/storage.js && node --check ./scripts/ui.js && node --check ./scripts/ui/shortcuts.js && node --check ./scripts/planner2d.js && node --check ./scripts/catalog.js && node --check ./scripts/catalog/manifest.js && node --check ./scripts/export.js && node --check ./scripts/planner3d.js && node --check ./scripts/walkthrough.js && node --check ./scripts/core/app-config.js && node --check ./scripts/core/html.js && node --check ./scripts/core/error-reporting.js && node --check ./scripts/core/storage-keys.js && node --check ./scripts/core/project-schema.js && node --check ./scripts/core/app-state.js && node --check ./scripts/core/history.js && node --check ./scripts/planner2d/geometry.js && node --check ./scripts/planner3d/lifecycle.js && node --check ./scripts/export/filenames.js && node --check ./scripts/export/downloads.js && node --check ./scripts/export/project-json.js && node --check ./scripts/cloud/supabase.js && node --check ./scripts/devtools/validate-version.mjs && node --check ./scripts/devtools/validate-manifest.mjs && node --check ./scripts/devtools/validate-asset-sizes.mjs && node --check ./scripts/devtools/validate-asset-sources.mjs && node --check ./scripts/devtools/validate-static-a11y.mjs && node --check ./scripts/devtools/validate-dev-mode.mjs && node --check ./scripts/devtools/validate-github-templates.mjs && node --check ./scripts/devtools/validate-docs.mjs && node --check ./scripts/devtools/validate-structure.mjs && node --check ./scripts/devtools/validate-css.mjs && node --check ./scripts/devtools/validate-html-safety.mjs && node --check ./scripts/devtools/validate-storage-keys.mjs && node --check ./scripts/devtools/validate-inline-handlers.mjs && node --check ./scripts/devtools/validate-error-handling.mjs && node --check ./scripts/devtools/validate-runtime-modules.mjs && node --check ./scripts/devtools/validate-dependencies.mjs && node --check ./scripts/devtools/validate-project-schema.mjs && node --check ./scripts/devtools/validate-app-state.mjs && node --check ./scripts/devtools/validate-geometry.mjs && node --check ./scripts/devtools/validate-3d-lifecycle.mjs && node --check ./scripts/devtools/validate-export-filenames.mjs && node --check ./tests/app-smoke.spec.mjs && node --check ./playwright.config.mjs"
+    "check": "node ./scripts/devtools/check-syntax.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",
