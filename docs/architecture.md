@@ -23,7 +23,6 @@ The bridge appends the canonical `application-version` meta value to runtime scr
 - `scripts/planner3d/lighting.js` - data-driven time-of-day lighting curves and HDRI buckets
 - `scripts/planner3d/camera.js` - data-driven 3D camera labels and pose math
 - `scripts/catalog.js` - catalog UI and furniture controls
-- `scripts/export.js` - legacy export compatibility helpers
 - `scripts/export/pdf.js` - PDF and presentation export boundary
 - `scripts/export/png.js` - PNG, comparison-sheet, and design-summary export boundary
 - `scripts/export/print.js` - print floor-plan export boundary

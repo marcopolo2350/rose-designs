@@ -55,7 +55,7 @@ const requiredFiles = [
   "scripts/cloud/supabase.js",
 ];
 
-const removedCompatibilityFiles = ["scripts/cloud-sync.js"];
+const removedCompatibilityFiles = ["scripts/cloud-sync.js", "scripts/export.js"];
 
 for (const dir of requiredDirs) {
   const absolute = path.join(root, dir);
@@ -103,17 +103,13 @@ assertModuleBefore("./scripts/core/storage-keys.js", "./scripts/core/storage-ser
 assertModuleBefore("./scripts/core/storage-service.js", "./scripts/storage.js");
 assertModuleBefore("./scripts/catalog/placement-rules.js", "./scripts/state.js");
 assertModuleBefore("./scripts/catalog/manifest.js", "./scripts/catalog.js");
-assertModuleBefore("./scripts/export/filenames.js", "./scripts/export.js");
 assertModuleBefore("./scripts/export/filenames.js", "./scripts/export/downloads.js");
 assertModuleBefore("./scripts/export/filenames.js", "./scripts/export/project-json.js");
-assertModuleBefore("./scripts/export/downloads.js", "./scripts/export.js");
+assertModuleBefore("./scripts/export/filenames.js", "./scripts/export/svg.js");
 assertModuleBefore("./scripts/export/downloads.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/export/downloads.js", "./scripts/export/project-json.js");
-assertModuleBefore("./scripts/export/project-json.js", "./scripts/export.js");
-assertModuleBefore("./scripts/export/pdf.js", "./scripts/export.js");
-assertModuleBefore("./scripts/export/png.js", "./scripts/export.js");
-assertModuleBefore("./scripts/export/print.js", "./scripts/export.js");
-assertModuleBefore("./scripts/export/svg.js", "./scripts/export.js");
+assertModuleBefore("./scripts/export/downloads.js", "./scripts/export/svg.js");
+assertModuleBefore("./scripts/export/png.js", "./scripts/export/pdf.js");
 assertModuleBefore("./scripts/core/history.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/lifecycle.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/lighting.js", "./scripts/planner3d.js");
@@ -186,26 +182,6 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
     !/registerAssetPlacement\?\.\(assetManifest\)/.test(source)
   ) {
     errors.push(`${modulePath} must register manifest placement metadata with catalog rules.`);
-  }
-  if (modulePath === "scripts/export.js" && /\bfunction\s+exportSVG\s*\(/.test(source)) {
-    errors.push(`${modulePath} must not define SVG export behavior outside scripts/export/svg.js.`);
-  }
-  if (
-    modulePath === "scripts/export.js" &&
-    /\bfunction\s+(?:exportPNG|exportComparisonSheet|exportDesignSummary|renderRoomModeToDataURL)\s*\(/.test(
-      source,
-    )
-  ) {
-    errors.push(`${modulePath} must not define PNG export behavior outside scripts/export/png.js.`);
-  }
-  if (modulePath === "scripts/export.js" && /\bfunction\s+printFloorPlan\s*\(/.test(source)) {
-    errors.push(`${modulePath} must not define print behavior outside scripts/export/print.js.`);
-  }
-  if (
-    modulePath === "scripts/export.js" &&
-    /\bfunction\s+(?:exportPDF|exportPresentationPDF)\s*\(/.test(source)
-  ) {
-    errors.push(`${modulePath} must not define PDF export behavior outside scripts/export/pdf.js.`);
   }
   const lines = source.split(/\r?\n/);
   lines.forEach((line, index) => {

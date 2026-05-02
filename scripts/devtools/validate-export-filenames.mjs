@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 
 globalThis.window = globalThis;
 
@@ -64,36 +64,17 @@ if (
   throw new Error("PDF export functions were not registered.");
 }
 
-const legacyExportSource = readFileSync("scripts/export.js", "utf8");
-if (
-  /function\s+(?:exportProjectJSON|importProjectJSON|handleProjectJSONSelected)\b/.test(
-    legacyExportSource,
-  )
-) {
+if (existsSync("scripts/export.js")) {
   throw new Error(
-    "Project JSON import/export functions must live in scripts/export/project-json.js.",
+    "Legacy scripts/export.js must not return; export behavior lives under scripts/export/.",
   );
-}
-if (/function\s+exportSVG\b/.test(legacyExportSource)) {
-  throw new Error("SVG export must live in scripts/export/svg.js.");
-}
-if (
-  /function\s+(?:exportPNG|exportComparisonSheet|exportDesignSummary)\b/.test(legacyExportSource)
-) {
-  throw new Error(
-    "PNG, comparison, and design-summary exports must live in scripts/export/png.js.",
-  );
-}
-if (/function\s+printFloorPlan\b/.test(legacyExportSource)) {
-  throw new Error("Print export must live in scripts/export/print.js.");
-}
-if (/function\s+(?:exportPDF|exportPresentationPDF)\b/.test(legacyExportSource)) {
-  throw new Error("PDF export must live in scripts/export/pdf.js.");
 }
 
 for (const file of [
-  "scripts/export.js",
+  "scripts/export/pdf.js",
+  "scripts/export/png.js",
   "scripts/export/project-json.js",
+  "scripts/export/svg.js",
   "scripts/planner3d.js",
 ]) {
   const source = readFileSync(file, "utf8");

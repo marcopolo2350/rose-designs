@@ -1,4 +1,4 @@
-/* global downloadTextFile, esc, exportBaseName, formatArea, formatDistance, getFurnitureRenderState, getRoomBounds2D, polygonArea, wE, wL, wS */
+/* global esc, formatArea, formatDistance, getFurnitureRenderState, getRoomBounds2D, polygonArea, wE, wL, wS */
 function rotatedFurnitureCorners(item) {
   const hw = (item.w || 2) / 2,
     hd = (item.d || 1.5) / 2,
@@ -207,7 +207,11 @@ function exportSVG() {
   ${scaleBar}
   ${northArrow}
 </svg>`;
-  downloadTextFile(`${exportBaseName(room, "plan")}.svg`, svg, "image/svg+xml;charset=utf-8");
+  window.ExportDownloads.downloadTextFile(
+    `${window.ExportFilenames.roomBaseName(room, "plan")}.svg`,
+    svg,
+    "image/svg+xml;charset=utf-8",
+  );
   toast("SVG exported");
 }
 window.RoseSvgExports = Object.freeze({

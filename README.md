@@ -189,7 +189,6 @@ What they do:
 - [scripts/planner2d.js](./scripts/planner2d.js) - 2D plan rendering and editor interactions
 - [scripts/planner3d.js](./scripts/planner3d.js) - 3D scene assembly and walkthrough glue
 - [scripts/catalog.js](./scripts/catalog.js) - catalog UI, variants, placement controls
-- [scripts/export.js](./scripts/export.js) - legacy export compatibility helpers
 - [scripts/cloud/supabase.js](./scripts/cloud/supabase.js) - experimental cloud sync boundary
 - [scripts/devtools/validate-manifest.mjs](./scripts/devtools/validate-manifest.mjs) - manifest validator
 - [scripts/devtools/validate-asset-sources.mjs](./scripts/devtools/validate-asset-sources.mjs) - asset provenance validator

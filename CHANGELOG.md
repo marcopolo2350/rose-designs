@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.112 - 2026-05-02
+
+- removed the legacy `scripts/export.js` bridge after replacing its last SVG helper call with shared export services
+- tightened runtime/source validation so `scripts/export.js` cannot return as a compatibility dumping ground
+- kept PDF, PNG, print, SVG, downloads, filenames, and project JSON export behavior in explicit `scripts/export/` boundaries
+
 ## 0.5.0-hardening.111 - 2026-05-02
 
 - extracted PDF and presentation export behavior into `scripts/export/pdf.js` while preserving the existing `exportPDF()` UI hook
