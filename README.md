@@ -85,6 +85,7 @@ npm run validate:text-encoding
 npm run validate:dev-mode
 npm run validate:github-templates
 npm run validate:workflow
+npm run validate:package
 npm run validate:docs
 npm run validate:structure
 npm run validate:global-bridge
@@ -129,6 +130,7 @@ What they do:
 - `validate:dev-mode` - checks debug/model/diagnostic surfaces stay behind `.dev-only`
 - `validate:github-templates` - checks issue/PR templates keep hardening scope and verification prompts current
 - `validate:workflow` - checks the GitHub Verify workflow keeps the same local guardrails and current action majors
+- `validate:package` - checks required package metadata, npm scripts, Node version guidance, and workflow alignment
 - `validate:docs` - checks README, testing docs, hardening status, and PR verification commands for drift
 - `validate:structure` - checks required source boundary directories, boundary files, and runtime ordering
 - `validate:global-bridge` - freezes the current browser-global compatibility surface so new globals are intentional

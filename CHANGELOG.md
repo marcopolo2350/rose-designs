@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.113 - 2026-05-02
+
+- added `validate:package` to enforce required npm scripts, package metadata, Node version guidance, and workflow alignment
+- wired the package/tooling validator into `npm test` and the Verify GitHub Actions workflow
+- documented the new reproducible package contract check
+
 ## 0.5.0-hardening.112 - 2026-05-02
 
 - removed the legacy `scripts/export.js` bridge after replacing its last SVG helper call with shared export services

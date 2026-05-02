@@ -22,6 +22,7 @@ const requiredPrCommands = [
   "npm run validate:static-a11y",
   "npm run validate:dev-mode",
   "npm run validate:github-templates",
+  "npm run validate:package",
   "npm run validate:inline-handlers",
   "npm run validate:docs",
   "npm run validate:structure",

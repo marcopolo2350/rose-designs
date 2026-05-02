@@ -72,6 +72,9 @@ jobs:
       - name: Validate workflow contract
         run: npm run validate:workflow
 
+      - name: Validate package scripts
+        run: npm run validate:package
+
       - name: Validate documentation
         run: npm run validate:docs
 
