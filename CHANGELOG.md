@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.115 - 2026-05-02
+
+- extracted furniture finish/material helpers into `scripts/planner3d/materials.js`
+- registered the 3D material boundary in runtime order and global-bridge validation
+- added `validate:3d-materials` to keep finish/material behavior out of the main 3D renderer
+
 ## 0.5.0-hardening.114 - 2026-05-02
 
 - extracted GLTF loader/cache/error-status behavior into `scripts/planner3d/model-loader.js`

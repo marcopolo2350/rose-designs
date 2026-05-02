@@ -132,6 +132,9 @@ jobs:
       - name: Validate 3D camera presets
         run: npm run validate:3d-camera
 
+      - name: Validate 3D materials
+        run: npm run validate:3d-materials
+
       - name: Validate 3D model loader
         run: npm run validate:3d-model-loader
 

@@ -17,6 +17,7 @@ const allowedAssignments = new Set(
     ["Planner3DLifecycle", "scripts/planner3d/lifecycle.js"],
     ["Planner3DLighting", "scripts/planner3d/lighting.js"],
     ["Planner3DCamera", "scripts/planner3d/camera.js"],
+    ["Planner3DMaterials", "scripts/planner3d/materials.js"],
     ["Planner3DModelLoader", "scripts/planner3d/model-loader.js"],
     ["RoseCatalogManifest", "scripts/catalog/manifest.js"],
     ["RoseHTML", "scripts/core/html.js"],

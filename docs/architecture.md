@@ -22,6 +22,7 @@ The bridge appends the canonical `application-version` meta value to runtime scr
 - `scripts/planner3d.js` - 3D scene assembly and walkthrough glue
 - `scripts/planner3d/lighting.js` - data-driven time-of-day lighting curves and HDRI buckets
 - `scripts/planner3d/camera.js` - data-driven 3D camera labels and pose math
+- `scripts/planner3d/materials.js` - furniture finish/material helper boundary
 - `scripts/planner3d/model-loader.js` - GLTF loader/cache/error-status boundary
 - `scripts/catalog.js` - catalog UI and furniture controls
 - `scripts/export/pdf.js` - PDF and presentation export boundary

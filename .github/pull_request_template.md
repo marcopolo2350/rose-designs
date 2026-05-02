@@ -44,6 +44,7 @@
 - [ ] `npm run validate:3d-lifecycle`
 - [ ] `npm run validate:3d-lighting`
 - [ ] `npm run validate:3d-camera`
+- [ ] `npm run validate:3d-materials`
 - [ ] `npm run validate:3d-model-loader`
 - [ ] `npm run validate:export-filenames`
 - [ ] `npm run test:playwright`

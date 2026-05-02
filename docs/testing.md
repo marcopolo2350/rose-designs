@@ -35,6 +35,7 @@ npm run validate:placement-rules
 npm run validate:3d-lifecycle
 npm run validate:3d-lighting
 npm run validate:3d-camera
+npm run validate:3d-materials
 npm run validate:3d-model-loader
 npm run validate:export-filenames
 npm run test:playwright
@@ -75,6 +76,7 @@ npm test
 - `validate:3d-lifecycle` - exercises 3D disposal helpers for scene, renderer, listeners, and composer cleanup
 - `validate:3d-lighting` - exercises time-of-day HDRI buckets, sky colors, exposure limits, and light intensity curves
 - `validate:3d-camera` - exercises 3D camera labels, favorite-corner framing, overhead, and multi-room overview poses
+- `validate:3d-materials` - exercises the extracted 3D furniture finish/material helper boundary
 - `validate:3d-model-loader` - exercises the extracted GLTF loader/cache/error-status boundary
 - `validate:export-filenames` - exercises export filename sanitizing, centralized download helpers, and extracted PDF/PNG/SVG/print/JSON export boundaries
 - `test:playwright` - runs the standard Playwright spec suite
