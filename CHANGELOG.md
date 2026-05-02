@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.107 - 2026-05-02
+
+- added manifest `placement` metadata for wall, ceiling, surface, and elevated catalog assets
+- made catalog placement rules register manifest metadata before falling back to legacy defaults
+- tightened manifest and placement-rule validation so mounted assets declare snap target, forward axis, and default elevation rules
+
 ## 0.5.0-hardening.106 - 2026-05-02
 
 - isolated catalog default placement and elevation rules into `scripts/catalog/placement-rules.js`

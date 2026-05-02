@@ -286,7 +286,12 @@
     "mountType": "wall",
     "snapToOpening": true,
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "opening",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.8
+    }
   },
   {
     "id": "bookcase_books",
@@ -921,7 +926,12 @@
     "mountType": "wall",
     "snapToOpening": true,
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "opening",
+      "forwardAxis": "+z",
+      "defaultElevation": 7.2
+    }
   },
   {
     "id": "desk",
@@ -1080,7 +1090,12 @@
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "wall"
+    "mountType": "wall",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5
+    }
   },
   {
     "id": "dresser",
@@ -1303,7 +1318,16 @@
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.55,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "lamp_chandelier",
@@ -1373,7 +1397,16 @@
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "lamp_cube",
@@ -1581,7 +1614,16 @@
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "lamp_stand",
@@ -1719,7 +1761,12 @@
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "floor"
+    "mountType": "surface",
+    "placement": {
+      "snapTo": "surface",
+      "forwardAxis": "+z",
+      "defaultElevation": 2.8
+    }
   },
   {
     "id": "lamp_wall",
@@ -1789,7 +1836,12 @@
     "defaultVariantId": "brushed_brass",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "wall"
+    "mountType": "wall",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.8
+    }
   },
   {
     "id": "mirror",
@@ -1812,7 +1864,12 @@
     ],
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5
+    }
   },
   {
     "id": "nightstand",
@@ -2074,7 +2131,12 @@
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "floor"
+    "mountType": "surface",
+    "placement": {
+      "snapTo": "surface",
+      "forwardAxis": "+z",
+      "defaultElevation": 2.9
+    }
   },
   {
     "id": "rug",
@@ -2347,7 +2409,12 @@
     "defaultVariantId": "light_oak",
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.5
+    }
   },
   {
     "id": "shelving",
@@ -2415,7 +2482,12 @@
     "defaultVariantId": "light_oak",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "floor"
+    "mountType": "wall",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.5
+    }
   },
   {
     "id": "sofa",
@@ -3310,7 +3382,12 @@
     ],
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.2
+    }
   },
   {
     "id": "wall_art_04",
@@ -3333,7 +3410,12 @@
     ],
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.2
+    }
   },
   {
     "id": "wall_art_06",
@@ -3356,7 +3438,12 @@
     ],
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.2
+    }
   },
   {
     "id": "window_large",
@@ -3377,7 +3464,12 @@
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "wall"
+    "mountType": "wall",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5
+    }
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_cabinet_base.png",
@@ -3533,7 +3625,16 @@
     ],
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "thumbnailPath": "./assets/thumbnails/kitchen_sink.png",
@@ -3741,7 +3842,12 @@
     ],
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5
+    }
   },
   {
     "thumbnailPath": "./assets/thumbnails/bathroom_towel_bar.png",
@@ -3767,7 +3873,12 @@
     ],
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 4.2
+    }
   },
   {
     "thumbnailPath": "./assets/thumbnails/washing_machine.png",
@@ -6469,7 +6580,12 @@
     "defaultVariantId": "light_oak",
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.5
+    }
   },
   {
     "id": "ph_nightstand",
@@ -6665,7 +6781,16 @@
     "defaultVariantId": "brass_warm",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "ph_chandelier_02",
@@ -6724,7 +6849,16 @@
     "defaultVariantId": "brass_warm",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "ph_chandelier_03",
@@ -6783,7 +6917,16 @@
     "defaultVariantId": "matte_black",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "ph_chandelier_chinese",
@@ -6842,7 +6985,16 @@
     "defaultVariantId": "brass_warm",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "ph_chandelier_lantern",
@@ -6902,7 +7054,16 @@
     "defaultVariantId": "brass_warm",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "ph_lamp_ceiling",
@@ -6962,7 +7123,16 @@
     "defaultVariantId": "brushed_nickel",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "ceiling"
+    "mountType": "ceiling",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.55,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "ph_lamp_desk",
@@ -7140,7 +7310,12 @@
     "defaultVariantId": "matte_black",
     "source": "Legacy Rose Designs catalog (license review pending)",
     "sourceId": "rose_legacy_catalog",
-    "mountType": "wall"
+    "mountType": "wall",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5.8
+    }
   },
   {
     "id": "ph_bed_gothic",
@@ -7375,7 +7550,12 @@
     ],
     "mountType": "wall",
     "source": "Legacy Rose Designs catalog (license review pending)",
-    "sourceId": "rose_legacy_catalog"
+    "sourceId": "rose_legacy_catalog",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5
+    }
   },
   {
     "id": "kn_ceiling_fan",
@@ -7398,7 +7578,16 @@
     ],
     "variants": [],
     "source": "Kenney Furniture Kit (CC0)",
-    "sourceId": "kenney_furniture_kit"
+    "sourceId": "kenney_furniture_kit",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.55,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "kn_pillow",
@@ -8747,7 +8936,12 @@
     ],
     "variants": [],
     "source": "Poly Haven (CC0)",
-    "sourceId": "poly_haven"
+    "sourceId": "poly_haven",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 5
+    }
   },
   {
     "id": "ph_brass_candleholders",
@@ -9017,7 +9211,12 @@
     ],
     "variants": [],
     "source": "temp_house_interior (license pending review)",
-    "sourceId": "temp_house_interior"
+    "sourceId": "temp_house_interior",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 4.2
+    }
   },
   {
     "id": "thi_washing_machine",
@@ -9066,7 +9265,12 @@
     ],
     "variants": [],
     "source": "temp_house_interior (license pending review)",
-    "sourceId": "temp_house_interior"
+    "sourceId": "temp_house_interior",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 1.8
+    }
   },
   {
     "id": "thi_column_round",
@@ -9241,7 +9445,16 @@
     ],
     "variants": [],
     "source": "temp_house_interior (license pending review)",
-    "sourceId": "temp_house_interior"
+    "sourceId": "temp_house_interior",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "thi_dead_houseplant",
@@ -9688,7 +9901,16 @@
     ],
     "variants": [],
     "source": "Kenney Furniture Kit (CC0)",
-    "sourceId": "kenney_furniture_kit"
+    "sourceId": "kenney_furniture_kit",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "kn_hood_large",
@@ -9713,7 +9935,16 @@
     ],
     "variants": [],
     "source": "Kenney Furniture Kit (CC0)",
-    "sourceId": "kenney_furniture_kit"
+    "sourceId": "kenney_furniture_kit",
+    "placement": {
+      "snapTo": "ceiling",
+      "forwardAxis": "+z",
+      "defaultElevation": {
+        "relativeTo": "ceiling",
+        "offset": 0.6,
+        "min": 7.2
+      }
+    }
   },
   {
     "id": "kn_cabinet_tv",
@@ -9790,7 +10021,12 @@
     ],
     "variants": [],
     "source": "Kenney Furniture Kit (CC0)",
-    "sourceId": "kenney_furniture_kit"
+    "sourceId": "kenney_furniture_kit",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 0
+    }
   },
   {
     "id": "kn_paneling",
@@ -9816,7 +10052,12 @@
     ],
     "variants": [],
     "source": "Kenney Furniture Kit (CC0)",
-    "sourceId": "kenney_furniture_kit"
+    "sourceId": "kenney_furniture_kit",
+    "placement": {
+      "snapTo": "wall",
+      "forwardAxis": "+z",
+      "defaultElevation": 4.5
+    }
   },
   {
     "id": "kn_fridge_small",

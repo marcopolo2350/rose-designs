@@ -460,10 +460,12 @@ async function loadAssetManifest(){
     if(!assetManifest.length)return;
     window.assetManifest=assetManifest;
     assetMetaByKey=new Map(assetManifest.map(entry=>[entry.id,entry]));
+    window.CatalogPlacementRules?.registerAssetPlacement?.(assetManifest);
     assetManifest.forEach(entry=>{
       if(!MODEL_REGISTRY[entry.id])return;
       if(entry.mountType)MODEL_REGISTRY[entry.id].mountType=entry.mountType;
       if(entry.snapToOpening!==undefined)MODEL_REGISTRY[entry.id].snapToOpening=!!entry.snapToOpening;
+      if(entry.placement)MODEL_REGISTRY[entry.id].placement=entry.placement;
     });
     FURN_ITEMS.forEach(item=>{
       const meta=item.assetKey?assetMetaByKey.get(item.assetKey):null;

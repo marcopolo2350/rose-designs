@@ -8,6 +8,10 @@ await import("../catalog/placement-rules.js");
 const root = process.cwd();
 const errors = [];
 const rules = window.CatalogPlacementRules;
+const manifest = JSON.parse(readFileSync(path.join(root, "data", "asset-manifest.json"), "utf8"));
+const manifestById = new Map(manifest.map((entry) => [entry.id, entry]));
+const placementEntries = manifest.filter((entry) => entry.placement);
+rules?.registerAssetPlacement?.(manifest);
 
 function expect(label, condition) {
   if (!condition) errors.push(label);
@@ -43,6 +47,32 @@ expect(
 expect(
   "floor pieces should stay on the floor",
   rules.defaultElevation({ mountType: "floor", assetKey: "sofa" }) === 0,
+);
+expect(
+  "manifest should carry placement metadata for mounted or elevated assets",
+  placementEntries.length >= 30,
+);
+for (const entry of manifest) {
+  if (["wall", "surface", "ceiling"].includes(entry.mountType)) {
+    expect(`${entry.id} should carry manifest placement metadata`, Boolean(entry.placement));
+  }
+}
+for (const [assetKey, elevation] of Object.entries(rules.specificElevations || {})) {
+  const placement = manifestById.get(assetKey)?.placement;
+  expect(`${assetKey} should define its specific elevation in the manifest`, Boolean(placement));
+  expect(
+    `${assetKey} manifest elevation should match catalog placement rules`,
+    placement?.defaultElevation === elevation,
+  );
+}
+expect(
+  "surface manifest metadata should drive table lamp placement",
+  rules.defaultElevation({ mountType: "surface", assetKey: "lamp_table" }) === 2.8,
+);
+expect(
+  "manifest ceiling placement should support room-height-relative rules",
+  rules.defaultElevation({ mountType: "ceiling", assetKey: "ph_lamp_ceiling", roomHeight: 10 }) ===
+    9.45,
 );
 
 const stateSource = readFileSync(path.join(root, "scripts", "state.js"), "utf8");

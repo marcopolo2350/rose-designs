@@ -121,7 +121,7 @@ What they do:
 - `lint` - lints the new hardening boundary files
 - `format` - checks formatting for docs and the new hardening files
 - `validate:version` - checks package, lockfile, app shell, runtime config, changelog, and hardening status versions stay aligned
-- `validate:manifest` - verifies asset manifest entries, models, and thumbnails
+- `validate:manifest` - verifies asset manifest entries, mounted placement metadata, models, and thumbnails
 - `validate:asset-sizes` - verifies GLB files stay below the per-model size ceiling
 - `validate:asset-sources` - verifies every catalog entry points to a documented source registry entry
 - `validate:static-a11y` - checks static app-shell button names, button types, dialogs, decorative SVG hiding, and new-tab link safety
@@ -144,7 +144,7 @@ What they do:
 - `validate:project-schema` - checks project JSON import/export schema validation
 - `validate:app-state` - checks the central app state dispatcher bridge
 - `validate:geometry` - checks pure 2D geometry helpers
-- `validate:placement-rules` - checks catalog-owned default placement/elevation rules
+- `validate:placement-rules` - checks catalog-owned default placement/elevation rules against manifest metadata
 - `validate:3d-lifecycle` - checks 3D disposal/lifecycle helpers
 - `validate:3d-lighting` - checks data-driven time-of-day lighting buckets, colors, and exposure bounds
 - `validate:3d-camera` - checks data-driven 3D camera labels and pose math
@@ -173,7 +173,7 @@ What they do:
 - [scripts/core/storage-service.js](./scripts/core/storage-service.js) - IndexedDB open/read/write boundary
 - [scripts/core/app-state.js](./scripts/core/app-state.js) - first central runtime state surface for high-risk globals
 - [scripts/core/history.js](./scripts/core/history.js) - shared undo/redo and room-history runtime
-- [scripts/catalog/placement-rules.js](./scripts/catalog/placement-rules.js) - catalog-owned placement/elevation defaults
+- [scripts/catalog/placement-rules.js](./scripts/catalog/placement-rules.js) - manifest-backed placement/elevation defaults
 - [scripts/planner2d/geometry.js](./scripts/planner2d/geometry.js) - pure 2D geometry helpers shared by planner logic
 - [scripts/planner3d/lifecycle.js](./scripts/planner3d/lifecycle.js) - 3D disposal and cleanup helpers
 - [scripts/planner3d/camera.js](./scripts/planner3d/camera.js) - data-driven 3D camera labels and pose helpers
@@ -192,7 +192,7 @@ What they do:
 - [scripts/devtools/run-selftest.mjs](./scripts/devtools/run-selftest.mjs) - reproducible self-test runner
 - [scripts/thumbgen.html](./scripts/thumbgen.html) - thumbnail rendering stage
 - [scripts/generate-thumbnails.mjs](./scripts/generate-thumbnails.mjs) - bulk thumbnail generator
-- [data/asset-manifest.json](./data/asset-manifest.json) - asset metadata
+- [data/asset-manifest.json](./data/asset-manifest.json) - asset metadata, including mounted placement rules
 - [data/asset-sources.json](./data/asset-sources.json) - asset source, license, and review-status registry
 - [progress.md](./progress.md) - running implementation and verification log
 - [docs/REFACTOR_ROADMAP.md](./docs/REFACTOR_ROADMAP.md) - structural cleanup plan

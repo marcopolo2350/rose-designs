@@ -15,6 +15,55 @@ const errors = [];
 const warnings = [];
 const ids = new Set();
 const files = new Map();
+const placementMountTypes = new Set(["wall", "surface", "ceiling"]);
+const placementTargets = new Set(["floor", "wall", "surface", "ceiling", "opening"]);
+const forwardAxes = new Set(["+x", "-x", "+y", "-y", "+z", "-z"]);
+
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function validateElevationRule(assetId, rule) {
+  if (Number.isFinite(rule)) return;
+  if (!isPlainObject(rule)) {
+    errors.push(`Asset ${assetId} has invalid placement.defaultElevation.`);
+    return;
+  }
+  if (rule.relativeTo !== "ceiling") {
+    errors.push(`Asset ${assetId} has unsupported placement.defaultElevation.relativeTo.`);
+  }
+  if (!Number.isFinite(rule.offset) || rule.offset < 0) {
+    errors.push(`Asset ${assetId} has invalid ceiling offset in placement.defaultElevation.`);
+  }
+  if (!Number.isFinite(rule.min) || rule.min < 0) {
+    errors.push(`Asset ${assetId} has invalid minimum in placement.defaultElevation.`);
+  }
+}
+
+function validatePlacement(item, id) {
+  if (!isPlainObject(item.placement)) {
+    if (placementMountTypes.has(item.mountType)) {
+      errors.push(`Asset ${id} is ${item.mountType}-mounted but lacks placement metadata.`);
+    }
+    return;
+  }
+  if (!placementTargets.has(item.placement.snapTo)) {
+    errors.push(`Asset ${id} has invalid placement.snapTo: ${item.placement.snapTo}`);
+  }
+  if (!forwardAxes.has(item.placement.forwardAxis)) {
+    errors.push(`Asset ${id} has invalid placement.forwardAxis: ${item.placement.forwardAxis}`);
+  }
+  validateElevationRule(id, item.placement.defaultElevation);
+  if (item.mountType === "wall" && !["wall", "opening"].includes(item.placement.snapTo)) {
+    errors.push(`Wall-mounted asset ${id} must snap to a wall or opening.`);
+  }
+  if (item.mountType === "ceiling" && item.placement.snapTo !== "ceiling") {
+    errors.push(`Ceiling-mounted asset ${id} must snap to the ceiling.`);
+  }
+  if (item.mountType === "surface" && item.placement.snapTo !== "surface") {
+    errors.push(`Surface-mounted asset ${id} must snap to a surface.`);
+  }
+}
 
 for (const item of items) {
   if (!item || typeof item !== "object") {
@@ -71,6 +120,7 @@ for (const item of items) {
   } else if (!["floor", "wall", "surface", "ceiling"].includes(item.mountType)) {
     errors.push(`Invalid mountType for ${id || "<missing id>"}: ${item.mountType}`);
   }
+  if (id) validatePlacement(item, id);
 }
 
 for (const [modelPath, meta] of Object.entries(allowedDuplicateModelPaths)) {

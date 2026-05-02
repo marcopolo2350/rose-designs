@@ -173,6 +173,12 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
       errors.push(`${modulePath} must not hard-code asset-specific default elevation rules.`);
     }
   }
+  if (
+    modulePath === "scripts/catalog.js" &&
+    !/registerAssetPlacement\?\.\(assetManifest\)/.test(source)
+  ) {
+    errors.push(`${modulePath} must register manifest placement metadata with catalog rules.`);
+  }
   const lines = source.split(/\r?\n/);
   lines.forEach((line, index) => {
     if (/^\s*(?:\/\/|\/\*|\*)\s*phase\b/i.test(line)) {

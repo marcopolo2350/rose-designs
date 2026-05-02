@@ -1,4 +1,6 @@
 (function initCatalogPlacementRules() {
+  const assetPlacements = new Map();
+
   const SPECIFIC_ELEVATIONS = Object.freeze({
     wall_art_01: 5.2,
     wall_art_04: 5.2,
@@ -33,8 +35,35 @@
     return Math.max(7.2, height - 0.55);
   }
 
+  function elevationFromPlacementRule(rule, roomHeight) {
+    if (Number.isFinite(rule)) return rule;
+    if (!rule || typeof rule !== "object") return null;
+    if (rule.relativeTo === "ceiling") {
+      const height = roomHeightOrDefault(roomHeight);
+      const offset = Number.isFinite(rule.offset) ? rule.offset : 0.55;
+      const min = Number.isFinite(rule.min) ? rule.min : 7.2;
+      return Math.max(min, height - offset);
+    }
+    return null;
+  }
+
+  function registerAssetPlacement(entries = []) {
+    assetPlacements.clear();
+    if (!Array.isArray(entries)) return;
+    for (const entry of entries) {
+      if (!entry?.id || !entry.placement || typeof entry.placement !== "object") continue;
+      assetPlacements.set(entry.id, entry.placement);
+    }
+  }
+
   function defaultElevation({ mountType, assetKey, type, roomHeight } = {}) {
     const key = assetKey || "";
+    const registered = assetPlacements.get(key);
+    const registeredElevation = elevationFromPlacementRule(
+      registered?.defaultElevation,
+      roomHeight,
+    );
+    if (Number.isFinite(registeredElevation)) return registeredElevation;
     if (Number.isFinite(SPECIFIC_ELEVATIONS[key])) return SPECIFIC_ELEVATIONS[key];
     if (mountType === "ceiling") return ceilingElevation(key, roomHeight);
     if (mountType === "wall") return 5;
@@ -45,6 +74,7 @@
 
   window.CatalogPlacementRules = Object.freeze({
     defaultElevation,
+    registerAssetPlacement,
     specificElevations: SPECIFIC_ELEVATIONS,
   });
 })();

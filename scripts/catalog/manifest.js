@@ -17,6 +17,10 @@
       collections: normalizeArray(entry.collections),
       recommendedRoomTypes: normalizeArray(entry.recommendedRoomTypes),
       variants: normalizeVariants(entry.variants),
+      placement:
+        entry.placement && typeof entry.placement === "object" && !Array.isArray(entry.placement)
+          ? { ...entry.placement }
+          : undefined,
     }));
   }
 

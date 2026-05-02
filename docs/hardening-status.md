@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.106`
+Current app version: `0.5.0-hardening.107`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -80,6 +80,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Experimental cloud sync warnings, RLS docs, compatibility globals, validation hooks, and no-direct-global-mutation rules are guarded by `npm run validate:cloud-boundary`.
 - Pure 2D geometry helpers are isolated in `scripts/planner2d/geometry.js` and covered by `npm run validate:geometry`.
 - Catalog default placement and elevation rules are isolated in `scripts/catalog/placement-rules.js` and covered by `npm run validate:placement-rules`, so wall/ceiling defaults do not return to label-specific state logic.
+- Wall, ceiling, surface, and elevated catalog assets now carry manifest `placement` metadata for snap target, forward axis, and default elevation rules; runtime placement registers that metadata before using legacy fallbacks.
 - Catalog manifest loading and normalization is isolated in `scripts/catalog/manifest.js`, and required source boundary directories are guarded by `npm run validate:structure`.
 - 3D material, scene, renderer, listener, and composer disposal helpers are isolated in `scripts/planner3d/lifecycle.js` and covered by `npm run validate:3d-lifecycle`.
 - 3D time-of-day lighting curves are isolated in `scripts/planner3d/lighting.js` and covered by `npm run validate:3d-lighting`, including bounded noon exposure so the room does not wash out.
@@ -95,7 +96,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - The 3D Walkthrough and Photo Mode trays now render preset labels, copy, and action buttons with DOM nodes and `textContent`, guarded by `npm run validate:html-safety`.
 - Maintained source comments no longer carry phase-history labels, and `npm run validate:structure` blocks them from returning across `scripts/**/*.js` and `scripts/**/*.mjs`.
 - `data/asset-validation-overrides.json` documents intentional shared GLB aliases.
-- Every catalog entry now declares a valid `mountType`, and manifest validation blocks new entries that omit placement metadata.
+- Every catalog entry now declares a valid `mountType`, and manifest validation blocks mounted entries that omit placement metadata.
 - Kenney catalog entries now point to tracked `assets/models/kn_*.glb` files instead of ignored local source-pack paths, so CI and GitHub Pages validate the same assets as the local app.
 - GLB asset file sizes are guarded by `npm run validate:asset-sizes` with a 10 MB per-model ceiling.
 - Every manifest entry now carries a `sourceId`, and `npm run validate:asset-sources` checks it against `data/asset-sources.json`.

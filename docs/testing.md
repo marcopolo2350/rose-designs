@@ -45,7 +45,7 @@ npm test
 
 - `check` - syntax checks maintained scripts, tests, and tool-config files
 - `validate:version` - checks package, app shell, runtime config, changelog, and hardening status versions stay aligned
-- `validate:manifest` - verifies asset manifest entries, model files, and thumbnails
+- `validate:manifest` - verifies asset manifest entries, mounted placement metadata, model files, and thumbnails
 - `validate:asset-sizes` - verifies GLB files stay below the per-model size ceiling
 - `validate:asset-sources` - verifies every catalog entry maps to `data/asset-sources.json`
 - `validate:static-a11y` - checks static app-shell button names, button types, dialogs, and decorative SVG hiding
@@ -68,7 +68,7 @@ npm test
 - `validate:project-schema` - exercises project JSON import/export schema validation
 - `validate:app-state` - exercises the central app state dispatcher bridge
 - `validate:geometry` - exercises pure 2D polygon, segment, and intersection helpers
-- `validate:placement-rules` - exercises catalog-owned wall, ceiling, surface, and floor placement defaults
+- `validate:placement-rules` - exercises manifest-backed wall, ceiling, surface, and floor placement defaults
 - `validate:3d-lifecycle` - exercises 3D disposal helpers for scene, renderer, listeners, and composer cleanup
 - `validate:3d-lighting` - exercises time-of-day HDRI buckets, sky colors, exposure limits, and light intensity curves
 - `validate:3d-camera` - exercises 3D camera labels, favorite-corner framing, overhead, and multi-room overview poses

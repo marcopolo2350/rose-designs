@@ -13,7 +13,7 @@ The bridge appends the canonical `application-version` meta value to runtime scr
 - `scripts/core/storage-service.js` - IndexedDB open/read/write boundary
 - `scripts/core/app-state.js` - first central state surface for room/editor/runtime metadata
 - `scripts/core/history.js` - shared room history and undo/redo behavior
-- `scripts/catalog/placement-rules.js` - catalog-owned default placement/elevation rules
+- `scripts/catalog/placement-rules.js` - manifest-backed default placement/elevation rules
 - `scripts/state.js` - geometry helpers, storage keys, and app preferences
 - `scripts/storage.js` - normalization, runtime persistence glue, and compatibility wrappers
 - `scripts/ui.js` - home/editor shell behavior
