@@ -20,6 +20,7 @@
 - [ ] `npm run validate:asset-sizes`
 - [ ] `npm run validate:asset-sources`
 - [ ] `npm run validate:static-a11y`
+- [ ] `npm run validate:text-encoding`
 - [ ] `npm run validate:dev-mode`
 - [ ] `npm run validate:github-templates`
 - [ ] `npm run validate:workflow`

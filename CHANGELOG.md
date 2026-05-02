@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.99 - 2026-05-02
+
+- cleaned mojibake catalog icons, section comments, reference status separators, and thumbnail comments from runtime files
+- added `npm run validate:text-encoding` to block mojibake, phase-history comments, and question-mark catalog icon fallbacks from returning
+
 ## 0.5.0-hardening.98 - 2026-05-02
 
 - added `npm run validate:cloud-boundary` to guard experimental Supabase sync boundaries

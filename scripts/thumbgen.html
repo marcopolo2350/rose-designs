@@ -91,7 +91,7 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
-    // Phase ✨ — Filmic tone mapping + gentle exposure = warmer, "curated catalog" feel
+    // Filmic tone mapping and gentle exposure keep thumbnails warm and consistent.
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
     renderer.shadowMap.enabled = true;

@@ -11,6 +11,7 @@ npm run validate:manifest
 npm run validate:asset-sizes
 npm run validate:asset-sources
 npm run validate:static-a11y
+npm run validate:text-encoding
 npm run validate:dev-mode
 npm run validate:github-templates
 npm run validate:workflow
@@ -45,6 +46,7 @@ npm test
 - `validate:asset-sizes` - verifies GLB files stay below the per-model size ceiling
 - `validate:asset-sources` - verifies every catalog entry maps to `data/asset-sources.json`
 - `validate:static-a11y` - checks static app-shell button names, button types, dialogs, and decorative SVG hiding
+- `validate:text-encoding` - checks runtime files for mojibake, phase-history comments, and question-mark catalog icon fallbacks
 - `validate:dev-mode` - checks debug/model/diagnostic surfaces stay behind `.dev-only`
 - `validate:github-templates` - checks issue/PR templates keep hardening scope and verification prompts current
 - `validate:workflow` - checks the GitHub Verify workflow mirrors local guardrails and current action majors

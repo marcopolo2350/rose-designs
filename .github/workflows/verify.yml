@@ -60,6 +60,9 @@ jobs:
       - name: Validate static accessibility
         run: npm run validate:static-a11y
 
+      - name: Validate runtime text encoding
+        run: npm run validate:text-encoding
+
       - name: Validate dev-mode boundaries
         run: npm run validate:dev-mode
 

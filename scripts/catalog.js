@@ -34,149 +34,149 @@ const COLLECTION_THEMES={
   'Everyday Staples':'linear-gradient(135deg,#f6f2eb,#e5ddd0)'
 };
 const FURN_ITEMS=[
-  {label:'Sofa',w:5.2,d:2.55,icon:'???',symbol:'S',assetKey:'sofa',group:'Seating'},
-  {label:'Small Sofa',w:3.4,d:2.05,icon:'???',symbol:'S',assetKey:'sofa_small',group:'Seating'},
-  {label:'Compact Sofa',w:3.6,d:2.1,icon:'???',symbol:'C',assetKey:'sofa_compact',group:'Seating'},
-  {label:'Sofa Medium',w:4.4,d:2.35,icon:'???',symbol:'S',assetKey:'sofa_medium',group:'Seating'},
-  {label:'Large Sofa',w:5.8,d:2.6,icon:'???',symbol:'L',assetKey:'sofa_large',group:'Seating'},
-  {label:'Grand Sofa',w:6.4,d:2.8,icon:'???',symbol:'G',assetKey:'sofa_grand',group:'Seating'},
-  {label:'Modern Sofa',w:5.2,d:2.55,icon:'???',symbol:'M',assetKey:'sofa_modern',group:'Seating'},
-  {label:'Sectional Sofa',w:6,d:3.6,icon:'???',symbol:'L',assetKey:'sofa_l',group:'Seating'},
-  {label:'Loveseat',w:4,d:2.3,icon:'???',symbol:'L',assetKey:'sofa',group:'Seating'},
-  {label:'Chair',w:1.6,d:1.6,icon:'??',symbol:'C',assetKey:'chair',group:'Seating'},
-  {label:'Office Chair',w:2,d:2,icon:'??',symbol:'O',assetKey:'chair_office',group:'Seating'},
-  {label:'Stool',w:1.4,d:1.4,icon:'??',symbol:'S',assetKey:'stool',group:'Seating'},
-  {label:'Bench',w:3.5,d:1.4,icon:'??',symbol:'B',assetKey:'bench',group:'Seating'},
-  {label:'Bed',w:6.2,d:7.2,icon:'???',symbol:'B',assetKey:'bed',group:'Beds'},
-  {label:'King Bed',w:6.4,d:7.4,icon:'???',symbol:'K',assetKey:'bed_king',group:'Beds'},
-  {label:'Double Bed',w:5.5,d:6.8,icon:'???',symbol:'D',assetKey:'bed_double',group:'Beds'},
-  {label:'Twin Bed',w:3.6,d:6.6,icon:'???',symbol:'T',assetKey:'bed_twin',group:'Beds'},
-  {label:'Bunk Bed',w:4.4,d:6.8,icon:'???',symbol:'U',assetKey:'bunk_bed',group:'Beds'},
-  {label:'Coffee Table',w:3.2,d:1.8,icon:'??',symbol:'T',assetKey:'table_coffee',group:'Tables'},
-  {label:'Dining Table',w:5,d:3,icon:'???',symbol:'D',assetKey:'dining_table',group:'Tables'},
-  {label:'Round Dining Table',w:4.2,d:4.2,icon:'???',symbol:'R',assetKey:'table_round_large',group:'Tables'},
-  {label:'Round Side Table',w:2.4,d:2.4,icon:'???',symbol:'R',assetKey:'table_round_small',group:'Tables'},
-  {label:'Desk',w:4,d:2,icon:'??',symbol:'K',assetKey:'desk',group:'Tables'},
-  {label:'Rectangular Table',w:4.4,d:2.6,icon:'??',symbol:'T',assetKey:'table_rect',group:'Tables'},
-  {label:'Bookshelf',w:3.2,d:1.1,icon:'??',symbol:'H',assetKey:'bookshelf',group:'Storage'},
-  {label:'Bookcase With Books',w:3.2,d:1.1,icon:'??',symbol:'B',assetKey:'bookcase_books',group:'Storage'},
-  {label:'Shelving',w:3.5,d:.6,icon:'??',symbol:'E',assetKey:'shelving',group:'Storage'},
-  {label:'Small Shelf',w:2.2,d:.45,icon:'??',symbol:'S',assetKey:'shelf_small',group:'Storage'},
-  {label:'Dresser',w:4,d:1.8,icon:'???',symbol:'R',assetKey:'dresser',group:'Storage'},
-  {label:'Tall Dresser',w:3.4,d:1.7,icon:'???',symbol:'T',assetKey:'dresser_tall',group:'Storage'},
-  {label:'Full Closet',w:3.6,d:1.8,icon:'??',symbol:'C',assetKey:'closet_full',group:'Storage'},
-  {label:'TV Console',w:5,d:1.4,icon:'??',symbol:'V',assetKey:'tv_console',group:'Storage'},
-  {label:'Low Console',w:4.6,d:1.35,icon:'??',symbol:'L',assetKey:'console_low',group:'Storage'},
-  {label:'Nightstand',w:1.7,d:1.5,icon:'??',symbol:'N',assetKey:'nightstand',group:'Storage'},
-  {label:'Alt Nightstand',w:1.8,d:1.55,icon:'??',symbol:'A',assetKey:'nightstand_alt',group:'Storage'},
-  {label:'Fireplace',w:4.2,d:1.3,icon:'??',symbol:'F',assetKey:'fireplace',group:'Decor'},
-  {label:'Floor Lamp',w:1,d:1,icon:'??',symbol:'L',assetKey:'lamp_floor',group:'Lighting'},
-  {label:'Stand Lamp',w:1,d:1,icon:'??',symbol:'S',assetKey:'lamp_stand',group:'Lighting'},
-  {label:'Table Lamp',w:1,d:1,icon:'???',symbol:'T',assetKey:'lamp_table',group:'Lighting'},
-  {label:'Chandelier',w:2.2,d:2.2,icon:'?',symbol:'C',assetKey:'lamp_chandelier',group:'Lighting'},
-  {label:'Ceiling Light',w:1.6,d:1.6,icon:'?',symbol:'C',assetKey:'lamp_ceiling',group:'Lighting'},
-  {label:'Cube Light',w:1.35,d:1.35,icon:'?',symbol:'Q',assetKey:'lamp_cube',group:'Lighting'},
-  {label:'Pendant Light',w:1.7,d:1.7,icon:'?',symbol:'P',assetKey:'lamp_pendant',group:'Lighting'},
-  {label:'Wall Lamp',w:1.2,d:.4,icon:'??',symbol:'W',assetKey:'lamp_wall',group:'Lighting'},
-  {label:'Plant',w:1.4,d:1.4,icon:'??',symbol:'P',assetKey:'plant_floor',group:'Decor'},
-  {label:'Cactus',w:1,d:1,icon:'??',symbol:'C',assetKey:'plant_cactus',group:'Decor'},
-  {label:'Leafy Plant',w:1.35,d:1.35,icon:'??',symbol:'L',assetKey:'plant_leafy',group:'Decor'},
-  {label:'Palm Plant',w:1.5,d:1.5,icon:'??',symbol:'P',assetKey:'plant_palm',group:'Decor'},
-  {label:'Round Plant',w:1.2,d:1.2,icon:'??',symbol:'R',assetKey:'plant_round',group:'Decor'},
-  {label:'Shelf Plant',w:1,d:1,icon:'??',symbol:'P',assetKey:'plant_small',group:'Decor'},
-  {label:'Area Rug',w:5,d:3.5,icon:'??',symbol:'A',assetKey:'rug',group:'Rugs'},
-  {label:'Runner Rug',w:6.5,d:2,icon:'??',symbol:'R',assetKey:'runner_rug',group:'Rugs'},
-  {label:'Round Rug',w:4.2,d:4.2,icon:'??',symbol:'O',assetKey:'rug_round',group:'Rugs'},
-  {label:'Mirror',w:2,d:.3,icon:'??',symbol:'M',assetKey:'mirror',group:'Wall Decor'},
-  {label:'Wall Art I',w:2.4,d:.2,icon:'???',symbol:'A',assetKey:'wall_art_01',group:'Wall Decor'},
-  {label:'Wall Art II',w:2.4,d:.2,icon:'???',symbol:'A',assetKey:'wall_art_04',group:'Wall Decor'},
-  {label:'Wall Art III',w:2.4,d:.2,icon:'???',symbol:'A',assetKey:'wall_art_06',group:'Wall Decor'},
-  {label:'Curtains',w:4,d:.4,icon:'??',symbol:'C',assetKey:'curtains',group:'Openings'},
-  {label:'Blinds',w:4,d:.3,icon:'??',symbol:'B',assetKey:'blinds',group:'Openings'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Seating ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Armchair Classic',w:2.6,d:2.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'AC',assetKey:'ph_armchair_01',group:'Seating'},
-  {label:'Armchair Modern',w:2.4,d:2.6,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'AM',assetKey:'ph_armchair_modern',group:'Seating'},
-  {label:'Armchair Midcentury',w:2.4,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'MC',assetKey:'ph_chair_midcentury',group:'Seating'},
-  {label:'Sofa Textured',w:6.2,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ¢â‚¬Â¹',symbol:'ST',assetKey:'ph_sofa_01',group:'Seating'},
-  {label:'Sofa Clean',w:6.5,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ¢â‚¬Â¹',symbol:'SC',assetKey:'ph_sofa_02',group:'Seating'},
-  {label:'Sofa Upholstered',w:5.8,d:2.6,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ¢â‚¬Â¹',symbol:'SU',assetKey:'ph_sofa_03',group:'Seating'},
-  {label:'Sofa Wooden Frame',w:5.5,d:2.4,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ¢â‚¬Â¹',symbol:'SW',assetKey:'ph_sofa_painted',group:'Seating'},
-  {label:'Ottoman',w:2.4,d:2.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'OT',assetKey:'ph_ottoman_01',group:'Seating'},
-  {label:'Accent Chair',w:2.0,d:2.0,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'AC',assetKey:'ph_chair_green',group:'Seating'},
-  {label:'Chinese Armchair',w:2.2,d:2.0,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'CA',assetKey:'ph_chair_chinese',group:'Seating'},
-  {label:'Wicker Chair',w:1.8,d:1.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'WC',assetKey:'ph_chair_gallinera',group:'Seating'},
-  {label:'Painted Chair',w:1.6,d:1.6,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'PC',assetKey:'ph_chair_painted',group:'Seating'},
-  {label:'Bar Chair',w:1.4,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'BC',assetKey:'ph_bar_chair',group:'Seating'},
-  {label:'Metal Stool',w:1.2,d:1.2,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ¢â‚¬Ëœ',symbol:'MS',assetKey:'ph_stool_metal',group:'Seating'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Tables ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Coffee Table Classic',w:3.8,d:1.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CT',assetKey:'ph_coffee_table_01',group:'Tables'},
-  {label:'Coffee Table Round',w:2.8,d:2.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CR',assetKey:'ph_coffee_round',group:'Tables'},
-  {label:'Coffee Table Modern',w:3.5,d:1.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CM',assetKey:'ph_coffee_modern',group:'Tables'},
-  {label:'Coffee Table Low',w:3.2,d:1.6,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CL',assetKey:'ph_coffee_modern_2',group:'Tables'},
-  {label:'Coffee Table Gothic',w:3.0,d:1.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CG',assetKey:'ph_coffee_gothic',group:'Tables'},
-  {label:'Coffee Table Industrial',w:3.4,d:1.8,icon:'ÃƒÂ¢Ã‹Å“Ã¢â‚¬Â¢',symbol:'CI',assetKey:'ph_coffee_industrial',group:'Tables'},
-  {label:'Dining Table Wood',w:5.0,d:2.6,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'DW',assetKey:'ph_table_wooden',group:'Tables'},
-  {label:'Dining Table Rustic',w:5.5,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'DR',assetKey:'ph_table_wooden_2',group:'Tables'},
-  {label:'Dining Table Round',w:3.5,d:3.5,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'RT',assetKey:'ph_table_round',group:'Tables'},
-  {label:'Dining Table Painted',w:5.0,d:2.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'DP',assetKey:'ph_table_painted',group:'Tables'},
-  {label:'Dining Table Cane',w:4.5,d:2.2,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½',symbol:'DC',assetKey:'ph_table_gallinera',group:'Tables'},
-  {label:'Side Table',w:1.6,d:1.6,icon:'ÃƒÂ°Ã…Â¸Ã…Â¸Ã‚Â«',symbol:'ST',assetKey:'ph_side_table',group:'Tables'},
-  {label:'Side Table Tall',w:1.4,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã…Â¸Ã‚Â«',symbol:'TT',assetKey:'ph_side_table_tall',group:'Tables'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Storage ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Open Shelf Unit',w:3.2,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â¡',symbol:'SH',assetKey:'ph_shelf_01',group:'Storage'},
-  {label:'Bookshelf Worn',w:3.0,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â¡',symbol:'BW',assetKey:'ph_bookshelf',group:'Storage'},
-  {label:'Console Table',w:3.5,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ‚Âµ',symbol:'CO',assetKey:'ph_console_01',group:'Storage'},
-  {label:'Console Chinese',w:3.2,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ‚Âµ',symbol:'CC',assetKey:'ph_console_chinese',group:'Storage'},
-  {label:'Cabinet Modern',w:2.8,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CM',assetKey:'ph_cabinet_modern',group:'Storage'},
-  {label:'Cabinet Painted',w:2.4,d:0.9,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CP',assetKey:'ph_cabinet_painted',group:'Storage'},
-  {label:'Cabinet Vintage',w:2.8,d:1.2,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CV',assetKey:'ph_cabinet_vintage',group:'Storage'},
-  {label:'Cabinet Drawer',w:2.4,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CD',assetKey:'ph_cabinet_drawer',group:'Storage'},
-  {label:'Chinese Cabinet',w:2.8,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Âª',symbol:'CH',assetKey:'ph_cabinet_chinese',group:'Storage'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Lighting ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Chandelier Classic',w:2.5,d:2.5,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CH',assetKey:'ph_chandelier_01',group:'Lighting'},
-  {label:'Chandelier Globe',w:2.8,d:2.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CG',assetKey:'ph_chandelier_02',group:'Lighting'},
-  {label:'Chandelier Crystal',w:3.0,d:3.0,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CC',assetKey:'ph_chandelier_03',group:'Lighting'},
-  {label:'Chandelier Chinese',w:2.6,d:2.6,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CN',assetKey:'ph_chandelier_chinese',group:'Lighting'},
-  {label:'Lantern Chandelier',w:2.2,d:2.2,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'LC',assetKey:'ph_chandelier_lantern',group:'Lighting'},
-  {label:'Ceiling Lamp Modern',w:1.8,d:1.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'CL',assetKey:'ph_lamp_ceiling',group:'Lighting'},
-  {label:'Desk Lamp Arm',w:1.0,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'DL',assetKey:'ph_lamp_desk',group:'Lighting'},
-  {label:'Industrial Pendant',w:1.2,d:1.2,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'IP',assetKey:'ph_lamp_industrial',group:'Lighting'},
-  {label:'Pipe Lamp',w:1.0,d:0.6,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡',symbol:'PL',assetKey:'ph_lamp_pipe',group:'Lighting'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Beds ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Gothic Bed',w:5.5,d:7.0,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ‚Â',symbol:'GB',assetKey:'ph_bed_gothic',group:'Beds'},
-  {label:'Nightstand Classic',w:1.8,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ‚Âµ',symbol:'NC',assetKey:'ph_nightstand_classic',group:'Beds'},
-  {label:'Nightstand',w:1.6,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ‚Âµ',symbol:'NS',assetKey:'ph_nightstand',group:'Beds'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Plants ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Potted Plant Large',w:1.2,d:1.2,icon:'ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¿',symbol:'PL',assetKey:'ph_plant_potted_01',group:'Plants'},
-  {label:'Potted Plant Medium',w:1.4,d:1.4,icon:'ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¿',symbol:'PM',assetKey:'ph_plant_potted_02',group:'Plants'},
-  {label:'Potted Plant Small',w:1.0,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¿',symbol:'PS',assetKey:'ph_plant_potted_04',group:'Plants'},
-  {label:'Clay Planter',w:0.8,d:0.8,icon:'ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¿',symbol:'CP',assetKey:'ph_planter_clay',group:'Plants'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Poly Haven Premium Decor ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Ornate Mirror',w:2.0,d:0.2,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ…Â¾',symbol:'OM',assetKey:'ph_mirror_ornate',group:'Decor'},
-  {label:'Ceramic Vase',w:0.5,d:0.5,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Âº',symbol:'CV',assetKey:'ph_vase_ceramic_01',group:'Decor'},
-  {label:'Brass Vase',w:0.4,d:0.4,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Âº',symbol:'BV',assetKey:'ph_vase_brass_01',group:'Decor'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Kitchen ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Base Cabinet',w:1.5,d:0.65,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â³',symbol:'BC',assetKey:'kitchen_cabinet_base',group:'Kitchen'},
-  {label:'Upper Cabinet',w:1.5,d:0.35,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â³',symbol:'UC',assetKey:'kitchen_cabinet_upper',group:'Kitchen'},
-  {label:'Kitchen Island',w:4.0,d:2.5,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â³',symbol:'KI',assetKey:'kitchen_island',group:'Kitchen'},
-  {label:'Refrigerator',w:2.8,d:2.2,icon:'ÃƒÂ°Ã…Â¸Ã‚Â§Ã…Â ',symbol:'RF',assetKey:'kitchen_fridge',group:'Kitchen'},
-  {label:'Gas Range',w:2.5,d:2.0,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â¥',symbol:'GR',assetKey:'kitchen_stove',group:'Kitchen'},
-  {label:'Range Hood',w:2.5,d:1.0,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¨',symbol:'RH',assetKey:'kitchen_hood',group:'Kitchen'},
-  {label:'Sink',w:3.0,d:0.65,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¿',symbol:'SK',assetKey:'kitchen_sink',group:'Kitchen'},
-  {label:'Dishwasher',w:1.5,d:1.8,icon:'ÃƒÂ°Ã…Â¸Ã‚Â«Ã‚Â§',symbol:'DW',assetKey:'kitchen_dishwasher',group:'Kitchen'},
-  // ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ Bathroom ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
-  {label:'Single Vanity',w:2.5,d:0.6,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¿',symbol:'SV',assetKey:'bathroom_vanity_single',group:'Bathroom'},
-  {label:'Double Vanity',w:4.5,d:0.6,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¿',symbol:'DV',assetKey:'bathroom_vanity_double',group:'Bathroom'},
-  {label:'Toilet',w:1.2,d:2.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â½',symbol:'TO',assetKey:'bathroom_toilet',group:'Bathroom'},
-  {label:'Bathtub',w:2.5,d:5.5,icon:'ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ‚Â',symbol:'BT',assetKey:'bathroom_tub',group:'Bathroom'},
-  {label:'Shower',w:3.0,d:3.0,icon:'ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¿',symbol:'SH',assetKey:'bathroom_shower',group:'Bathroom'},
-  {label:'Bathroom Mirror',w:2.5,d:0.2,icon:'ÃƒÂ°Ã…Â¸Ã‚ÂªÃ…Â¾',symbol:'BM',assetKey:'bathroom_mirror',group:'Bathroom'},
-  {label:'Towel Bar',w:1.5,d:0.1,icon:'ÃƒÂ°Ã…Â¸Ã‚Â§Ã‚Âº',symbol:'TB',assetKey:'bathroom_towel_bar',group:'Bathroom'},
-  {label:'Washing Machine',w:2.6,d:2.7,icon:'Ã°Å¸Â§Âº',symbol:'WM',assetKey:'washing_machine',group:'Laundry'},
-  {label:'Round Column',w:1.3,d:1.3,icon:'â—¯',symbol:'RC',assetKey:'column_round',group:'Decor'},
-  {label:'Small Trashcan',w:1.0,d:1.0,icon:'ðŸ—‘',symbol:'TS',assetKey:'trashcan_small',group:'Decor'},
-  {label:'Large Trashcan',w:1.2,d:1.2,icon:'ðŸ—‘',symbol:'TL',assetKey:'trashcan_large',group:'Decor'},
-  {label:'Square Plate',w:0.9,d:0.9,icon:'â–£',symbol:'SP',assetKey:'square_plate',group:'Decor'},
+  {label:'Sofa',w:5.2,d:2.55,icon:'S',symbol:'S',assetKey:'sofa',group:'Seating'},
+  {label:'Small Sofa',w:3.4,d:2.05,icon:'S',symbol:'S',assetKey:'sofa_small',group:'Seating'},
+  {label:'Compact Sofa',w:3.6,d:2.1,icon:'C',symbol:'C',assetKey:'sofa_compact',group:'Seating'},
+  {label:'Sofa Medium',w:4.4,d:2.35,icon:'S',symbol:'S',assetKey:'sofa_medium',group:'Seating'},
+  {label:'Large Sofa',w:5.8,d:2.6,icon:'L',symbol:'L',assetKey:'sofa_large',group:'Seating'},
+  {label:'Grand Sofa',w:6.4,d:2.8,icon:'G',symbol:'G',assetKey:'sofa_grand',group:'Seating'},
+  {label:'Modern Sofa',w:5.2,d:2.55,icon:'M',symbol:'M',assetKey:'sofa_modern',group:'Seating'},
+  {label:'Sectional Sofa',w:6,d:3.6,icon:'L',symbol:'L',assetKey:'sofa_l',group:'Seating'},
+  {label:'Loveseat',w:4,d:2.3,icon:'L',symbol:'L',assetKey:'sofa',group:'Seating'},
+  {label:'Chair',w:1.6,d:1.6,icon:'C',symbol:'C',assetKey:'chair',group:'Seating'},
+  {label:'Office Chair',w:2,d:2,icon:'O',symbol:'O',assetKey:'chair_office',group:'Seating'},
+  {label:'Stool',w:1.4,d:1.4,icon:'S',symbol:'S',assetKey:'stool',group:'Seating'},
+  {label:'Bench',w:3.5,d:1.4,icon:'B',symbol:'B',assetKey:'bench',group:'Seating'},
+  {label:'Bed',w:6.2,d:7.2,icon:'B',symbol:'B',assetKey:'bed',group:'Beds'},
+  {label:'King Bed',w:6.4,d:7.4,icon:'K',symbol:'K',assetKey:'bed_king',group:'Beds'},
+  {label:'Double Bed',w:5.5,d:6.8,icon:'D',symbol:'D',assetKey:'bed_double',group:'Beds'},
+  {label:'Twin Bed',w:3.6,d:6.6,icon:'T',symbol:'T',assetKey:'bed_twin',group:'Beds'},
+  {label:'Bunk Bed',w:4.4,d:6.8,icon:'U',symbol:'U',assetKey:'bunk_bed',group:'Beds'},
+  {label:'Coffee Table',w:3.2,d:1.8,icon:'T',symbol:'T',assetKey:'table_coffee',group:'Tables'},
+  {label:'Dining Table',w:5,d:3,icon:'D',symbol:'D',assetKey:'dining_table',group:'Tables'},
+  {label:'Round Dining Table',w:4.2,d:4.2,icon:'R',symbol:'R',assetKey:'table_round_large',group:'Tables'},
+  {label:'Round Side Table',w:2.4,d:2.4,icon:'R',symbol:'R',assetKey:'table_round_small',group:'Tables'},
+  {label:'Desk',w:4,d:2,icon:'K',symbol:'K',assetKey:'desk',group:'Tables'},
+  {label:'Rectangular Table',w:4.4,d:2.6,icon:'T',symbol:'T',assetKey:'table_rect',group:'Tables'},
+  {label:'Bookshelf',w:3.2,d:1.1,icon:'H',symbol:'H',assetKey:'bookshelf',group:'Storage'},
+  {label:'Bookcase With Books',w:3.2,d:1.1,icon:'B',symbol:'B',assetKey:'bookcase_books',group:'Storage'},
+  {label:'Shelving',w:3.5,d:.6,icon:'E',symbol:'E',assetKey:'shelving',group:'Storage'},
+  {label:'Small Shelf',w:2.2,d:.45,icon:'S',symbol:'S',assetKey:'shelf_small',group:'Storage'},
+  {label:'Dresser',w:4,d:1.8,icon:'R',symbol:'R',assetKey:'dresser',group:'Storage'},
+  {label:'Tall Dresser',w:3.4,d:1.7,icon:'T',symbol:'T',assetKey:'dresser_tall',group:'Storage'},
+  {label:'Full Closet',w:3.6,d:1.8,icon:'C',symbol:'C',assetKey:'closet_full',group:'Storage'},
+  {label:'TV Console',w:5,d:1.4,icon:'V',symbol:'V',assetKey:'tv_console',group:'Storage'},
+  {label:'Low Console',w:4.6,d:1.35,icon:'L',symbol:'L',assetKey:'console_low',group:'Storage'},
+  {label:'Nightstand',w:1.7,d:1.5,icon:'N',symbol:'N',assetKey:'nightstand',group:'Storage'},
+  {label:'Alt Nightstand',w:1.8,d:1.55,icon:'A',symbol:'A',assetKey:'nightstand_alt',group:'Storage'},
+  {label:'Fireplace',w:4.2,d:1.3,icon:'F',symbol:'F',assetKey:'fireplace',group:'Decor'},
+  {label:'Floor Lamp',w:1,d:1,icon:'L',symbol:'L',assetKey:'lamp_floor',group:'Lighting'},
+  {label:'Stand Lamp',w:1,d:1,icon:'S',symbol:'S',assetKey:'lamp_stand',group:'Lighting'},
+  {label:'Table Lamp',w:1,d:1,icon:'T',symbol:'T',assetKey:'lamp_table',group:'Lighting'},
+  {label:'Chandelier',w:2.2,d:2.2,icon:'C',symbol:'C',assetKey:'lamp_chandelier',group:'Lighting'},
+  {label:'Ceiling Light',w:1.6,d:1.6,icon:'C',symbol:'C',assetKey:'lamp_ceiling',group:'Lighting'},
+  {label:'Cube Light',w:1.35,d:1.35,icon:'Q',symbol:'Q',assetKey:'lamp_cube',group:'Lighting'},
+  {label:'Pendant Light',w:1.7,d:1.7,icon:'P',symbol:'P',assetKey:'lamp_pendant',group:'Lighting'},
+  {label:'Wall Lamp',w:1.2,d:.4,icon:'W',symbol:'W',assetKey:'lamp_wall',group:'Lighting'},
+  {label:'Plant',w:1.4,d:1.4,icon:'P',symbol:'P',assetKey:'plant_floor',group:'Decor'},
+  {label:'Cactus',w:1,d:1,icon:'C',symbol:'C',assetKey:'plant_cactus',group:'Decor'},
+  {label:'Leafy Plant',w:1.35,d:1.35,icon:'L',symbol:'L',assetKey:'plant_leafy',group:'Decor'},
+  {label:'Palm Plant',w:1.5,d:1.5,icon:'P',symbol:'P',assetKey:'plant_palm',group:'Decor'},
+  {label:'Round Plant',w:1.2,d:1.2,icon:'R',symbol:'R',assetKey:'plant_round',group:'Decor'},
+  {label:'Shelf Plant',w:1,d:1,icon:'P',symbol:'P',assetKey:'plant_small',group:'Decor'},
+  {label:'Area Rug',w:5,d:3.5,icon:'A',symbol:'A',assetKey:'rug',group:'Rugs'},
+  {label:'Runner Rug',w:6.5,d:2,icon:'R',symbol:'R',assetKey:'runner_rug',group:'Rugs'},
+  {label:'Round Rug',w:4.2,d:4.2,icon:'O',symbol:'O',assetKey:'rug_round',group:'Rugs'},
+  {label:'Mirror',w:2,d:.3,icon:'M',symbol:'M',assetKey:'mirror',group:'Wall Decor'},
+  {label:'Wall Art I',w:2.4,d:.2,icon:'A',symbol:'A',assetKey:'wall_art_01',group:'Wall Decor'},
+  {label:'Wall Art II',w:2.4,d:.2,icon:'A',symbol:'A',assetKey:'wall_art_04',group:'Wall Decor'},
+  {label:'Wall Art III',w:2.4,d:.2,icon:'A',symbol:'A',assetKey:'wall_art_06',group:'Wall Decor'},
+  {label:'Curtains',w:4,d:.4,icon:'C',symbol:'C',assetKey:'curtains',group:'Openings'},
+  {label:'Blinds',w:4,d:.3,icon:'B',symbol:'B',assetKey:'blinds',group:'Openings'},
+// Poly Haven Premium Seating
+  {label:'Armchair Classic',w:2.6,d:2.4,icon:'AC',symbol:'AC',assetKey:'ph_armchair_01',group:'Seating'},
+  {label:'Armchair Modern',w:2.4,d:2.6,icon:'AM',symbol:'AM',assetKey:'ph_armchair_modern',group:'Seating'},
+  {label:'Armchair Midcentury',w:2.4,d:2.8,icon:'MC',symbol:'MC',assetKey:'ph_chair_midcentury',group:'Seating'},
+  {label:'Sofa Textured',w:6.2,d:2.8,icon:'ST',symbol:'ST',assetKey:'ph_sofa_01',group:'Seating'},
+  {label:'Sofa Clean',w:6.5,d:2.8,icon:'SC',symbol:'SC',assetKey:'ph_sofa_02',group:'Seating'},
+  {label:'Sofa Upholstered',w:5.8,d:2.6,icon:'SU',symbol:'SU',assetKey:'ph_sofa_03',group:'Seating'},
+  {label:'Sofa Wooden Frame',w:5.5,d:2.4,icon:'SW',symbol:'SW',assetKey:'ph_sofa_painted',group:'Seating'},
+  {label:'Ottoman',w:2.4,d:2.4,icon:'OT',symbol:'OT',assetKey:'ph_ottoman_01',group:'Seating'},
+  {label:'Accent Chair',w:2.0,d:2.0,icon:'AC',symbol:'AC',assetKey:'ph_chair_green',group:'Seating'},
+  {label:'Chinese Armchair',w:2.2,d:2.0,icon:'CA',symbol:'CA',assetKey:'ph_chair_chinese',group:'Seating'},
+  {label:'Wicker Chair',w:1.8,d:1.8,icon:'WC',symbol:'WC',assetKey:'ph_chair_gallinera',group:'Seating'},
+  {label:'Painted Chair',w:1.6,d:1.6,icon:'PC',symbol:'PC',assetKey:'ph_chair_painted',group:'Seating'},
+  {label:'Bar Chair',w:1.4,d:1.4,icon:'BC',symbol:'BC',assetKey:'ph_bar_chair',group:'Seating'},
+  {label:'Metal Stool',w:1.2,d:1.2,icon:'MS',symbol:'MS',assetKey:'ph_stool_metal',group:'Seating'},
+// Poly Haven Premium Tables
+  {label:'Coffee Table Classic',w:3.8,d:1.8,icon:'CT',symbol:'CT',assetKey:'ph_coffee_table_01',group:'Tables'},
+  {label:'Coffee Table Round',w:2.8,d:2.8,icon:'CR',symbol:'CR',assetKey:'ph_coffee_round',group:'Tables'},
+  {label:'Coffee Table Modern',w:3.5,d:1.8,icon:'CM',symbol:'CM',assetKey:'ph_coffee_modern',group:'Tables'},
+  {label:'Coffee Table Low',w:3.2,d:1.6,icon:'CL',symbol:'CL',assetKey:'ph_coffee_modern_2',group:'Tables'},
+  {label:'Coffee Table Gothic',w:3.0,d:1.8,icon:'CG',symbol:'CG',assetKey:'ph_coffee_gothic',group:'Tables'},
+  {label:'Coffee Table Industrial',w:3.4,d:1.8,icon:'CI',symbol:'CI',assetKey:'ph_coffee_industrial',group:'Tables'},
+  {label:'Dining Table Wood',w:5.0,d:2.6,icon:'DW',symbol:'DW',assetKey:'ph_table_wooden',group:'Tables'},
+  {label:'Dining Table Rustic',w:5.5,d:2.8,icon:'DR',symbol:'DR',assetKey:'ph_table_wooden_2',group:'Tables'},
+  {label:'Dining Table Round',w:3.5,d:3.5,icon:'RT',symbol:'RT',assetKey:'ph_table_round',group:'Tables'},
+  {label:'Dining Table Painted',w:5.0,d:2.4,icon:'DP',symbol:'DP',assetKey:'ph_table_painted',group:'Tables'},
+  {label:'Dining Table Cane',w:4.5,d:2.2,icon:'DC',symbol:'DC',assetKey:'ph_table_gallinera',group:'Tables'},
+  {label:'Side Table',w:1.6,d:1.6,icon:'ST',symbol:'ST',assetKey:'ph_side_table',group:'Tables'},
+  {label:'Side Table Tall',w:1.4,d:1.4,icon:'TT',symbol:'TT',assetKey:'ph_side_table_tall',group:'Tables'},
+// Poly Haven Premium Storage
+  {label:'Open Shelf Unit',w:3.2,d:0.8,icon:'SH',symbol:'SH',assetKey:'ph_shelf_01',group:'Storage'},
+  {label:'Bookshelf Worn',w:3.0,d:0.8,icon:'BW',symbol:'BW',assetKey:'ph_bookshelf',group:'Storage'},
+  {label:'Console Table',w:3.5,d:0.8,icon:'CO',symbol:'CO',assetKey:'ph_console_01',group:'Storage'},
+  {label:'Console Chinese',w:3.2,d:0.8,icon:'CC',symbol:'CC',assetKey:'ph_console_chinese',group:'Storage'},
+  {label:'Cabinet Modern',w:2.8,d:1.0,icon:'CM',symbol:'CM',assetKey:'ph_cabinet_modern',group:'Storage'},
+  {label:'Cabinet Painted',w:2.4,d:0.9,icon:'CP',symbol:'CP',assetKey:'ph_cabinet_painted',group:'Storage'},
+  {label:'Cabinet Vintage',w:2.8,d:1.2,icon:'CV',symbol:'CV',assetKey:'ph_cabinet_vintage',group:'Storage'},
+  {label:'Cabinet Drawer',w:2.4,d:1.0,icon:'CD',symbol:'CD',assetKey:'ph_cabinet_drawer',group:'Storage'},
+  {label:'Chinese Cabinet',w:2.8,d:1.0,icon:'CH',symbol:'CH',assetKey:'ph_cabinet_chinese',group:'Storage'},
+// Poly Haven Premium Lighting
+  {label:'Chandelier Classic',w:2.5,d:2.5,icon:'CH',symbol:'CH',assetKey:'ph_chandelier_01',group:'Lighting'},
+  {label:'Chandelier Globe',w:2.8,d:2.8,icon:'CG',symbol:'CG',assetKey:'ph_chandelier_02',group:'Lighting'},
+  {label:'Chandelier Crystal',w:3.0,d:3.0,icon:'CC',symbol:'CC',assetKey:'ph_chandelier_03',group:'Lighting'},
+  {label:'Chandelier Chinese',w:2.6,d:2.6,icon:'CN',symbol:'CN',assetKey:'ph_chandelier_chinese',group:'Lighting'},
+  {label:'Lantern Chandelier',w:2.2,d:2.2,icon:'LC',symbol:'LC',assetKey:'ph_chandelier_lantern',group:'Lighting'},
+  {label:'Ceiling Lamp Modern',w:1.8,d:1.8,icon:'CL',symbol:'CL',assetKey:'ph_lamp_ceiling',group:'Lighting'},
+  {label:'Desk Lamp Arm',w:1.0,d:0.8,icon:'DL',symbol:'DL',assetKey:'ph_lamp_desk',group:'Lighting'},
+  {label:'Industrial Pendant',w:1.2,d:1.2,icon:'IP',symbol:'IP',assetKey:'ph_lamp_industrial',group:'Lighting'},
+  {label:'Pipe Lamp',w:1.0,d:0.6,icon:'PL',symbol:'PL',assetKey:'ph_lamp_pipe',group:'Lighting'},
+// Poly Haven Premium Beds
+  {label:'Gothic Bed',w:5.5,d:7.0,icon:'GB',symbol:'GB',assetKey:'ph_bed_gothic',group:'Beds'},
+  {label:'Nightstand Classic',w:1.8,d:1.4,icon:'NC',symbol:'NC',assetKey:'ph_nightstand_classic',group:'Beds'},
+  {label:'Nightstand',w:1.6,d:1.4,icon:'NS',symbol:'NS',assetKey:'ph_nightstand',group:'Beds'},
+// Poly Haven Premium Plants
+  {label:'Potted Plant Large',w:1.2,d:1.2,icon:'PL',symbol:'PL',assetKey:'ph_plant_potted_01',group:'Plants'},
+  {label:'Potted Plant Medium',w:1.4,d:1.4,icon:'PM',symbol:'PM',assetKey:'ph_plant_potted_02',group:'Plants'},
+  {label:'Potted Plant Small',w:1.0,d:1.0,icon:'PS',symbol:'PS',assetKey:'ph_plant_potted_04',group:'Plants'},
+  {label:'Clay Planter',w:0.8,d:0.8,icon:'CP',symbol:'CP',assetKey:'ph_planter_clay',group:'Plants'},
+// Poly Haven Premium Decor
+  {label:'Ornate Mirror',w:2.0,d:0.2,icon:'OM',symbol:'OM',assetKey:'ph_mirror_ornate',group:'Decor'},
+  {label:'Ceramic Vase',w:0.5,d:0.5,icon:'CV',symbol:'CV',assetKey:'ph_vase_ceramic_01',group:'Decor'},
+  {label:'Brass Vase',w:0.4,d:0.4,icon:'BV',symbol:'BV',assetKey:'ph_vase_brass_01',group:'Decor'},
+// Kitchen
+  {label:'Base Cabinet',w:1.5,d:0.65,icon:'BC',symbol:'BC',assetKey:'kitchen_cabinet_base',group:'Kitchen'},
+  {label:'Upper Cabinet',w:1.5,d:0.35,icon:'UC',symbol:'UC',assetKey:'kitchen_cabinet_upper',group:'Kitchen'},
+  {label:'Kitchen Island',w:4.0,d:2.5,icon:'KI',symbol:'KI',assetKey:'kitchen_island',group:'Kitchen'},
+  {label:'Refrigerator',w:2.8,d:2.2,icon:'RF',symbol:'RF',assetKey:'kitchen_fridge',group:'Kitchen'},
+  {label:'Gas Range',w:2.5,d:2.0,icon:'GR',symbol:'GR',assetKey:'kitchen_stove',group:'Kitchen'},
+  {label:'Range Hood',w:2.5,d:1.0,icon:'RH',symbol:'RH',assetKey:'kitchen_hood',group:'Kitchen'},
+  {label:'Sink',w:3.0,d:0.65,icon:'SK',symbol:'SK',assetKey:'kitchen_sink',group:'Kitchen'},
+  {label:'Dishwasher',w:1.5,d:1.8,icon:'DW',symbol:'DW',assetKey:'kitchen_dishwasher',group:'Kitchen'},
+// Bathroom
+  {label:'Single Vanity',w:2.5,d:0.6,icon:'SV',symbol:'SV',assetKey:'bathroom_vanity_single',group:'Bathroom'},
+  {label:'Double Vanity',w:4.5,d:0.6,icon:'DV',symbol:'DV',assetKey:'bathroom_vanity_double',group:'Bathroom'},
+  {label:'Toilet',w:1.2,d:2.0,icon:'TO',symbol:'TO',assetKey:'bathroom_toilet',group:'Bathroom'},
+  {label:'Bathtub',w:2.5,d:5.5,icon:'BT',symbol:'BT',assetKey:'bathroom_tub',group:'Bathroom'},
+  {label:'Shower',w:3.0,d:3.0,icon:'SH',symbol:'SH',assetKey:'bathroom_shower',group:'Bathroom'},
+  {label:'Bathroom Mirror',w:2.5,d:0.2,icon:'BM',symbol:'BM',assetKey:'bathroom_mirror',group:'Bathroom'},
+  {label:'Towel Bar',w:1.5,d:0.1,icon:'TB',symbol:'TB',assetKey:'bathroom_towel_bar',group:'Bathroom'},
+  {label:'Washing Machine',w:2.6,d:2.7,icon:'WM',symbol:'WM',assetKey:'washing_machine',group:'Laundry'},
+  {label:'Round Column',w:1.3,d:1.3,icon:'RC',symbol:'RC',assetKey:'column_round',group:'Decor'},
+  {label:'Small Trashcan',w:1.0,d:1.0,icon:'TS',symbol:'TS',assetKey:'trashcan_small',group:'Decor'},
+  {label:'Large Trashcan',w:1.2,d:1.2,icon:'TL',symbol:'TL',assetKey:'trashcan_large',group:'Decor'},
+  {label:'Square Plate',w:0.9,d:0.9,icon:'SP',symbol:'SP',assetKey:'square_plate',group:'Decor'},
 ];
 const DEFAULT_COLLECTIONS=['all','Quiet Luxury','Warm Modern','Tailored Calm'];
 let assetManifest=[];
@@ -832,8 +832,7 @@ function placeFurn(itemIdx){
   rememberCatalogRecent(item.assetKey);
   pushU();closeFurnPick();draw();showP();
 }
-
-// ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ PROPS ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ÂÃ¢â€šÂ¬
+// PROPS
 function getWallStylePreset(room=curRoom){
   return WALL_PALETTES.find(w=>w.id===(room?.materials?.wallFinish||'warm_white'))||WALL_PALETTES[0];
 }
@@ -1088,12 +1087,13 @@ function referenceCalibrationStatus(ref){
 }
 function restyleRoomPanelText(panel){
   if(!panel)return;
+  const staleEncoding=/[\u00c2\u00c3\u00c6\u00e2\u0080-\u00bf\u0152\u0161\u0178]+/g;
   const floorButtons=[...panel.querySelectorAll('.mat-grid.tall .mat-btn[data-action="set-active-floor"]')];
   floorButtons.forEach(btn=>{
     const raw=(btn.textContent||'').replace(/\s+/g,' ').trim();
     const match=raw.match(/^(.*?)(\d+)\s*$/);
     if(!match)return;
-    const label=match[1].replace(/[|·ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â]+/g,' ').replace(/\s+/g,' ').trim()||'Floor';
+    const label=match[1].replace(staleEncoding,' ').replace(/\|/g,' ').replace(/\s+/g,' ').trim()||'Floor';
     const count=Number(match[2]);
     window.RoseHTML.clear(btn);
     const title=document.createElement('span');
@@ -1105,7 +1105,7 @@ function restyleRoomPanelText(panel){
     btn.append(title,meta);
   });
   panel.querySelectorAll('.room-card-meta,.prop-tip,.prop-state').forEach(node=>{
-    node.textContent=(node.textContent||'').replace(/[ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â]+/g,' ').replace(/\s*[·|]\s*/g,' | ').replace(/\s+/g,' ').trim();
+    node.textContent=(node.textContent||'').replace(staleEncoding,' ').replace(/\s*\|\s*/g,' | ').replace(/\s+/g,' ').trim();
   });
 }
 function projectRoomMetaLine(room,projectRoot){
@@ -1171,7 +1171,7 @@ function renderRoomPanelNoSelection(r,{cBtn,activeLightingPreset,ref,refLoaded,r
   const lightingSection=propSection('Lighting Mood',`<label>LIGHTING MOOD</label><div class="mat-grid tall">${Object.entries(LIGHTING_PRESETS).map(([id,preset])=>`<button class="mat-btn${activeLightingPreset===id?' sel':''}" type="button" data-action="set-lighting-preset" data-preset-id="${id}">${preset.name}</button>`).join('')}</div><div class="prop-state">Active mood: <strong>${LIGHTING_PRESETS[activeLightingPreset]?.name||'Daylight'}</strong></div><div class="prop-tip">${lightingPresetHelp(activeLightingPreset)}</div><label style="margin-top:8px">LIGHT CHARACTER</label><input type="range" min="0" max="1" step="0.05" value="${r.materials.lightCharacter??.5}" data-action="set-light-character-input"><div class="prop-tip">Move from crisp daylight toward warmer evening or moodier blue-hour character.</div><div class="prop-state">${lightCharacterLabel(r)}</div><label style="margin-top:8px">CEILING BRIGHTNESS</label><input type="range" min="0.7" max="1.35" step="0.05" value="${r.materials.ceilingBrightness||1}" data-action="set-ceiling-brightness-input"><div class="prop-tip">Brightness only changes how much light the ceiling appears to bounce in 3D. It does not change room size.</div><div class="prop-state">${ceilingBrightnessLabel(r)}</div>${is3D?`<div class="quick-rotate-row" style="margin-top:8px"><button class="pbtn soft" type="button" data-action="toggle-photo-mode">${photoMode?'Exit Photo Mode':'Open Photo Mode'}</button><button class="pbtn soft" type="button" data-action="toggle-walkthrough-tray">Open Walkthroughs</button></div>`:''}`);
   const geometrySection=propSection('Ceiling Geometry',`<label>CEILING HEIGHT (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(r.height)}" data-action="set-room-height-input"><div class="prop-tip">Height changes the room geometry, wall proportions, and how the 3D space feels. It is a structural room value, not a lighting effect.</div><div class="prop-tip">Closets live in the dedicated structural tool, not the furniture catalog.</div>`);
   const designDirectionSection=propSection('Design Direction',`<label>ROOM TYPE</label><div class="mat-grid">${ROOM_TYPES.map(type=>`<button class="mat-btn${(r.roomType||'living_room')===type.id?' sel':''}" type="button" data-action="set-room-type" data-room-type="${type.id}">${type.name}</button>`).join('')}</div><div class="prop-tip">Room type tunes suggestions without changing your current furniture.</div><label style="margin-top:8px">STYLE PRESETS</label><div class="prop-state">Presets are optional design directions. They update finishes and lighting, so they sit behind a deliberate review step.</div><button class="pbtn soft" type="button" style="width:100%;margin-top:8px" data-action="toggle-design-preset-panel">${designPresetPanelOpen?'Hide Style Presets':'Review Style Presets'}</button>${designPresetPanelOpen?`<div class="mat-grid tall" style="margin-top:8px">${DESIGN_PRESETS.map(preset=>`<button class="mat-btn${(pendingDesignPresetId||r.designPreset||'')===preset.id?' sel':''}" type="button" data-action="select-pending-design-preset" data-preset-id="${preset.id}">${preset.name}</button>`).join('')}</div><div class="prop-tip">${(DESIGN_PRESETS.find(p=>p.id===(pendingDesignPresetId||r.designPreset))?.note)||'Choose a style direction to coordinate finishes, lighting, and mood.'}</div><button class="pbtn" type="button" style="width:100%;margin-top:8px" data-action="apply-pending-design-preset">Apply Selected Preset</button>`:''}`);
-  const referenceSection=propSection('Tracing Reference',`${!refLoaded?`<div class="prop-tip">Import a floor plan image, PDF, or room photo, then trace your room geometry right on top of it in 2D.</div><button class="pbtn soft" type="button" style="width:100%;margin-top:8px" data-action="import-reference-asset">Import Image or PDF</button><div class="prop-tip">PDF pages render locally into the same tracing overlay, so calibration and editing work the same way.</div>`:`<div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="import-reference-asset">Replace ${ref.sourceType==='pdf'?'PDF / Image':'Image / PDF'}</button><button class="pbtn soft" type="button" data-action="toggle-reference-visibility">${ref.visible===false?'Show':'Hide'}</button><button class="pbtn soft" type="button" data-action="toggle-reference-lock">${ref.locked?'Unlock':'Lock'}</button></div>${ref.sourceType==='pdf'&&ref.pdfPageCount>1?`<div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="set-reference-pdf-page" data-page="${Math.max(1,(ref.pdfPage||1)-1)}"${(ref.pdfPage||1)<=1?' disabled':''}>Previous Page</button><button class="pbtn soft" type="button" data-action="set-reference-pdf-page" data-page="${Math.min(ref.pdfPageCount||1,(ref.pdfPage||1)+1)}"${(ref.pdfPage||1)>=(ref.pdfPageCount||1)?' disabled':''}>Next Page</button></div><div class="prop-tip">PDF page ${(ref.pdfPage||1)} of ${ref.pdfPageCount||1}${ref.sourceName?` Ãƒâ€šÃ‚Â· ${esc(ref.sourceName)}`:''}</div>`:''}<div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="${ref.calibrationActive?'cancel-reference-overlay-calibration':'start-reference-calibration'}">${ref.calibrationActive?'Cancel Calibration':'Calibrate Scale'}</button><button class="pbtn soft" type="button" data-action="clear-reference-overlay">Remove</button></div><div class="prop-state">Reference: <strong>${ref.locked?'Locked':'Unlocked'}</strong> Ãƒâ€šÃ‚Â· ${ref.visible===false?'Hidden':'Visible'} Ãƒâ€šÃ‚Â· scale ${refScale}${refWidth?` Ãƒâ€šÃ‚Â· width ${refWidth}`:''}</div><div class="prop-tip">${referenceCalibrationStatus(ref)}</div><label style="margin-top:8px">OPACITY</label><input type="range" min="0.08" max="0.95" step="0.02" value="${ref.opacity||.56}" data-action="set-reference-opacity"><div class="pr"><div><label>CENTER X (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(ref.centerX||0)}" data-action="set-reference-center-axis" data-axis="centerX"></div><div><label>CENTER Y (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(ref.centerY||0)}" data-action="set-reference-center-axis" data-axis="centerY"></div></div><label>REFERENCE SCALE</label><input type="range" min="0.25" max="4" step="0.05" value="${ref.scale||1}" data-action="set-reference-scale">`}`);
+  const referenceSection=propSection('Tracing Reference',`${!refLoaded?`<div class="prop-tip">Import a floor plan image, PDF, or room photo, then trace your room geometry right on top of it in 2D.</div><button class="pbtn soft" type="button" style="width:100%;margin-top:8px" data-action="import-reference-asset">Import Image or PDF</button><div class="prop-tip">PDF pages render locally into the same tracing overlay, so calibration and editing work the same way.</div>`:`<div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="import-reference-asset">Replace ${ref.sourceType==='pdf'?'PDF / Image':'Image / PDF'}</button><button class="pbtn soft" type="button" data-action="toggle-reference-visibility">${ref.visible===false?'Show':'Hide'}</button><button class="pbtn soft" type="button" data-action="toggle-reference-lock">${ref.locked?'Unlock':'Lock'}</button></div>${ref.sourceType==='pdf'&&ref.pdfPageCount>1?`<div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="set-reference-pdf-page" data-page="${Math.max(1,(ref.pdfPage||1)-1)}"${(ref.pdfPage||1)<=1?' disabled':''}>Previous Page</button><button class="pbtn soft" type="button" data-action="set-reference-pdf-page" data-page="${Math.min(ref.pdfPageCount||1,(ref.pdfPage||1)+1)}"${(ref.pdfPage||1)>=(ref.pdfPageCount||1)?' disabled':''}>Next Page</button></div><div class="prop-tip">PDF page ${(ref.pdfPage||1)} of ${ref.pdfPageCount||1}${ref.sourceName?` ƒ |  ${esc(ref.sourceName)}`:''}</div>`:''}<div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="${ref.calibrationActive?'cancel-reference-overlay-calibration':'start-reference-calibration'}">${ref.calibrationActive?'Cancel Calibration':'Calibrate Scale'}</button><button class="pbtn soft" type="button" data-action="clear-reference-overlay">Remove</button></div><div class="prop-state">Reference: <strong>${ref.locked?'Locked':'Unlocked'}</strong> ƒ |  ${ref.visible===false?'Hidden':'Visible'} ƒ |  scale ${refScale}${refWidth?` ƒ |  width ${refWidth}`:''}</div><div class="prop-tip">${referenceCalibrationStatus(ref)}</div><label style="margin-top:8px">OPACITY</label><input type="range" min="0.08" max="0.95" step="0.02" value="${ref.opacity||.56}" data-action="set-reference-opacity"><div class="pr"><div><label>CENTER X (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(ref.centerX||0)}" data-action="set-reference-center-axis" data-axis="centerX"></div><div><label>CENTER Y (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(ref.centerY||0)}" data-action="set-reference-center-axis" data-axis="centerY"></div></div><label>REFERENCE SCALE</label><input type="range" min="0.25" max="4" step="0.05" value="${ref.scale||1}" data-action="set-reference-scale">`}`);
   const redesignSection=propSection('Redesign Planning',`<div class="mat-grid tall"><button class="mat-btn${r.existingRoomMode?' sel':''}" type="button" data-action="toggle-existing-room-mode">Existing Room Mode ${r.existingRoomMode?'On':'Off'}</button><button class="mat-btn${r.ghostExisting?' sel':''}" type="button" data-action="toggle-ghost-existing">Fade Existing Pieces ${r.ghostExisting?'On':'Off'}</button><button class="mat-btn${r.hideRemovedExisting?' sel':''}" type="button" data-action="toggle-hide-removed-existing">Hide Removed ${r.hideRemovedExisting?'On':'Off'}</button><button class="mat-btn${r.showPlanLegend?' sel':''}" type="button" data-action="toggle-plan-legend">Legend ${r.showPlanLegend?'On':'Off'}</button></div><label style="margin-top:8px">WHAT TO SHOW IN PLAN</label><div class="mat-grid tall">${Object.entries(PLAN_VIEW_MODES).map(([mode,label])=>`<button class="mat-btn${currentPlanViewMode(r)===mode?' sel':''}" type="button" data-action="set-plan-view-mode" data-mode="${mode}">${label}</button>`).join('')}</div><div class="prop-tip">${planViewMeaning(currentPlanViewMode(r))}</div><div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="set-selected-furniture-source" data-source="existing">Mark Selected Existing</button><button class="pbtn soft" type="button" data-action="set-selected-furniture-source" data-source="new">Mark Selected New</button><button class="pbtn soft" type="button" data-action="duplicate-for-redesign">Make Redesign Copy</button></div><button class="pbtn soft" type="button" style="width:100%;margin-top:8px" data-action="export-comparison-sheet">Export Before / After Story</button><div class="prop-tip">Use this when the real room is already furnished. Existing pieces get design tags so Rose can plan what stays, moves, gets replaced, or disappears.</div>`);
   const layerSection=propSection('Plan Layers',`<div class="mat-grid tall">${PLAN_LAYER_META.map(layer=>`<button class="mat-btn${roomLayerVisible(r,layer.id)?' sel':''}" type="button" data-action="toggle-room-layer" data-layer="${layer.id}">${layer.label} ${roomLayerVisible(r,layer.id)?'On':'Off'}</button>`).join('')}</div><div class="prop-tip">Hide noisy parts of the plan while you trace, present, or focus on one pass of the redesign.</div>`);
   const optionsSection=propSection('Design Options',`<label>OPTION NAME</label><input value="${esc(r.optionName||'Main')}" data-action="rename-current-option"><label style="margin-top:8px">STORY NOTES</label><textarea rows="4" data-action="set-current-option-notes" placeholder="What changes does this option explore?">${esc(r.optionNotes||'')}</textarea><div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="create-room-option-from-current">Create New Option</button><button class="pbtn soft" type="button" data-action="export-comparison-sheet">Export Before / After</button><button class="pbtn soft" type="button" data-action="export-design-summary">Export Story Summary</button></div><div class="quick-rotate-row"><button class="pbtn soft" type="button" style="width:100%" data-action="export-presentation-pdf">Export Presentation Deck</button></div><div class="mat-grid tall">${optionSiblings(r).sort((a,b)=>(a.optionName||'').localeCompare(b.optionName||'')).map(opt=>`<button class="mat-btn${opt.id===r.id?' sel':''}" type="button" data-action="switch-to-option" data-option-id="${opt.id}">${esc(opt.optionName||'Main')}</button>`).join('')}</div><div class="prop-tip">Options let you save alternate redesign directions for the same room without overwriting each other, then present each direction as its own story.</div>`);
@@ -1230,10 +1230,10 @@ function showP(){
       const variantItem=getFurnitureCatalogItem(f);
       const variant=getFurnitureVariant(f,variantItem);
       const pairText=f.source==='existing'
-        ? (pairedReplacementFor(f,r)?.label?`Paired with: ${pairedReplacementFor(f,r).label}`:'No replacement paired yet.')
+    ? (pairedReplacementFor(f,r)?.label?`Paired with: ${pairedReplacementFor(f,r).label}`:'No replacement paired yet.')
         : (linkedExistingFor(f,r)?.label?`Replaces: ${linkedExistingFor(f,r).label}`:'Not paired to an existing piece.');
       const finishSection=itemSupportsVariants(variantItem)
-        ? `<label>STYLE VARIANT</label>${buildVariantSelector(variantItem,variant?.id||getDefaultVariant(variantItem)?.id||'','setSelectedFurnitureVariant','panel')}<div class="prop-tip">Switch the finish family without replacing the piece.</div>`
+    ? `<label>STYLE VARIANT</label>${buildVariantSelector(variantItem,variant?.id||getDefaultVariant(variantItem)?.id||'','setSelectedFurnitureVariant','panel')}<div class="prop-tip">Switch the finish family without replacing the piece.</div>`
         : furnitureFinishGrid(f.finishColor||'');
       h=cBtn.replace('$T',f.label||'Item')+`<label>LABEL</label><input value="${esc(f.label||'')}" data-action="update-selected-furniture" data-field="label"><div class="pr"><div><label>W (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(f.w||2)}" data-action="update-selected-furniture" data-field="w"></div><div><label>D (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.5)}" value="${distanceInputValue(f.d||1.5)}" data-action="update-selected-furniture" data-field="d"></div></div><label>ROTATION</label><input type="number" step="15" value="${f.rotation||0}" data-action="update-selected-furniture" data-field="rotation"><div class="prop-tip">The little triangle in 2D shows the front of the piece.</div><div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="copy-selected-furniture">Copy</button><button class="pbtn soft" type="button" data-action="duplicate-selected-furniture">Duplicate</button><button class="pbtn soft" type="button" data-action="paste-furniture">Paste</button></div><div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="rotate-selected-furniture" data-delta="-15">Rotate Left</button><button class="pbtn soft" type="button" data-action="turn-around-selected-furniture">Turn Around</button><button class="pbtn soft" type="button" data-action="rotate-selected-furniture" data-delta="15">Rotate Right</button></div><label>MOUNT</label><select data-action="update-selected-furniture" data-field="mountType"><option value="floor"${f.mountType==='floor'?' selected':''}>Floor</option><option value="wall"${f.mountType==='wall'?' selected':''}>Wall</option><option value="surface"${f.mountType==='surface'?' selected':''}>Surface</option><option value="ceiling"${f.mountType==='ceiling'?' selected':''}>Ceiling</option></select><label>ELEVATION (${distanceLabel()})</label><input type="number" step="${distanceInputStep(.25)}" value="${distanceInputValue(f.elevation||0)}" data-action="update-selected-furniture" data-field="elevation"><label>ROOM ROLE</label><div class="mat-grid tall"><button class="mat-btn${f.source==='existing'?' sel':''}" type="button" data-action="set-selected-furniture-source" data-source="existing">Existing Piece</button><button class="mat-btn${f.source!=='existing'?' sel':''}" type="button" data-action="set-selected-furniture-source" data-source="new">New Piece</button><button class="mat-btn${f.locked?' sel':''}" type="button" data-action="toggle-selected-furniture-lock">${f.locked?'Locked':'Unlocked'}</button></div>${f.source==='existing'?`<label>PLAN ACTION</label><div class="mat-grid tall">${Object.entries(EXISTING_ACTIONS).map(([key,meta])=>`<button class="mat-btn${f.redesignAction===key?' sel':''}" type="button" data-action="set-selected-redesign-action" data-redesign-action="${key}">${meta.label}</button>`).join('')}</div><div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="duplicate-for-redesign">Make Redesign Copy</button><button class="pbtn soft" type="button" data-action="pair-selected-replacement">Pair Replacement</button><button class="pbtn soft" type="button" data-action="clear-selected-replacement-pair">Clear Pair</button></div><div class="prop-tip">${pairText}</div>`:`<div class="quick-rotate-row"><button class="pbtn soft" type="button" data-action="pair-selected-replacement">Pair To Existing</button><button class="pbtn soft" type="button" data-action="clear-selected-replacement-pair">Clear Pair</button><button class="pbtn soft" type="button" data-action="set-selected-furniture-source" data-source="new">Keep As New</button></div><div class="prop-tip">${pairText}</div>`}${finishSection}<button class="pbtn dng" type="button" data-action="delete-selected-furniture">Delete</button>`;
     }
