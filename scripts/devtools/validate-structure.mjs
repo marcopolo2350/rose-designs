@@ -102,6 +102,7 @@ assertModuleBefore("./scripts/export/downloads.js", "./scripts/export.js");
 assertModuleBefore("./scripts/export/downloads.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/export/downloads.js", "./scripts/export/project-json.js");
 assertModuleBefore("./scripts/export/project-json.js", "./scripts/export.js");
+assertModuleBefore("./scripts/core/history.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/lifecycle.js", "./scripts/planner3d.js");
 
 for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
@@ -109,6 +110,12 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   const source = readFileSync(absolute, "utf8");
   if (modulePath !== "scripts/core/storage-service.js" && /indexedDB\.open/.test(source)) {
     errors.push(`${modulePath} opens IndexedDB outside scripts/core/storage-service.js.`);
+  }
+  if (
+    modulePath === "scripts/planner3d.js" &&
+    /\bfunction\s+(?:pushUBase|doUndo|doRedo|roomSnapshot|persistRoomHistory)\s*\(/.test(source)
+  ) {
+    errors.push(`${modulePath} defines room history behavior outside scripts/core/history.js.`);
   }
   const lines = source.split(/\r?\n/);
   lines.forEach((line, index) => {

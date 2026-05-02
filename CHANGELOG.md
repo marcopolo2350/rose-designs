@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.101 - 2026-05-02
+
+- removed duplicate undo/redo handlers from `scripts/planner3d.js` so room history stays owned by `scripts/core/history.js`
+- added source-structure validation to keep history behavior from returning to the 3D renderer
+
 ## 0.5.0-hardening.100 - 2026-05-02
 
 - added desktop/mobile Playwright regression coverage for room/floor button label cleanliness after adding an adjacent room

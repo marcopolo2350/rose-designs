@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.100`
+Current app version: `0.5.0-hardening.101`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -30,7 +30,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - CI runs install, syntax checks, lint, format checks, manifest validation, delegated UI handler validation, silent-catch validation, built-in self-test, Playwright spec, and smoke checks.
 - `scripts/core/app-state.js` owns the first central runtime metadata surface.
 - `appState.dispatch()` now covers high-risk bridge actions for room selection, selection clearing, tool changes, render requests, save scheduling, 3D rebuild scheduling, and dirty/saved markers.
-- `scripts/core/history.js` owns shared room history and undo/redo behavior.
+- `scripts/core/history.js` owns shared room history and undo/redo behavior, loads before the 3D renderer, and `npm run validate:structure` blocks history handlers from returning to `scripts/planner3d.js`.
 - `scripts/core/storage-keys.js` owns localStorage and IndexedDB key naming.
 - `npm run validate:storage-keys` blocks raw localStorage key literals outside the storage-key boundary.
 - Active profile persistence now uses the storage-key boundary while preserving the legacy profile key during migration.
