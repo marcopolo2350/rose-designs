@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.84 - 2026-05-02
+
+- bounded the GitHub Verify workflow Playwright browser install step with a five-minute timeout
+- switched CI browser installation to Chromium-only install so a hosted-runner dependency install hang cannot freeze the entire hardening gate
+
 ## 0.5.0-hardening.83 - 2026-05-01
 
 - added a sanitized `RoseHTML.setTrustedHTML()` bridge for legacy room-panel templates

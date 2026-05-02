@@ -86,7 +86,7 @@ if (!hardeningStatus.includes(packageJson.version)) {
   );
 }
 
-if (!/Last updated:\s+2026-05-01/.test(hardeningStatus)) {
+if (!/Last updated:\s+2026-05-02/.test(hardeningStatus)) {
   errors.push("docs/hardening-status.md Last updated value is not current.");
 }
 
