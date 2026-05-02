@@ -101,6 +101,7 @@ npm run validate:project-schema
 npm run validate:app-state
 npm run validate:geometry
 npm run validate:3d-lifecycle
+npm run validate:3d-lighting
 npm run validate:export-filenames
 npm run test:playwright
 npm run test:self
@@ -142,6 +143,7 @@ What they do:
 - `validate:app-state` - checks the central app state dispatcher bridge
 - `validate:geometry` - checks pure 2D geometry helpers
 - `validate:3d-lifecycle` - checks 3D disposal/lifecycle helpers
+- `validate:3d-lighting` - checks data-driven time-of-day lighting buckets, colors, and exposure bounds
 - `validate:export-filenames` - checks shared export filename sanitizing and centralized download helpers
 - `test:playwright` - runs the standard Playwright spec suite
 - `test:self` - runs the built-in `#selftest` flow through Playwright

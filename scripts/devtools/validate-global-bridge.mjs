@@ -14,6 +14,7 @@ const allowedAssignments = new Set(
     ["PROFILE_LOCAL_KEY", "scripts/core/storage-keys.js"],
     ["Planner2DGeometry", "scripts/planner2d/geometry.js"],
     ["Planner3DLifecycle", "scripts/planner3d/lifecycle.js"],
+    ["Planner3DLighting", "scripts/planner3d/lighting.js"],
     ["RoseCatalogManifest", "scripts/catalog/manifest.js"],
     ["RoseHTML", "scripts/core/html.js"],
     ["RoseProjectJsonExports", "scripts/export/project-json.js"],

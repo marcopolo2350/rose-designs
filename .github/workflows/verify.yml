@@ -120,6 +120,9 @@ jobs:
       - name: Validate 3D lifecycle
         run: npm run validate:3d-lifecycle
 
+      - name: Validate 3D lighting
+        run: npm run validate:3d-lighting
+
       - name: Validate export filenames
         run: npm run validate:export-filenames
 

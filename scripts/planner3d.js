@@ -27,58 +27,36 @@ function loadHDRIEnvironment(presetId,renderer,sceneRef){
     },undefined,(err)=>{console.warn('HDRI load failed:',err)});
   }catch(e){console.warn('HDRI setup failed:',e)}
 }
-// Time-of-day [0..1] → pick the HDRI that matches + tint the directional color.
-// 0 = deep night, 0.14 = dawn, 0.3 = morning, 0.5 = noon, 0.72 = golden hour, 0.86 = dusk, 0.96 = lamp-lit night.
-function hdriForTOD(t){
-  if(t<0.18||t>0.9)return 'evening';
-  if(t>0.62)return 'warm';
-  return 'daylight';
-}
-function _lerpHex(a,b,t){
-  const ah=parseInt(a.replace('#',''),16),bh=parseInt(b.replace('#',''),16);
-  const ar=(ah>>16)&255,ag=(ah>>8)&255,ab=ah&255;
-  const br=(bh>>16)&255,bg=(bh>>8)&255,bb=bh&255;
-  const r=Math.round(ar+(br-ar)*t),g=Math.round(ag+(bg-ag)*t),bx=Math.round(ab+(bb-ab)*t);
-  return '#'+((1<<24)|(r<<16)|(g<<8)|bx).toString(16).slice(1);
-}
-// Crossfade sky background + directional intensity based on TOD. Keep this cheap — it runs on slider drag.
+// Time-of-day lighting is data-driven by Planner3DLighting and cheap enough for slider drag.
 function applyTimeOfDay(t){
   if(!scene||!curRoom)return;
+  const lighting=window.Planner3DLighting;
+  if(!lighting)return;
   t=Math.max(0,Math.min(1,t));
   // Update room metadata so it persists + rebuilds pick it up
   curRoom.materials=curRoom.materials||{};
   curRoom.materials.timeOfDay=t;
-  // Live background tint: dawn→noon→golden→dusk→night gradient
-  const stops=[
-    {t:0.00,c:'#0a0f1e'},{t:0.14,c:'#c8b8b0'},{t:0.30,c:'#d6e1eb'},
-    {t:0.50,c:'#dfe8ee'},{t:0.72,c:'#e2c297'},{t:0.86,c:'#d4b9a7'},
-    {t:0.96,c:'#2b2a32'},{t:1.00,c:'#0a0f1e'}
-  ];
-  let a=stops[0],b=stops[stops.length-1];
-  for(let i=0;i<stops.length-1;i++){if(t>=stops[i].t&&t<=stops[i+1].t){a=stops[i];b=stops[i+1];break}}
-  const lt=(t-a.t)/Math.max(0.0001,(b.t-a.t));
-  const col=_lerpHex(a.c,b.c,lt);
+  // Live background tint follows the shared time-of-day curve.
+  const col=lighting.skyColor(t);
   try{scene.background=new THREE.Color(col);if(scene.fog)scene.fog.color=new THREE.Color(col)}catch(error){window.reportRoseRecoverableError?.('3D time-of-day background update failed',error)}
   // Exposure curve: darker at night, brighter at noon
   if(ren){
-    const eBase=0.68+Math.sin(Math.min(1,Math.max(0,t))*Math.PI)*0.42;
-    ren.toneMappingExposure=eBase*(photoMode?1.08:1);
+    ren.toneMappingExposure=lighting.exposureForTimeOfDay(t,photoMode);
   }
   // Swap HDRI if the TOD bucket changed
-  const targetKey=hdriForTOD(t);
+  const targetKey=lighting.hdriForTimeOfDay(t);
   if(scene.userData.currentHdriKey!==targetKey){
     loadHDRIEnvironment(targetKey,ren,scene);
   }
   // Directional light tint + intensity
   const dir=scene.userData?.styleTargets?.dirLight;
   if(dir){
-    const warm=t>0.65?_lerpHex('#ffd6a8','#ff9a5b',Math.min(1,(t-0.65)/0.25)):
-               t<0.25?_lerpHex('#9ab4d0','#ffd6a8',Math.min(1,t/0.25)):'#fffaf2';
+    const warm=lighting.directionalColor(t);
     try{dir.color=new THREE.Color(warm)}catch(error){window.reportRoseRecoverableError?.('3D directional light color update failed',error)}
-    dir.intensity=(0.24+Math.sin(Math.max(0,Math.min(1,t))*Math.PI)*1.18);
+    dir.intensity=lighting.directionalIntensityForTimeOfDay(t);
   }
   const hemi=scene.userData?.styleTargets?.hemiLight;
-  if(hemi){hemi.intensity=0.34+Math.sin(Math.max(0,Math.min(1,t))*Math.PI)*0.62}
+  if(hemi){hemi.intensity=lighting.hemisphereIntensityForTimeOfDay(t)}
 }
 if(typeof window!=='undefined'){window.applyTimeOfDay=applyTimeOfDay}
 

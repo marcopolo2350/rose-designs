@@ -31,6 +31,7 @@ npm run validate:project-schema
 npm run validate:app-state
 npm run validate:geometry
 npm run validate:3d-lifecycle
+npm run validate:3d-lighting
 npm run validate:export-filenames
 npm run test:playwright
 npm run test:self
@@ -66,6 +67,7 @@ npm test
 - `validate:app-state` - exercises the central app state dispatcher bridge
 - `validate:geometry` - exercises pure 2D polygon, segment, and intersection helpers
 - `validate:3d-lifecycle` - exercises 3D disposal helpers for scene, renderer, listeners, and composer cleanup
+- `validate:3d-lighting` - exercises time-of-day HDRI buckets, sky colors, exposure limits, and light intensity curves
 - `validate:export-filenames` - exercises export filename sanitizing and centralized download helpers
 - `test:playwright` - runs the standard Playwright spec suite
 - `test:self` - launches the app locally and waits for the built-in `#selftest` flow

@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.102`
+Current app version: `0.5.0-hardening.103`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -81,6 +81,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Pure 2D geometry helpers are isolated in `scripts/planner2d/geometry.js` and covered by `npm run validate:geometry`.
 - Catalog manifest loading and normalization is isolated in `scripts/catalog/manifest.js`, and required source boundary directories are guarded by `npm run validate:structure`.
 - 3D material, scene, renderer, listener, and composer disposal helpers are isolated in `scripts/planner3d/lifecycle.js` and covered by `npm run validate:3d-lifecycle`.
+- 3D time-of-day lighting curves are isolated in `scripts/planner3d/lighting.js` and covered by `npm run validate:3d-lighting`, including bounded noon exposure so the room does not wash out.
 - Export filenames are sanitized through `scripts/export/filenames.js` and covered by `npm run validate:export-filenames`.
 - Export downloads are centralized in `scripts/export/downloads.js`, loaded before export/3D runtime code, and covered by source/export validation.
 - Project JSON import/export is isolated in `scripts/export/project-json.js` and guarded by source/export validation.
@@ -175,6 +176,7 @@ npm run validate:project-schema
 npm run validate:app-state
 npm run validate:geometry
 npm run validate:3d-lifecycle
+npm run validate:3d-lighting
 npm run validate:export-filenames
 npm run test:playwright
 npm run test:self

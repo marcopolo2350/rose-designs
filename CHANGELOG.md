@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.103 - 2026-05-02
+
+- isolated data-driven time-of-day lighting curves into `scripts/planner3d/lighting.js`
+- added `npm run validate:3d-lighting` to guard HDRI buckets, bounded noon exposure, and brightness curves
+- wired the 3D lighting boundary into runtime load order, CI, docs, and bridge validation
+
 ## 0.5.0-hardening.102 - 2026-05-02
 
 - split the monolithic stylesheet into ordered CSS surface files while keeping `styles/app.css` as the cascade manifest

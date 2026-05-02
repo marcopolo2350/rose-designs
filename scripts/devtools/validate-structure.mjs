@@ -41,6 +41,7 @@ const requiredFiles = [
   "scripts/ui/shortcuts.js",
   "scripts/planner2d/geometry.js",
   "scripts/planner3d/lifecycle.js",
+  "scripts/planner3d/lighting.js",
   "scripts/catalog/manifest.js",
   "scripts/export/filenames.js",
   "scripts/export/downloads.js",
@@ -104,6 +105,7 @@ assertModuleBefore("./scripts/export/downloads.js", "./scripts/export/project-js
 assertModuleBefore("./scripts/export/project-json.js", "./scripts/export.js");
 assertModuleBefore("./scripts/core/history.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/lifecycle.js", "./scripts/planner3d.js");
+assertModuleBefore("./scripts/planner3d/lighting.js", "./scripts/planner3d.js");
 
 for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   const modulePath = path.relative(root, absolute).replace(/\\/g, "/");
@@ -116,6 +118,11 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
     /\bfunction\s+(?:pushUBase|doUndo|doRedo|roomSnapshot|persistRoomHistory)\s*\(/.test(source)
   ) {
     errors.push(`${modulePath} defines room history behavior outside scripts/core/history.js.`);
+  }
+  if (modulePath === "scripts/planner3d.js" && /\b(?:hdriForTOD|_lerpHex)\b/.test(source)) {
+    errors.push(
+      `${modulePath} defines time-of-day lighting helpers outside scripts/planner3d/lighting.js.`,
+    );
   }
   const lines = source.split(/\r?\n/);
   lines.forEach((line, index) => {

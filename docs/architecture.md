@@ -19,6 +19,7 @@ The bridge appends the canonical `application-version` meta value to runtime scr
 - `scripts/ui/shortcuts.js` - keyboard bindings and shortcut-sheet rendering
 - `scripts/planner2d.js` - 2D room editing and drawing
 - `scripts/planner3d.js` - 3D scene and camera behavior
+- `scripts/planner3d/lighting.js` - data-driven time-of-day lighting curves and HDRI buckets
 - `scripts/catalog.js` - catalog UI and furniture controls
 - `scripts/export.js` - PNG, SVG, PDF, and project JSON export
 - `scripts/cloud/` - cloud sync boundary

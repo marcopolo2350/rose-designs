@@ -40,6 +40,7 @@
 - [ ] `npm run validate:app-state`
 - [ ] `npm run validate:geometry`
 - [ ] `npm run validate:3d-lifecycle`
+- [ ] `npm run validate:3d-lighting`
 - [ ] `npm run validate:export-filenames`
 - [ ] `npm run test:playwright`
 - [ ] `npm run test:self`
