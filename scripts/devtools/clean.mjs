@@ -3,6 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const targets = [
+  path.join(root, ".edge-headless"),
+  path.join(root, ".edge-profile"),
   path.join(root, "output"),
   path.join(root, "output", "web-game-smoke"),
   path.join(root, "output", "playwright"),
@@ -12,6 +14,8 @@ const targets = [
   path.join(root, "tmpshots"),
   path.join(root, ".selftest-dom.html"),
   path.join(root, ".selftest-server.pid"),
+  path.join(root, "poly_bundle_test.bin"),
+  path.join(root, "tmp_actions.json"),
 ];
 
 const filePatterns = [
@@ -21,6 +25,7 @@ const filePatterns = [
   /^rose-selftest\.png$/i,
   /^presentation-pass\.png$/i,
   /^presentation-reveal.*\.png$/i,
+  /^presentation-.*\.png$/i,
 ];
 
 function isInsideRoot(target) {

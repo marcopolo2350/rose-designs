@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.88 - 2026-05-02
+
+- expanded `npm run clean` to remove ignored Edge browser-profile artifacts and leftover temporary debug files
+- kept cleanup root-bound so recursive artifact removal cannot escape the repository
+
 ## 0.5.0-hardening.87 - 2026-05-02
 
 - replaced the manual syntax-check command chain with a maintained script/test/config syntax scanner

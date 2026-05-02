@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.87`
+Current app version: `0.5.0-hardening.88`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -22,7 +22,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Package scripts exist for dev, syntax checks, lint, format, manifest validation, self-test, smoke, Playwright specs, thumbnails, and cleanup.
 - `npm run check` now scans maintained scripts, tests, and tool-config files instead of relying on a brittle manual `node --check` chain.
 - `npm test` now includes syntax, lint, format, validators, and the built-in self-test so local verification mirrors CI discipline more closely.
-- `npm run clean` removes ignored smoke, self-test, and debug artifacts with root-bound safety checks.
+- `npm run clean` removes ignored smoke, self-test, Edge browser-profile, and debug artifacts with root-bound safety checks.
 - CI runs install, syntax checks, lint, format checks, manifest validation, delegated UI handler validation, silent-catch validation, built-in self-test, Playwright spec, and smoke checks.
 - `scripts/core/app-state.js` owns the first central runtime metadata surface.
 - `appState.dispatch()` now covers high-risk bridge actions for room selection, selection clearing, tool changes, render requests, save scheduling, 3D rebuild scheduling, and dirty/saved markers.
