@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.90 - 2026-05-02
+
+- removed the unused `scripts/cloud-sync.js` compatibility wrapper
+- extended source-structure validation so the dead wrapper cannot return
+
 ## 0.5.0-hardening.89 - 2026-05-02
 
 - canonicalized stale app-shell references in `progress.md`

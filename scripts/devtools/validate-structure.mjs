@@ -47,6 +47,8 @@ const requiredFiles = [
   "scripts/cloud/supabase.js",
 ];
 
+const removedCompatibilityFiles = ["scripts/cloud-sync.js"];
+
 for (const dir of requiredDirs) {
   const absolute = path.join(root, dir);
   if (!existsSync(absolute) || !statSync(absolute).isDirectory()) {
@@ -62,6 +64,13 @@ for (const file of requiredFiles) {
   const absolute = path.join(root, file);
   if (!existsSync(absolute) || !statSync(absolute).isFile()) {
     errors.push(`Missing required boundary file: ${file}`);
+  }
+}
+
+for (const file of removedCompatibilityFiles) {
+  const absolute = path.join(root, file);
+  if (existsSync(absolute)) {
+    errors.push(`${file} is a removed compatibility wrapper and must not return.`);
   }
 }
 

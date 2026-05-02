@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-02
 
-Current app version: `0.5.0-hardening.89`
+Current app version: `0.5.0-hardening.90`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -66,6 +66,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Project JSON import validation now checks room text fields, polygon geometry, array fields, and furniture geometry through `npm run validate:project-schema`.
 - Project JSON import validation now rejects dangerous prototype-pollution keys and oversized JSON files before merging rooms into local state.
 - Experimental cloud sync validates room payloads before push/pull and reports config storage failures instead of silently swallowing them.
+- The unused `scripts/cloud-sync.js` compatibility wrapper was removed, and structure validation blocks it from returning.
 - Experimental cloud sync settings now render with DOM nodes and CSS classes, with Escape close and Tab focus containment guarded by `npm run validate:html-safety`.
 - Pure 2D geometry helpers are isolated in `scripts/planner2d/geometry.js` and covered by `npm run validate:geometry`.
 - Catalog manifest loading and normalization is isolated in `scripts/catalog/manifest.js`, and required source boundary directories are guarded by `npm run validate:structure`.
