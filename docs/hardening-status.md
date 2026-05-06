@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-06
 
-Current app version: `0.5.0-hardening.120`
+Current app version: `0.5.0-hardening.121`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 

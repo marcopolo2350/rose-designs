@@ -533,7 +533,10 @@ test("multi-room floor renders every furnished room in 3D", async ({ page }) => 
   await expect(page.locator("#threeC")).toHaveClass(/on/);
   await expect(page.locator("#threeC canvas")).toBeVisible();
   await expect
-    .poll(() => page.evaluate(() => scene?.userData?.styleTargets?.floorMeshes?.length || 0))
+    .poll(() => page.evaluate(() => scene?.userData?.styleTargets?.floorMeshes?.length || 0), {
+      intervals: [500, 1000, 2000],
+      timeout: 20000,
+    })
     .toBeGreaterThanOrEqual(2);
 
   const renderStats = await page.evaluate(() => {

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.121 - 2026-05-06
+
+- increased the multi-room 3D Playwright mesh-registration wait for slower mobile CI WebGL startup
+- kept the regression focused on verifying both furnished rooms render in the same 3D floor
+
 ## 0.5.0-hardening.120 - 2026-05-06
 
 - extracted shared 3D room-shell shape, bounds, geometry, and texture-anisotropy helpers into `scripts/planner3d/room-shell.js`
