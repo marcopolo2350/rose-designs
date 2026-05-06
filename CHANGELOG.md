@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.120 - 2026-05-06
+
+- extracted shared 3D room-shell shape, bounds, geometry, and texture-anisotropy helpers into `scripts/planner3d/room-shell.js`
+- registered the room-shell boundary in the runtime bridge and source/global-bridge validators
+- added Playwright coverage that adds an adjacent room, furnishes both rooms, enters 3D, and verifies both room shells and furniture anchors render
+
 ## 0.5.0-hardening.119 - 2026-05-06
 
 - moved 3D renderer shader-diagnostic gating into `scripts/planner3d/lifecycle.js`

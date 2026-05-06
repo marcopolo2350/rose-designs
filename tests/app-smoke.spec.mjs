@@ -480,3 +480,80 @@ test("3D view boots without Three shader warning spam", async ({ page }) => {
 
   expect(runtimeMessages).toEqual([]);
 });
+
+test("multi-room floor renders every furnished room in 3D", async ({ page }) => {
+  const runtimeMessages = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") runtimeMessages.push(`console: ${message.text()}`);
+  });
+  page.on("pageerror", (error) => runtimeMessages.push(`page: ${error.message}`));
+
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+  await page.locator(".w-btn").click();
+  await page.locator('[data-action="open-create-room"]').first().click();
+  await page.locator('[data-action="select-create-room-preset"]').first().click();
+  await page.locator('[data-action="create-room-from-preset"]').click();
+  await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await ensureRoomPanelOpen(page);
+
+  await page.locator('[data-action="attach-adjacent-room"][data-side="east"]').click();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () => currentFloorRooms(curRoom, curRoom.floorId || activeProjectFloorId).length,
+      ),
+    )
+    .toBe(2);
+
+  await page.evaluate(() => {
+    const rooms = currentFloorRooms(curRoom, curRoom.floorId || activeProjectFloorId);
+    const item = FURN_ITEMS.find((candidate) => candidate.assetKey === "chair") || FURN_ITEMS[0];
+    rooms.forEach((room, index) => {
+      const focus = getRoomFocus(room);
+      room.furniture.push(
+        normalizeFurnitureRecord({
+          id: `multi-room-chair-${index + 1}`,
+          label: `Multi Room Chair ${index + 1}`,
+          category: item.category,
+          x: focus.x,
+          z: focus.y,
+          w: item.w || 2,
+          d: item.d || 2,
+          rotation: 0,
+          mountType: "floor",
+          assetKey: item.assetKey,
+          visible: true,
+        }),
+      );
+    });
+  });
+
+  await page.locator("#b3d").click();
+  await expect(page.locator("#threeC")).toHaveClass(/on/);
+  await expect(page.locator("#threeC canvas")).toBeVisible();
+  await expect
+    .poll(() => page.evaluate(() => scene?.userData?.styleTargets?.floorMeshes?.length || 0))
+    .toBeGreaterThanOrEqual(2);
+
+  const renderStats = await page.evaluate(() => {
+    let furnitureAnchors = 0;
+    scene?.traverse?.((node) => {
+      if (node?.userData?.furnitureId) furnitureAnchors += 1;
+    });
+    const floorMeshTargets = scene?.userData?.styleTargets?.floorMeshes || [];
+    return {
+      currentFloorRoomCount: currentFloorRooms(curRoom, curRoom.floorId || activeProjectFloorId)
+        .length,
+      floorMeshCount: floorMeshTargets.length,
+      floorRoomNames: floorMeshTargets.map((target) => target.room?.name || ""),
+      furnitureAnchors,
+    };
+  });
+
+  expect(renderStats.currentFloorRoomCount).toBe(2);
+  expect(renderStats.floorMeshCount).toBeGreaterThanOrEqual(2);
+  expect(renderStats.floorRoomNames.filter(Boolean).length).toBeGreaterThanOrEqual(2);
+  expect(renderStats.furnitureAnchors).toBeGreaterThanOrEqual(2);
+  expect(runtimeMessages).toEqual([]);
+});

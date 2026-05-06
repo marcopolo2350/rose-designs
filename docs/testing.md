@@ -86,6 +86,7 @@ npm test
 - `validate:3d-model-loader` - exercises the extracted GLTF loader/cache/error-status boundary
 - `validate:export-filenames` - exercises export filename sanitizing, centralized download helpers, and extracted PDF/PNG/SVG/print/JSON export boundaries
 - `test:playwright` - runs the standard Playwright spec suite
+- Multi-room Playwright coverage adds an adjacent room, furnishes both rooms, enters 3D, and verifies each active-floor room shell plus furniture anchor renders.
 - `test:self` - launches the app locally and waits for the built-in `#selftest` flow
 - `test:smoke` - runs the Playwright smoke helper against `index.html`
 - `test` - runs syntax, lint, format, validation commands, and the built-in self-test

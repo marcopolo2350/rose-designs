@@ -144,9 +144,8 @@ function overviewRoomPose(room=curRoom){
 }
 function addGhostRoomShell(room,wallColor,floorColor){
   if(!scene||!room?.polygon?.length)return;
-  const floorShape=new THREE.Shape();
-  room.polygon.forEach((p,i)=>!i?floorShape.moveTo(p.x,p.y):floorShape.lineTo(p.x,p.y));
-  floorShape.closePath();
+  const roomShell=window.Planner3DRoomShell;
+  const floorShape=roomShell.createPlanShape(THREE,room.polygon);
   const floorMat=new THREE.MeshStandardMaterial({color:floorColor.clone(),roughness:.95,metalness:0,transparent:true,opacity:.24,depthWrite:false});
   const floorMesh=new THREE.Mesh(new THREE.ShapeGeometry(floorShape),floorMat);
   floorMesh.rotation.x=-Math.PI/2;
@@ -640,22 +639,21 @@ function pushStyleNode(bucket,node,room=curRoom){
 }
 function buildRoomEnvelope3D(room,{floorFocus,renderer}={}){
   if(!room?.polygon?.length||!scene)return;
+  const roomShell=window.Planner3DRoomShell;
   const roomHeight=room.height||curRoom?.height||9;
   const wallFinish=WALL_PALETTES.find(x=>x.id===(room.materials.wallFinish||'warm_white'))||WALL_PALETTES[0];
   const floorPreset=FLOOR_TYPES.find(x=>x.id===(room.materials.floorType||'light_oak'))||FLOOR_TYPES[0];
   const tc=safeThreeColor(room.materials.trim,TRIM_COLORS[0]);
   const wc=safeThreeColor(room.materials.wall,WALL_PALETTES[0].color);
-  const floorShape=new THREE.Shape();
-  room.polygon.forEach((p,i)=>!i?floorShape.moveTo(p.x,p.y):floorShape.lineTo(p.x,p.y));
-  floorShape.closePath();
+  const floorShape=roomShell.createPlanShape(THREE,room.polygon);
   const floorMap=buildFloorTexture(room.materials.floor,room.materials.floorType||'light_oak');
   const floorAccentMap=buildFloorAccentTexture(room.materials.floorType||'light_oak');
-  const floorGeo=applyPlanarUVs(new THREE.ShapeGeometry(floorShape),room.polygon);
+  const floorGeo=roomShell.createPlanGeometry(THREE,room.polygon,applyPlanarUVs);
   const floorMat=pushStyleMaterial('floorMats',new THREE.MeshStandardMaterial({color:safeThreeColor(room.materials.floor,floorPreset.color),roughness:Math.max(.8,Number.isFinite(floorPreset.roughness)?floorPreset.roughness:.88),metalness:0,map:floorMap}),room);
-  if(floorMat.map){floorMat.map.needsUpdate=true;try{floorMat.map.anisotropy=Math.min(16,renderer?.capabilities?.getMaxAnisotropy?.()||1)}catch(error){window.reportRoseRecoverableError?.('3D floor anisotropy update failed',error)}}
+  roomShell.configureTextureAnisotropy(floorMat.map,renderer,error=>window.reportRoseRecoverableError?.('3D floor anisotropy update failed',error));
   const floorMesh=new THREE.Mesh(floorGeo,floorMat);floorMesh.rotation.x=-Math.PI/2;floorMesh.receiveShadow=true;scene.add(floorMesh);pushStyleNode('floorMeshes',floorMesh,room);
   const accentMat=new THREE.MeshStandardMaterial({color:safeThreeColor(room.materials.floor,floorPreset.color),roughness:1,metalness:0,map:floorAccentMap,transparent:true,opacity:.14,depthWrite:true});
-  const accentMesh=new THREE.Mesh(applyPlanarUVs(new THREE.ShapeGeometry(floorShape),room.polygon),accentMat);accentMesh.rotation.x=-Math.PI/2;accentMesh.position.y=.003;accentMesh.renderOrder=-1;scene.add(accentMesh);pushStyleNode('floorAccents',accentMesh,room);
+  const accentMesh=new THREE.Mesh(roomShell.createPlanGeometry(THREE,room.polygon,applyPlanarUVs),accentMat);accentMesh.rotation.x=-Math.PI/2;accentMesh.position.y=.003;accentMesh.renderOrder=-1;scene.add(accentMesh);pushStyleNode('floorAccents',accentMesh,room);
   const ceilColor=safeThreeColor(room.materials.ceiling,'#FAF7F2').multiplyScalar(Math.max(.86,Math.min(1.18,room.materials.ceilingBrightness||1)));
   const ceilMesh=new THREE.Mesh(new THREE.ShapeGeometry(floorShape),pushStyleMaterial('ceilingMats',new THREE.MeshStandardMaterial({color:ceilColor,roughness:.92,side:THREE.BackSide}),room));ceilMesh.name='roomCeiling';ceilMesh.visible=camMode==='walk';ceilMesh.rotation.x=-Math.PI/2;ceilMesh.position.y=roomHeight-.01;scene.add(ceilMesh);
   const style=room.materials.ceilingStyle||'flat';
@@ -674,7 +672,7 @@ function buildRoomEnvelope3D(room,{floorFocus,renderer}={}){
       });
     }else if(style==='beams'){
       const beamMat=new THREE.MeshStandardMaterial({color:0x5a3f27,roughness:.82,metalness:.02});
-      const bbox=new THREE.Box3().setFromPoints(room.polygon.map(p=>new THREE.Vector3(p.x,0,-p.y)));
+      const bbox=roomShell.roomBoundsBox(THREE,room.polygon);
       const spanX=bbox.max.x-bbox.min.x,spanZ=bbox.max.z-bbox.min.z;
       const along=spanX>spanZ?'z':'x';
       const count=Math.max(3,Math.floor((along==='z'?spanX:spanZ)/3.2));
@@ -693,7 +691,7 @@ function buildRoomEnvelope3D(room,{floorFocus,renderer}={}){
     }else if(style==='coffered'){
       const panelMat=pushStyleMaterial('ceilingMats',new THREE.MeshStandardMaterial({color:ceilColor.clone().multiplyScalar(0.94),roughness:.86,side:THREE.BackSide}),room);
       const trimMat=pushStyleMaterial('trimMats',new THREE.MeshStandardMaterial({color:tc,roughness:.5,metalness:.04,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1}),room);
-      const bbox=new THREE.Box3().setFromPoints(room.polygon.map(p=>new THREE.Vector3(p.x,0,-p.y)));
+      const bbox=roomShell.roomBoundsBox(THREE,room.polygon);
       const cols=Math.max(2,Math.floor((bbox.max.x-bbox.min.x)/4));
       const rows=Math.max(2,Math.floor((bbox.max.z-bbox.min.z)/4));
       const cellW=(bbox.max.x-bbox.min.x)/cols,cellD=(bbox.max.z-bbox.min.z)/rows;

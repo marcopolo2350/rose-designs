@@ -194,6 +194,7 @@ What they do:
 - [scripts/planner3d/camera.js](./scripts/planner3d/camera.js) - data-driven 3D camera labels and pose helpers
 - [scripts/planner3d/materials.js](./scripts/planner3d/materials.js) - furniture finish/material helper boundary
 - [scripts/planner3d/model-loader.js](./scripts/planner3d/model-loader.js) - GLTF loader/cache/error-status boundary
+- [scripts/planner3d/room-shell.js](./scripts/planner3d/room-shell.js) - room shell shape, bounds, geometry, and texture helper boundary
 - [scripts/export/filenames.js](./scripts/export/filenames.js) - shared export filename sanitizing
 - [scripts/export/pdf.js](./scripts/export/pdf.js) - PDF and presentation export boundary
 - [scripts/export/png.js](./scripts/export/png.js) - PNG, comparison-sheet, and design-summary export boundary

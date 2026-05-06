@@ -309,7 +309,7 @@ if (!walkControlDock) {
     errors.push("Mobile walk controls must render with DOM nodes and CSS classes.");
   }
   if (
-    !/button\.setAttribute\(["']aria-label["'],label\)/.test(body) ||
+    !/button\.setAttribute\(["']aria-label["']\s*,\s*label\)/.test(body) ||
     !/hint\.textContent\s*=/.test(body)
   ) {
     errors.push("Mobile walk controls must keep button labels and hint text accessible.");

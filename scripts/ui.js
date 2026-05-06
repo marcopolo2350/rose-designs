@@ -177,6 +177,12 @@ function handleUiAction(action,target,event){
   if(action==='close-shortcut-sheet')return closeShortcutSheet();
 }
 
+function closestEventTarget(event,selector){
+  const target=event?.target;
+  if(target&&typeof target.closest==='function')return target.closest(selector);
+  return target?.parentElement?.closest?.(selector)||null;
+}
+
 function bindStaticUiActions(){
   if(document.body?.dataset?.uiActionsBound==='1')return;
   document.body.dataset.uiActionsBound='1';
@@ -184,19 +190,19 @@ function bindStaticUiActions(){
     if(event.target===event.currentTarget)closeCr();
   });
   document.addEventListener('click',event=>{
-    const target=event.target.closest('[data-action]');
+    const target=closestEventTarget(event,'[data-action]');
     if(!target)return;
     handleUiAction(target.dataset.action,target,event);
   });
   document.addEventListener('keydown',event=>{
     if(event.key!=='Enter'&&event.key!==' ')return;
-    const target=event.target.closest('[role="button"][data-action]');
+    const target=closestEventTarget(event,'[role="button"][data-action]');
     if(!target)return;
     event.preventDefault();
     handleUiAction(target.dataset.action,target,event);
   });
   document.addEventListener('pointerdown',event=>{
-    const target=event.target.closest('[data-hold-action]');
+    const target=closestEventTarget(event,'[data-hold-action]');
     if(!target)return;
     const dir=Number(target.dataset.direction||0);
     if(target.dataset.holdAction==='walk-turn')startWalkTurn(dir);
@@ -204,7 +210,7 @@ function bindStaticUiActions(){
   });
   for(const type of ['pointerup','pointerleave','pointercancel']){
     document.addEventListener(type,event=>{
-      const target=event.target.closest('[data-hold-action]');
+      const target=closestEventTarget(event,'[data-hold-action]');
       if(!target)return;
       if(target.dataset.holdAction==='walk-turn')stopWalkTurn();
       if(target.dataset.holdAction==='walk-move')stopWalkMove();
@@ -241,7 +247,7 @@ function bindStaticUiActions(){
     if(target?.dataset?.action==='set-reference-scale')setReferenceScale(target.value);
   });
   document.addEventListener('pointerover',event=>{
-    const target=event.target.closest('[data-preview-index]');
+    const target=closestEventTarget(event,'[data-preview-index]');
     if(!target)return;
     const idx=Number(target.dataset.previewIndex);
     if(Number.isFinite(idx)&&typeof FURN_ITEMS!=='undefined'&&typeof setPendingFurniturePreview==='function'){
@@ -249,7 +255,7 @@ function bindStaticUiActions(){
     }
   });
   document.addEventListener('focusin',event=>{
-    const target=event.target.closest('[data-preview-index]');
+    const target=closestEventTarget(event,'[data-preview-index]');
     if(!target)return;
     const idx=Number(target.dataset.previewIndex);
     if(Number.isFinite(idx)&&typeof FURN_ITEMS!=='undefined'&&typeof setPendingFurniturePreview==='function'){

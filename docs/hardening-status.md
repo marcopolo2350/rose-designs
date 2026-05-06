@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-06
 
-Current app version: `0.5.0-hardening.119`
+Current app version: `0.5.0-hardening.120`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -90,6 +90,8 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - 3D camera labels and pose math are isolated in `scripts/planner3d/camera.js` and covered by `npm run validate:3d-camera`, including favorite-corner, overhead, and multi-room overview framing.
 - 3D furniture finish/material helpers are isolated in `scripts/planner3d/materials.js` and covered by `npm run validate:3d-materials`.
 - GLTF loader/cache/error-status behavior is isolated in `scripts/planner3d/model-loader.js` and covered by `npm run validate:3d-model-loader`.
+- 3D room-shell shape, bounds, plan geometry, and floor texture-anisotropy helpers are isolated in `scripts/planner3d/room-shell.js` and guarded by `npm run validate:structure` plus `npm run validate:global-bridge`.
+- Desktop and mobile Playwright coverage now adds an adjacent room, furnishes both rooms, enters 3D, and verifies both room shells and furniture anchors render on the active floor.
 - Duplicate 3D view, walkthrough, photo, camera, and rebuild handler overrides were collapsed into single function declarations, and `npm run validate:structure` blocks those late overrides from returning.
 - Export filenames are sanitized through `scripts/export/filenames.js` and covered by `npm run validate:export-filenames`.
 - Export downloads are centralized in `scripts/export/downloads.js`, loaded before export/3D runtime code, and covered by source/export validation.

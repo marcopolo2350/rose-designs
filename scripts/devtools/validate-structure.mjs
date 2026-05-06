@@ -49,6 +49,7 @@ const requiredFiles = [
   "scripts/planner3d/camera.js",
   "scripts/planner3d/materials.js",
   "scripts/planner3d/model-loader.js",
+  "scripts/planner3d/room-shell.js",
   "scripts/catalog/manifest.js",
   "scripts/export/filenames.js",
   "scripts/export/downloads.js",
@@ -124,6 +125,7 @@ assertModuleBefore("./scripts/planner3d/lighting.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/camera.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/materials.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/model-loader.js", "./scripts/planner3d.js");
+assertModuleBefore("./scripts/planner3d/room-shell.js", "./scripts/planner3d.js");
 
 for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   const modulePath = path.relative(root, absolute).replace(/\\/g, "/");
@@ -198,6 +200,14 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   ) {
     errors.push(
       `${modulePath} defines material finish behavior outside scripts/planner3d/materials.js.`,
+    );
+  }
+  if (
+    modulePath === "scripts/planner3d.js" &&
+    /new\s+THREE\.Shape\s*\(|setFromPoints\s*\(\s*room\.polygon|getMaxAnisotropy/.test(source)
+  ) {
+    errors.push(
+      `${modulePath} defines room shell shape/bounds/anisotropy helpers outside scripts/planner3d/room-shell.js.`,
     );
   }
   if (modulePath === "scripts/planner3d.js") {
