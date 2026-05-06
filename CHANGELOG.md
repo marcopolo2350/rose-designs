@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0-hardening.119 - 2026-05-06
+
+- moved 3D renderer shader-diagnostic gating into `scripts/planner3d/lifecycle.js`
+- kept Three.js shader checks enabled in dev mode while suppressing production PMREM vendor warnings during normal 3D entry
+- extended `validate:3d-lifecycle` to guard renderer diagnostic behavior
+
 ## 0.5.0-hardening.118 - 2026-05-02
 
 - extracted 2D furniture tint, stroke, and label-ink helpers into `scripts/planner2d/furniture-style.js`

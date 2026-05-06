@@ -450,3 +450,33 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
 
   expect(runtimeErrors).toEqual([]);
 });
+
+test("3D view boots without Three shader warning spam", async ({ page }) => {
+  const runtimeMessages = [];
+  page.on("console", (message) => {
+    const text = message.text();
+    if (message.type() === "error") runtimeMessages.push(`console: ${text}`);
+    if (
+      ["warn", "warning"].includes(message.type()) &&
+      /THREE\.WebGLProgram|Sample Bias/i.test(text)
+    ) {
+      runtimeMessages.push(`warning: ${text}`);
+    }
+  });
+  page.on("pageerror", (error) => runtimeMessages.push(`page: ${error.message}`));
+
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+  await page.locator(".w-btn").click();
+  await page.locator('[data-action="open-create-room"]').first().click();
+  await page.locator('[data-action="select-create-room-preset"]').first().click();
+  await page.locator('[data-action="create-room-from-preset"]').click();
+  await expect(page.locator("#scrEd")).toHaveClass(/on/);
+
+  await page.locator("#b3d").click();
+  await expect(page.locator("#threeC")).toHaveClass(/on/);
+  await expect(page.locator("#threeC canvas")).toBeVisible();
+  await page.waitForTimeout(1800);
+
+  expect(runtimeMessages).toEqual([]);
+});

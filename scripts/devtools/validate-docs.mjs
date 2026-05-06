@@ -38,6 +38,7 @@ const hardeningStatus = read("docs/hardening-status.md");
 const deployment = read("docs/deployment.md");
 const prTemplate = read(".github/pull_request_template.md");
 const progress = read("progress.md");
+const changelog = read("CHANGELOG.md");
 
 const verifyScripts = Object.keys(scripts)
   .filter(
@@ -88,8 +89,14 @@ if (!hardeningStatus.includes(packageJson.version)) {
   );
 }
 
-if (!/Last updated:\s+2026-05-02/.test(hardeningStatus)) {
-  errors.push("docs/hardening-status.md Last updated value is not current.");
+const latestChangelogDate = changelog.match(/^##\s+[^\s]+\s+-\s+(\d{4}-\d{2}-\d{2})/m)?.[1];
+const hardeningStatusDate = hardeningStatus.match(/Last updated:\s+(\d{4}-\d{2}-\d{2})/)?.[1];
+if (!latestChangelogDate) {
+  errors.push("CHANGELOG.md is missing a latest dated release heading.");
+} else if (hardeningStatusDate !== latestChangelogDate) {
+  errors.push(
+    `docs/hardening-status.md Last updated value must match latest changelog date ${latestChangelogDate}.`,
+  );
 }
 
 for (const [file, source] of [

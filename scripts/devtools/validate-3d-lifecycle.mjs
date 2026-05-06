@@ -23,6 +23,7 @@ let rendererDisposed = false;
 let contextLost = false;
 let removedChild = false;
 const removedEvents = [];
+const rendererDiagnostics = { debug: { checkShaderErrors: true } };
 
 const material = {
   map: { dispose: () => (textureDisposed = true) },
@@ -77,6 +78,15 @@ if (
   )
 ) {
   throw new Error("disposeRenderer did not remove expected pointer listeners");
+}
+
+lifecycle.configureRendererDiagnostics(rendererDiagnostics, { devMode: false });
+if (rendererDiagnostics.debug.checkShaderErrors !== false) {
+  throw new Error("configureRendererDiagnostics did not disable shader checks outside dev mode");
+}
+lifecycle.configureRendererDiagnostics(rendererDiagnostics, { devMode: true });
+if (rendererDiagnostics.debug.checkShaderErrors !== true) {
+  throw new Error("configureRendererDiagnostics did not enable shader checks in dev mode");
 }
 
 console.log("3D lifecycle validation passed.");

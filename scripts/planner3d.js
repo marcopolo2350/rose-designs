@@ -764,6 +764,7 @@ function build3D(){
     if(camMode==='orbit'){cYaw=Math.PI*.22;cPitch=.48}
     orbitTarget={x:floorFocus.x,y:(floorFocus.height3D||maxFloorHeight)*.42,z:-floorFocus.y};orbitVel={yaw:0,pitch:0,zoom:0};
     ren=new THREE.WebGLRenderer({antialias:true});
+    window.Planner3DLifecycle?.configureRendererDiagnostics?.(ren,{devMode:!!window.DEV_MODE});
     ren.setSize(w,h);ren.setPixelRatio(Math.min(window.devicePixelRatio,photoMode?2:1.7));
     ren.physicallyCorrectLights=true;
     ren.toneMapping=THREE.ACESFilmicToneMapping;ren.toneMappingExposure=lightState.exposure;
@@ -1615,6 +1616,7 @@ async function refreshAssetVerification(){
   disposeVerificationScene();renderVerificationCards();
   const cont=document.getElementById('verifyCanvas');const w=cont.clientWidth||cont.offsetWidth,h=cont.clientHeight||cont.offsetHeight;
   verify3D={scene:new THREE.Scene(),cam:new THREE.PerspectiveCamera(42,w/h,.1,250),ren:new THREE.WebGLRenderer({antialias:true}),items:[],cycleIndex:0};
+  window.Planner3DLifecycle?.configureRendererDiagnostics?.(verify3D.ren,{devMode:!!window.DEV_MODE});
   verify3D.scene.background=new THREE.Color(0xf3efe8);
   verify3D.ren.setSize(w,h);verify3D.ren.setPixelRatio(Math.min(window.devicePixelRatio,2));window.RoseHTML.clear(cont);cont.appendChild(verify3D.ren.domElement);
   verify3D.scene.add(new THREE.HemisphereLight(0xffffff,0xd9d1c6,1.35));

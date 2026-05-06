@@ -1,8 +1,8 @@
 # Hardening Status
 
-Last updated: 2026-05-02
+Last updated: 2026-05-06
 
-Current app version: `0.5.0-hardening.118`
+Current app version: `0.5.0-hardening.119`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -85,7 +85,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - Catalog default placement and elevation rules are isolated in `scripts/catalog/placement-rules.js` and covered by `npm run validate:placement-rules`, so wall/ceiling defaults do not return to label-specific state logic.
 - Wall, ceiling, surface, and elevated catalog assets now carry manifest `placement` metadata for snap target, forward axis, and default elevation rules; runtime placement registers that metadata before using legacy fallbacks.
 - Catalog manifest loading and normalization is isolated in `scripts/catalog/manifest.js`, and required source boundary directories are guarded by `npm run validate:structure`.
-- 3D material, scene, renderer, listener, and composer disposal helpers are isolated in `scripts/planner3d/lifecycle.js` and covered by `npm run validate:3d-lifecycle`.
+- 3D material, scene, renderer, listener, composer disposal, and renderer diagnostic helpers are isolated in `scripts/planner3d/lifecycle.js` and covered by `npm run validate:3d-lifecycle`.
 - 3D time-of-day lighting curves are isolated in `scripts/planner3d/lighting.js` and covered by `npm run validate:3d-lighting`, including bounded noon exposure so the room does not wash out.
 - 3D camera labels and pose math are isolated in `scripts/planner3d/camera.js` and covered by `npm run validate:3d-camera`, including favorite-corner, overhead, and multi-room overview framing.
 - 3D furniture finish/material helpers are isolated in `scripts/planner3d/materials.js` and covered by `npm run validate:3d-materials`.

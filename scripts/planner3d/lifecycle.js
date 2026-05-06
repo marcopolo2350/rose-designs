@@ -66,7 +66,13 @@
     }
   }
 
+  function configureRendererDiagnostics(renderer, { devMode = false } = {}) {
+    if (!renderer?.debug) return;
+    renderer.debug.checkShaderErrors = Boolean(devMode);
+  }
+
   window.Planner3DLifecycle = Object.freeze({
+    configureRendererDiagnostics,
     disposeComposer,
     disposeMaterial,
     disposeRenderer,
