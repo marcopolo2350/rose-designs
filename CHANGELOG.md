@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.124 - 2026-05-07
+
+- extracted procedural floor texture and planar UV helper behavior into `scripts/planner3d/textures.js`
+- added `validate:3d-textures` and wired it through local `npm test`, CI, docs, and the PR checklist
+
 ## 0.5.0-hardening.123 - 2026-05-07
 
 - extracted 3D furniture placement for wall, surface, ceiling, and floor assets into `scripts/planner3d/placement.js`

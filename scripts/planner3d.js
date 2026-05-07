@@ -646,14 +646,16 @@ function buildRoomEnvelope3D(room,{floorFocus,renderer}={}){
   const tc=safeThreeColor(room.materials.trim,TRIM_COLORS[0]);
   const wc=safeThreeColor(room.materials.wall,WALL_PALETTES[0].color);
   const floorShape=roomShell.createPlanShape(THREE,room.polygon);
-  const floorMap=buildFloorTexture(room.materials.floor,room.materials.floorType||'light_oak');
-  const floorAccentMap=buildFloorAccentTexture(room.materials.floorType||'light_oak');
-  const floorGeo=roomShell.createPlanGeometry(THREE,room.polygon,applyPlanarUVs);
+  const floorTextureOptions={THREE,document,floorTypes:FLOOR_TYPES,safeThreeColor};
+  const applyFloorUVs=(geometry,points)=>window.Planner3DTextures.applyPlanarUVs(THREE,geometry,points);
+  const floorMap=window.Planner3DTextures.buildFloorTexture({...floorTextureOptions,color:room.materials.floor,type:room.materials.floorType||'light_oak'});
+  const floorAccentMap=window.Planner3DTextures.buildFloorAccentTexture({...floorTextureOptions,type:room.materials.floorType||'light_oak'});
+  const floorGeo=roomShell.createPlanGeometry(THREE,room.polygon,applyFloorUVs);
   const floorMat=pushStyleMaterial('floorMats',new THREE.MeshStandardMaterial({color:safeThreeColor(room.materials.floor,floorPreset.color),roughness:Math.max(.8,Number.isFinite(floorPreset.roughness)?floorPreset.roughness:.88),metalness:0,map:floorMap}),room);
   roomShell.configureTextureAnisotropy(floorMat.map,renderer,error=>window.reportRoseRecoverableError?.('3D floor anisotropy update failed',error));
   const floorMesh=new THREE.Mesh(floorGeo,floorMat);floorMesh.rotation.x=-Math.PI/2;floorMesh.receiveShadow=true;scene.add(floorMesh);pushStyleNode('floorMeshes',floorMesh,room);
   const accentMat=new THREE.MeshStandardMaterial({color:safeThreeColor(room.materials.floor,floorPreset.color),roughness:1,metalness:0,map:floorAccentMap,transparent:true,opacity:.14,depthWrite:true});
-  const accentMesh=new THREE.Mesh(roomShell.createPlanGeometry(THREE,room.polygon,applyPlanarUVs),accentMat);accentMesh.rotation.x=-Math.PI/2;accentMesh.position.y=.003;accentMesh.renderOrder=-1;scene.add(accentMesh);pushStyleNode('floorAccents',accentMesh,room);
+  const accentMesh=new THREE.Mesh(roomShell.createPlanGeometry(THREE,room.polygon,applyFloorUVs),accentMat);accentMesh.rotation.x=-Math.PI/2;accentMesh.position.y=.003;accentMesh.renderOrder=-1;scene.add(accentMesh);pushStyleNode('floorAccents',accentMesh,room);
   const ceilColor=safeThreeColor(room.materials.ceiling,'#FAF7F2').multiplyScalar(Math.max(.86,Math.min(1.18,room.materials.ceilingBrightness||1)));
   const ceilMesh=new THREE.Mesh(new THREE.ShapeGeometry(floorShape),pushStyleMaterial('ceilingMats',new THREE.MeshStandardMaterial({color:ceilColor,roughness:.92,side:THREE.BackSide}),room));ceilMesh.name='roomCeiling';ceilMesh.visible=camMode==='walk';ceilMesh.rotation.x=-Math.PI/2;ceilMesh.position.y=roomHeight-.01;scene.add(ceilMesh);
   const style=room.materials.ceilingStyle||'flat';
@@ -950,131 +952,6 @@ function addWindowAssembly3D(ws,an,os,oe,op,trimColor){
   created.meshes.forEach(mesh=>scene.add(mesh));
 }
 
-function buildFloorTexture(color,type){
-  const preset=FLOOR_TYPES.find(f=>f.id===type)||FLOOR_TYPES[0];
-  const can=document.createElement('canvas');can.width=768;can.height=768;const c=can.getContext('2d');
-  const base=safeThreeColor(color,preset.color),accent=safeThreeColor(preset.accent,preset.color);
-  const _baseHSL={h:0,s:0,l:0};base.getHSL(_baseHSL);
-  const checkerMate=base.clone().lerp(_baseHSL.l>.52?safeThreeColor('#231D1A','#231D1A'):safeThreeColor('#FBF4EA','#FBF4EA'),.78);
-  c.fillStyle='#'+base.getHexString();c.fillRect(0,0,768,768);
-  if(preset.family==='wood'){
-    const plankH=88,jointW=4;
-    for(let y=0;y<768;y+=plankH){
-      const row=Math.floor(y/plankH);
-      const offset=row%2===0?0:104;
-      // Plank body: alternate slight brightness
-      c.fillStyle=row%2===0?'rgba(255,255,255,.15)':'rgba(0,0,0,.13)';
-      c.fillRect(0,y,768,plankH-jointW);
-      // Row separator (dark joint)
-      c.fillStyle='rgba(18,10,4,.42)';c.fillRect(0,y+plankH-jointW,768,jointW);
-      // Plank vertical joints
-      for(let x=offset;x<768;x+=200){
-        c.fillStyle='rgba(18,10,4,.26)';c.fillRect(x,y,5,plankH-jointW);
-      }
-      // Wood grain — subtle diagonal streaks
-      for(let g=0;g<11;g++){
-        const sx=g*68+offset*.18;
-        c.strokeStyle=`rgba(255,255,255,${.05+g*.01})`;c.lineWidth=1.4;
-        c.beginPath();c.moveTo(sx,y+8);c.lineTo(sx+34,y+plankH-12);c.stroke();
-        c.strokeStyle='rgba(34,20,10,.09)';c.lineWidth=1;
-        c.beginPath();c.moveTo(sx+18,y+10);c.lineTo(sx+42,y+plankH-16);c.stroke();
-      }
-      // Edge highlight
-      c.fillStyle='rgba(255,255,255,.16)';c.fillRect(0,y,768,4);
-      c.fillStyle='rgba(0,0,0,.08)';c.fillRect(0,y+14,768,1);
-    }
-  }else if(preset.family==='tile'){
-    const tile=120;
-    for(let y=0;y<768;y+=tile)for(let x=0;x<768;x+=tile){
-      // Tile surface variation
-      const v=((x/tile*3+y/tile*7)%5)*.026;
-      c.fillStyle=`rgba(255,255,255,${.05+v})`;c.fillRect(x+6,y+6,tile-12,tile-12);
-      c.fillStyle='rgba(0,0,0,.07)';c.fillRect(x+tile-18,y+tile-18,18,18);
-      c.strokeStyle='rgba(255,255,255,.08)';c.lineWidth=2;c.strokeRect(x+8,y+8,tile-16,tile-16);
-    }
-    // Grout: strong, slightly warm-grey
-    c.strokeStyle='rgba(126,116,104,.98)';c.lineWidth=10;
-    for(let i=0;i<=768;i+=tile){c.beginPath();c.moveTo(i,0);c.lineTo(i,768);c.stroke();c.beginPath();c.moveTo(0,i);c.lineTo(768,i);c.stroke()}
-  }else if(preset.family==='checker'){
-    const tile=160;
-    for(let y=0;y<768;y+=tile)for(let x=0;x<768;x+=tile){
-      const useAccent=((x+y)/tile)%2===1;
-      const fill=useAccent?checkerMate:base;
-      c.fillStyle='#'+fill.getHexString();c.fillRect(x,y,tile,tile);
-      // Tile sheen
-      c.fillStyle=`rgba(255,255,255,${useAccent?.03:.08})`;c.fillRect(x+8,y+8,tile-16,tile-16);
-      c.fillStyle='rgba(0,0,0,.08)';c.fillRect(x,y+tile-10,tile,10);
-    }
-    c.strokeStyle='rgba(242,236,228,.82)';c.lineWidth=10;
-    for(let i=0;i<=768;i+=tile){c.beginPath();c.moveTo(i,0);c.lineTo(i,768);c.stroke();c.beginPath();c.moveTo(0,i);c.lineTo(768,i);c.stroke()}
-  }else{
-    // Concrete: surface aggregate and polish marks
-    for(let i=0;i<200;i++){
-      c.fillStyle=`rgba(255,255,255,${.03+(i%6)*.01})`;
-      c.beginPath();c.ellipse((i*47)%768,(i*71)%768,22+(i%5)*14,8+(i%4)*6,(i%8)*.28,0,Math.PI*2);c.fill();
-    }
-    c.strokeStyle='rgba(255,255,255,.11)';c.lineWidth=2.4;
-    for(let i=0;i<14;i++){c.beginPath();c.moveTo(0,i*56+14);c.lineTo(768,i*56+Math.sin(i*.7)*24);c.stroke()}
-  }
-  const tex=new THREE.CanvasTexture(can);
-  tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
-  tex.repeat.set(preset.repeat,preset.repeat);
-  return tex;
-}
-function applyPlanarUVs(geometry,points){
-  if(!geometry?.attributes?.position||!points?.length)return geometry;
-  const minX=Math.min(...points.map(p=>p.x)),maxX=Math.max(...points.map(p=>p.x));
-  const minY=Math.min(...points.map(p=>p.y)),maxY=Math.max(...points.map(p=>p.y));
-  const spanX=Math.max(.001,maxX-minX),spanY=Math.max(.001,maxY-minY);
-  const pos=geometry.attributes.position;
-  const uv=new Float32Array(pos.count*2);
-  for(let i=0;i<pos.count;i++){
-    uv[i*2]=(pos.getX(i)-minX)/spanX;
-    uv[i*2+1]=(pos.getY(i)-minY)/spanY;
-  }
-  geometry.setAttribute('uv',new THREE.BufferAttribute(uv,2));
-  geometry.attributes.uv.needsUpdate=true;
-  return geometry;
-}
-function buildFloorAccentTexture(type){
-  const preset=FLOOR_TYPES.find(f=>f.id===type)||FLOOR_TYPES[0];
-  const can=document.createElement('canvas');can.width=1024;can.height=1024;const c=can.getContext('2d');
-  c.clearRect(0,0,1024,1024);
-  if(preset.family==='wood'){
-    const plank=96;
-    for(let y=0;y<1024;y+=plank){
-      c.fillStyle='rgba(70,48,28,.18)';c.fillRect(0,y,1024,3);
-      for(let x=36;x<1024;x+=148){
-        c.fillStyle='rgba(255,255,255,.075)';c.fillRect(x,y+10,2,plank-20);
-      }
-    }
-    for(let i=0;i<180;i++){
-      c.strokeStyle=`rgba(255,255,255,${.02+(i%5)*.005})`;c.lineWidth=1.1;
-      c.beginPath();const sx=(i*37)%1024;c.moveTo(sx,0);c.bezierCurveTo(sx+18,220,sx-12,760,sx+12,1024);c.stroke();
-    }
-  }else if(preset.family==='tile'){
-    const tile=128;
-    c.strokeStyle='rgba(248,245,240,.94)';c.lineWidth=10;
-    for(let i=0;i<=1024;i+=tile){
-      c.beginPath();c.moveTo(i,0);c.lineTo(i,1024);c.stroke();
-      c.beginPath();c.moveTo(0,i);c.lineTo(1024,i);c.stroke();
-    }
-  }else if(preset.family==='checker'){
-    const tile=160;
-    c.strokeStyle='rgba(248,245,240,.82)';c.lineWidth=10;
-    for(let i=0;i<=1024;i+=tile){
-      c.beginPath();c.moveTo(i,0);c.lineTo(i,1024);c.stroke();
-      c.beginPath();c.moveTo(0,i);c.lineTo(1024,i);c.stroke();
-    }
-  }else{
-    c.strokeStyle='rgba(255,255,255,.13)';c.lineWidth=3.4;
-    for(let i=0;i<14;i++){c.beginPath();c.moveTo(0,i*72+24);c.lineTo(1024,i*72+Math.sin(i*1.2)*24);c.stroke()}
-  }
-  const tex=new THREE.CanvasTexture(can);
-  tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
-  tex.repeat.set(preset.repeat,preset.repeat);
-  return tex;
-}
 function buildCloset3D(st,r){
   const g=new THREE.Group(),h=st.height||r.height,rect=st.rect;
   const finish=CLOSET_FINISHES.find(f=>f.id===(st.finish||'white_shaker'))||CLOSET_FINISHES[0];

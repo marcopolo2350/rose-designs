@@ -51,6 +51,7 @@ const requiredFiles = [
   "scripts/planner3d/model-loader.js",
   "scripts/planner3d/placement.js",
   "scripts/planner3d/room-shell.js",
+  "scripts/planner3d/textures.js",
   "scripts/planner3d/walls.js",
   "scripts/catalog/manifest.js",
   "scripts/export/filenames.js",
@@ -129,6 +130,8 @@ assertModuleBefore("./scripts/planner3d/materials.js", "./scripts/planner3d.js")
 assertModuleBefore("./scripts/planner3d/model-loader.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/placement.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/room-shell.js", "./scripts/planner3d.js");
+assertModuleBefore("./scripts/planner3d/textures.js", "./scripts/planner2d.js");
+assertModuleBefore("./scripts/planner3d/textures.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/walls.js", "./scripts/planner3d.js");
 
 for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
@@ -212,6 +215,14 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   ) {
     errors.push(
       `${modulePath} defines room shell shape/bounds/anisotropy helpers outside scripts/planner3d/room-shell.js.`,
+    );
+  }
+  if (
+    modulePath === "scripts/planner3d.js" &&
+    /\bfunction\s+(?:buildFloorTexture|buildFloorAccentTexture|applyPlanarUVs)\s*\(/.test(source)
+  ) {
+    errors.push(
+      `${modulePath} defines floor texture/UV helpers outside scripts/planner3d/textures.js.`,
     );
   }
   if (modulePath === "scripts/planner3d.js") {

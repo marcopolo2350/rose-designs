@@ -150,6 +150,9 @@ jobs:
       - name: Validate 3D furniture placement
         run: npm run validate:3d-placement
 
+      - name: Validate 3D floor textures
+        run: npm run validate:3d-textures
+
       - name: Validate 3D wall shell
         run: npm run validate:3d-walls
 

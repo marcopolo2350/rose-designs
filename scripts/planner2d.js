@@ -1338,7 +1338,7 @@ function applyRoomStyleToScene(){
     const mesh=resolveNodeTarget(entry),roomStyle=getStyle(resolveTargetRoom(entry));
     if(mesh?.material?.map){
       mesh.material.map.dispose?.();
-      mesh.material.map=buildFloorTexture(roomStyle.room.materials.floor,roomStyle.room.materials.floorType||'light_oak');
+      mesh.material.map=window.Planner3DTextures.buildFloorTexture({THREE,document,floorTypes:FLOOR_TYPES,safeThreeColor,color:roomStyle.room.materials.floor,type:roomStyle.room.materials.floorType||'light_oak'});
       mesh.material.map.needsUpdate=true;
       mesh.material.needsUpdate=true;
     }
@@ -1353,7 +1353,7 @@ function applyRoomStyleToScene(){
     }
     if(mesh?.material?.map){
       mesh.material.map.dispose?.();
-      mesh.material.map=buildFloorAccentTexture(roomStyle.room.materials.floorType||'light_oak');
+      mesh.material.map=window.Planner3DTextures.buildFloorAccentTexture({THREE,document,floorTypes:FLOOR_TYPES,type:roomStyle.room.materials.floorType||'light_oak'});
       mesh.material.map.needsUpdate=true;
       mesh.material.needsUpdate=true;
     }

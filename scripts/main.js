@@ -8,6 +8,7 @@ const RUNTIME_MODULES = [
   "./scripts/planner2d/geometry.js",
   "./scripts/planner2d/furniture-style.js",
   "./scripts/planner2d/reference-overlay.js",
+  "./scripts/planner3d/textures.js",
   "./scripts/catalog/placement-rules.js",
   "./scripts/state.js",
   "./scripts/storage.js",

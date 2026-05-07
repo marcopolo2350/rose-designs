@@ -28,7 +28,8 @@ The bridge appends the canonical `application-version` meta value to runtime scr
 - `scripts/planner3d/materials.js` - furniture finish/material helper boundary
 - `scripts/planner3d/model-loader.js` - GLTF loader/cache/error-status boundary
 - `scripts/planner3d/placement.js` - furniture placement and wall/surface snapping helper boundary
-- `scripts/planner3d/room-shell.js` - room shell shape, bounds, floor geometry, and texture helper boundary
+- `scripts/planner3d/room-shell.js` - room shell shape, bounds, and floor geometry helper boundary
+- `scripts/planner3d/textures.js` - procedural floor texture and planar UV helper boundary
 - `scripts/planner3d/walls.js` - wall segment geometry, door leaf, window trim, and orbit cutaway helper boundary
 - `scripts/catalog.js` - catalog UI and furniture controls
 - `scripts/export/pdf.js` - PDF and presentation export boundary
