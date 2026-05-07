@@ -176,7 +176,7 @@ if (!projectCard) {
   }
 }
 
-const presetGrid = ui.match(/function\s+popPresets[\s\S]*?function\s+defaultPersonalRoomName/);
+const presetGrid = ui.match(/function\s+popPresets[\s\S]*?function\s+selPre/);
 if (!presetGrid) {
   errors.push("popPresets() was not found for create-room preset validation.");
 } else {

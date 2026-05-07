@@ -977,9 +977,6 @@ function popPresets() {
   window.RoseHTML.clear(grid);
   ROOM_STARTERS.forEach((preset) => grid.appendChild(createPresetCard(preset)));
 }
-function defaultPersonalRoomName() {
-  return activeProfile === "rose" ? "Living Room" : "Living Room";
-}
 function selPre(id, el) {
   selPreset = id;
   const starter = ROOM_STARTERS.find((s) => s.id === id);
@@ -997,12 +994,7 @@ function openCrModal(starterId = "living_room", ctx = null) {
   else setCreateRoomContext({ mode: "new_project" });
   loadCreateRoomLayoutMode();
   selPreset = starter.id;
-  document.getElementById("crN").value =
-    createRoomContext.mode === "project_room"
-      ? starter.name
-      : starter.name === "Bedroom"
-        ? defaultPersonalRoomName()
-        : starter.name;
+  document.getElementById("crN").value = starter.name;
   document.getElementById("crW").value = starter.width;
   document.getElementById("crL").value = starter.depth;
   document.getElementById("crH").value = starter.height;
@@ -1283,7 +1275,15 @@ function buildStarterFurniture(starter, w, l) {
         d: 2,
         rotation: 180,
       },
-      { label: "Bathtub", assetKey: "thi_bathtub", x: 2.1, y: 2.8, w: 2.5, d: 5.5, rotation: 90 },
+      {
+        label: "Bathtub",
+        assetKey: "thi_bathtub",
+        x: 2.75,
+        y: 1.25,
+        w: 2.5,
+        d: 5.5,
+        rotation: 90,
+      },
       {
         label: "Towel Rack",
         assetKey: "thi_towel_rack",

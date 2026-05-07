@@ -46,8 +46,11 @@ function backToWallRotationDegrees(item, point, room = curRoom) {
   const distB = Math.hypot(probeB.x - focus.x, probeB.y - focus.y);
   const interior = distA < distB ? normalA : normalB;
   const yawDesired = Math.atan2(interior.x, interior.z);
-  let rotationDeg = (-yawDesired * 180) / Math.PI;
-  if (rotationDeg < 0) rotationDeg += 360;
+  // Floor furniture (sofa/bed/dresser/desk) in this catalog has its visible "front"
+  // at local -Z, so a 180° offset is needed to put the back face at the wall when
+  // the asset's local-frame forward axis is +Z.
+  let rotationDeg = (-yawDesired * 180) / Math.PI + 180;
+  rotationDeg = ((rotationDeg % 360) + 360) % 360;
   return Math.round(rotationDeg * 10) / 10;
 }
 function wallSnapForFurniture(

@@ -898,10 +898,10 @@ test("back-to-wall furniture orients away from nearest wall", async ({ page }) =
   expect(rotations).not.toBeNull();
   expect(rotations.sofaApplies).toBe(true);
   expect(rotations.lampApplies).toBe(false);
-  // Near back wall (high y): sofa should face front of room (rotation 0).
-  expect(rotations.sofaNearBackWall).toBeCloseTo(0, 1);
-  // Near front wall (low y): sofa should face back of room (rotation 180).
-  expect(rotations.sofaNearFrontWall).toBeCloseTo(180, 1);
+  // Near back wall (high y): sofa back faces back wall, front faces room front (rotation 180).
+  expect(rotations.sofaNearBackWall).toBeCloseTo(180, 1);
+  // Near front wall (low y): sofa back faces front wall, front faces back of room (rotation 0).
+  expect(rotations.sofaNearFrontWall).toBeCloseTo(0, 1);
   // Far from any wall: helper returns null (no auto-orient).
   expect(rotations.sofaCenter).toBeNull();
 });
