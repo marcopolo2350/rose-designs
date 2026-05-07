@@ -1,9 +1,54 @@
-/* global MODEL_REGISTRY, closestPointOnSegment, findNearestWindowOpening, snapFurniturePoint, wA, wE, wL, wS */
+/* global MODEL_REGISTRY, closestPointOnSegment, findNearestWindowOpening, getRoomFocus, snapFurniturePoint, wA, wE, wL, wS */
+const BACK_TO_WALL_CATEGORIES = new Set([
+  "sofa",
+  "bed",
+  "dresser",
+  "desk",
+  "bookshelf",
+  "tv_console",
+  "storage",
+]);
 function isWallMountedFurnitureItem(
   item,
   reg = item?.assetKey ? MODEL_REGISTRY[item.assetKey] : null,
 ) {
   return item?.mountType === "wall" || reg?.mountType === "wall";
+}
+function shouldOrientBackToWall(item, reg = item?.assetKey ? MODEL_REGISTRY[item.assetKey] : null) {
+  if (isWallMountedFurnitureItem(item, reg)) return false;
+  const cat = String(reg?.category || item?.category || "").toLowerCase();
+  return BACK_TO_WALL_CATEGORIES.has(cat);
+}
+function backToWallRotationDegrees(item, point, room = curRoom) {
+  if (!room?.walls?.length || typeof wA !== "function") return null;
+  const halfDepth = Math.max(0.5, (item?.d || 1.5) * 0.5);
+  const threshold = halfDepth + 2.0;
+  const source = { x: point?.x || 0, y: Number.isFinite(point?.z) ? point.z : point?.y || 0 };
+  let best = null;
+  (room.walls || []).forEach((wall) => {
+    const a = wS(room, wall);
+    const b = wE(room, wall);
+    const proj = closestPointOnSegment(source, a, b);
+    if (!best || proj.distance < best.distance) best = { wall, distance: proj.distance };
+  });
+  if (!best || best.distance > threshold) return null;
+  const wall = best.wall;
+  const angle = wA(room, wall);
+  const a = wS(room, wall);
+  const b = wE(room, wall);
+  const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+  const focus = typeof getRoomFocus === "function" ? getRoomFocus(room) : { x: mid.x, y: mid.y };
+  const normalA = { x: Math.sin(angle), z: Math.cos(angle) };
+  const normalB = { x: -normalA.x, z: -normalA.z };
+  const probeA = { x: mid.x + normalA.x * 0.4, y: mid.y - normalA.z * 0.4 };
+  const probeB = { x: mid.x + normalB.x * 0.4, y: mid.y - normalB.z * 0.4 };
+  const distA = Math.hypot(probeA.x - focus.x, probeA.y - focus.y);
+  const distB = Math.hypot(probeB.x - focus.x, probeB.y - focus.y);
+  const interior = distA < distB ? normalA : normalB;
+  const yawDesired = Math.atan2(interior.x, interior.z);
+  let rotationDeg = (-yawDesired * 180) / Math.PI;
+  if (rotationDeg < 0) rotationDeg += 360;
+  return Math.round(rotationDeg * 10) / 10;
 }
 function wallSnapForFurniture(
   item,
@@ -83,7 +128,9 @@ function snapFurnitureForItem(item, x, z, room = curRoom) {
   return base;
 }
 window.Planner2DSnapping = Object.freeze({
+  backToWallRotationDegrees,
   isWallMountedFurnitureItem,
+  shouldOrientBackToWall,
   snapFurnitureForItem,
   wallSnapForFurniture,
 });

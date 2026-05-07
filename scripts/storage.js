@@ -529,7 +529,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "living_room",
     designPreset: "warm_modern",
-    tag: "Gather",
+    tag: "Lounge",
     hint: "A balanced layout with soft seating and a place to land.",
   },
   {
@@ -541,7 +541,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "bedroom",
     designPreset: "quiet_luxury",
-    tag: "Rest",
+    tag: "Sleep",
     hint: "Warm light, layered textiles, and a gentle bedroom rhythm.",
   },
   {
@@ -553,7 +553,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "dining_room",
     designPreset: "quiet_luxury",
-    tag: "Host",
+    tag: "Dine",
     hint: "A room that feels ready for dinner and slow conversation.",
   },
   {
@@ -565,7 +565,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "office",
     designPreset: "tailored_masculine",
-    tag: "Focus",
+    tag: "Work",
     hint: "Grounded materials and a calmer work-focused setup.",
   },
   {
@@ -577,7 +577,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "nursery",
     designPreset: "airy_minimal",
-    tag: "Tender",
+    tag: "Nursery",
     hint: "Soft light, clear flow, and room to breathe.",
   },
   {
@@ -589,7 +589,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "living_room",
     designPreset: "warm_modern",
-    tag: "Quiet",
+    tag: "Read",
     hint: "A cozier corner with a chair, lamp, rug, and something green.",
   },
   {
@@ -601,7 +601,7 @@ const ROOM_STARTERS = [
     height: 10,
     roomType: "living_room",
     designPreset: "airy_minimal",
-    tag: "Open",
+    tag: "Studio",
     hint: "A larger starter for shaping one connected home space.",
   },
   {
@@ -613,7 +613,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "kitchen",
     designPreset: "warm_modern",
-    tag: "Cook",
+    tag: "Kitchen",
     hint: "Counters, cabinets, and room to move.",
   },
   {
@@ -625,7 +625,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "bathroom",
     designPreset: "airy_minimal",
-    tag: "Refresh",
+    tag: "Bath",
     hint: "Vanity, shower or tub, clean surfaces.",
   },
   {
@@ -637,7 +637,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "laundry",
     designPreset: "airy_minimal",
-    tag: "Refresh",
+    tag: "Laundry",
     hint: "Washer, storage, and a little room to breathe.",
   },
   {
@@ -649,7 +649,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "bedroom",
     designPreset: "quiet_luxury",
-    tag: "Dress",
+    tag: "Closet",
     hint: "Made for mirrors, storage, and built-ins.",
   },
   // Starter room presets.
@@ -662,7 +662,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "living_room",
     designPreset: "tailored_masculine",
-    tag: "Watch",
+    tag: "Theater",
     hint: "A deep, focused room for cinema nights.",
   },
   {
@@ -674,7 +674,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "entry",
     designPreset: "warm_modern",
-    tag: "Arrive",
+    tag: "Entry",
     hint: "Drop zone with hooks, bench, and a mat.",
   },
   {
@@ -686,7 +686,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "bedroom",
     designPreset: "airy_minimal",
-    tag: "Play",
+    tag: "Kids",
     hint: "Bunk beds, soft rugs, and room to play.",
   },
   {
@@ -698,7 +698,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "bedroom",
     designPreset: "quiet_luxury",
-    tag: "Retreat",
+    tag: "Suite",
     hint: "King bed, sitting area, and a dressing nook.",
   },
   {
@@ -710,7 +710,7 @@ const ROOM_STARTERS = [
     height: 9,
     roomType: "living_room",
     designPreset: "",
-    tag: "Sketch",
+    tag: "Custom",
     hint: "Start with a blank page and draw your own footprint.",
   },
 ];

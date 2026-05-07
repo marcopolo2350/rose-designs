@@ -852,3 +852,56 @@ test("welcome screen skips on return visit and tutorial auto-starts in editor", 
   expect(secondVisit.projectCount).toBe(1);
   expect(secondVisit.homeVisible).toBe(true);
 });
+
+test("back-to-wall furniture orients away from nearest wall", async ({ page }) => {
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+  await page.evaluate(() => {
+    if (typeof dismissWelcome === "function") dismissWelcome();
+  });
+
+  await page.locator('[data-action="open-create-room"]').first().click();
+  await page.locator('[data-action="select-create-room-preset"]').first().click();
+  await page.locator('[data-action="create-room-from-preset"]').click();
+  await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await dismissTutorialIfShowing(page);
+
+  // Pure logic test of the back-to-wall helper using a known rectangular room.
+  const rotations = await page.evaluate(() => {
+    const helper = window.Planner2DSnapping;
+    if (!helper?.backToWallRotationDegrees || !helper?.shouldOrientBackToWall) return null;
+    const room = {
+      polygon: [
+        { x: 0, y: 0 },
+        { x: 14, y: 0 },
+        { x: 14, y: 12 },
+        { x: 0, y: 12 },
+      ],
+      walls: [
+        { id: "w1", startIdx: 0, endIdx: 1 },
+        { id: "w2", startIdx: 1, endIdx: 2 },
+        { id: "w3", startIdx: 2, endIdx: 3 },
+        { id: "w4", startIdx: 3, endIdx: 0 },
+      ],
+    };
+    const sofaItem = { assetKey: "sofa", w: 5.2, d: 2.55 };
+    const lampItem = { assetKey: "lamp_floor", w: 1, d: 1, category: "lamp" };
+    return {
+      sofaApplies: helper.shouldOrientBackToWall(sofaItem),
+      lampApplies: helper.shouldOrientBackToWall(lampItem),
+      sofaNearBackWall: helper.backToWallRotationDegrees(sofaItem, { x: 7, z: 11 }, room),
+      sofaNearFrontWall: helper.backToWallRotationDegrees(sofaItem, { x: 7, z: 1 }, room),
+      sofaCenter: helper.backToWallRotationDegrees(sofaItem, { x: 7, z: 6 }, room),
+    };
+  });
+
+  expect(rotations).not.toBeNull();
+  expect(rotations.sofaApplies).toBe(true);
+  expect(rotations.lampApplies).toBe(false);
+  // Near back wall (high y): sofa should face front of room (rotation 0).
+  expect(rotations.sofaNearBackWall).toBeCloseTo(0, 1);
+  // Near front wall (low y): sofa should face back of room (rotation 180).
+  expect(rotations.sofaNearFrontWall).toBeCloseTo(180, 1);
+  // Far from any wall: helper returns null (no auto-orient).
+  expect(rotations.sofaCenter).toBeNull();
+});

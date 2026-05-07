@@ -1247,7 +1247,7 @@ function buildStarterFurniture(starter, w, l) {
         label: "Range Hood",
         assetKey: "kn_hood_modern",
         x: midX,
-        y: l - 0.2,
+        y: l - 1.2,
         w: 2.5,
         d: 1.4,
         rotation: 180,

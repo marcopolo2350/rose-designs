@@ -1925,6 +1925,13 @@ function placeFurn(itemIdx) {
   const pos = state?.snapped || snapFurniturePoint(pendFurnPos.x, pendFurnPos.y);
   const wallAngle = state?.wallSnap?.angle;
   const mountType = resolveFurnitureMountType(item, item, reg);
+  let placedRotation = Number.isFinite(wallAngle)
+    ? Math.round(((-wallAngle * 180) / Math.PI) * 10) / 10
+    : 0;
+  if (!Number.isFinite(wallAngle) && window.Planner2DSnapping?.shouldOrientBackToWall(item, reg)) {
+    const backRot = window.Planner2DSnapping.backToWallRotationDegrees(item, pos, targetRoom);
+    if (Number.isFinite(backRot)) placedRotation = backRot;
+  }
   targetRoom.furniture.push(
     normalizeFurnitureRecord({
       id: uid(),
@@ -1934,9 +1941,7 @@ function placeFurn(itemIdx) {
       z: pos.z,
       w: item.w,
       d: item.d,
-      rotation: Number.isFinite(wallAngle)
-        ? Math.round(((-wallAngle * 180) / Math.PI) * 10) / 10
-        : 0,
+      rotation: placedRotation,
       mountType,
       elevation: Number.isFinite(item.elevation)
         ? item.elevation
