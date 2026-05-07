@@ -1429,12 +1429,12 @@ function build3D() {
     const hemiLight = new THREE.HemisphereLight(
       0xfaf8f4,
       lightState.warmColor,
-      lightState.hemiIntensity * 1.1,
+      lightState.hemiIntensity * 1.25,
     );
     scene.add(hemiLight);
     const ambLight = new THREE.AmbientLight(
       lightState.warmColor,
-      lightState.ambientIntensity * 0.82,
+      lightState.ambientIntensity * 0.96,
     );
     scene.add(ambLight);
     const _shMap = photoMode ? 4096 : 2048;

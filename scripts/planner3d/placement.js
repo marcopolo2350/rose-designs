@@ -144,10 +144,15 @@
     const registryEntry = modelRegistry[furniture.assetKey];
     if (furniture.mountType === "ceiling" || registryEntry?.mountType === "ceiling") {
       const focus = helpers.getRoomFocus(room);
+      const ceilingDefault = Math.max(7.2, room.height - 0.55);
+      const authored = Number.isFinite(furniture.elevation) ? furniture.elevation : null;
+      // Respect explicit elevation when the layout authored it (e.g. a 6.6 ft hood
+      // hanging over a cooktop) instead of forcing every ceiling mount up to the slab.
+      const elevation = authored != null && authored > 0 ? authored : ceilingDefault;
       const placement = {
         position: new THREERef.Vector3(
           furniture.x || focus.x,
-          Math.max(7.2, room.height - 0.55),
+          elevation,
           -(furniture.z || focus.y),
         ),
         wallNormal: null,
