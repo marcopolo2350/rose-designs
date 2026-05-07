@@ -1552,7 +1552,7 @@ function normalizeFurnitureRecord(f) {
     z: Number.isFinite(f.z) ? f.z : 0,
     w: Number.isFinite(f.w) ? f.w : catalog?.w || 2,
     d: Number.isFinite(f.d) ? f.d : catalog?.d || 1.5,
-    rotation: Number.isFinite(f.rotation) ? f.rotation : 0,
+    rotation: Number.isFinite(f.rotation) ? f.rotation : Number.isFinite(f.rot) ? f.rot : 0,
     mountType,
     elevation: Number.isFinite(f.elevation)
       ? f.elevation

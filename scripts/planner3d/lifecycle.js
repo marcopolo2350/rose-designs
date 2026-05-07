@@ -43,6 +43,7 @@
     listeners.el.removeEventListener("pointermove", listeners.pMove);
     listeners.el.removeEventListener("pointercancel", listeners.pCancel);
     listeners.el.removeEventListener("lostpointercapture", listeners.pCancel);
+    if (listeners.pDbl) listeners.el.removeEventListener("dblclick", listeners.pDbl);
     renderer._listeners = null;
   }
 

@@ -48,20 +48,24 @@ function renderRoomModeToDataURL(room, mode, width = 1100, height = 800, opts = 
   curRoom.planViewMode = mode;
   if (typeof opts.legend === "boolean") curRoom.showPlanLegend = opts.legend;
   showMeasurements = opts.measurements !== false;
-  autoFit();
-  draw();
-  const dataUrl = tempCanvas.toDataURL("image/png");
-  showMeasurements = prevMeasurements;
-  canvas = prevCanvas;
-  ctx = prevCtx;
-  curRoom = prevRoom;
-  if (curRoom) {
-    curRoom.planViewMode = prevMode;
-    curRoom.showPlanLegend = prevLegend;
+  let dataUrl;
+  try {
+    autoFit();
+    draw();
+    dataUrl = tempCanvas.toDataURL("image/png");
+  } finally {
+    showMeasurements = prevMeasurements;
+    canvas = prevCanvas;
+    ctx = prevCtx;
+    curRoom = prevRoom;
+    if (curRoom) {
+      curRoom.planViewMode = prevMode;
+      curRoom.showPlanLegend = prevLegend;
+    }
+    vScale = prevScale;
+    vOff = prevOff;
+    if (prevCanvas && prevCtx) draw();
   }
-  vScale = prevScale;
-  vOff = prevOff;
-  if (prevCanvas && prevCtx) draw();
   return dataUrl;
 }
 function exportComparisonSheet() {
@@ -114,8 +118,11 @@ function exportComparisonSheet() {
     );
     toast("Comparison sheet exported");
   };
+  const onError = () => toast("Could not render comparison image");
   beforeImg.onload = finalize;
   afterImg.onload = finalize;
+  beforeImg.onerror = onError;
+  afterImg.onerror = onError;
   beforeImg.src = before;
   afterImg.src = after;
 }
