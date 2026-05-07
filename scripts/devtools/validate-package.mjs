@@ -107,6 +107,7 @@ for (const name of [
   "validate:3d-camera",
   "validate:3d-materials",
   "validate:3d-model-loader",
+  "validate:3d-placement",
   "validate:3d-walls",
   "validate:export-filenames",
 ]) {

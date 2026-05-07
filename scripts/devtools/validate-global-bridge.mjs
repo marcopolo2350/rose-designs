@@ -22,6 +22,7 @@ const allowedAssignments = new Set(
     ["Planner3DCamera", "scripts/planner3d/camera.js"],
     ["Planner3DMaterials", "scripts/planner3d/materials.js"],
     ["Planner3DModelLoader", "scripts/planner3d/model-loader.js"],
+    ["Planner3DPlacement", "scripts/planner3d/placement.js"],
     ["Planner3DRoomShell", "scripts/planner3d/room-shell.js"],
     ["Planner3DWalls", "scripts/planner3d/walls.js"],
     ["RoseCatalogManifest", "scripts/catalog/manifest.js"],

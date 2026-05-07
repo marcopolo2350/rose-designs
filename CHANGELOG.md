@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.123 - 2026-05-07
+
+- extracted 3D furniture placement for wall, surface, ceiling, and floor assets into `scripts/planner3d/placement.js`
+- added `validate:3d-placement` and wired it through local `npm test`, CI, docs, and the PR checklist
+
 ## 0.5.0-hardening.122 - 2026-05-07
 
 - extracted 3D wall segment, door leaf, window trim, and orbit cutaway helper behavior into `scripts/planner3d/walls.js`

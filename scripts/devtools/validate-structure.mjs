@@ -49,6 +49,7 @@ const requiredFiles = [
   "scripts/planner3d/camera.js",
   "scripts/planner3d/materials.js",
   "scripts/planner3d/model-loader.js",
+  "scripts/planner3d/placement.js",
   "scripts/planner3d/room-shell.js",
   "scripts/planner3d/walls.js",
   "scripts/catalog/manifest.js",
@@ -126,6 +127,7 @@ assertModuleBefore("./scripts/planner3d/lighting.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/camera.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/materials.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/model-loader.js", "./scripts/planner3d.js");
+assertModuleBefore("./scripts/planner3d/placement.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/room-shell.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/walls.js", "./scripts/planner3d.js");
 

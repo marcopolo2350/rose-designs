@@ -110,6 +110,7 @@ npm run validate:3d-lighting
 npm run validate:3d-camera
 npm run validate:3d-materials
 npm run validate:3d-model-loader
+npm run validate:3d-placement
 npm run validate:3d-walls
 npm run validate:export-filenames
 npm run test:playwright
@@ -161,6 +162,7 @@ What they do:
 - `validate:3d-camera` - checks data-driven 3D camera labels and pose math
 - `validate:3d-materials` - checks 3D furniture finish/material helpers stay in the material boundary
 - `validate:3d-model-loader` - checks GLTF loader/cache/error-status behavior stays in the 3D model-loader boundary
+- `validate:3d-placement` - checks wall, surface, ceiling, and floor furniture placement math stays in the 3D placement boundary
 - `validate:3d-walls` - checks wall segment geometry, door leaves, window trim assemblies, and orbit cutaway ranking stay in the 3D wall boundary
 - `validate:export-filenames` - checks shared export filename sanitizing, centralized download helpers, and extracted PDF/PNG/SVG/print/JSON export boundaries
 - `test:playwright` - runs the standard Playwright spec suite
@@ -196,6 +198,7 @@ What they do:
 - [scripts/planner3d/camera.js](./scripts/planner3d/camera.js) - data-driven 3D camera labels and pose helpers
 - [scripts/planner3d/materials.js](./scripts/planner3d/materials.js) - furniture finish/material helper boundary
 - [scripts/planner3d/model-loader.js](./scripts/planner3d/model-loader.js) - GLTF loader/cache/error-status boundary
+- [scripts/planner3d/placement.js](./scripts/planner3d/placement.js) - 3D furniture placement and wall/surface snapping helper boundary
 - [scripts/planner3d/room-shell.js](./scripts/planner3d/room-shell.js) - room shell shape, bounds, geometry, and texture helper boundary
 - [scripts/planner3d/walls.js](./scripts/planner3d/walls.js) - 3D wall segment, door leaf, window trim, and cutaway helper boundary
 - [scripts/export/filenames.js](./scripts/export/filenames.js) - shared export filename sanitizing
