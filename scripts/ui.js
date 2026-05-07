@@ -11,6 +11,7 @@ async function checkWelcome() {
 }
 function dismissWelcome() {
   const w = document.getElementById("welcome");
+  if (!w) return;
   w.classList.add("fade");
   setTimeout(() => w.classList.add("gone"), 800);
   ds("welcomed", true);

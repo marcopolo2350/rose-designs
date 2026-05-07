@@ -1153,8 +1153,9 @@ function draw() {
       if (!w) return;
       const a = wS(r, w),
         b = wE(r, w),
-        wl = wL(r, w),
-        an = wA(r, w),
+        wl = wL(r, w);
+      if (!wl) return;
+      const an = wA(r, w),
         t = op.offset / wl;
       const sc = tS({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t }),
         hw = (op.width / 2) * vScale,
@@ -2148,8 +2149,9 @@ function hitTest(sp) {
     if (!w) continue;
     const a = wS(r, w),
       b = wE(r, w),
-      wl = wL(r, w),
-      an = wA(r, w),
+      wl = wL(r, w);
+    if (!wl) continue;
+    const an = wA(r, w),
       t = op.offset / wl,
       s = tS({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t }),
       dx = sp.x - s.x,
