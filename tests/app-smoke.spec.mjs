@@ -560,3 +560,138 @@ test("multi-room floor renders every furnished room in 3D", async ({ page }) => 
   expect(renderStats.furnitureAnchors).toBeGreaterThanOrEqual(2);
   expect(runtimeMessages).toEqual([]);
 });
+
+test("save and reload preserves room data through IndexedDB roundtrip", async ({ page }) => {
+  const runtimeErrors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") runtimeErrors.push(`console: ${message.text()}`);
+  });
+  page.on("pageerror", (error) => runtimeErrors.push(`page: ${error.message}`));
+
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+  await page.locator(".w-btn").click();
+
+  await page.locator('[data-action="open-create-room"]').first().click();
+  await page.locator('[data-action="select-create-room-preset"]').first().click();
+  await page.locator('[data-action="create-room-from-preset"]').click();
+  await expect(page.locator("#scrEd")).toHaveClass(/on/);
+
+  const snapshot = await page.evaluate(() => {
+    const item = FURN_ITEMS.find((c) => c.assetKey === "sofa") || FURN_ITEMS[0];
+    curRoom.furniture.push(
+      normalizeFurnitureRecord({
+        id: uid(),
+        label: "Roundtrip Sofa",
+        assetKey: item.assetKey,
+        category: item.category,
+        x: 5,
+        z: 5,
+        w: item.w,
+        d: item.d,
+        rotation: 45,
+        mountType: "floor",
+        elevation: 0,
+        visible: true,
+      }),
+    );
+    curRoom.openings.push({
+      id: uid(),
+      type: "window",
+      wallId: curRoom.walls[1].id,
+      offset: 3,
+      width: 4,
+      height: 4,
+      sillHeight: 3,
+    });
+    setWallFinish("sage");
+    setFloorType("checker_tile");
+    pushU();
+    savePrj();
+    return {
+      roomId: curRoom.id,
+      name: curRoom.name,
+      furnitureCount: curRoom.furniture.length,
+      openingCount: curRoom.openings.length,
+      wallFinish: curRoom.materials.wallFinish,
+      floorType: curRoom.materials.floorType,
+    };
+  });
+
+  await page.evaluate(async () => {
+    projects = [];
+    curRoom = null;
+    await loadAll();
+  });
+
+  const reloaded = await page.evaluate((roomId) => {
+    const room = projects.find((r) => r.id === roomId);
+    if (!room) return null;
+    return {
+      name: room.name,
+      furnitureCount: room.furniture.length,
+      openingCount: room.openings.length,
+      wallFinish: room.materials.wallFinish,
+      floorType: room.materials.floorType,
+      hasSofa: room.furniture.some((f) => f.label === "Roundtrip Sofa" && f.rotation === 45),
+    };
+  }, snapshot.roomId);
+
+  expect(reloaded).not.toBeNull();
+  expect(reloaded.name).toBe(snapshot.name);
+  expect(reloaded.furnitureCount).toBe(snapshot.furnitureCount);
+  expect(reloaded.openingCount).toBe(snapshot.openingCount);
+  expect(reloaded.wallFinish).toBe("sage");
+  expect(reloaded.floorType).toBe("checker_tile");
+  expect(reloaded.hasSofa).toBe(true);
+  expect(runtimeErrors).toEqual([]);
+});
+
+test("export JSON produces a valid importable document", async ({ page }) => {
+  const runtimeErrors = [];
+  page.on("pageerror", (error) => runtimeErrors.push(`page: ${error.message}`));
+
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+  await page.locator(".w-btn").click();
+
+  await page.locator('[data-action="open-create-room"]').first().click();
+  await page.locator('[data-action="select-create-room-preset"]').first().click();
+  await page.locator('[data-action="create-room-from-preset"]').click();
+  await expect(page.locator("#scrEd")).toHaveClass(/on/);
+
+  const exportDoc = await page.evaluate(() => {
+    curRoom.furniture.push(
+      normalizeFurnitureRecord({
+        id: uid(),
+        label: "Export Chair",
+        assetKey: "chair",
+        category: "seating",
+        x: 3,
+        z: 3,
+        w: 2,
+        d: 2,
+        rotation: 0,
+        mountType: "floor",
+        elevation: 0,
+        visible: true,
+      }),
+    );
+    return buildExportDocument(projects);
+  });
+
+  expect(exportDoc.schemaVersion).toBe(2);
+  expect(exportDoc.appVersion).toBeTruthy();
+  expect(Array.isArray(exportDoc.projects)).toBe(true);
+  expect(exportDoc.projects.length).toBeGreaterThan(0);
+  const room = exportDoc.projects[0];
+  expect(room.polygon.length).toBeGreaterThanOrEqual(4);
+  expect(room.furniture.some((f) => f.label === "Export Chair")).toBe(true);
+
+  const validation = await page.evaluate((doc) => {
+    return validateImportedProjectDocument(doc);
+  }, exportDoc);
+  expect(validation.valid).toBe(true);
+
+  expect(runtimeErrors).toEqual([]);
+});
