@@ -69,7 +69,7 @@
     "validate:3d-walls": "node ./scripts/devtools/validate-3d-walls.mjs"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
+    "@eslint/js": "^10.0.1",
     "eslint": "^9.25.1",
     "playwright": "^1.58.2",
     "prettier": "^3.5.3"
