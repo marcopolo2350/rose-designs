@@ -8,10 +8,10 @@ let cameraScript = null,
 // HDRI environment maps (Poly Haven CC0, served via jsDelivr). Cached across scene rebuilds.
 const HDRI_SOURCES = {
   daylight:
-    "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/equirectangular/royal_esplanade_1k.hdr",
+    "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r147/examples/textures/equirectangular/royal_esplanade_1k.hdr",
   evening:
-    "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/equirectangular/moonless_golf_1k.hdr",
-  warm: "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/equirectangular/venice_sunset_1k.hdr",
+    "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r147/examples/textures/equirectangular/moonless_golf_1k.hdr",
+  warm: "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r147/examples/textures/equirectangular/venice_sunset_1k.hdr",
 };
 const _hdriCache = new Map();
 function _resolveHdriKey(id) {

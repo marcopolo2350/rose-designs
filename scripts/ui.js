@@ -1479,7 +1479,7 @@ function buildStarterFurniture(starter, w, l) {
         label: "Bunk Bed",
         assetKey: "thi_bunk_bed",
         x: midX - 1,
-        y: l - 3,
+        y: l - 3.3,
         w: 3.5,
         d: 6.5,
         rotation: 180,
