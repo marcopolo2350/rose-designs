@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.125 - 2026-05-07
+
+- moved 3D furniture contact-shadow texture and mesh helper behavior into `scripts/planner3d/textures.js`
+- extended `validate:3d-textures` to guard floor textures, planar UVs, contact texture caching, and shadow mesh placement rules
+
 ## 0.5.0-hardening.124 - 2026-05-07
 
 - extracted procedural floor texture and planar UV helper behavior into `scripts/planner3d/textures.js`

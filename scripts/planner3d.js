@@ -1,4 +1,4 @@
-let cameraScript=null,walkthroughTrayOpen=false,photoMode=false,photoTrayOpen=false,contactShadowTexture=null,presentationShot='hero',composer=null,last2DViewState=null;
+let cameraScript=null,walkthroughTrayOpen=false,photoMode=false,photoTrayOpen=false,presentationShot='hero',composer=null,last2DViewState=null;
 // HDRI environment maps (Poly Haven CC0, served via jsDelivr). Cached across scene rebuilds.
 const HDRI_SOURCES={
   daylight:'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/equirectangular/royal_esplanade_1k.hdr',
@@ -529,33 +529,6 @@ function computeSceneLightingState(room){
     fillPosition:{x:-Math.max(5,(room?.height||9))*.82,y:(room?.height||9)*(1.08-t*.12),z:-Math.max(5,(room?.height||9))*(.35+t*.2)},
     shadowStrength:photoMode?.28:.22
   };
-}
-function getContactShadowTexture(){
-  if(contactShadowTexture)return contactShadowTexture;
-  const can=document.createElement('canvas');
-  can.width=256;can.height=256;
-  const c=can.getContext('2d');
-  const grad=c.createRadialGradient(128,128,16,128,128,112);
-  grad.addColorStop(0,'rgba(48,32,22,.34)');
-  grad.addColorStop(.55,'rgba(48,32,22,.12)');
-  grad.addColorStop(1,'rgba(48,32,22,0)');
-  c.fillStyle=grad;
-  c.fillRect(0,0,256,256);
-  contactShadowTexture=new THREE.CanvasTexture(can);
-  contactShadowTexture.needsUpdate=true;
-  return contactShadowTexture;
-}
-function buildContactShadowMesh(f){
-  if(!f||['wall','ceiling','surface'].includes(f.mountType))return null;
-  const w=Math.max(.8,(f.w||2)*1.08);
-  const d=Math.max(.8,(f.d||1.5)*1.06);
-  const opacity=(String(f.assetKey||'').includes('rug')?.08:.16)+(photoMode?.03:0);
-  const mat=new THREE.MeshBasicMaterial({map:getContactShadowTexture(),transparent:true,opacity,depthWrite:false});
-  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,d),mat);
-  mesh.rotation.x=-Math.PI/2;
-  mesh.position.y=.02;
-  mesh.renderOrder=1;
-  return mesh;
 }
 function canUseLampShadows(room){
   const lamps=(room?.furniture||[]).filter(f=>String(f.assetKey||'').startsWith('lamp_')).length;
@@ -1123,7 +1096,7 @@ function placeFurnitureInScene(f,r){
   if(!placement)return;
   const renderState=getFurnitureRenderState(f,r);
   anchor.position.copy(placement.position);anchor.rotation.y=placement.rotationY;anchor.visible=renderState.visible;anchor.userData.furnitureId=f.id;anchor.userData.assetKey=f.assetKey;scene.add(anchor);
-  const contactShadow=buildContactShadowMesh(f);
+  const contactShadow=window.Planner3DTextures.buildContactShadowMesh({THREE,document,furniture:f,photoMode});
   if(contactShadow){
     if(renderState.ghost)contactShadow.material.opacity*=.6;
     anchor.add(contactShadow);

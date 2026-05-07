@@ -219,10 +219,12 @@ for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   }
   if (
     modulePath === "scripts/planner3d.js" &&
-    /\bfunction\s+(?:buildFloorTexture|buildFloorAccentTexture|applyPlanarUVs)\s*\(/.test(source)
+    /\bfunction\s+(?:buildFloorTexture|buildFloorAccentTexture|applyPlanarUVs|getContactShadowTexture|buildContactShadowMesh)\s*\(/.test(
+      source,
+    )
   ) {
     errors.push(
-      `${modulePath} defines floor texture/UV helpers outside scripts/planner3d/textures.js.`,
+      `${modulePath} defines texture/contact-shadow helpers outside scripts/planner3d/textures.js.`,
     );
   }
   if (modulePath === "scripts/planner3d.js") {

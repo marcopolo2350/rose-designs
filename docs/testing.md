@@ -88,7 +88,7 @@ npm test
 - `validate:3d-materials` - exercises the extracted 3D furniture finish/material helper boundary
 - `validate:3d-model-loader` - exercises the extracted GLTF loader/cache/error-status boundary
 - `validate:3d-placement` - exercises wall, surface, ceiling, and floor furniture placement math
-- `validate:3d-textures` - exercises procedural floor texture generation and planar UV mapping
+- `validate:3d-textures` - exercises procedural floor texture generation, planar UV mapping, and contact-shadow helpers
 - `validate:3d-walls` - exercises the extracted 3D wall segment, door leaf, window trim, and cutaway-ranking boundary
 - `validate:export-filenames` - exercises export filename sanitizing, centralized download helpers, and extracted PDF/PNG/SVG/print/JSON export boundaries
 - `test:playwright` - runs the standard Playwright spec suite

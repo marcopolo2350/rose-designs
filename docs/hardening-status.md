@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-07
 
-Current app version: `0.5.0-hardening.124`
+Current app version: `0.5.0-hardening.125`
 
 This document tracks the ruthless cleanup work honestly. It is not a claim that the full checklist is complete.
 
@@ -92,7 +92,7 @@ This document tracks the ruthless cleanup work honestly. It is not a claim that 
 - GLTF loader/cache/error-status behavior is isolated in `scripts/planner3d/model-loader.js` and covered by `npm run validate:3d-model-loader`.
 - 3D furniture placement for wall, surface, ceiling, and floor assets is isolated in `scripts/planner3d/placement.js` and covered by `npm run validate:3d-placement`.
 - 3D room-shell shape, bounds, and plan geometry helpers are isolated in `scripts/planner3d/room-shell.js` and guarded by `npm run validate:structure` plus `npm run validate:global-bridge`.
-- 3D procedural floor textures and planar UV helpers are isolated in `scripts/planner3d/textures.js` and covered by `npm run validate:3d-textures`.
+- 3D procedural floor textures, planar UV helpers, and furniture contact-shadow texture helpers are isolated in `scripts/planner3d/textures.js` and covered by `npm run validate:3d-textures`.
 - 3D wall segment geometry, door leaf groups, window trim assemblies, and orbit cutaway ranking are isolated in `scripts/planner3d/walls.js` and covered by `npm run validate:3d-walls`.
 - Desktop and mobile Playwright coverage now adds an adjacent room, furnishes both rooms, enters 3D, and verifies both room shells and furniture anchors render on the active floor.
 - Duplicate 3D view, walkthrough, photo, camera, and rebuild handler overrides were collapsed into single function declarations, and `npm run validate:structure` blocks those late overrides from returning.

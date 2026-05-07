@@ -56,6 +56,29 @@ class FakeCanvasTexture {
   }
 }
 
+class FakeMeshBasicMaterial {
+  constructor(options = {}) {
+    Object.assign(this, options);
+  }
+}
+
+class FakePlaneGeometry {
+  constructor(width, depth) {
+    this.width = width;
+    this.depth = depth;
+  }
+}
+
+class FakeMesh {
+  constructor(geometry, material) {
+    this.geometry = geometry;
+    this.material = material;
+    this.position = { y: 0 };
+    this.rotation = { x: 0 };
+    this.renderOrder = 0;
+  }
+}
+
 class FakeBufferAttribute {
   constructor(array, itemSize) {
     this.array = array;
@@ -74,6 +97,16 @@ function makeContext(canvas) {
     },
     clearRect() {
       canvas.ops.push("clearRect");
+    },
+    createRadialGradient() {
+      canvas.ops.push("createRadialGradient");
+      return {
+        stops: [],
+        addColorStop(offset, color) {
+          this.stops.push([offset, color]);
+          canvas.ops.push("addColorStop");
+        },
+      };
     },
     ellipse() {
       canvas.ops.push("ellipse");
@@ -141,14 +174,19 @@ const floorTypes = [
 const THREERef = {
   BufferAttribute: FakeBufferAttribute,
   CanvasTexture: FakeCanvasTexture,
+  Mesh: FakeMesh,
+  MeshBasicMaterial: FakeMeshBasicMaterial,
+  PlaneGeometry: FakePlaneGeometry,
   RepeatWrapping: "repeat-wrapping",
 };
 const safeThreeColor = (value, fallback) => new FakeColor(value || fallback);
 
 const requiredFunctions = [
   "applyPlanarUVs",
+  "buildContactShadowMesh",
   "buildFloorAccentTexture",
   "buildFloorTexture",
+  "getContactShadowTexture",
   "pickPreset",
 ];
 
@@ -162,16 +200,20 @@ for (const name of requiredFunctions) {
 }
 
 expect(
-  "planner3d.js must not define floor texture helpers",
-  !/\bfunction\s+(?:buildFloorTexture|buildFloorAccentTexture|applyPlanarUVs)\s*\(/.test(
+  "planner3d.js must not define texture/contact-shadow helpers",
+  !/\bfunction\s+(?:buildFloorTexture|buildFloorAccentTexture|applyPlanarUVs|getContactShadowTexture|buildContactShadowMesh)\s*\(/.test(
     plannerSource,
-  ),
+  ) && !/\bcontactShadowTexture\b/.test(plannerSource),
 );
 expect(
   "planner3d.js must delegate floor textures to Planner3DTextures",
   /Planner3DTextures\.buildFloorTexture/.test(plannerSource) &&
     /Planner3DTextures\.buildFloorAccentTexture/.test(plannerSource) &&
     /Planner3DTextures\.applyPlanarUVs/.test(plannerSource),
+);
+expect(
+  "planner3d.js must delegate contact shadows to Planner3DTextures",
+  /Planner3DTextures\.buildContactShadowMesh/.test(plannerSource),
 );
 expect(
   "planner2d.js style refresh must delegate floor textures to Planner3DTextures",
@@ -258,6 +300,40 @@ expect("applyPlanarUVs marks uv dirty", geometry.attributes.uv.needsUpdate === t
 expect(
   "applyPlanarUVs normalizes x/y spans",
   geometry.attributes.uv.array[2] === 1 && geometry.attributes.uv.array[5] === 1,
+);
+
+const contactTexture = textures.getContactShadowTexture(THREERef, documentRef);
+const contactTextureAgain = textures.getContactShadowTexture(THREERef, documentRef);
+expect(
+  "contact shadow texture uses a 256 canvas",
+  contactTexture.image.width === 256 && contactTexture.image.height === 256,
+);
+expect("contact shadow texture is cached", contactTexture === contactTextureAgain);
+expect("contact shadow texture marks itself dirty", contactTexture.needsUpdate === true);
+
+const contactShadow = textures.buildContactShadowMesh({
+  THREE: THREERef,
+  document: documentRef,
+  furniture: { assetKey: "sofa", w: 6, d: 3 },
+  photoMode: true,
+});
+expect(
+  "contact shadow mesh uses PlaneGeometry",
+  contactShadow.geometry instanceof FakePlaneGeometry,
+);
+expect("contact shadow mesh uses cached texture", contactShadow.material.map === contactTexture);
+expect(
+  "contact shadow opacity includes photo boost",
+  Math.abs(contactShadow.material.opacity - 0.19) < 0.0001,
+);
+expect("contact shadow is horizontal", contactShadow.rotation.x === -Math.PI / 2);
+expect(
+  "wall-mounted assets do not get floor contact shadows",
+  textures.buildContactShadowMesh({
+    THREE: THREERef,
+    document: documentRef,
+    furniture: { assetKey: "wall_art_01", mountType: "wall" },
+  }) === null,
 );
 
 if (errors.length) {

@@ -1,4 +1,6 @@
 (function initPlanner3DTextures() {
+  let contactShadowTexture = null;
+
   function pickPreset(floorTypes = [], type) {
     return floorTypes.find((floorType) => floorType.id === type) || floorTypes[0] || {};
   }
@@ -226,10 +228,50 @@
     return makeTexture(THREERef, canvas, preset.repeat);
   }
 
+  function getContactShadowTexture(THREERef, documentRef) {
+    if (contactShadowTexture) return contactShadowTexture;
+    const { canvas, context: c } = canvas2D(documentRef, 256);
+    const gradient = c.createRadialGradient(128, 128, 16, 128, 128, 112);
+    gradient.addColorStop(0, "rgba(48,32,22,.34)");
+    gradient.addColorStop(0.55, "rgba(48,32,22,.12)");
+    gradient.addColorStop(1, "rgba(48,32,22,0)");
+    c.fillStyle = gradient;
+    c.fillRect(0, 0, 256, 256);
+    contactShadowTexture = new THREERef.CanvasTexture(canvas);
+    contactShadowTexture.needsUpdate = true;
+    return contactShadowTexture;
+  }
+
+  function buildContactShadowMesh({
+    THREE: THREERef,
+    document: documentRef,
+    furniture,
+    photoMode = false,
+  }) {
+    if (!furniture || ["wall", "ceiling", "surface"].includes(furniture.mountType)) return null;
+    const width = Math.max(0.8, (furniture.w || 2) * 1.08);
+    const depth = Math.max(0.8, (furniture.d || 1.5) * 1.06);
+    const opacity =
+      (String(furniture.assetKey || "").includes("rug") ? 0.08 : 0.16) + (photoMode ? 0.03 : 0);
+    const material = new THREERef.MeshBasicMaterial({
+      map: getContactShadowTexture(THREERef, documentRef),
+      transparent: true,
+      opacity,
+      depthWrite: false,
+    });
+    const mesh = new THREERef.Mesh(new THREERef.PlaneGeometry(width, depth), material);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.y = 0.02;
+    mesh.renderOrder = 1;
+    return mesh;
+  }
+
   window.Planner3DTextures = Object.freeze({
     applyPlanarUVs,
+    buildContactShadowMesh,
     buildFloorAccentTexture,
     buildFloorTexture,
+    getContactShadowTexture,
     pickPreset,
   });
 })();
