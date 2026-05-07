@@ -923,24 +923,8 @@ function updateWalkUI(){
   }else{if(wc2)wc2.remove();stopWalkMove();stopWalkTurn()}}
 
 function addWSeg(ws,an,s,e,botY,topY,mat){
-  const sw=e-s,sh=topY-botY;if(sw<.01||sh<.01)return;
-  // Wall-with-holes: give walls real thickness so openings visibly
-  // cut through solid wall (door/window jambs show reveal depth). Glass window
-  // infills stay thin so they don't overlap the frame trim.
-  const isGlass=mat&&mat.transparent&&(mat.opacity||1)<.9;
-  const th=isGlass?0.04:0.18;
-  const g=new THREE.BoxGeometry(sw,sh,th);
-  const m=new THREE.Mesh(g,mat);
-  m.castShadow=!isGlass;m.receiveShadow=!isGlass;
-  const mid=(s+e)/2;
-  m.position.set(ws.x+Math.cos(an)*mid,(botY+topY)/2,-(ws.y+Math.sin(an)*mid));
-  m.rotation.y=-an;
-  if(!isGlass&&mat?.userData?.isWallSurface){
-    m.userData.roomWallSegment=true;
-    m.userData.wallCenter2D={x:m.position.x,y:-m.position.z};
-    m.userData.roomId=mat.userData.styleRoomId||'';
-  }
-  scene.add(m)}
+  const m=window.Planner3DWalls.createWallSegmentMesh(THREE,{startPoint:ws,angle:an,segmentStart:s,segmentEnd:e,bottomY:botY,topY,material:mat});
+  if(m)scene.add(m)}
 function updateOrbitWallCutaway(cameraPos){
   if(!scene||!curRoom)return;
   const walls=scene.children.filter(obj=>obj.userData?.roomWallSegment);
@@ -951,58 +935,19 @@ function updateOrbitWallCutaway(cameraPos){
   const floorRooms=currentFloor3DRooms(curRoom);
   const outside=typeof pointInsideRoom2D==='function'?!floorRooms.some(room=>pointInsideRoom2D(cam2D,room)):true;
   if(!outside)return;
-  walls
-    .map(obj=>({obj,d:Math.hypot((obj.userData.wallCenter2D?.x||0)-cam2D.x,(obj.userData.wallCenter2D?.y||0)-cam2D.y)}))
-    .sort((a,b)=>a.d-b.d)
-    .slice(0,Math.min(3,walls.length))
-    .forEach(entry=>{entry.obj.visible=false;});
+  window.Planner3DWalls.nearestCutawayWalls(walls,cameraPos,3).forEach(obj=>{obj.visible=false;});
 }
 function addDoorLeaf3D(ws,an,os,oe,op,trimColor){
-  const width=Math.max(.55,oe-os),doorW=Math.max(.45,width-.12),doorH=Math.max(2.1,(op.height||7)-.08);
-  const hingeRight=op.hinge==='right',swingIn=op.swing!=='out';
-  const hingeOffset=hingeRight?oe-.04:os+.04;
-  const pivot=new THREE.Group();
-  pivot.position.set(ws.x+Math.cos(an)*hingeOffset,.02,-(ws.y+Math.sin(an)*hingeOffset));
-  pivot.rotation.y=-an;
-  const angle=(swingIn?-1:1)*(hingeRight?1:-1)*Math.PI*.5;
-  pivot.rotation.y+=angle;
-  const doorMat=new THREE.MeshStandardMaterial({color:trimColor.clone().offsetHSL(.015,.08,-.05),roughness:.54,metalness:.04,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
-  const insetMat=new THREE.MeshStandardMaterial({color:trimColor.clone().offsetHSL(.01,.05,.08),roughness:.44,metalness:.03,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
-  const handleMat=new THREE.MeshStandardMaterial({color:0x8b8479,roughness:.24,metalness:.72});
-  scene?.userData?.styleTargets?.trimMats?.push(doorMat,insetMat);
-  const leaf=new THREE.Mesh(new THREE.BoxGeometry(doorW,doorH,.08),doorMat);
-  leaf.castShadow=true;
-  leaf.position.set(hingeRight?-doorW/2:doorW/2,doorH/2,hingeRight?.03:-.03);
-  pivot.add(leaf);
-  const inset=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.2,doorW-.34),Math.max(.4,doorH-.7),.02),insetMat);
-  inset.position.set(hingeRight?-doorW/2:doorW/2,doorH/2,hingeRight?-.02:.02);
-  pivot.add(inset);
-  const handle=new THREE.Mesh(new THREE.BoxGeometry(.05,.24,.03),handleMat);
-  handle.position.set(hingeRight?-(doorW-.16):doorW-.16,doorH*.52,hingeRight?-.045:.045);
-  pivot.add(handle);
-  scene.add(pivot);
+  const created=window.Planner3DWalls.createDoorLeafGroup(THREE,{startPoint:ws,angle:an,openingStart:os,openingEnd:oe,opening:op,trimColor});
+  if(!created?.group)return;
+  scene?.userData?.styleTargets?.trimMats?.push(...created.materials);
+  scene.add(created.group);
 }
 function addWindowAssembly3D(ws,an,os,oe,op,trimColor){
-  const width=Math.max(.8,oe-os),height=Math.max(1.6,op.height||4),sill=op.sillHeight||3,mid=(os+oe)/2;
-  const cx=ws.x+Math.cos(an)*mid,cz=-(ws.y+Math.sin(an)*mid);
-  const frameMat=new THREE.MeshStandardMaterial({color:trimColor.clone().offsetHSL(.01,.04,.03),roughness:.5,metalness:.03,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
-  const sillMat=new THREE.MeshStandardMaterial({color:trimColor.clone().offsetHSL(.02,.03,-.02),roughness:.58,metalness:.02,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
-  scene?.userData?.styleTargets?.trimMats?.push(frameMat,sillMat);
-  const trimDepth=.06;
-  const horizTop=new THREE.Mesh(new THREE.BoxGeometry(width+.04,.08,trimDepth));
-  horizTop.material=frameMat; horizTop.position.set(cx,sill+height-.04,cz); horizTop.rotation.y=-an; scene.add(horizTop);
-  const horizBottom=new THREE.Mesh(new THREE.BoxGeometry(width+.04,.08,trimDepth));
-  horizBottom.material=frameMat; horizBottom.position.set(cx,sill+.04,cz); horizBottom.rotation.y=-an; scene.add(horizBottom);
-  const left=new THREE.Mesh(new THREE.BoxGeometry(.08,height,trimDepth));
-  left.material=frameMat; left.position.set(ws.x+Math.cos(an)*(os+.04),sill+height/2,-(ws.y+Math.sin(an)*(os+.04))); left.rotation.y=-an; scene.add(left);
-  const right=new THREE.Mesh(new THREE.BoxGeometry(.08,height,trimDepth));
-  right.material=frameMat; right.position.set(ws.x+Math.cos(an)*(oe-.04),sill+height/2,-(ws.y+Math.sin(an)*(oe-.04))); right.rotation.y=-an; scene.add(right);
-  const mullion=new THREE.Mesh(new THREE.BoxGeometry(.05,height-.18,trimDepth*.8));
-  mullion.material=frameMat; mullion.position.set(cx,sill+height/2,cz); mullion.rotation.y=-an; scene.add(mullion);
-  const transom=new THREE.Mesh(new THREE.BoxGeometry(width-.14,.05,trimDepth*.8));
-  transom.material=frameMat; transom.position.set(cx,sill+height/2,cz); transom.rotation.y=-an; scene.add(transom);
-  const sillBoard=new THREE.Mesh(new THREE.BoxGeometry(width+.14,.06,.18),sillMat);
-  sillBoard.position.set(cx,sill-.07,cz+.02); sillBoard.rotation.y=-an; scene.add(sillBoard);
+  const created=window.Planner3DWalls.createWindowAssembly(THREE,{startPoint:ws,angle:an,openingStart:os,openingEnd:oe,opening:op,trimColor});
+  if(!created?.meshes?.length)return;
+  scene?.userData?.styleTargets?.trimMats?.push(...created.materials);
+  created.meshes.forEach(mesh=>scene.add(mesh));
 }
 
 function buildFloorTexture(color,type){

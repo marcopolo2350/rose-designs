@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0-hardening.122 - 2026-05-07
+
+- extracted 3D wall segment, door leaf, window trim, and orbit cutaway helper behavior into `scripts/planner3d/walls.js`
+- added `validate:3d-walls` and wired it through local `npm test`, CI, docs, and the PR checklist
+
 ## 0.5.0-hardening.121 - 2026-05-06
 
 - increased the multi-room 3D Playwright mesh-registration wait for slower mobile CI WebGL startup

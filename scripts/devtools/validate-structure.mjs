@@ -50,6 +50,7 @@ const requiredFiles = [
   "scripts/planner3d/materials.js",
   "scripts/planner3d/model-loader.js",
   "scripts/planner3d/room-shell.js",
+  "scripts/planner3d/walls.js",
   "scripts/catalog/manifest.js",
   "scripts/export/filenames.js",
   "scripts/export/downloads.js",
@@ -126,6 +127,7 @@ assertModuleBefore("./scripts/planner3d/camera.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/materials.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/model-loader.js", "./scripts/planner3d.js");
 assertModuleBefore("./scripts/planner3d/room-shell.js", "./scripts/planner3d.js");
+assertModuleBefore("./scripts/planner3d/walls.js", "./scripts/planner3d.js");
 
 for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   const modulePath = path.relative(root, absolute).replace(/\\/g, "/");
