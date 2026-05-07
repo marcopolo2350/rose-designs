@@ -905,3 +905,73 @@ test("back-to-wall furniture orients away from nearest wall", async ({ page }) =
   // Far from any wall: helper returns null (no auto-orient).
   expect(rotations.sofaCenter).toBeNull();
 });
+
+test("bedroom starter places the bed headboard against the back wall in 3D", async ({ page }) => {
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+  await page.evaluate(() => {
+    if (typeof dismissWelcome === "function") dismissWelcome();
+  });
+
+  // Open Bedroom preset with the suggested-layout option.
+  await page.evaluate(() => {
+    openCrModal("bedroom");
+    setCreateRoomLayoutMode("starter");
+  });
+  await page.locator('[data-action="create-room-from-preset"]').click();
+  await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await dismissTutorialIfShowing(page);
+
+  // Toggle 3D and let the scene + bed GLB fully load.
+  await page.evaluate(() => {
+    is3D = false;
+    document.getElementById("threeC")?.classList.remove("on");
+    document.getElementById("b3d")?.classList.remove("on");
+    document.getElementById("scrEd")?.classList.remove("mode-3d");
+    toggle3D();
+  });
+  await page.waitForFunction(() => is3D && scene && scene.children.length > 5, { timeout: 30000 });
+  await page.waitForTimeout(7000);
+
+  const inspection = await page.evaluate(() => {
+    const bed = curRoom?.furniture?.find((f) => f.assetKey === "bed_king");
+    const polyMaxY = Math.max(...(curRoom?.polygon || []).map((p) => p.y));
+    let bedMesh = null;
+    scene.traverse((o) => {
+      if (o.userData?.assetKey === "bed_king") bedMesh = o;
+    });
+    if (!bedMesh) return null;
+    let maxMeshY = -Infinity;
+    let maxMeshZ = 0;
+    bedMesh.traverse((o) => {
+      const pos = o.geometry?.attributes?.position;
+      if (!pos) return;
+      o.updateWorldMatrix(true, false);
+      for (let i = 0; i < pos.count; i += 1) {
+        const v = new THREE.Vector3(pos.getX(i), pos.getY(i), pos.getZ(i));
+        v.applyMatrix4(o.matrixWorld);
+        if (v.y > maxMeshY) {
+          maxMeshY = v.y;
+          maxMeshZ = v.z;
+        }
+      }
+    });
+    return {
+      bedRotationDeg: bed?.rotation,
+      bedCenter2DY: bed?.z,
+      backWall2DY: polyMaxY,
+      bedCenter3DZ: -bed?.z,
+      backWall3DZ: -polyMaxY,
+      meshTallestZ: maxMeshZ,
+      tallestSideAtBackWall: maxMeshZ < -bed?.z,
+    };
+  });
+
+  expect(inspection).not.toBeNull();
+  // The starter rotates the bed to put the headboard (tallest mesh feature) at the back wall.
+  expect(inspection.bedRotationDeg).toBe(0);
+  // The bed's tallest mesh point sits past the bed's center toward the back wall, not toward the room.
+  expect(inspection.tallestSideAtBackWall).toBe(true);
+  // Sanity: the back wall is meaningfully past where the headboard ended up.
+  expect(inspection.meshTallestZ).toBeLessThan(inspection.bedCenter3DZ - 1);
+});

@@ -1058,7 +1058,7 @@ function buildStarterFurniture(starter, w, l) {
         y: l - 3.7,
         w: 6.4,
         d: 7.4,
-        rotation: 180,
+        rotation: 0,
       },
       {
         label: "Nightstand",
@@ -1195,7 +1195,7 @@ function buildStarterFurniture(starter, w, l) {
         y: l - 3.3,
         w: 3.6,
         d: 6.6,
-        rotation: 180,
+        rotation: 0,
       },
       {
         label: "Tall Dresser",
@@ -1482,7 +1482,7 @@ function buildStarterFurniture(starter, w, l) {
         y: l - 3.3,
         w: 3.5,
         d: 6.5,
-        rotation: 180,
+        rotation: 0,
       },
       {
         label: "Nightstand",
@@ -1521,7 +1521,7 @@ function buildStarterFurniture(starter, w, l) {
         y: l - 4,
         w: 6.4,
         d: 7.4,
-        rotation: 180,
+        rotation: 0,
       },
       {
         label: "Nightstand L",
