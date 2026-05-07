@@ -5,7 +5,8 @@
 
   function normalizeManifestEntries(entries, helpers = {}) {
     const normalizeGroup = helpers.normalizeCatalogGroup || identity;
-    const normalizeArray = helpers.normalizeArrayValue || ((value) => (Array.isArray(value) ? value : []));
+    const normalizeArray =
+      helpers.normalizeArrayValue || ((value) => (Array.isArray(value) ? value : []));
     const normalizeVariants =
       helpers.normalizeVariantsValue || ((value) => (Array.isArray(value) ? value : []));
 

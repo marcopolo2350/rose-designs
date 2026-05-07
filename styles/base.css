@@ -109,6 +109,12 @@ button.is-hidden,
   color: var(--muted);
   margin: 4px 0 0;
 }
+.noscript-msg {
+  padding: 48px 24px;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+  color: var(--text, #1e1e1e);
+}
 .fatal-load {
   position: fixed;
   inset: 0;

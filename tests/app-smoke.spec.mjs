@@ -677,7 +677,7 @@ test("export JSON produces a valid importable document", async ({ page }) => {
         visible: true,
       }),
     );
-    return buildExportDocument(projects);
+    return window.RoseProjectSchema.buildExportDocument(projects);
   });
 
   expect(exportDoc.schemaVersion).toBe(2);
@@ -689,9 +689,100 @@ test("export JSON produces a valid importable document", async ({ page }) => {
   expect(room.furniture.some((f) => f.label === "Export Chair")).toBe(true);
 
   const validation = await page.evaluate((doc) => {
-    return validateImportedProjectDocument(doc);
+    try {
+      const result = window.RoseProjectSchema.validateImportedProjectDocument(doc);
+      return { ok: true, roomCount: result.rooms.length };
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
   }, exportDoc);
-  expect(validation.valid).toBe(true);
+  expect(validation.ok).toBe(true);
+  expect(validation.roomCount).toBeGreaterThan(0);
+
+  expect(runtimeErrors).toEqual([]);
+});
+
+test("undo and redo preserve room state through edit cycles", async ({ page }) => {
+  const runtimeErrors = [];
+  page.on("pageerror", (error) => runtimeErrors.push(`page: ${error.message}`));
+
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+  await page.locator(".w-btn").click();
+
+  await page.locator('[data-action="open-create-room"]').first().click();
+  await page.locator('[data-action="select-create-room-preset"]').first().click();
+  await page.locator('[data-action="create-room-from-preset"]').click();
+  await expect(page.locator("#scrEd")).toHaveClass(/on/);
+
+  const baseline = await page.evaluate(() => ({
+    furnitureCount: curRoom.furniture.length,
+    undoDepth: undoSt.length,
+  }));
+
+  await page.evaluate(() => {
+    curRoom.furniture.push(
+      normalizeFurnitureRecord({
+        id: uid(),
+        label: "Undo Test Chair",
+        assetKey: "chair",
+        x: 5,
+        z: 5,
+        w: 2,
+        d: 2,
+        rotation: 0,
+        mountType: "floor",
+        elevation: 0,
+        visible: true,
+      }),
+    );
+    pushU();
+  });
+
+  const afterAdd = await page.evaluate(() => ({
+    furnitureCount: curRoom.furniture.length,
+    hasChair: curRoom.furniture.some((f) => f.label === "Undo Test Chair"),
+    undoDepth: undoSt.length,
+  }));
+  expect(afterAdd.furnitureCount).toBe(baseline.furnitureCount + 1);
+  expect(afterAdd.hasChair).toBe(true);
+  expect(afterAdd.undoDepth).toBe(baseline.undoDepth + 1);
+
+  await page.evaluate(() => doUndo());
+
+  const afterUndo = await page.evaluate(() => ({
+    furnitureCount: curRoom.furniture.length,
+    hasChair: curRoom.furniture.some((f) => f.label === "Undo Test Chair"),
+    redoDepth: redoSt.length,
+  }));
+  expect(afterUndo.furnitureCount).toBe(baseline.furnitureCount);
+  expect(afterUndo.hasChair).toBe(false);
+  expect(afterUndo.redoDepth).toBeGreaterThan(0);
+
+  await page.evaluate(() => doRedo());
+
+  const afterRedo = await page.evaluate(() => ({
+    furnitureCount: curRoom.furniture.length,
+    hasChair: curRoom.furniture.some((f) => f.label === "Undo Test Chair"),
+  }));
+  expect(afterRedo.furnitureCount).toBe(baseline.furnitureCount + 1);
+  expect(afterRedo.hasChair).toBe(true);
+
+  const wallFinishBeforeChange = await page.evaluate(() => curRoom.materials.wallFinish);
+
+  await page.evaluate(() => setWallFinish("sage"));
+
+  const afterMaterialChange = await page.evaluate(() => ({
+    wallFinish: curRoom.materials.wallFinish,
+    redoDepth: redoSt.length,
+  }));
+  expect(afterMaterialChange.wallFinish).toBe("sage");
+  expect(afterMaterialChange.redoDepth).toBe(0);
+
+  await page.evaluate(() => doUndo());
+
+  const afterUndoMaterial = await page.evaluate(() => curRoom.materials.wallFinish);
+  expect(afterUndoMaterial).toBe(wallFinishBeforeChange);
 
   expect(runtimeErrors).toEqual([]);
 });
