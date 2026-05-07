@@ -1,57 +1,238 @@
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+:root {
   /* Premium neutral palette */
-  --bg:#FAFAF8;--bg2:#F2F0EC;--bg3:#E8E5DF;
-  --surface:#FFFFFF;--surface2:#F7F6F3;
-  --accent:#9B7A5A;--accent-l:#C4A882;--accent-d:#6B5030;
-  --text:#1E1E1E;--muted:#8C8680;--subtle:#B5AFA8;
-  --white:#FFF;--border:rgba(0,0,0,.06);--border-strong:rgba(0,0,0,.1);
+  --bg: #fafaf8;
+  --bg2: #f2f0ec;
+  --bg3: #e8e5df;
+  --surface: #ffffff;
+  --surface2: #f7f6f3;
+  --accent: #9b7a5a;
+  --accent-l: #c4a882;
+  --accent-d: #6b5030;
+  --text: #1e1e1e;
+  --muted: #8c8680;
+  --subtle: #b5afa8;
+  --white: #fff;
+  --border: rgba(0, 0, 0, 0.06);
+  --border-strong: rgba(0, 0, 0, 0.1);
   /* Legacy compat aliases */
-  --rose:#8B7355;--rose-l:#D9D2C9;--rose-d:#6B5640;
-  --esp:#1E1E1E;--taupe:#8C8680;--gold:#8B7355;
-  --petal:#E8E5DF;--blush:#D9D2C9;--morning:#F7F6F3;
+  --rose: #8b7355;
+  --rose-l: #d9d2c9;
+  --rose-d: #6b5640;
+  --esp: #1e1e1e;
+  --taupe: #8c8680;
+  --gold: #8b7355;
+  --petal: #e8e5df;
+  --blush: #d9d2c9;
+  --morning: #f7f6f3;
   /* Shadows */
-  --sh:0 1px 3px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.06);
-  --shl:0 4px 12px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04);
-  --shxl:0 8px 24px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);
+  --sh: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shl: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shxl: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
   /* Radii */
-  --r:6px;--rl:12px;--rxl:16px;
+  --r: 6px;
+  --rl: 12px;
+  --rxl: 16px;
   /* Type */
-  --fd:'Playfair Display',Georgia,serif;--fb:'Inter',system-ui,sans-serif;
+  --fd: "Playfair Display", Georgia, serif;
+  --fb: "Inter", system-ui, sans-serif;
   /* Layout */
-  --panel-w:260px;--glass:#BFD9EA;--frame:#E8E0D6;
-  --wall-1:#F0EAE0;--wall-2:#E7DCCF;--wall-3:#D9C7BC;
-  --wall-4:#C9D6D1;--wall-5:#D8D2E3;--wall-6:#F4F1EA;
+  --panel-w: 260px;
+  --glass: #bfd9ea;
+  --frame: #e8e0d6;
+  --wall-1: #f0eae0;
+  --wall-2: #e7dccf;
+  --wall-3: #d9c7bc;
+  --wall-4: #c9d6d1;
+  --wall-5: #d8d2e3;
+  --wall-6: #f4f1ea;
   /* Z-index scale */
-  --z-3d:50;--z-floating:60;--z-panel:250;--z-menu:300;
-  --z-modal:2000;--z-overlay:3000;--z-devtools:5100;--z-verify:9200;--z-welcome:9999;
+  --z-3d: 50;
+  --z-floating: 60;
+  --z-panel: 250;
+  --z-menu: 300;
+  --z-modal: 2000;
+  --z-overlay: 3000;
+  --z-devtools: 5100;
+  --z-verify: 9200;
+  --z-welcome: 9999;
   /* Motion */
-  --ease:cubic-bezier(.25,.1,.25,1);
-  --duration-fast:.15s;--duration:.2s;--duration-slow:.35s;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-fast: 0.15s;
+  --duration: 0.2s;
+  --duration-slow: 0.35s;
 }
-html,body{height:100%;width:100%;overflow:hidden;font-family:var(--fb);background:var(--bg);color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;transition:background var(--duration-slow) var(--ease)}
-body:not(.dev-mode) .dev-only{display:none!important}
-body{overscroll-behavior:none}
-button.is-hidden,.hidden-file-input{display:none!important}
-.self-test-results{display:none}
-.print-header{display:none;padding:16px 20px;font-family:var(--fd)}
-.print-header h2{font-size:20px;font-weight:700;margin:0}
-.print-header p{font-size:11px;color:var(--muted);margin:4px 0 0}
-.fatal-load{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;background:#f7f2eb;color:#332922;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-.fatal-load-card{max-width:540px;padding:28px;border:1px solid #e6d8cc;border-radius:16px;background:#fffdf9;box-shadow:0 24px 60px rgba(0,0,0,.16)}
-.fatal-load-title{margin:0 0 8px;font-family:Georgia,serif;font-size:24px}
-.fatal-load-lead{margin:0 0 10px;font-size:15px;font-weight:700}
-.fatal-load-copy{margin:0 0 12px;font-size:13px;line-height:1.5;color:#6d5b4d}
-.fatal-load-detail{margin:0;padding:12px;border-radius:10px;background:#f5eee6;color:#5a4a3e;font-size:12px;overflow:auto;white-space:pre-wrap}
-body,#app,.scr,.ed-hdr,.tbar,.props,.props-tab,.catalog-sheet,.catalog-card,.mini-chip,.mat-btn,.pbtn,.tb,.present-panel,.photo-panel,.tour-panel,.cw,.cw canvas{
-  user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--duration-slow) var(--ease);
 }
-input,textarea,select{user-select:text;-webkit-user-select:text;-webkit-touch-callout:default}
-body.evening{--bg:#F5F3EF;--bg2:#EDEBE5;--text:#1E1E1E}
-body.night{--bg:#EDEAE5;--bg2:#E3E0D9;--text:#2A2520}
-button{font-family:var(--fb);cursor:pointer;border:none;background:none;touch-action:manipulation;letter-spacing:0;line-height:1.2}
-input,select{font-family:var(--fb)}
-button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-#app{height:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}
-.scr{display:none;flex-direction:column;height:100%;overflow:hidden}
-.scr.on{display:flex}
+body:not(.dev-mode) .dev-only {
+  display: none !important;
+}
+body {
+  overscroll-behavior: none;
+}
+button.is-hidden,
+.hidden-file-input {
+  display: none !important;
+}
+.self-test-results {
+  display: none;
+}
+.print-header {
+  display: none;
+  padding: 16px 20px;
+  font-family: var(--fd);
+}
+.print-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+.print-header p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+.fatal-load {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #f7f2eb;
+  color: #332922;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+.fatal-load-card {
+  max-width: 540px;
+  padding: 28px;
+  border: 1px solid #e6d8cc;
+  border-radius: 16px;
+  background: #fffdf9;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+}
+.fatal-load-title {
+  margin: 0 0 8px;
+  font-family: Georgia, serif;
+  font-size: 24px;
+}
+.fatal-load-lead {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.fatal-load-copy {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6d5b4d;
+}
+.fatal-load-detail {
+  margin: 0;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f5eee6;
+  color: #5a4a3e;
+  font-size: 12px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+body,
+#app,
+.scr,
+.ed-hdr,
+.tbar,
+.props,
+.props-tab,
+.catalog-sheet,
+.catalog-card,
+.mini-chip,
+.mat-btn,
+.pbtn,
+.tb,
+.present-panel,
+.photo-panel,
+.tour-panel,
+.cw,
+.cw canvas {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+input,
+textarea,
+select {
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
+}
+body.evening {
+  --bg: #f5f3ef;
+  --bg2: #edebe5;
+  --text: #1e1e1e;
+}
+body.night {
+  --bg: #edeae5;
+  --bg2: #e3e0d9;
+  --text: #2a2520;
+}
+button {
+  font-family: var(--fb);
+  cursor: pointer;
+  border: none;
+  background: none;
+  touch-action: manipulation;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+input,
+select {
+  font-family: var(--fb);
+}
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: env(safe-area-inset-top, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.scr {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.scr.on {
+  display: flex;
+}

@@ -75,7 +75,10 @@ expect(
     9.45,
 );
 
-const stateSource = readFileSync(path.join(root, "scripts", "state.js"), "utf8");
+const stateSource = readFileSync(path.join(root, "scripts", "state.js"), "utf8").replace(
+  /\r\n/g,
+  "\n",
+);
 const defaultElevationBlock =
   stateSource.match(/function\s+defaultElevation\s*\([\s\S]*?\n}\nfunction\s+axisYawOffset/)?.[0] ||
   "";

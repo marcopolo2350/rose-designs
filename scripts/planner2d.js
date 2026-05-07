@@ -17,7 +17,7 @@ async function openEd(room){
   try{if(!getLocal('3d_hint'))setLocal('3d_hint','1')}catch(error){window.reportRoseRecoverableError?.('3D hint storage update failed',error)}
   // Surface old note if returning to a room
   if(window.appState)window.appState.markDirty(false);
-  if(room.polygon&&room.polygon.length)maybeSurfaceNote(room.id);checkRoomReturn(room.id)}
+}
 function exitEd(){persistRoomHistory();savePrj();stop3D();if(resH){window.removeEventListener('resize',resH);resH=null}curRoom=null;activeProjectFloorId=null;drawMode=false;multiSelFurnitureIds=[];
   if(window.appState)window.appState.setCurrentRoom(null);
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById('scrHome').classList.add('on');renderHome()}

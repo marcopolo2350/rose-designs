@@ -67,7 +67,7 @@ if (!css.includes(":focus-visible")) {
   errors.push("Global focus-visible styling is missing.");
 }
 
-if (!css.includes("prefers-reduced-motion:reduce")) {
+if (!/prefers-reduced-motion:\s*reduce/.test(css)) {
   errors.push("Reduced-motion media query is missing.");
 }
 

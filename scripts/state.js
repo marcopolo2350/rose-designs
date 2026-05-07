@@ -6,10 +6,6 @@
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,8)}
 
-// ── STUB: findEgg removed — no longer part of the product ──
-function findEgg() {}
-async function loadEggs() {}
-
 // ── FURNITURE LABEL RESOLVER ──
 // Normalizes labels so "Queen Bed", "king bed", "My Bed" all resolve to 'bed'
 function resolveLabel(raw) {

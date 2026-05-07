@@ -3,6 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const errors = [];
+const read = (file) => readFileSync(path.join(root, file), "utf8").replace(/\r\n/g, "\n");
 
 function listSourceFiles(dir) {
   const entries = readdirSync(dir, { withFileTypes: true });
@@ -91,7 +92,7 @@ for (const file of removedCompatibilityFiles) {
   }
 }
 
-const main = readFileSync(path.join(root, "scripts/main.js"), "utf8");
+const main = read("scripts/main.js");
 const modulesBlock = main.match(/const\s+RUNTIME_MODULES\s*=\s*\[([\s\S]*?)\];/);
 const modules = modulesBlock
   ? [...modulesBlock[1].matchAll(/["']([^"']+)["']/g)].map((match) => match[1])
@@ -136,7 +137,7 @@ assertModuleBefore("./scripts/planner3d/walls.js", "./scripts/planner3d.js");
 
 for (const absolute of listSourceFiles(path.join(root, "scripts"))) {
   const modulePath = path.relative(root, absolute).replace(/\\/g, "/");
-  const source = readFileSync(absolute, "utf8");
+  const source = readFileSync(absolute, "utf8").replace(/\r\n/g, "\n");
   if (modulePath !== "scripts/core/storage-service.js" && /indexedDB\.open/.test(source)) {
     errors.push(`${modulePath} opens IndexedDB outside scripts/core/storage-service.js.`);
   }

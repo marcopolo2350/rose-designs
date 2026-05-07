@@ -34,36 +34,6 @@ function updateWelcomeForTime() {
   else g.textContent = 'Hi Rose';
 }
 
-// ── STUBS (formerly affirmation/garden/story — removed) ──
-// These stubs prevent errors from any remaining call sites.
-function maybeAffirm() {}
-function maybeMirror() {}
-function maybeNoteP() {}
-function trackPace() {}
-function getPace() { return 'normal'; }
-function checkReturn() {}
-function checkRoomReturn() {}
-function checkFullBloom() {}
-function checkDeep() {}
-async function loadDS() {}
-async function saveDS() {}
-function checkUnlocks() {}
-function openGarden() {}
-function closeGarden() {}
-async function showStory() {}
-function closeStory() {}
-function enterPause() {}
-async function saveMemory() {}
-async function generateStory() { return ''; }
-async function loadRoomNotes() { return []; }
-async function saveRoomNote() {}
-async function maybeSurfaceNote() {}
-// Mood tags and Style Moves removed — concrete material/lighting controls handle this directly.
-const MOODS = [];
-function setRoomMood() {}
-function showMoodHelp() {}
-function getSeasonalTouch() { return null; }
-function recordWalkUsage() {}
 
 // ── UTILITY ──
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }

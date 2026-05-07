@@ -43,7 +43,9 @@ for (const fnName of ["openAssetVerification", "togglePreflightPanel"]) {
   }
 }
 
-if (!/body:not\(\.dev-mode\)\s+\.dev-only\s*\{\s*display:none!important\s*\}/.test(css)) {
+if (
+  !/body:not\(\.dev-mode\)\s+\.dev-only\s*\{\s*display:\s*none\s*!important\s*;?\s*\}/.test(css)
+) {
   errors.push("CSS must hide .dev-only surfaces unless body.dev-mode is present.");
 }
 
