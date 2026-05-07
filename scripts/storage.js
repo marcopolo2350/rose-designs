@@ -491,7 +491,7 @@ const DESIGN_PRESETS = [
     trim: "#F8F5F0",
     lightingPreset: "soft_lamp_glow",
     ceilingBrightness: 1.02,
-    mood: "keep forever",
+    mood: "tailored",
     note: "Deeper wood, clean trim, and tailored calm.",
   },
   {
