@@ -798,3 +798,57 @@ test("undo and redo preserve room state through edit cycles", async ({ page }) =
 
   expect(runtimeErrors).toEqual([]);
 });
+
+test("welcome screen skips on return visit and tutorial auto-starts in editor", async ({
+  page,
+}) => {
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+
+  // First visit: welcome should be visible
+  const firstVisit = await page.evaluate(() => {
+    const w = document.getElementById("welcome");
+    return { welcomeVisible: w && !w.classList.contains("gone") };
+  });
+  expect(firstVisit.welcomeVisible).toBe(true);
+
+  // Dismiss welcome
+  await page.locator(".w-btn").click();
+
+  // Create a room to enter editor
+  await page.locator('[data-action="open-create-room"]').first().click();
+  await page.locator('[data-action="select-create-room-preset"]').first().click();
+  await page.locator('[data-action="create-room-from-preset"]').click();
+  await expect(page.locator("#scrEd")).toHaveClass(/on/);
+
+  // Tutorial should auto-start on first editor entry
+  const tutState = await page.evaluate(() => ({
+    tutorialShowing: document.getElementById("tutOv")?.classList.contains("on"),
+    tutStep: typeof tutS !== "undefined" ? tutS : -1,
+  }));
+  expect(tutState.tutorialShowing).toBe(true);
+  expect(tutState.tutStep).toBe(0);
+
+  // Dismiss tutorial
+  await dismissTutorialIfShowing(page);
+
+  // Exit editor and save
+  await page.evaluate(() => exitEd());
+
+  // Reload the page
+  await page.goto(`${server.url}/index.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector('body[data-runtime-ready="1"]');
+
+  // Second visit: welcome should be skipped
+  const secondVisit = await page.evaluate(() => {
+    const w = document.getElementById("welcome");
+    return {
+      welcomeGone: w?.classList.contains("gone"),
+      projectCount: projects.length,
+      homeVisible: document.getElementById("scrHome")?.classList.contains("on"),
+    };
+  });
+  expect(secondVisit.welcomeGone).toBe(true);
+  expect(secondVisit.projectCount).toBe(1);
+  expect(secondVisit.homeVisible).toBe(true);
+});
