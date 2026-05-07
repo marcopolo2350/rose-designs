@@ -2,6 +2,11 @@
 async function checkWelcome() {
   const w = document.getElementById("welcome");
   if (!w) return;
+  const already = await dg("welcomed");
+  if (already) {
+    w.classList.add("gone");
+    return;
+  }
   const greet = document.querySelector(".w-greeting");
   const personal = document.querySelector(".w-personal");
   if (greet) greet.textContent = `Hi ${window.APP_CONFIG?.branding?.welcomeName || "Rose"}`;
@@ -417,7 +422,7 @@ function nextTut() {
 }
 function endTut() {
   tutS = -1;
-  document.getElementById("tutOv").classList.remove("on");
+  document.getElementById("tutOv")?.classList.remove("on");
   setLocal(profileSeenKey(), "1");
 }
 
@@ -808,7 +813,7 @@ function delPrj(id) {
   projects = projects.filter((r) => (r.projectId || r.id) !== id);
   saveAll();
   renderHome();
-  toast("Deleted");
+  toast("Project deleted");
 }
 function toggleFavoriteProject(id) {
   const rooms = projectRooms(id);
@@ -1666,7 +1671,7 @@ function snapAng(from, to) {
 }
 function closeRoom() {
   if (drawPts.length < 3) {
-    toast("Need at least 3 points");
+    toast("Draw at least 3 points to close the room shape");
     return;
   }
   curRoom.polygon = drawPts.map((p) => ({ ...p }));

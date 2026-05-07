@@ -8,8 +8,12 @@ async function exportPresentationPDF() {
     return;
   }
   if (!window.jspdf) {
-    toast("PDF library loading...");
-    return;
+    toast("Loading PDF library…");
+    await new Promise((r) => setTimeout(r, 2500));
+    if (!window.jspdf) {
+      toast("PDF library could not load — check your connection and try again");
+      return;
+    }
   }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });

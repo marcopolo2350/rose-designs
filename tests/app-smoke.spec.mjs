@@ -11,6 +11,12 @@ test.afterAll(async () => {
   await server?.close();
 });
 
+async function dismissTutorialIfShowing(page) {
+  await page.evaluate(() => {
+    if (typeof endTut === "function") endTut();
+  });
+}
+
 async function ensureRoomPanelOpen(page) {
   const buildTab = page.locator('[data-action="room-panel-group"][data-group="build"]');
   const opener = page.locator('[data-action="open-panel"]');
@@ -137,6 +143,7 @@ test("canonical shell boots and delegated actions work", async ({ page }, testIn
   await page.locator('[data-action="select-create-room-preset"]').first().click();
   await page.locator('[data-action="create-room-from-preset"]').click();
   await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await dismissTutorialIfShowing(page);
   const homeCardInlineHandlers = await page
     .locator("#prjList [onclick], #prjList [onpointerdown]")
     .count();
@@ -472,6 +479,7 @@ test("3D view boots without Three shader warning spam", async ({ page }) => {
   await page.locator('[data-action="select-create-room-preset"]').first().click();
   await page.locator('[data-action="create-room-from-preset"]').click();
   await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await dismissTutorialIfShowing(page);
 
   await page.locator("#b3d").click();
   await expect(page.locator("#threeC")).toHaveClass(/on/);
@@ -495,6 +503,7 @@ test("multi-room floor renders every furnished room in 3D", async ({ page }) => 
   await page.locator('[data-action="select-create-room-preset"]').first().click();
   await page.locator('[data-action="create-room-from-preset"]').click();
   await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await dismissTutorialIfShowing(page);
   await ensureRoomPanelOpen(page);
 
   await page.locator('[data-action="attach-adjacent-room"][data-side="east"]').click();
@@ -576,6 +585,7 @@ test("save and reload preserves room data through IndexedDB roundtrip", async ({
   await page.locator('[data-action="select-create-room-preset"]').first().click();
   await page.locator('[data-action="create-room-from-preset"]').click();
   await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await dismissTutorialIfShowing(page);
 
   const snapshot = await page.evaluate(() => {
     const item = FURN_ITEMS.find((c) => c.assetKey === "sofa") || FURN_ITEMS[0];
@@ -659,6 +669,7 @@ test("export JSON produces a valid importable document", async ({ page }) => {
   await page.locator('[data-action="select-create-room-preset"]').first().click();
   await page.locator('[data-action="create-room-from-preset"]').click();
   await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await dismissTutorialIfShowing(page);
 
   const exportDoc = await page.evaluate(() => {
     curRoom.furniture.push(
@@ -714,6 +725,7 @@ test("undo and redo preserve room state through edit cycles", async ({ page }) =
   await page.locator('[data-action="select-create-room-preset"]').first().click();
   await page.locator('[data-action="create-room-from-preset"]').click();
   await expect(page.locator("#scrEd")).toHaveClass(/on/);
+  await dismissTutorialIfShowing(page);
 
   const baseline = await page.evaluate(() => ({
     furnitureCount: curRoom.furniture.length,

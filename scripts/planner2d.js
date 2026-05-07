@@ -44,8 +44,8 @@ async function openEd(room) {
   } catch (error) {
     window.reportRoseRecoverableError?.("3D hint storage update failed", error);
   }
-  // Surface old note if returning to a room
   if (window.appState) window.appState.markDirty(false);
+  if (typeof startTut === "function") startTut();
 }
 function exitEd() {
   persistRoomHistory();

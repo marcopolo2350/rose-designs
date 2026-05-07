@@ -2640,7 +2640,7 @@ function uV(k, v) {
 }
 function dV() {
   if (curRoom.polygon.length <= 3) {
-    toast("Need at least 3");
+    toast("A room needs at least 3 corners");
     return;
   }
   curRoom.polygon.splice(sel.idx, 1);

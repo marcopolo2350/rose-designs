@@ -41,7 +41,7 @@
     if (index >= 0) projects[index] = curRoom;
     if (window.appState) window.appState.markDirty();
     saveAll();
-    if (announce) toast("Saved");
+    if (announce) toast("Project saved");
   }
 
   function persistRoomHistory() {
